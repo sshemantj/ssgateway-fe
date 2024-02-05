@@ -1,15 +1,12 @@
-import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import { logo } from "@/images/logo";
 import HomeModule from "@/modules/homeModule";
+import { NextPage } from "next";
+import Navbar from "@/component/molecules/Navbar";
 
-const Home = () => {
+const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Scan-&-go!</title>
-        <link rel="icon" href={logo} />
-      </Head>
+      <Navbar />
       <main className={`${styles.main}`}>
         <HomeModule />
       </main>
