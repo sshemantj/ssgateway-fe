@@ -35,7 +35,7 @@ const Navbar = () => {
           <ul>
             <li>
               <Link
-                className={router.pathname === "/" ? "active" : ""}
+                className={router.pathname === "/" ? styles.active : ""}
                 href="/"
                 passHref
               >
@@ -44,7 +44,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                className={router.pathname === "/about" ? "active" : ""}
+                className={router.pathname === "/login" ? styles.active : ""}
                 href="/login"
                 passHref
               >
