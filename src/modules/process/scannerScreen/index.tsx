@@ -2,18 +2,19 @@ import React from "react";
 import { Grid, Paper, Button } from "@mui/material";
 import styles from "./scannerScreen.module.scss";
 import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { addProduct } from "@/store/slices/processSlice";
+import { useRouter } from "next/router";
+import { processScreenRoutes } from "@/constants/allRoutes";
 
 const ScannerScreen = () => {
   const dispatch = useAppDispatch();
-  const productState = useAppSelector((state) => state.process.productList);
+  const router = useRouter();
 
   const handleAddProduct = () => {
     dispatch(addProduct({ id: "myid", name: "boat air pods" }));
+    router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
   };
-
-  console.log(productState);
 
   return (
     <div className={styles.scannerScreenWrapper}>
