@@ -13,9 +13,7 @@ const ScannerScreen = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Grid item xs={12} margin={"0 0 1rem 0"}>
-            <CustomBarcodeScanner />
-          </Grid>
+          <CustomBarcodeScanner />
           <Grid item xs={12}>
             <Button
               sx={{ padding: "0.3rem 2rem", margin: "0 0 1rem 0" }}
