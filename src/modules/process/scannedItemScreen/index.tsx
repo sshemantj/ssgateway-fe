@@ -15,6 +15,7 @@ const ScannedItemScreen = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
+          <h1>Scanned Items</h1>
           <Grid item xs={12}></Grid>
         </Grid>
       </Paper>
