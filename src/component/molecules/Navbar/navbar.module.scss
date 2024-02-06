@@ -15,6 +15,11 @@
 }
 
 .logo {
+  padding: 0;
+  button {
+    display: flex;
+    gap: 5px;
+  }
 }
 
 .menu-icon {
