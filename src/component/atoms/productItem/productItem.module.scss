@@ -1,0 +1,32 @@
+@mixin border_code {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -25%;
+  width: 150%;
+  height: 100%;
+  border-top: 2px dashed black;
+}
+
+.productItemsContainer {
+  padding: 0.3rem 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  &::after {
+    @include border_code;
+    border-bottom: none;
+  }
+  &:last-child {
+    &::after {
+      @include border_code;
+      border-bottom: 2px dashed black;
+    }
+  }
+  .pdImgWrapper {
+  }
+  .pdDescription {
+  }
+}

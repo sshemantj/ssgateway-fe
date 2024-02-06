@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Paper } from "@mui/material";
 import { useAppSelector } from "@/store/hooks";
+import ProductItem from "@/component/atoms/productItem";
 import styles from "./scannedItemScreen.module.scss";
 
 const ScannedItemScreen = () => {
@@ -8,27 +9,19 @@ const ScannedItemScreen = () => {
   console.log(productState);
   return (
     <div className={styles.scannedItemWrapper}>
-      <Paper>
-        <Grid
-          container
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <h1>Scanned Items</h1>
-          <Grid item xs={12}>
-            {productState.map((item, index) => {
-              return (
-                <div key={index}>
-                  <h4>ID: {item.id}</h4>
-                  <h4>Name: {item.name}</h4>
-                  <br />
-                </div>
-              );
-            })}
-          </Grid>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h1 className={styles.title}>Scanned Items</h1>
+        <Grid item xs={12}>
+          {productState.map(({ id, name }, index) => {
+            return <ProductItem key={index} {...{ id, name }} />;
+          })}
         </Grid>
-      </Paper>
+      </Grid>
     </div>
   );
 };
