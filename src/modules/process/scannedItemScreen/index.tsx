@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Paper } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useAppSelector } from "@/store/hooks";
 import ProductItem from "@/component/atoms/productItem";
 import Subtotal from "@/component/atoms/subtotal";
@@ -21,7 +21,10 @@ const ScannedItemScreen = () => {
     if (isLogin) {
       router.push(processScreenRoutes.PROCESS_SUMMARY_SCREEN);
     } else {
-      router.push(allRoutes.LOGIN);
+      router.push({
+        pathname: allRoutes.LOGIN,
+        query: { showBack: true },
+      });
     }
   };
 

@@ -15,6 +15,7 @@ interface INavbar {
 const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const router = useRouter();
+  const showBack = router.query.showBack;
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -24,7 +25,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     <nav className={styles.navWrapper}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          {showBackBtn ? (
+          {showBackBtn || showBack ? (
             <Button
               variant="text"
               color="inherit"
