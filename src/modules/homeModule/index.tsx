@@ -2,11 +2,12 @@ import React from "react";
 import { Button } from "@mui/material";
 import styles from "./homemodule.module.scss";
 import { useRouter } from "next/router";
+import { processScreenRoutes } from "@/constants/allRoutes";
 
 const HomeModule = () => {
   const router = useRouter();
   const handleStartScanBtn = () => {
-    router.push("/process/scannerScreen");
+    router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN);
   };
 
   return (

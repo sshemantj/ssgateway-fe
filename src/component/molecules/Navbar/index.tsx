@@ -6,6 +6,7 @@ import styles from "./navbar.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { allRoutes } from "@/constants/allRoutes";
 
 interface INavbar {
   showBackBtn?: boolean;
@@ -51,8 +52,10 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
           <ul>
             <li>
               <Link
-                className={router.pathname === "/" ? styles.active : ""}
-                href="/"
+                className={
+                  router.pathname === allRoutes.HOME ? styles.active : ""
+                }
+                href={allRoutes.HOME}
                 passHref
               >
                 Home
@@ -60,8 +63,10 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
             </li>
             <li>
               <Link
-                className={router.pathname === "/login" ? styles.active : ""}
-                href="/login"
+                className={
+                  router.pathname === allRoutes.LOGIN ? styles.active : ""
+                }
+                href={allRoutes.LOGIN}
                 passHref
               >
                 Login
