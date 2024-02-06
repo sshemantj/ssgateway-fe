@@ -1,0 +1,11 @@
+.showQrScreenWrapper {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .instruction {
+    margin-top: 1rem;
+    width: 80%;
+    text-align: center;
+  }
+}
