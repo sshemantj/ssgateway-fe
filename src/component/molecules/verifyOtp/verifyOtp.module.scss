@@ -1,0 +1,17 @@
+.verifyOtpWrapper {
+  margin: 0 0 2rem 0;
+  text-align: center;
+  h2 {
+    margin: 1rem 0;
+  }
+  .reactOtpCustom {
+    width: 100%;
+    input {
+      width: 2rem !important;
+      height: 2rem;
+    }
+  }
+  button {
+    margin-top: 1rem;
+  }
+}

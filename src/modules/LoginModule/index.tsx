@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { processScreenRoutes } from "@/constants/allRoutes";
+import VerifyOtp from "@/component/molecules/verifyOtp";
 
 const LoginModule = () => {
   const [checked, setChecked] = useState(true);
+  const [isOtpChecking, setIsOtpChecking] = useState(false);
   const [username, setUserName] = useState("dummyUser");
   const [password, setPassword] = useState("dummyPass");
 
@@ -24,6 +26,7 @@ const LoginModule = () => {
   };
 
   const handleLogin = () => {
+    setIsOtpChecking(true);
     // router.push(processScreenRoutes.);
   };
 
@@ -38,45 +41,51 @@ const LoginModule = () => {
             justifyContent={"center"}
             alignItems={"center"}
           >
-            <Typography variant="h5" m={1} fontWeight={500}>
-              Login
-            </Typography>
-            <Grid item xs={12} margin={"0 0 1rem 0"}>
-              <TextField
-                value={username}
-                onChange={(e) => setUserName(e.target.value)}
-                label="Username"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                label="Password"
-                type={"password"}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    inputProps={{ "aria-label": "primary checkbox" }}
+            {isOtpChecking ? (
+              <VerifyOtp />
+            ) : (
+              <>
+                <Typography variant="h5" m={1} fontWeight={500}>
+                  Login
+                </Typography>
+                <Grid item xs={12} margin={"0 0 1rem 0"}>
+                  <TextField
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
+                    label="Username"
                   />
-                }
-                label="Keep me logged in"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                onClick={() => handleLogin()}
-                sx={{ width: "100%", margin: "1rem 0" }}
-                variant="contained"
-              >
-                Login
-              </Button>
-            </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    label="Password"
+                    type={"password"}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checked}
+                        onChange={handleChange}
+                        inputProps={{ "aria-label": "primary checkbox" }}
+                      />
+                    }
+                    label="Keep me logged in"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    onClick={() => handleLogin()}
+                    sx={{ width: "100%", margin: "1rem 0" }}
+                    variant="contained"
+                  >
+                    Login
+                  </Button>
+                </Grid>
+              </>
+            )}
           </Grid>
         </Paper>
       </div>
