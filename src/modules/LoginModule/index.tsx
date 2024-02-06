@@ -7,13 +7,24 @@ import {
   FormControlLabel,
   Paper,
   Button,
+  Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
+import { processScreenRoutes } from "@/constants/allRoutes";
 
 const LoginModule = () => {
   const [checked, setChecked] = useState(true);
+  const [username, setUserName] = useState("dummyUser");
+  const [password, setPassword] = useState("dummyPass");
+
+  const router = useRouter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+  };
+
+  const handleLogin = () => {
+    // router.push(processScreenRoutes.);
   };
 
   return (
@@ -27,11 +38,23 @@ const LoginModule = () => {
             justifyContent={"center"}
             alignItems={"center"}
           >
+            <Typography variant="h5" m={1} fontWeight={500}>
+              Login
+            </Typography>
             <Grid item xs={12} margin={"0 0 1rem 0"}>
-              <TextField label="Username"></TextField>
+              <TextField
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
+                label="Username"
+              />
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Password" type={"password"}></TextField>
+              <TextField
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                label="Password"
+                type={"password"}
+              />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -47,6 +70,7 @@ const LoginModule = () => {
             </Grid>
             <Grid item xs={12}>
               <Button
+                onClick={() => handleLogin()}
                 sx={{ width: "100%", margin: "1rem 0" }}
                 variant="contained"
               >
