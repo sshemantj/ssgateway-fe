@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+// import ssLogo from "@/images/ss-logo.jpg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./navbar.module.scss";
@@ -37,6 +38,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
             <Image
               width={150}
               height={100}
+              // src={ssLogo}
               src="https://prodstatic.shoppersstop.com/_ui/updated_path/images/shopperstopimgaes_web/newLogo.svg"
               alt="logo"
             />

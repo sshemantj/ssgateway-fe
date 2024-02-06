@@ -4,11 +4,16 @@ import styles from "./summary.module.scss";
 import { useAppSelector } from "@/store/hooks";
 import ProductItem from "@/component/atoms/productItem";
 import OrderSummary from "@/component/atoms/orderSummary";
+import { useRouter } from "next/router";
+import { processScreenRoutes } from "@/constants/allRoutes";
 
 const SummaryScreen = () => {
   const productState = useAppSelector((state) => state.process.productList);
+  const router = useRouter();
 
-  const handlePayClick = () => {};
+  const handlePayClick = () => {
+    router.push(processScreenRoutes.PROCESS_PAYMENT_SCREEN);
+  };
 
   return (
     <div className={styles.summaryScreenWrapper}>
@@ -24,7 +29,7 @@ const SummaryScreen = () => {
             charges={120}
             discount={200}
             subTotal={3400}
-            total={3500}
+            total={3320}
           />
         </Grid>
         <Grid item xs={12} className={styles.btnWrapper}>
