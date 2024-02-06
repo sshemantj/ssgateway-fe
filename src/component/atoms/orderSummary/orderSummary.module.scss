@@ -1,0 +1,15 @@
+.orderSummaryWrapper {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .children {
+    width: 15.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.2rem;
+  }
+}
