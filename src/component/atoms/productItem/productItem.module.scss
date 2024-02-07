@@ -9,7 +9,7 @@
 }
 
 .productItemsContainer {
-  padding: 0.3rem 0;
+  padding: 0.3rem 1rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -28,5 +28,7 @@
   .pdImgWrapper {
   }
   .pdDescription {
+    word-break: break-all;
+    white-space: normal;
   }
 }
