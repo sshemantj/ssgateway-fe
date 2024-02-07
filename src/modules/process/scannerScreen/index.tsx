@@ -48,6 +48,7 @@ const ScannerScreen = () => {
             qrCodeSuccessCallback={onNewScanResult}
             qrCodeErrorCallback={(error) => console.log(error)}
             pause={pauseVideo}
+            showZoomSliderIfSupported={true}
           />
           <Grid item xs={12}>
             <Button

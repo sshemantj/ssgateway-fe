@@ -12,6 +12,7 @@ interface ICustomBarcodeScanner {
   aspectRatio?: string;
   verbose?: boolean;
   pause?: boolean;
+  showZoomSliderIfSupported?: boolean;
   disableFlip: boolean;
   qrCodeSuccessCallback: QrcodeSuccessCallback;
   qrCodeErrorCallback: QrcodeErrorCallback;
@@ -19,15 +20,19 @@ interface ICustomBarcodeScanner {
 
 const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
   const qrcodeRegionId = "html5qr-code-full-region";
+  let html5QrcodeScanner: Html5QrcodeScanner;
 
   const createConfig = (props: ICustomBarcodeScanner) => {
     const config: any = {};
-    const { fps, qrbox, aspectRatio, disableFlip } = props;
+    const { fps, qrbox, aspectRatio, disableFlip, showZoomSliderIfSupported } =
+      props;
 
     if (fps) config.fps = fps;
     if (qrbox) config.qrbox = qrbox;
     if (aspectRatio) config.aspectRatio = aspectRatio;
     if (disableFlip !== undefined) config.disableFlip = disableFlip;
+    if (showZoomSliderIfSupported !== undefined)
+      config.showZoomSliderIfSupported = showZoomSliderIfSupported;
 
     return config;
   };
@@ -39,7 +44,7 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
-    const html5QrcodeScanner = new Html5QrcodeScanner(
+    html5QrcodeScanner = new Html5QrcodeScanner(
       qrcodeRegionId,
       config,
       verbose
