@@ -42,10 +42,24 @@
 //   flex-direction: column;
 // }
 
+#html5-qrcode-button-camera-start {
+  @include mui_btn;
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.7rem;
+}
+#html5-qrcode-button-camera-stop {
+  @include mui_btn;
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.7rem;
+}
+
 #html5-qrcode-button-camera-permission {
   @include mui_btn;
   margin-bottom: 0.5rem;
 }
+#html5-qrcode-anchor-scan-type-change,
 #html5-qrcode-anchor-scan-type-change {
-  @include mui_btn;
+  display: none !important;
 }
