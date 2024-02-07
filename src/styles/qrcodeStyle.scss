@@ -42,6 +42,11 @@
 //   flex-direction: column;
 // }
 
+#html5-qrcode-select-camera {
+  background-color: red;
+  transform: scale(3);
+}
+
 #html5-qrcode-button-camera-start {
   @include mui_btn;
   margin-top: 1rem;
