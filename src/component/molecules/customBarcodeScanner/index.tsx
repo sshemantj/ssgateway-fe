@@ -53,6 +53,9 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
     setTimeout(() => {
       const container = document.getElementById(qrcodeRegionId);
       if (html5QrcodeScanner && container?.innerHTML == "") {
+        html5QrcodeScanner.applyVideoConstraints({
+          advanced: [{ facingMode: "environment" }],
+        });
         html5QrcodeScanner.render(
           props.qrCodeSuccessCallback,
           props.qrCodeErrorCallback
