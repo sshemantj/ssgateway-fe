@@ -49,7 +49,7 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
       props.qrCodeErrorCallback
     );
 
-    if (props.pause) html5QrcodeScanner.pause(props.pause);
+    // if (props.pause) html5QrcodeScanner.pause()
 
     return () => {
       html5QrcodeScanner.clear().catch((error) => {

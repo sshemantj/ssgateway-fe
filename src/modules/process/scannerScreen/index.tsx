@@ -25,6 +25,7 @@ const ScannerScreen = () => {
     decodedText: string,
     decodedResult: Html5QrcodeResult
   ) => {
+    console.log({ decodedText });
     setPauseVideo(true);
     if (!allProducts.find((pd) => pd.id === decodedText)) {
       dispatch(addProduct({ id: decodedText, name: decodedText }));
