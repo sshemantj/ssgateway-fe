@@ -10,11 +10,8 @@ import { Html5QrcodeResult } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
 
 const ScannerScreen = () => {
-  const [pauseVideo, setPauseVideo] = useState<boolean>(false);
   const [currentText, setCurrentText] = useState<string>("");
-  const [open, setOpen] = useState(false);
-
-  const url = "https://apps.apple.com/in/app/disprz/id1458716803";
+  const [open, setOpen] = useState(true);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -22,11 +19,11 @@ const ScannerScreen = () => {
 
   console.log({ allProducts });
 
-  const handleAddProduct = () => {
-    setCurrentText("");
-    dispatch(addProduct({ id: currentText, name: currentText }));
-    router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
-  };
+  // const handleAddProduct = () => {
+  //   setCurrentText("");
+  //   dispatch(addProduct({ id: currentText, name: currentText }));
+  //   router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
+  // };
 
   const resetProductList = () => dispatch(reset());
 
@@ -57,10 +54,9 @@ const ScannerScreen = () => {
             disableFlip={false}
             qrCodeSuccessCallback={onNewScanResult}
             qrCodeErrorCallback={(error) => console.log(error)}
-            pause={pauseVideo}
             showZoomSliderIfSupported={true}
           />
-          <Grid item xs={12} style={{ gap: "1rem" }}>
+          {/* <Grid item xs={12} style={{ gap: "1rem" }}>
             <Button
               onClick={() => handleAddProduct()}
               sx={{ padding: "0.3rem 2rem", margin: "0 0 1rem 0" }}
@@ -80,8 +76,10 @@ const ScannerScreen = () => {
               Reset Product list
             </Button>
             <h6>currentText : {currentText}</h6>
-          </Grid>
-          <CustomDrawer {...{ open, setOpen }} />
+          </Grid> */}
+          <CustomDrawer
+            {...{ open, setOpen, data: currentText, setCurrentText }}
+          />
         </Grid>
       </Paper>
     </div>
