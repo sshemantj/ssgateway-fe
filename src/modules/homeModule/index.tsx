@@ -23,6 +23,10 @@ const HomeModule = () => {
 
   return (
     <div className={styles.homeWrapper}>
+      <div id="myid_hi">
+        <span>first span</span>
+        <span>second span</span>
+      </div>
       <div className={styles.headingWrapper}>
         <p>Welcome to</p>
         <p className={styles.scanAndGo}>

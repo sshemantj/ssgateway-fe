@@ -42,7 +42,8 @@
 //   flex-direction: column;
 // }
 
-#html5qr-code-full-region_dashboard_section_csr {
+#html5qr-code-full-region__dashboard_section_csr {
+  background-color: red !important;
   span {
     &:first-child {
       display: none !important;
