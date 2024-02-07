@@ -7,10 +7,12 @@ import { addProduct, reset } from "@/store/slices/processSlice";
 import { useRouter } from "next/router";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { Html5QrcodeResult } from "html5-qrcode";
+import CustomDrawer from "@/component/molecules/CustomDrawer";
 
 const ScannerScreen = () => {
   const [pauseVideo, setPauseVideo] = useState<boolean>(false);
   const [currentText, setCurrentText] = useState<string>("");
+  const [open, setOpen] = useState(false);
 
   const url = "https://apps.apple.com/in/app/disprz/id1458716803";
 
@@ -36,6 +38,7 @@ const ScannerScreen = () => {
 
     if (!currentText) {
       setCurrentText(decodedText);
+      setOpen(true);
     }
   };
 
@@ -78,6 +81,7 @@ const ScannerScreen = () => {
             </Button>
             <h6>currentText : {currentText}</h6>
           </Grid>
+          <CustomDrawer {...{ open, setOpen }} />
         </Grid>
       </Paper>
     </div>
