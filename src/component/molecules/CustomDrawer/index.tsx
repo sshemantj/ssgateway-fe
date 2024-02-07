@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { addProduct } from "@/store/slices/processSlice";
 import { useRouter } from "next/router";
 import { processScreenRoutes } from "@/constants/allRoutes";
+import styles from "./customDrawer.module.scss";
 
 const drawerBleeding = 0;
 
@@ -87,7 +88,7 @@ const CustomDrawer = (props: Props) => {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
         swipeAreaWidth={drawerBleeding}
-        disableSwipeToOpen={false}
+        disableSwipeToOpen={true}
         ModalProps={{
           keepMounted: true,
         }}
@@ -115,27 +116,28 @@ const CustomDrawer = (props: Props) => {
             borderTopRightRadius: 12,
           }}
         >
-          <h3>Current product: {data}</h3>
-          <Grid item xs={12} style={{ gap: "1rem" }}>
-            <Button
-              onClick={() => handleAddProduct()}
-              sx={{ padding: "0.3rem 2rem", margin: "0 0 1rem 0" }}
-              variant="contained"
-            >
-              ADD Product
-            </Button>
-            <Button
-              onClick={() => resetAndScanAgain()}
-              sx={{
-                padding: "0.4rem",
-                fontSize: "0.7rem",
-                margin: "0 0 1rem 0",
-              }}
-              variant="contained"
-            >
-              Reset and scan again
-            </Button>
-          </Grid>
+          <div className={styles.customDrawerContainer}>
+            <div className={styles.drawerInner}>
+              <h3>Current product: {data}</h3>
+              <div className={styles.btnWrapper}>
+                <Button
+                  className={styles.addProductBtn}
+                  onClick={() => handleAddProduct()}
+                  variant="contained"
+                >
+                  ADD Product
+                </Button>
+                <Button
+                  className={styles.resetAndScanAgain}
+                  onClick={() => resetAndScanAgain()}
+                  variant="contained"
+                  color="error"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
         </StyledBox>
       </SwipeableDrawer>
     </Root>
