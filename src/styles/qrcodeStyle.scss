@@ -43,17 +43,13 @@
 // }
 
 #html5qr-code-full-region__dashboard_section_csr {
-  background-color: lightblue !important;
-  span {
-    &:first-child {
-      // display: none !important;
-      font-size: 2rem;
-    }
+  span:nth-child(2) {
+    display: none !important;
   }
 }
-// #html5-qrcode-select-camera {
-//   display: none !important;
-// }
+#html5-qrcode-select-camera {
+  display: none !important;
+}
 
 #html5-qrcode-button-camera-start {
   @include mui_btn;
