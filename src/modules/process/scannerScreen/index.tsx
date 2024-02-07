@@ -10,6 +10,7 @@ import { Html5QrcodeResult } from "html5-qrcode";
 
 const ScannerScreen = () => {
   const [pauseVideo, setPauseVideo] = useState<boolean>(false);
+  const [currentText, setCurrentText] = useState<string>("");
 
   const url = "https://apps.apple.com/in/app/disprz/id1458716803";
 
@@ -30,7 +31,7 @@ const ScannerScreen = () => {
     decodedResult: Html5QrcodeResult
   ) => {
     const isItemExist = allProducts.filter((pd) => pd.id === decodedText);
-
+    setCurrentText(decodedText);
     console.log({ decodedText, isItemExist });
 
     if (!isItemExist.length) {
@@ -78,7 +79,7 @@ const ScannerScreen = () => {
             <h6>pauseVideo : {pauseVideo ? "true" : "false"}</h6>
             <h6>
               {JSON.stringify(
-                allProducts.map((v) => ({ id: v.id })),
+                { pd: allProducts.map((v) => ({ id: v.id })), currentText },
                 null,
                 2
               )}
