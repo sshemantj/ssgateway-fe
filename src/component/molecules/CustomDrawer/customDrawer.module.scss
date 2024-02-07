@@ -11,8 +11,10 @@
     flex-direction: column;
     gap: 3rem;
     text-align: center;
-    // align-items: center;
-    // justify-content: center;
+    .pdName {
+      word-wrap: break-word;
+      white-space: normal;
+    }
     .btnWrapper {
       display: flex;
       align-items: center;

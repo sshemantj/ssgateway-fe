@@ -118,7 +118,7 @@ const CustomDrawer = (props: Props) => {
         >
           <div className={styles.customDrawerContainer}>
             <div className={styles.drawerInner}>
-              <h3>Current product: {data}</h3>
+              <h3 className={styles.pdName}>Current product: {data}</h3>
               <div className={styles.btnWrapper}>
                 <Button
                   className={styles.addProductBtn}
