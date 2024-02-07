@@ -11,6 +11,8 @@ import { Html5QrcodeResult } from "html5-qrcode";
 const ScannerScreen = () => {
   const [pauseVideo, setPauseVideo] = useState<boolean>(false);
 
+  const url = "https://apps.apple.com/in/app/disprz/id1458716803";
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const allProducts = useAppSelector((state) => state.process.productList);
@@ -25,9 +27,11 @@ const ScannerScreen = () => {
     decodedText: string,
     decodedResult: Html5QrcodeResult
   ) => {
-    console.log({ decodedText });
-    setPauseVideo(true);
-    if (!allProducts.find((pd) => pd.id === decodedText)) {
+    const isItemExist = allProducts.find((pd) => pd.id === decodedText);
+
+    console.log({ decodedText, isItemExist });
+
+    if (!Boolean(isItemExist)) {
       dispatch(addProduct({ id: decodedText, name: decodedText }));
     }
   };
@@ -59,7 +63,13 @@ const ScannerScreen = () => {
               ADD Product
             </Button>
             <h6>pauseVideo : {pauseVideo ? "true" : "false"}</h6>
-            <h6>{JSON.stringify(allProducts, null, 2)}</h6>
+            <h6>
+              {JSON.stringify(
+                allProducts.map((v) => ({ id: v.id })),
+                null,
+                2
+              )}
+            </h6>
           </Grid>
         </Grid>
       </Paper>
