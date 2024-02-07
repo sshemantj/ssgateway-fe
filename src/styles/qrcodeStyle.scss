@@ -34,13 +34,13 @@
     rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
-#html5qr-code-full-region {
-  height: 21.875rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+// #html5qr-code-full-region {
+//   height: 21.875rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+// }
 
 #html5-qrcode-button-camera-permission {
   @include mui_btn;

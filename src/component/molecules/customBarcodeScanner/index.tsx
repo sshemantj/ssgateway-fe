@@ -57,9 +57,6 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
           props.qrCodeSuccessCallback,
           props.qrCodeErrorCallback
         );
-        html5QrcodeScanner.applyVideoConstraints({
-          advanced: [{ facingMode: "environment" }],
-        });
       }
     }, 0);
 
