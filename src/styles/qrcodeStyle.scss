@@ -42,7 +42,15 @@
 //   flex-direction: column;
 // }
 
+#html5qr-code-full-region_dashboard_section_csr {
+  span {
+    &:first-child {
+      display: none !important;
+    }
+  }
+}
 #html5-qrcode-select-camera {
+  display: none !important;
 }
 
 #html5-qrcode-button-camera-start {
