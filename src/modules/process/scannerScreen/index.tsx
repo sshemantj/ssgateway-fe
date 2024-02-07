@@ -21,6 +21,8 @@ const ScannerScreen = () => {
   console.log({ allProducts });
 
   const handleAddProduct = () => {
+    setCurrentText("");
+    dispatch(addProduct({ id: currentText, name: currentText }));
     router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
   };
 
@@ -30,12 +32,10 @@ const ScannerScreen = () => {
     decodedText: string,
     decodedResult: Html5QrcodeResult
   ) => {
-    const isItemExist = allProducts.filter((pd) => pd.id === decodedText);
-    setCurrentText(decodedText);
-    console.log({ decodedText, isItemExist });
+    console.log({ decodedText });
 
-    if (!isItemExist.length) {
-      dispatch(addProduct({ id: decodedText, name: decodedText }));
+    if (!currentText) {
+      setCurrentText(decodedText);
     }
   };
 
@@ -76,14 +76,7 @@ const ScannerScreen = () => {
             >
               Reset Product list
             </Button>
-            <h6>pauseVideo : {pauseVideo ? "true" : "false"}</h6>
-            <h6>
-              {JSON.stringify(
-                { pd: allProducts.map((v) => ({ id: v.id })), currentText },
-                null,
-                2
-              )}
-            </h6>
+            <h6>currentText : {currentText}</h6>
           </Grid>
         </Grid>
       </Paper>
