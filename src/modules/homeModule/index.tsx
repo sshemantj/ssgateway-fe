@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@mui/material";
 import styles from "./homemodule.module.scss";
 import { useRouter } from "next/router";
@@ -9,6 +9,17 @@ const HomeModule = () => {
   const handleStartScanBtn = () => {
     router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN);
   };
+
+  useEffect(() => {
+    const handleStartCamera = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true });
+      } catch (err: any) {
+        console.log(err.message || "Failed to access camera.");
+      }
+    };
+    handleStartCamera();
+  }, []);
 
   return (
     <div className={styles.homeWrapper}>
