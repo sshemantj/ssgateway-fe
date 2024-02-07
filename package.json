@@ -15,6 +15,7 @@
     "@mui/material": "^5.15.7",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
+    "html5-qrcode": "^2.3.8",
     "next": "13.4",
     "qrcode.react": "^3.1.0",
     "react": "^18",
