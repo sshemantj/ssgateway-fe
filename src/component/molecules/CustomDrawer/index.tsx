@@ -58,7 +58,6 @@ const CustomDrawer = (props: Props) => {
   };
 
   const onOpen = () => () => {
-    props.camRef.current?.resume();
     setOpen(true);
   };
 
