@@ -42,6 +42,10 @@
 //   flex-direction: column;
 // }
 
+#html5qr-code-full-region__header_message {
+  display: none !important;
+}
+
 #html5qr-code-full-region__dashboard_section_csr {
   span:nth-child(2) {
     width: 1px !important;
