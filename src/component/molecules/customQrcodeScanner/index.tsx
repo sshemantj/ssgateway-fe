@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import styles from "./CustomBarcodeScanner2.module.scss";
+import styles from "./CustomQrcodeScanner.module.scss";
 
 import {
   Html5QrcodeScanner,
@@ -7,7 +7,7 @@ import {
   QrcodeSuccessCallback,
 } from "html5-qrcode";
 
-interface ICustomBarcodeScanner2 {
+interface ICustomQrcodeScanner {
   fps: number;
   qrbox: number;
   aspectRatio?: string;
@@ -19,11 +19,11 @@ interface ICustomBarcodeScanner2 {
   qrCodeErrorCallback: QrcodeErrorCallback;
 }
 
-const CustomBarcodeScanner2 = (props: ICustomBarcodeScanner2) => {
+const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
   const qrcodeRegionId = "html5qr-code-full-region-2";
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
-  const createConfig = (props: ICustomBarcodeScanner2) => {
+  const createConfig = (props: ICustomQrcodeScanner) => {
     const config: any = {};
     const { fps, qrbox, aspectRatio, disableFlip, showZoomSliderIfSupported } =
       props;
@@ -75,4 +75,4 @@ const CustomBarcodeScanner2 = (props: ICustomBarcodeScanner2) => {
   return <div id={qrcodeRegionId} />;
 };
 
-export default CustomBarcodeScanner2;
+export default CustomQrcodeScanner;
