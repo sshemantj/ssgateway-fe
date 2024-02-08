@@ -38,6 +38,7 @@ const CustomBarcodeScanner = React.forwardRef<
     config.videoConstraints = {
       facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
+    config.CustomQrcodeScanner = 6;
     return config;
   };
 
