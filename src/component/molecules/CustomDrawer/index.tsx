@@ -70,6 +70,7 @@ const CustomDrawer = (props: Props) => {
 
   const resetAndScanAgain = () => {
     setCurrentText("");
+    props.camRef.current?.resume();
     setOpen(false);
   };
 
