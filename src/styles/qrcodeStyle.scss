@@ -43,7 +43,7 @@
 // }
 
 #html5qr-code-full-region__dashboard_section_csr {
-  & > span:nth-child(2) {
+  span:nth-child(2) {
     // display: none !important;
     width: 1px !important;
     height: 1px !important;
@@ -64,7 +64,7 @@
   padding: 0.4rem 0.8rem;
   font-size: 0.7rem;
   @media screen and (max-width: 768px) {
-    transform: translateX(-30%);
+    transform: translateX(-50%);
   }
 }
 #html5-qrcode-button-camera-stop {
@@ -73,7 +73,7 @@
   padding: 0.4rem 0.8rem;
   font-size: 0.7rem;
   @media screen and (max-width: 768px) {
-    transform: translateX(-30%);
+    transform: translateX(-50%);
   }
 }
 
