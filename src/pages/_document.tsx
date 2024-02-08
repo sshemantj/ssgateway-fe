@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>Scan-&-go!</title>
         <link rel="icon" href={logo} />
       </Head>
       <body>

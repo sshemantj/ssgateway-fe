@@ -76,4 +76,6 @@ const CustomBarcodeScanner = React.forwardRef<
   return <div id={qrcodeRegionId} />;
 });
 
+CustomBarcodeScanner.displayName = "CustomBarcodeScanner";
+
 export default CustomBarcodeScanner;

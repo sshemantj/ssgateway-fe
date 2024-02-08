@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { screenRoutes } from "@/constants/allRoutes";
 import Navbar from "@/component/molecules/Navbar";
+import Head from "next/head";
 
 const loading = () => <p>Loading...</p>;
 
@@ -49,6 +50,9 @@ const Process = () => {
 
   return (
     <div>
+      <Head>
+        <title>Scan-&-go!</title>
+      </Head>
       <Navbar showBackBtn />
       {showCurrentScreen(router.query.screen?.[0] as string) || (
         <h1>No screen found!</h1>
