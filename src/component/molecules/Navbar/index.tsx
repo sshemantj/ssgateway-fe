@@ -25,25 +25,27 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
   return (
     <nav className={styles.navWrapper}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          {showBackBtn || showBack ? (
-            <Button
-              variant="text"
-              color="inherit"
-              onClick={() => router.back()}
-            >
-              <KeyboardBackspaceIcon /> <span>back</span>
-            </Button>
-          ) : (
-            <Image
-              width={150}
-              height={100}
-              // src={ssLogo}
-              src="https://prodstatic.shoppersstop.com/_ui/updated_path/images/shopperstopimgaes_web/newLogo.svg"
-              alt="logo"
-            />
-          )}
-        </div>
+        <Link href={allRoutes.HOME}>
+          <div className={styles.logo}>
+            {showBackBtn || showBack ? (
+              <Button
+                variant="text"
+                color="inherit"
+                onClick={() => router.back()}
+              >
+                <KeyboardBackspaceIcon /> <span>back</span>
+              </Button>
+            ) : (
+              <Image
+                width={150}
+                height={100}
+                // src={ssLogo}
+                src="https://prodstatic.shoppersstop.com/_ui/updated_path/images/shopperstopimgaes_web/newLogo.svg"
+                alt="logo"
+              />
+            )}
+          </div>
+        </Link>
         <div className={styles["menu-icon"]} onClick={() => handleShowNavbar()}>
           <MenuIcon />
         </div>
