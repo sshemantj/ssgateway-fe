@@ -10,13 +10,6 @@ const ScannerScreen = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
-  useEffect(() => {
-    if (!open && ref && ref?.current) {
-      // console.log(ref.current.getState());
-      // ref.current?.resume();
-    }
-  }, [open]);
-
   const onNewScanResult = (
     decodedText: string,
     decodedResult: Html5QrcodeResult
@@ -49,7 +42,13 @@ const ScannerScreen = () => {
             showZoomSliderIfSupported={true}
           />
           <CustomDrawer
-            {...{ open, setOpen, data: currentText, setCurrentText }}
+            {...{
+              open,
+              setOpen,
+              data: currentText,
+              setCurrentText,
+              camRef: ref,
+            }}
           />
         </Grid>
       </Paper>

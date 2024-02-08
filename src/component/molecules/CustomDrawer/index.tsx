@@ -11,6 +11,7 @@ import { addProduct } from "@/store/slices/processSlice";
 import { useRouter } from "next/router";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import styles from "./customDrawer.module.scss";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 const drawerBleeding = 0;
 
@@ -20,6 +21,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentText: React.Dispatch<React.SetStateAction<string>>;
   window?: () => Window;
+  camRef: React.MutableRefObject<Html5QrcodeScanner | null>;
 }
 
 const Root = styled("div")(({ theme }) => ({
@@ -51,6 +53,9 @@ const CustomDrawer = (props: Props) => {
   const router = useRouter();
 
   const toggleDrawer = (newOpen: boolean) => () => {
+    if (!open) {
+      props.camRef.current?.resume();
+    }
     setOpen(newOpen);
   };
 
