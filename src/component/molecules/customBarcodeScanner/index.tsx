@@ -13,6 +13,7 @@ interface ICustomBarcodeScanner {
   verbose?: boolean;
   pause?: boolean;
   showZoomSliderIfSupported?: boolean;
+  defaultZoomValueIfSupported?: number;
   disableFlip: boolean;
   qrCodeSuccessCallback: QrcodeSuccessCallback;
   qrCodeErrorCallback: QrcodeErrorCallback;
@@ -26,8 +27,14 @@ const CustomBarcodeScanner = React.forwardRef<
 
   const createConfig = (props: ICustomBarcodeScanner) => {
     const config: any = {};
-    const { fps, qrbox, aspectRatio, disableFlip, showZoomSliderIfSupported } =
-      props;
+    const {
+      fps,
+      qrbox,
+      aspectRatio,
+      disableFlip,
+      showZoomSliderIfSupported,
+      defaultZoomValueIfSupported,
+    } = props;
 
     if (fps) config.fps = fps;
     if (qrbox) config.qrbox = qrbox;
@@ -38,7 +45,8 @@ const CustomBarcodeScanner = React.forwardRef<
     config.videoConstraints = {
       facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
-    config.defaultZoomValueIfSupported = 6;
+    if (defaultZoomValueIfSupported !== undefined)
+      config.defaultZoomValueIfSupported = defaultZoomValueIfSupported;
     return config;
   };
 

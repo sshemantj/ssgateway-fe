@@ -14,6 +14,7 @@ interface ICustomQrcodeScanner {
   verbose?: boolean;
   pause?: boolean;
   showZoomSliderIfSupported?: boolean;
+  defaultZoomValueIfSupported?: number;
   disableFlip: boolean;
   qrCodeSuccessCallback: QrcodeSuccessCallback;
   qrCodeErrorCallback: QrcodeErrorCallback;
@@ -25,8 +26,14 @@ const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
 
   const createConfig = (props: ICustomQrcodeScanner) => {
     const config: any = {};
-    const { fps, qrbox, aspectRatio, disableFlip, showZoomSliderIfSupported } =
-      props;
+    const {
+      fps,
+      qrbox,
+      aspectRatio,
+      disableFlip,
+      showZoomSliderIfSupported,
+      defaultZoomValueIfSupported,
+    } = props;
 
     if (fps) config.fps = fps;
     if (qrbox) config.qrbox = qrbox;
@@ -37,6 +44,8 @@ const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
     config.videoConstraints = {
       facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
+    if (defaultZoomValueIfSupported !== undefined)
+      config.defaultZoomValueIfSupported = defaultZoomValueIfSupported;
     return config;
   };
 
