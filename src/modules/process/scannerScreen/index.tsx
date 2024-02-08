@@ -37,7 +37,7 @@ const ScannerScreen = () => {
             fps={10}
             qrbox={250}
             disableFlip={false}
-            defaultZoomValueIfSupported={2}
+            defaultZoomValueIfSupported={4}
             qrCodeSuccessCallback={onNewScanResult}
             qrCodeErrorCallback={(error) => console.log(error)}
             showZoomSliderIfSupported={true}
