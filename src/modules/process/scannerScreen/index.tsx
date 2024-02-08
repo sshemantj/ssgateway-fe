@@ -11,8 +11,8 @@ const ScannerScreen = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
   useEffect(() => {
-    if (!open && ref && ref.current) {
-      // ref.current?.resume();
+    if (!open && ref && ref?.current) {
+      ref.current?.resume();
     }
   }, [open]);
 
