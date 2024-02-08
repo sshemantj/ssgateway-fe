@@ -7,7 +7,7 @@ import CustomDrawer from "@/component/molecules/CustomDrawer";
 
 const ScannerScreen = () => {
   const [currentText, setCurrentText] = useState<string>("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
   const onNewScanResult = (

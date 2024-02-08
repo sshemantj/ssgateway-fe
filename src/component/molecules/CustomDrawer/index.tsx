@@ -52,11 +52,14 @@ const CustomDrawer = (props: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    if (!open) {
-      props.camRef.current?.resume();
-    }
-    setOpen(newOpen);
+  const onClose = () => () => {
+    props.camRef.current?.resume();
+    setOpen(false);
+  };
+
+  const onOpen = () => () => {
+    props.camRef.current?.resume();
+    setOpen(true);
   };
 
   const container =
@@ -91,8 +94,8 @@ const CustomDrawer = (props: Props) => {
         container={container}
         anchor="bottom"
         open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        onClose={onClose()}
+        onOpen={onOpen()}
         swipeAreaWidth={drawerBleeding}
         disableSwipeToOpen={true}
         ModalProps={{
