@@ -34,7 +34,7 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
     if (showZoomSliderIfSupported !== undefined)
       config.showZoomSliderIfSupported = showZoomSliderIfSupported;
     config.videoConstraints = {
-      facingMode: { exact: "environment" },
+      facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
     return config;
   };
