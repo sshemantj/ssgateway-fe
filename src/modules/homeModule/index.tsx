@@ -1,7 +1,7 @@
 import React from "react";
 import WelcomeScreen from "@/component/atoms/welcomeScreen";
 import styles from "./homemodule.module.scss";
-import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
+import CustomBarcodeScanner2 from "@/component/molecules/customBarcodeScanner2";
 
 const HomeModule = () => {
   return (
@@ -10,7 +10,7 @@ const HomeModule = () => {
         <p>
           Scan store QR-code <br /> to continue
         </p>
-        <CustomBarcodeScanner
+        <CustomBarcodeScanner2
           fps={10}
           qrbox={250}
           disableFlip={false}
@@ -19,6 +19,7 @@ const HomeModule = () => {
           showZoomSliderIfSupported={true}
         />
       </div>
+      <WelcomeScreen />
     </div>
   );
 };
