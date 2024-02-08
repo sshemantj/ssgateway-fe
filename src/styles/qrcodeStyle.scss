@@ -44,13 +44,8 @@
 
 #html5qr-code-full-region__dashboard_section_csr {
   span:nth-child(2) {
-    // display: none !important;
     width: 1px !important;
     height: 1px !important;
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // z-index: -100;
     visibility: hidden;
   }
 }
