@@ -1,27 +1,2 @@
 .homeWrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  .headingWrapper {
-    font-size: 3rem;
-    font-weight: 900;
-    .scanAndGo {
-      text-align: center;
-    }
-  }
-  h4 {
-    font-size: 2rem;
-  }
-  .scanningBtnContainer {
-    button {
-      margin-top: 1rem;
-      background-color: #fef7e5;
-      color: black;
-      font-weight: 600;
-      outline: black;
-      border-color: black;
-    }
-  }
 }
