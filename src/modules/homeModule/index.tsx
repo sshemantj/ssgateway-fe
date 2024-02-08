@@ -14,6 +14,7 @@ const HomeModule = () => {
           fps={10}
           qrbox={250}
           disableFlip={false}
+          defaultZoomValueIfSupported={2}
           qrCodeSuccessCallback={(result) => console.log(result)}
           qrCodeErrorCallback={(error) => console.log(error)}
           showZoomSliderIfSupported={true}
