@@ -33,7 +33,9 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
     if (disableFlip !== undefined) config.disableFlip = disableFlip;
     if (showZoomSliderIfSupported !== undefined)
       config.showZoomSliderIfSupported = showZoomSliderIfSupported;
-
+    config.videoConstraints = {
+      facingMode: { exact: "environment" },
+    };
     return config;
   };
 
