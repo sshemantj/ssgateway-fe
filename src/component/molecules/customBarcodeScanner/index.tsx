@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { ForwardedRef, useEffect, useRef } from "react";
 import styles from "./customBarcode.module.scss";
 import {
   Html5QrcodeScanner,
@@ -18,9 +18,11 @@ interface ICustomBarcodeScanner {
   qrCodeErrorCallback: QrcodeErrorCallback;
 }
 
-const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
+const CustomBarcodeScanner = React.forwardRef<
+  ForwardedRef<Html5QrcodeScanner | null>,
+  ICustomBarcodeScanner
+>((props, ref) => {
   const qrcodeRegionId = "html5qr-code-full-region";
-  const ref = useRef<Html5QrcodeScanner | null>(null);
 
   const createConfig = (props: ICustomBarcodeScanner) => {
     const config: any = {};
@@ -46,11 +48,11 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
-
-    if (ref.current === null) {
-      ref.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
+    const newRef = ref as React.MutableRefObject<Html5QrcodeScanner | null>;
+    if (newRef && newRef.current === null) {
+      newRef.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
     }
-    const html5QrcodeScanner = ref.current;
+    const html5QrcodeScanner = newRef.current;
 
     setTimeout(() => {
       const container = document.getElementById(qrcodeRegionId);
@@ -64,7 +66,7 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
 
     return () => {
       if (html5QrcodeScanner) {
-        html5QrcodeScanner.clear().catch((error) => {
+        html5QrcodeScanner.clear().catch((error: any) => {
           console.error("Failed to clear html5QrcodeScanner. ", error);
         });
       }
@@ -72,6 +74,6 @@ const CustomBarcodeScanner = (props: ICustomBarcodeScanner) => {
   }, []);
 
   return <div id={qrcodeRegionId} />;
-};
+});
 
 export default CustomBarcodeScanner;

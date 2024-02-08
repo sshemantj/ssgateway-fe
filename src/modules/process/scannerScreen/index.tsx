@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { ForwardedRef, Ref, useRef, useState } from "react";
 import { Grid, Paper } from "@mui/material";
 import styles from "./scannerScreen.module.scss";
 import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
-import { Html5QrcodeResult } from "html5-qrcode";
+import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
 
 const ScannerScreen = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const ref = useRef<Html5QrcodeScanner | null>(null);
 
   const onNewScanResult = (
     decodedText: string,
@@ -18,6 +19,7 @@ const ScannerScreen = () => {
     if (!currentText) {
       setCurrentText(decodedText);
       setOpen(true);
+      ref.current?.pause();
     }
   };
 
@@ -31,6 +33,7 @@ const ScannerScreen = () => {
           alignItems={"center"}
         >
           <CustomBarcodeScanner
+            ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
             fps={10}
             qrbox={250}
             disableFlip={false}
