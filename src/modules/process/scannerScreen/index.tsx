@@ -12,7 +12,7 @@ const ScannerScreen = () => {
 
   useEffect(() => {
     if (!open && ref && ref.current) {
-      ref.current?.resume();
+      // ref.current?.resume();
     }
   }, [open]);
 
@@ -25,7 +25,7 @@ const ScannerScreen = () => {
     if (!currentText) {
       setCurrentText(decodedText);
       setOpen(true);
-      ref.current?.pause(true);
+      ref.current?.pause();
     }
   };
 
