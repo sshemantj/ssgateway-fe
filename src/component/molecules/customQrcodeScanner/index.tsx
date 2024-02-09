@@ -24,7 +24,7 @@ const CustomQrcodeScanner = React.forwardRef<
   ForwardedRef<Html5QrcodeScanner | null>,
   ICustomQrcodeScanner
 >((props, ref) => {
-  const qrcodeRegionId = "html5qr-code-full-region";
+  const qrcodeRegionId = "html5qr-code-full-region__2";
   const createConfig = (props: ICustomQrcodeScanner) => {
     const config: any = {};
     const {

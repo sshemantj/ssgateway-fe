@@ -34,60 +34,62 @@
     rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
-#html5qr-code-full-region__header_message {
-  display: none !important;
-}
-
-#html5qr-code-full-region__dashboard_section_csr {
-  span:nth-child(2) {
-    width: 1px !important;
-    height: 1px !important;
-    visibility: hidden;
+#html5qr-code-full-region__2 {
+  #html5qr-code-full-region__2__header_message {
+    display: none !important;
   }
-}
-#html5-qrcode-select-camera {
-  display: none !important;
-}
 
-#html5-qrcode-button-camera-start {
-  @include mui_btn;
-  margin-top: 1rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.7rem;
-  @media screen and (max-width: 768px) {
-    animation: animate-this 0.5s ease;
-    transform: translateX(-50%);
+  #html5qr-code-full-region__2__dashboard_section_csr {
+    span:nth-child(2) {
+      width: 1px !important;
+      height: 1px !important;
+      visibility: hidden;
+    }
   }
-}
-
-@keyframes animate-this {
-  0% {
-    visibility: hidden;
+  #html5-qrcode-select-camera {
+    display: none !important;
   }
-  100% {
-    visibility: visible;
+
+  #html5-qrcode-button-camera-start {
+    @include mui_btn;
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    @media screen and (max-width: 768px) {
+      animation: animate-this 0.5s ease;
+      transform: translateX(-50%);
+    }
   }
-}
 
-#html5-qrcode-input-range-zoom {
-  transform: translateX(25%);
-}
-
-#html5-qrcode-button-camera-stop {
-  @include mui_btn;
-  margin-top: 1rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.7rem;
-  @media screen and (max-width: 768px) {
-    transform: translateX(-60%);
+  @keyframes animate-this {
+    0% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
   }
-}
 
-#html5-qrcode-button-camera-permission {
-  @include mui_btn;
-  margin-bottom: 0.5rem;
-}
-#html5-qrcode-anchor-scan-type-change,
-#html5-qrcode-anchor-scan-type-change {
-  display: none !important;
+  #html5-qrcode-input-range-zoom {
+    transform: translateX(25%);
+  }
+
+  #html5-qrcode-button-camera-stop {
+    @include mui_btn;
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    @media screen and (max-width: 768px) {
+      transform: translateX(-60%);
+    }
+  }
+
+  #html5-qrcode-button-camera-permission {
+    @include mui_btn;
+    margin-bottom: 0.5rem;
+  }
+  #html5-qrcode-anchor-scan-type-change,
+  #html5-qrcode-anchor-scan-type-change {
+    display: none !important;
+  }
 }
