@@ -64,11 +64,11 @@
   @keyframes animate-this {
     0% {
       display: none;
-      transform: translateX(-60%);
+      // transform: translateX(-60%);
     }
     100% {
       display: block;
-      transform: translateX(0%);
+      // transform: translateX(0%);
     }
   }
 
