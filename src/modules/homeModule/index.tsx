@@ -6,6 +6,7 @@ import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import styles from "./homemodule.module.scss";
+import { Grid, Paper } from "@mui/material";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
@@ -32,21 +33,30 @@ const HomeModule = () => {
   return (
     <div className={styles.homeWrapper}>
       <div className={styles.headingWrapper}>
-        <p>
-          Scan store QR-code <br /> to continue
-        </p>
-        <div className={styles.qrCodeScanWrapper}>
-          <CustomQrcodeScanner
-            ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-            fps={10}
-            qrbox={250}
-            disableFlip={false}
-            defaultZoomValueIfSupported={4}
-            qrCodeSuccessCallback={onNewScanResult}
-            qrCodeErrorCallback={(error) => console.log(error)}
-            showZoomSliderIfSupported={true}
-          />
-        </div>
+        <Paper>
+          <Grid
+            container
+            direction={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <p>
+              Scan store QR-code <br /> to continue
+            </p>
+            <div className={styles.qrCodeScanWrapper}>
+              <CustomQrcodeScanner
+                ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+                fps={10}
+                qrbox={250}
+                disableFlip={false}
+                defaultZoomValueIfSupported={4}
+                qrCodeSuccessCallback={onNewScanResult}
+                qrCodeErrorCallback={(error) => console.log(error)}
+                showZoomSliderIfSupported={true}
+              />
+            </div>
+          </Grid>
+        </Paper>
       </div>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
