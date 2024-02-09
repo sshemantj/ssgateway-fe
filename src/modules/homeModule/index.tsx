@@ -30,18 +30,6 @@ const HomeModule = () => {
     }
   };
 
-  const qrCodeLaunchingBtn = document.querySelector(
-    "#html5-qrcode-button-camera-start"
-  );
-
-  useEffect(() => {
-    if (qrCodeLaunchingBtn?.innerHTML === "Launching Camera...") {
-      qrCodeLaunchingBtn.innerHTML = "custom button";
-    }
-    // console.log(qrCodeLaunchingBtn);
-    // console.log(document.querySelector("#html5-qrcode-button-camera-start"));
-  }, [qrCodeLaunchingBtn]);
-
   return (
     <div className={styles.homeWrapper}>
       <Paper>
