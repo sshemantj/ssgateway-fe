@@ -14,8 +14,6 @@ const ScannerScreen = () => {
     decodedText: string,
     decodedResult: Html5QrcodeResult
   ) => {
-    console.log({ decodedText });
-
     if (!currentText) {
       setCurrentText(decodedText);
       setOpen(true);

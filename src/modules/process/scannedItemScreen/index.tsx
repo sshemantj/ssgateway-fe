@@ -9,7 +9,6 @@ import { allRoutes, processScreenRoutes } from "@/constants/allRoutes";
 
 const ScannedItemScreen = () => {
   const productState = useAppSelector((state) => state.process.productList);
-  console.log(productState);
   const router = useRouter();
 
   const handleScanMore = () => {
@@ -32,8 +31,8 @@ const ScannedItemScreen = () => {
     <Grid container className={styles.scannedItemWrapper}>
       <h1 className={styles.title}>Scanned Items</h1>
       <Grid item xs={12}>
-        {productState.map(({ id, name }, index) => {
-          return <ProductItem key={index} {...{ id, name }} />;
+        {productState.map((pd, index) => {
+          return <ProductItem key={index} {...pd} />;
         })}
       </Grid>
       <Grid item xs={12}>
