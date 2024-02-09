@@ -48,7 +48,7 @@ const HomeModule = () => {
           />
         </div>
       </div>
-      <WelcomeScreen />
+      {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
     </div>
   );
