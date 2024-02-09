@@ -1,4 +1,4 @@
-import React, { ForwardedRef, Ref, useRef, useState } from "react";
+import React, { ForwardedRef, Ref, useEffect, useRef, useState } from "react";
 import CustomQrcodeScanner from "@/component/molecules/customQrcodeScanner";
 import WelcomeScreen from "@/component/atoms/welcomeScreen";
 import { ToastContainer, toast } from "react-toastify";
@@ -29,6 +29,18 @@ const HomeModule = () => {
       );
     }
   };
+
+  const qrCodeLaunchingBtn = document.querySelector(
+    "#html5-qrcode-button-camera-start"
+  );
+
+  useEffect(() => {
+    if (qrCodeLaunchingBtn?.innerHTML === "Launching Camera...") {
+      qrCodeLaunchingBtn.innerHTML = "custom button";
+    }
+    // console.log(qrCodeLaunchingBtn);
+    // console.log(document.querySelector("#html5-qrcode-button-camera-start"));
+  }, [qrCodeLaunchingBtn]);
 
   return (
     <div className={styles.homeWrapper}>
