@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { ForwardedRef, useEffect, useRef } from "react";
 import styles from "./CustomQrcodeScanner.module.scss";
 
 import {
@@ -20,10 +20,11 @@ interface ICustomQrcodeScanner {
   qrCodeErrorCallback: QrcodeErrorCallback;
 }
 
-const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
+const CustomQrcodeScanner = React.forwardRef<
+  ForwardedRef<Html5QrcodeScanner | null>,
+  ICustomQrcodeScanner
+>((props, ref) => {
   const qrcodeRegionId = "html5qr-code-full-region-2";
-  const ref = useRef<Html5QrcodeScanner | null>(null);
-
   const createConfig = (props: ICustomQrcodeScanner) => {
     const config: any = {};
     const {
@@ -56,11 +57,11 @@ const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
-
-    if (ref.current === null) {
-      ref.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
+    const newRef = ref as React.MutableRefObject<Html5QrcodeScanner | null>;
+    if (newRef && newRef.current === null) {
+      newRef.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
     }
-    const html5QrcodeScanner = ref.current;
+    const html5QrcodeScanner = newRef.current;
 
     setTimeout(() => {
       const container = document.getElementById(qrcodeRegionId);
@@ -82,6 +83,6 @@ const CustomQrcodeScanner = (props: ICustomQrcodeScanner) => {
   }, []);
 
   return <div id={qrcodeRegionId} />;
-};
+});
 
 export default CustomQrcodeScanner;
