@@ -21,7 +21,7 @@ const HomeModule = () => {
       setCurrentText(decodedText);
       setOpen(true);
       ref.current?.pause(true);
-      toast.success("Store qr-code scan complete! " + decodedResult);
+      toast.success("Store qr-code scan complete! " + decodedText);
       setTimeout(
         () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
         1500
