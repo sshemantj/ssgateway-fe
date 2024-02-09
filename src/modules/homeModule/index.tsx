@@ -7,6 +7,7 @@ import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import styles from "./homemodule.module.scss";
 import { Grid, Paper } from "@mui/material";
+import CustomDrawer from "@/component/molecules/CustomDrawer";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
@@ -32,32 +33,41 @@ const HomeModule = () => {
 
   return (
     <div className={styles.homeWrapper}>
-      <div className={styles.headingWrapper}>
-        <Paper>
-          <Grid
-            container
-            direction={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+      <Paper>
+        <Grid
+          container
+          direction={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <div className={styles.headingWrapper}>
             <p>
               Scan store QR-code <br /> to continue
             </p>
-            <div className={styles.qrCodeScanWrapper}>
-              <CustomQrcodeScanner
-                ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-                fps={10}
-                qrbox={250}
-                disableFlip={false}
-                defaultZoomValueIfSupported={4}
-                qrCodeSuccessCallback={onNewScanResult}
-                qrCodeErrorCallback={(error) => console.log(error)}
-                showZoomSliderIfSupported={true}
-              />
-            </div>
-          </Grid>
-        </Paper>
-      </div>
+          </div>
+          <div className={styles.qrCodeScanWrapper}>
+            <CustomQrcodeScanner
+              ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+              fps={10}
+              qrbox={250}
+              disableFlip={false}
+              defaultZoomValueIfSupported={4}
+              qrCodeSuccessCallback={onNewScanResult}
+              qrCodeErrorCallback={(error) => console.log(error)}
+              showZoomSliderIfSupported={true}
+            />
+            <CustomDrawer
+              {...{
+                open,
+                setOpen,
+                data: currentText,
+                setCurrentText,
+                camRef: ref,
+              }}
+            />
+          </div>
+        </Grid>
+      </Paper>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
     </div>
