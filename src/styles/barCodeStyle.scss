@@ -50,12 +50,21 @@
 }
 
 #html5-qrcode-button-camera-start {
-  // @include mui_btn;
+  @include mui_btn;
   margin-top: 1rem;
   padding: 0.4rem 0.8rem;
   font-size: 0.7rem;
   @media screen and (max-width: 768px) {
-    // transform: translateX(-60%);
+    animation: animate-this 0.5s ease;
+  }
+}
+
+@keyframes animate-this {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-60%);
   }
 }
 
