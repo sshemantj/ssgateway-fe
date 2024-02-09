@@ -30,6 +30,7 @@ const ScannerScreen = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
+          <p>Scan products barcode</p>
           <CustomBarcodeScanner
             ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
             fps={10}

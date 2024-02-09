@@ -41,9 +41,7 @@ const HomeModule = () => {
           alignItems={"center"}
         >
           <div className={styles.headingWrapper}>
-            <p>
-              Scan store QR-code <br /> to continue
-            </p>
+            <p>Scan store QR-code to continue</p>
           </div>
           <div className={styles.qrCodeScanWrapper}>
             <CustomQrcodeScanner
