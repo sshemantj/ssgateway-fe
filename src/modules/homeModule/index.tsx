@@ -5,9 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
-import styles from "./homemodule.module.scss";
 import { Grid, Paper } from "@mui/material";
-import CustomDrawer from "@/component/molecules/CustomDrawer";
+import styles from "./homemodule.module.scss";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
@@ -53,15 +52,6 @@ const HomeModule = () => {
               qrCodeSuccessCallback={onNewScanResult}
               qrCodeErrorCallback={(error) => console.log(error)}
               showZoomSliderIfSupported={true}
-            />
-            <CustomDrawer
-              {...{
-                open,
-                setOpen,
-                data: currentText,
-                setCurrentText,
-                camRef: ref,
-              }}
             />
           </div>
         </Grid>
