@@ -43,8 +43,8 @@ const CustomBarcodeScanner = React.forwardRef<
     if (showZoomSliderIfSupported !== undefined)
       config.showZoomSliderIfSupported = showZoomSliderIfSupported;
     config.videoConstraints = {
-      facingMode: { exact: "user" },
-      // facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
+      // facingMode: { exact: "user" },
+      facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
     if (defaultZoomValueIfSupported !== undefined)
       config.defaultZoomValueIfSupported = defaultZoomValueIfSupported;
