@@ -10,7 +10,7 @@ interface ILocation {
   distanceToCalculate: number;
 }
 
-const isWithin100MeterRadius = ({
+const isWithinProvidedRadius = ({
   storeLocation,
   currLocation,
   distanceToCalculate = 100,
@@ -36,4 +36,4 @@ const isWithin100MeterRadius = ({
   return distance <= distanceToCalculate;
 };
 
-export { isWithin100MeterRadius };
+export { isWithinProvidedRadius };
