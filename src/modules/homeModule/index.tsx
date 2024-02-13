@@ -42,7 +42,6 @@ const HomeModule = () => {
           <div className={styles.headingWrapper}>
             <p>Scan store QR-code to continue</p>
           </div>
-          <div className={styles.qrCodeScanWrapper}></div>
         </Grid>
       </Paper>
       <div className={styles.qrCodeScanWrapper}>
