@@ -7,6 +7,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
 import { useAppDispatch } from "@/store/hooks";
 import { hideBackNavbar, showBackNavbar } from "@/store/slices/menu";
+import DemoLocation from "@/modules/demoModule/demoLocation";
 
 const Demo: NextPage = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
@@ -20,17 +21,9 @@ const Demo: NextPage = () => {
         <title>Scan-&-go!</title>
       </Head>
       <Navbar />
-      <main
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          //   display: "flex",
-          //   alignItems: "center",
-          //   justifyContent: "center",
-        }}
-      >
-        <CustomBarcodeScanner
+      <main>
+        <DemoLocation />
+        {/* <CustomBarcodeScanner
           ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
           fps={10}
           qrbox={250}
@@ -39,7 +32,7 @@ const Demo: NextPage = () => {
           qrCodeSuccessCallback={() => {}}
           qrCodeErrorCallback={(error) => console.log(error)}
           showZoomSliderIfSupported={true}
-        />
+        /> */}
       </main>
     </>
   );
