@@ -6,13 +6,13 @@ import { ForwardedRef, Ref, useEffect, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
 import { useAppDispatch } from "@/store/hooks";
-import { showBackNavbar } from "@/store/slices/menu";
+import { hideBackNavbar, showBackNavbar } from "@/store/slices/menu";
 
 const Demo: NextPage = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(showBackNavbar());
+    dispatch(hideBackNavbar());
   }, []);
   return (
     <>

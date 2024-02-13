@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IMenu {
-  showBackInNavbar: boolean;
+  showBackInNavbar: boolean | null;
 }
 
 const initialState = {
-  showBackInNavbar: false,
+  showBackInNavbar: null,
 } as IMenu;
 
 export const menu = createSlice({
@@ -18,8 +18,11 @@ export const menu = createSlice({
     hideBackNavbar: (state) => {
       state.showBackInNavbar = false;
     },
+    resetNav: (state) => {
+      state.showBackInNavbar = null;
+    },
   },
 });
 
-export const { showBackNavbar, hideBackNavbar } = menu.actions;
+export const { showBackNavbar, hideBackNavbar, resetNav } = menu.actions;
 export default menu.reducer;
