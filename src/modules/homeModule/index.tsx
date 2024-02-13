@@ -42,20 +42,21 @@ const HomeModule = () => {
           <div className={styles.headingWrapper}>
             <p>Scan store QR-code to continue</p>
           </div>
-          <div className={styles.qrCodeScanWrapper}>
-            <CustomQrcodeScanner
-              ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-              fps={10}
-              qrbox={250}
-              disableFlip={false}
-              defaultZoomValueIfSupported={4}
-              qrCodeSuccessCallback={onNewScanResult}
-              qrCodeErrorCallback={(error) => console.log(error)}
-              showZoomSliderIfSupported={true}
-            />
-          </div>
+          <div className={styles.qrCodeScanWrapper}></div>
         </Grid>
       </Paper>
+      <div className={styles.qrCodeScanWrapper}>
+        <CustomQrcodeScanner
+          ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+          fps={10}
+          qrbox={250}
+          disableFlip={false}
+          defaultZoomValueIfSupported={4}
+          qrCodeSuccessCallback={onNewScanResult}
+          qrCodeErrorCallback={(error) => console.log(error)}
+          showZoomSliderIfSupported={true}
+        />
+      </div>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
     </div>
