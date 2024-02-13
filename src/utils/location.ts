@@ -36,4 +36,16 @@ const isWithinProvidedRadius = ({
   return distance <= distanceToCalculate;
 };
 
-export { isWithinProvidedRadius };
+const getCoordinatesFromGoogleMapLink = (googleMapLink: string) => {
+  const match = googleMapLink.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (match && match.length >= 3) {
+    const latitude = parseFloat(match[1]);
+    const longitude = parseFloat(match[2]);
+    return { latitude, longitude };
+  } else {
+    console.log("Invalid or unsupported Google Maps link format");
+    return { latitude: null, longitude: null };
+  }
+};
+
+export { isWithinProvidedRadius, getCoordinatesFromGoogleMapLink };
