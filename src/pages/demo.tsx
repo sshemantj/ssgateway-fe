@@ -4,6 +4,7 @@ import Head from "next/head";
 import CustomQrcodeScanner from "@/component/molecules/customQrcodeScanner";
 import { ForwardedRef, Ref, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
+import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
 
 const Home: NextPage = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
           //   justifyContent: "center",
         }}
       >
-        <CustomQrcodeScanner
+        <CustomBarcodeScanner
           ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
           fps={10}
           qrbox={250}
