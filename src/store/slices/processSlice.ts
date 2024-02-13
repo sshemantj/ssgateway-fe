@@ -1,4 +1,4 @@
-import { handleAddProduct } from "@/utils/pdMethods";
+import { handleAddProduct, handleRemoveProduct } from "@/utils/pdMethods";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 export interface IProduct {
@@ -22,9 +22,15 @@ export const process = createSlice({
     addProduct: (state, action: PayloadAction<IProduct>) => {
       state.productList = handleAddProduct(action.payload, state.productList);
     },
+    removeProduct: (state, action: PayloadAction<string>) => {
+      state.productList = handleRemoveProduct(
+        action.payload,
+        state.productList
+      );
+    },
     reset: () => initialState,
   },
 });
 
-export const { addProduct, reset } = process.actions;
+export const { addProduct, removeProduct, reset } = process.actions;
 export default process.reducer;

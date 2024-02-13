@@ -1,9 +1,19 @@
 import React from "react";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import styles from "./productItem.module.scss";
 import { IProduct } from "@/store/slices/processSlice";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import styles from "./productItem.module.scss";
 
-const ProductItem = ({ id, name, quantity }: IProduct) => {
+interface IProductItem extends IProduct {
+  handleQuantityRemove?: (_: string) => void;
+}
+
+const ProductItem = ({
+  id,
+  name,
+  quantity,
+  handleQuantityRemove = () => {},
+}: IProductItem) => {
   return (
     <div className={styles.productItemsContainer}>
       <div className={styles.pdImgWrapper}>
@@ -12,7 +22,13 @@ const ProductItem = ({ id, name, quantity }: IProduct) => {
       <div className={styles.pdDescription}>
         <h4>ID: {id}</h4>
         <h4>Name: {name}</h4>
-        <h4>Quantity: {quantity}</h4>
+        <div className={styles.qntRemove}>
+          <h4>Quantity: {quantity}</h4>
+          <DeleteOutlineIcon
+            onClick={() => handleQuantityRemove(id)}
+            color="error"
+          />
+        </div>
       </div>
     </div>
   );

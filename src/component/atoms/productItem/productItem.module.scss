@@ -15,14 +15,17 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  z-index: 2;
   &::after {
     @include border_code;
     border-bottom: none;
+    z-index: -1;
   }
   &:last-child {
     &::after {
       @include border_code;
       border-bottom: 2px dashed black;
+      z-index: -1;
     }
   }
   .pdImgWrapper {
@@ -30,5 +33,11 @@
   .pdDescription {
     word-break: break-all;
     white-space: normal;
+    .qntRemove {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
   }
 }

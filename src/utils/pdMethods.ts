@@ -20,4 +20,25 @@ const handleAddProduct = (
   return updatedProductList;
 };
 
-export { handleAddProduct };
+const handleRemoveProduct = (
+  id: string,
+  productList: IProduct[]
+): IProduct[] => {
+  const updatedProductList: IProduct[] = [...productList];
+  const existingProductIndex = updatedProductList.findIndex(
+    (product) => product.id === id
+  );
+  if (
+    existingProductIndex !== -1 &&
+    // @ts-ignore
+    updatedProductList[existingProductIndex].quantity > 1
+  ) {
+    // @ts-ignore
+    // Product already exists, decrement quantity
+    updatedProductList[existingProductIndex].quantity -= 1;
+  }
+
+  return updatedProductList;
+};
+
+export { handleAddProduct, handleRemoveProduct };
