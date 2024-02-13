@@ -20,8 +20,8 @@ const SummaryScreen = () => {
       <h1 className={styles.title}>Scanned Items</h1>
       <Grid container>
         <Grid item xs={12}>
-          {productState.map(({ id, name }, index) => {
-            return <ProductItem key={index} {...{ id, name }} />;
+          {productState.map((pd, index) => {
+            return <ProductItem key={index} {...pd} isSummary />;
           })}
         </Grid>
         <Grid item xs={12}>

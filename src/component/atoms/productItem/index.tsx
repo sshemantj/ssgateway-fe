@@ -6,6 +6,7 @@ import styles from "./productItem.module.scss";
 
 interface IProductItem extends IProduct {
   handleQuantityRemove?: (_: string) => void;
+  isSummary?: boolean;
 }
 
 const ProductItem = ({
@@ -13,6 +14,7 @@ const ProductItem = ({
   name,
   quantity,
   handleQuantityRemove = () => {},
+  isSummary = false,
 }: IProductItem) => {
   return (
     <div className={styles.productItemsContainer}>
@@ -24,10 +26,12 @@ const ProductItem = ({
         <h4>Name: {name}</h4>
         <div className={styles.qntRemove}>
           <h4>Quantity: {quantity}</h4>
-          <DeleteOutlineIcon
-            onClick={() => handleQuantityRemove(id)}
-            color="error"
-          />
+          {isSummary ? null : (
+            <DeleteOutlineIcon
+              onClick={() => handleQuantityRemove(id)}
+              color="error"
+            />
+          )}
         </div>
       </div>
     </div>
