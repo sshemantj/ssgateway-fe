@@ -20,8 +20,10 @@ const HomeModule = () => {
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
   useEffect(() => {
+    forceRerender({});
     if (isWithinRadius) {
       toast.success("Store qr-code scan complete!");
+      forceRerender({});
       // setTimeout(
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
