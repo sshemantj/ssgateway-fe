@@ -5,22 +5,30 @@ import { ToastContainer, toast } from "react-toastify";
 import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
-import { Grid, Paper } from "@mui/material";
+import { Grid, MenuItem, Paper, TextField } from "@mui/material";
 import styles from "./homemodule.module.scss";
 import useWithinRadius from "@/hooks/useWithinRadius";
+import { meterRadiusArr } from "@/constants/locationConstants";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
+  const [distance, setDistance] = useState<number>(100);
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
   useEffect(() => {
     alert(`isWithinRadius = ${isWithinRadius}`);
     if (isWithinRadius) {
       toast.success("Store qr-code scan complete!");
-      alert(`isWithinRadius = ${isWithinRadius}`);
+      // setTimeout(
+      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+      //   1500
+      // );
+    } else if (isWithinRadius === false) {
+      toast.warn(`Store is not within ${distance}m distance!`);
+      ref.current?.resume();
     }
   }, [isWithinRadius]);
 
@@ -28,24 +36,16 @@ const HomeModule = () => {
     try {
       const newLocation = JSON.parse(data);
       if (newLocation.latitude && newLocation.longitude) {
-        alert(newLocation.name);
-        alert(newLocation.latitude);
-        alert(newLocation.longitude);
         setStoreDetailsSetup({
           storeLocation: newLocation,
-          distanceToCalculate: 100,
+          distanceToCalculate: distance,
         });
       } else {
         alert("Scan store Qr-code to get location!");
       }
     } catch (error: any) {
-      alert(error.message);
+      alert(`Error ${error.message}`);
     }
-    // toast.success("Store qr-code scan complete!");
-    // setTimeout(
-    //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-    //   1500
-    // );
   };
 
   const onNewScanResult = (
@@ -58,6 +58,13 @@ const HomeModule = () => {
       ref.current?.pause(true);
       handleStoreQrcodeScan(decodedText);
     }
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = +event.target.value;
+    setDistance(value);
   };
 
   return (
@@ -85,6 +92,28 @@ const HomeModule = () => {
           qrCodeErrorCallback={(error) => console.log(error)}
           showZoomSliderIfSupported={true}
         />
+      </div>
+      <div
+        style={{
+          marginTop: "1rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select"
+          helperText="select your dinstance in meters"
+          value={distance}
+          onChange={(e) => handleChange(e)}
+        >
+          {meterRadiusArr.map(({ name, value }, index) => (
+            <MenuItem key={index} value={value}>
+              {name}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
