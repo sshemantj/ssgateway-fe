@@ -7,12 +7,41 @@ import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import { Grid, Paper } from "@mui/material";
 import styles from "./homemodule.module.scss";
+import useWithinRadius from "@/hooks/useWithinRadius";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
+  const { isWithinRadius, currLocation, setStoreDetailsSetup } =
+    useWithinRadius();
+
+  useEffect(() => {
+    if (isWithinRadius) {
+      toast.success("Store qr-code scan complete!");
+    }
+  }, [isWithinRadius]);
+
+  const handleStoreQrcodeScan = (data: string) => {
+    console.log(data);
+    alert(data);
+    alert(JSON.stringify(data));
+    const newLocation = JSON.parse(data);
+    if (newLocation.latitude && newLocation.longitude) {
+      setStoreDetailsSetup({
+        storeLocation: newLocation,
+        distanceToCalculate: 100,
+      });
+    } else {
+      alert("Enter currect latitude and longitude!");
+    }
+    // toast.success("Store qr-code scan complete!");
+    // setTimeout(
+    //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+    //   1500
+    // );
+  };
 
   const onNewScanResult = (
     decodedText: string,
@@ -22,11 +51,7 @@ const HomeModule = () => {
       setCurrentText(decodedText);
       setOpen(true);
       ref.current?.pause(true);
-      toast.success("Store qr-code scan complete! " + decodedText);
-      setTimeout(
-        () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-        1500
-      );
+      handleStoreQrcodeScan(decodedText);
     }
   };
 
