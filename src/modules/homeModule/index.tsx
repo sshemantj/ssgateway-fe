@@ -21,20 +21,20 @@ const HomeModule = () => {
 
   console.log(isWithinRadius);
 
-  useEffect(() => {
-    if (isWithinRadius) {
-      alert(`isWithinRadius = ${isWithinRadius}`);
-      toast.success("Store qr-code scan complete!");
-      console.warn(`it ran`);
-      // setTimeout(
-      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-      //   1500
-      // );
-    } else if (isWithinRadius === false) {
-      toast.warn(`Store is not within ${distance}m distance!`);
-      // ref.current?.resume();
-    }
-  }, [isWithinRadius, distance]);
+  // useEffect(() => {
+  if (isWithinRadius) {
+    alert(`isWithinRadius = ${isWithinRadius}`);
+    toast.success("Store qr-code scan complete!");
+    console.warn(`it ran`);
+    // setTimeout(
+    //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+    //   1500
+    // );
+  } else if (isWithinRadius === false) {
+    toast.warn(`Store is not within ${distance}m distance!`);
+    // ref.current?.resume();
+  }
+  // }, [isWithinRadius, distance]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
