@@ -35,10 +35,10 @@ const HomeModule = () => {
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
-      ref.current?.resume();
+      setTimeout(() => ref.current?.resume(), 1000);
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
-      ref.current?.resume();
+      setTimeout(() => ref.current?.resume(), 1000);
     }
     setCurrentText("");
   }, [isWithinRadius]);
