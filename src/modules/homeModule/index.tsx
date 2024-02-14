@@ -17,28 +17,33 @@ interface IStoreLocation {
   longitude: number | null;
 }
 
+const initialLocationValue = {
+  latitude: null,
+  longitude: null,
+};
+
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
   const router = useRouter();
   const [distance, setDistance] = useState<number>(100);
-  const [storeLocation, setStoreLocation] = useState<IStoreLocation>({
-    latitude: null,
-    longitude: null,
-  });
+  const [storeLocation, setStoreLocation] =
+    useState<IStoreLocation>(initialLocationValue);
 
   useEffect(() => {
     if (isWithinRadius) {
       toast.success("Store qr-code scan complete!");
+      setStoreLocation(initialLocationValue);
       // setTimeout(
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
-      // setTimeout(() => ref.current?.resume(), 1000);
+      setTimeout(() => ref.current?.resume(), 1000);
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
-      // setTimeout(() => ref.current?.resume(), 1000);
+      setStoreLocation(initialLocationValue);
+      setTimeout(() => ref.current?.resume(), 1000);
     }
     setCurrentText("");
   }, [isWithinRadius]);
@@ -49,6 +54,7 @@ const HomeModule = () => {
       const newLocation = JSON.parse(decryptedData);
 
       if (newLocation.latitude && newLocation.longitude) {
+        ref.current?.pause(true);
         setStoreLocation({
           latitude: newLocation.latitude,
           longitude: newLocation.longitude,
