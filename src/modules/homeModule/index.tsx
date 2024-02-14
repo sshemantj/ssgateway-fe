@@ -24,26 +24,23 @@ const HomeModule = () => {
   const router = useRouter();
   const [distance, setDistance] = useState<number>(100);
   const [storeLocation, setStoreLocation] = useState<IStoreLocation>({
-    latitude: 19.176755323457076,
-    longitude: 72.83375854373317,
+    latitude: null,
+    longitude: null,
   });
 
-  // useEffect(() => {
-  //   forceRerender({});
-  //   if (isWithinRadius) {
-  //     toast.success("Store qr-code scan complete!");
-  //     forceRerender({});
-  //     // setTimeout(
-  //     //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-  //     //   1500
-  //     // );
-  //   } else if (isWithinRadius === false) {
-  //     toast.warn(`Store is not within ${distance}m distance!`);
-  //     // setCurrentText("");
-  //     // ref.current?.resume();
-  //     forceRerender({});
-  //   }
-  // }, [isWithinRadius, distance]);
+  useEffect(() => {
+    if (isWithinRadius) {
+      toast.success("Store qr-code scan complete!");
+      // setTimeout(
+      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+      //   1500
+      // );
+    } else if (isWithinRadius === false) {
+      toast.warn(`Store is not within ${distance}m distance!`);
+      setCurrentText("");
+      ref.current?.resume();
+    }
+  }, [isWithinRadius]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
@@ -66,12 +63,7 @@ const HomeModule = () => {
   const onNewScanResult = (decodedText: string) => {
     if (!currentText) {
       setCurrentText(decodedText);
-      // ref.current?.pause(true);
-      // toast.success("Store qr-code scan complete!");
-      // setTimeout(
-      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-      //   1500
-      // );
+      ref.current?.pause(true);
       handleStoreQrcodeScan(decodedText);
     }
   };
