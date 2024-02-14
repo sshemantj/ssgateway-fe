@@ -19,6 +19,10 @@ const App = () => {
   const { isWithinRadius, currLocation, setStoreDetailsSetup } =
     useWithinRadius();
 
+  useEffect(() => {
+    handleCheckDistance();
+  }, []);
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -27,13 +31,6 @@ const App = () => {
     handleCheckDistance(value);
   };
 
-  useEffect(() => {
-    setStoreDetailsSetup({
-      storeLocation: newLocation,
-      distanceToCalculate: distance,
-    });
-  }, []);
-
   const handleCheckDistance = (distanceToCalculate: number = 100) => {
     if (newLocation.latitude && newLocation.longitude) {
       setStoreDetailsSetup({
@@ -41,7 +38,7 @@ const App = () => {
         distanceToCalculate,
       });
     } else {
-      alert("longitude and latitude is not currect");
+      alert("Enter currect latitude and longitude!");
     }
   };
 
