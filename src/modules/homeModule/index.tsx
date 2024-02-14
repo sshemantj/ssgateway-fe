@@ -30,7 +30,7 @@ const HomeModule = () => {
       // );
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
-      setCurrentText("");
+      // setCurrentText("");
       // ref.current?.resume();
       forceRerender({});
     }
