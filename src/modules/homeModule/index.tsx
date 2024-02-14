@@ -13,7 +13,6 @@ import { decryptString, encryptString } from "@/utils/encryptDecrypt";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
-  const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
   const [distance, setDistance] = useState<number>(100);
@@ -21,20 +20,20 @@ const HomeModule = () => {
 
   console.log(isWithinRadius);
 
-  // useEffect(() => {
-  if (isWithinRadius) {
-    alert(`isWithinRadius = ${isWithinRadius}`);
-    toast.success("Store qr-code scan complete!");
-    console.warn(`it ran`);
-    // setTimeout(
-    //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-    //   1500
-    // );
-  } else if (isWithinRadius === false) {
-    toast.warn(`Store is not within ${distance}m distance!`);
-    // ref.current?.resume();
-  }
-  // }, [isWithinRadius, distance]);
+  useEffect(() => {
+    if (isWithinRadius) {
+      alert(`isWithinRadius = ${isWithinRadius}`);
+      toast.success("Store qr-code scan complete!");
+      console.warn(`it ran`);
+      // setTimeout(
+      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+      //   1500
+      // );
+    } else if (isWithinRadius === false) {
+      toast.warn(`Store is not within ${distance}m distance!`);
+      // ref.current?.resume();
+    }
+  }, [isWithinRadius, distance]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
@@ -62,7 +61,6 @@ const HomeModule = () => {
   ) => {
     if (!currentText) {
       setCurrentText(decodedText);
-      setOpen(true);
       // ref.current?.pause(true);
       handleStoreQrcodeScan(decodedText);
     }
@@ -73,6 +71,7 @@ const HomeModule = () => {
   ) => {
     const value = +event.target.value;
     setDistance(value);
+    handleStoreQrcodeScan(currentText);
   };
 
   return (
