@@ -35,10 +35,10 @@ const HomeModule = () => {
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
-      setTimeout(() => ref.current?.resume(), 1000);
+      // setTimeout(() => ref.current?.resume(), 1000);
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
-      setTimeout(() => ref.current?.resume(), 1000);
+      // setTimeout(() => ref.current?.resume(), 1000);
     }
     setCurrentText("");
   }, [isWithinRadius]);
@@ -64,7 +64,7 @@ const HomeModule = () => {
   const onNewScanResult = (decodedText: string) => {
     if (!currentText) {
       setCurrentText(decodedText);
-      ref.current?.pause(true);
+      // ref.current?.pause(true);
       handleStoreQrcodeScan(decodedText);
     }
   };
