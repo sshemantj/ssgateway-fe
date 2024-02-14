@@ -9,10 +9,6 @@ interface IUseWithinRadius {
     longitude: number | null;
   };
 }
-interface IOverRide {
-  latitude: number;
-  longitude: number;
-}
 
 const useWithinRadius = () => {
   const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
@@ -32,19 +28,22 @@ const useWithinRadius = () => {
       storeLocation.longitude,
     ];
 
-    console.log({ checkArr });
-
     if (!checkArr.includes(null)) {
-      const isGoodToGo = isWithinProvidedRadius({
+      const finalObject = {
         currLocation,
-        storeLocation: storeLocation as IOverRide,
+        storeLocation: {
+          latitude: parseFloat(storeLocation.latitude as unknown as string),
+          longitude: parseFloat(storeLocation.longitude as unknown as string),
+        },
         distanceToCalculate: storeDetailsSetup.distanceToCalculate,
-      });
+      };
+
+      const isGoodToGo = isWithinProvidedRadius(finalObject);
       setIsWithinRadius(isGoodToGo);
     }
   }, [storeDetailsSetup]);
 
-  return [isWithinRadius, setStoreDetailsSetup];
+  return { isWithinRadius, setStoreDetailsSetup };
 };
 
 export default useWithinRadius;
