@@ -17,8 +17,10 @@ const HomeModule = () => {
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
   useEffect(() => {
+    alert(`isWithinRadius = ${isWithinRadius}`);
     if (isWithinRadius) {
       toast.success("Store qr-code scan complete!");
+      alert(`isWithinRadius = ${isWithinRadius}`);
     }
   }, [isWithinRadius]);
 
