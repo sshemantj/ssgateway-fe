@@ -155,7 +155,6 @@ const HomeModule = () => {
       <ToastContainer autoClose={1000} />
       <GetLocationDetails
         {...{
-          currentText,
           storeLocation,
           distanceToCalculate: distance,
           setIsWithinRadius,

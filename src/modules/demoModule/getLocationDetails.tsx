@@ -5,7 +5,6 @@ import { isWithinProvidedRadius } from "@/utils/location";
 interface IGetLocation {
   setIsWithinRadius: React.Dispatch<SetStateAction<boolean | null>>;
   distanceToCalculate: number;
-  currentText: string;
   storeLocation: {
     latitude: number | null;
     longitude: number | null;
@@ -16,7 +15,6 @@ const GetLocationDetails = ({
   setIsWithinRadius,
   storeLocation,
   distanceToCalculate,
-  currentText,
 }: IGetLocation) => {
   const currLocation = useCurrentLocation();
 
@@ -49,13 +47,7 @@ const GetLocationDetails = ({
 
   useEffect(() => {
     handleStoreQrcodeScan();
-  }, [
-    currLocation,
-    currentText,
-    distanceToCalculate,
-    setIsWithinRadius,
-    storeLocation,
-  ]);
+  }, [currLocation, distanceToCalculate, setIsWithinRadius, storeLocation]);
 
   return null;
 };

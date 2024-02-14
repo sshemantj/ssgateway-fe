@@ -29,7 +29,6 @@ const Demo: NextPage = () => {
               latitude: 19.176755323457076,
               longitude: 72.83375854373317,
             },
-            currentText: "string",
             distanceToCalculate: 200,
             setIsWithinRadius,
           }}
