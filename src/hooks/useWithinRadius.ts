@@ -41,7 +41,7 @@ const useWithinRadius = () => {
       const isGoodToGo = isWithinProvidedRadius(finalObject);
       setIsWithinRadius(isGoodToGo);
     }
-  }, [storeDetailsSetup]);
+  }, [storeDetailsSetup, currLocation]);
 
   return {
     isWithinRadius,
