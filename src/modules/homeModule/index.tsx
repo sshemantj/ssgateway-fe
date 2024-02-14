@@ -37,9 +37,9 @@ const HomeModule = () => {
       // );
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
-      setCurrentText("");
-      ref.current?.resume();
     }
+    setCurrentText("");
+    ref.current?.resume();
   }, [isWithinRadius]);
 
   const handleStoreQrcodeScan = (data: string) => {
