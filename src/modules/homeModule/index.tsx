@@ -26,7 +26,8 @@ const HomeModule = () => {
   const handleStoreQrcodeScan = (data: string) => {
     console.log(data);
     alert(data);
-    alert(JSON.stringify(data));
+    alert(JSON.stringify(JSON.parse(data)));
+    alert(JSON.parse(data));
     const newLocation = JSON.parse(data);
     if (newLocation.latitude && newLocation.longitude) {
       setStoreDetailsSetup({
@@ -34,7 +35,7 @@ const HomeModule = () => {
         distanceToCalculate: 100,
       });
     } else {
-      alert("Enter currect latitude and longitude!");
+      alert("Scan store Qr-code to get location!");
     }
     // toast.success("Store qr-code scan complete!");
     // setTimeout(
