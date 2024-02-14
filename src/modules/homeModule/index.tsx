@@ -14,8 +14,7 @@ const HomeModule = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
-  const { isWithinRadius, currLocation, setStoreDetailsSetup } =
-    useWithinRadius();
+  const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
   useEffect(() => {
     if (isWithinRadius) {
@@ -24,18 +23,22 @@ const HomeModule = () => {
   }, [isWithinRadius]);
 
   const handleStoreQrcodeScan = (data: string) => {
-    console.log(data);
-    alert(data);
-    alert(JSON.stringify(JSON.parse(data)));
-    alert(JSON.parse(data));
-    const newLocation = JSON.parse(data);
-    if (newLocation.latitude && newLocation.longitude) {
-      setStoreDetailsSetup({
-        storeLocation: newLocation,
-        distanceToCalculate: 100,
-      });
-    } else {
-      alert("Scan store Qr-code to get location!");
+    try {
+      console.log(data);
+      // alert(data);
+      alert(JSON.stringify(JSON.parse(data)));
+      alert(JSON.parse(data));
+      const newLocation = JSON.parse(data);
+      if (newLocation.latitude && newLocation.longitude) {
+        setStoreDetailsSetup({
+          storeLocation: newLocation,
+          distanceToCalculate: 100,
+        });
+      } else {
+        alert("Scan store Qr-code to get location!");
+      }
+    } catch (error: any) {
+      alert(error.message);
     }
     // toast.success("Store qr-code scan complete!");
     // setTimeout(
