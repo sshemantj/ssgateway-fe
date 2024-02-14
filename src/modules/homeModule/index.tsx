@@ -34,7 +34,7 @@ const HomeModule = () => {
       // ref.current?.resume();
       forceRerender({});
     }
-  }, [currentText, isWithinRadius, distance]);
+  }, [isWithinRadius, distance]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
@@ -121,6 +121,10 @@ const HomeModule = () => {
             </MenuItem>
           ))}
         </TextField>
+      </div>
+      <div>
+        <h5>current value: {currentText}</h5>
+        <h3>decrypted value: {decryptString(currentText)}</h3>
       </div>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
