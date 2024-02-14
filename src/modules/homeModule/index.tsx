@@ -132,8 +132,15 @@ const HomeModule = () => {
             gap: "1rem",
           }}
         >
-          <h5>current value: {currentText}</h5>
-          <h3>decrypted value: {currentText && decryptString(currentText)}</h3>
+          <h4>isWithinRadius: {isWithinRadius}</h4>
+          <h5>
+            current value: <br />
+            {currentText}
+          </h5>
+          <h3>
+            decrypted value: <br />
+            {currentText && decryptString(currentText)}
+          </h3>
         </div>
       )}
       {/* <WelcomeScreen /> */}
