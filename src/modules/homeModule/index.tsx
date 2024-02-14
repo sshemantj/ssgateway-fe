@@ -39,11 +39,11 @@ const HomeModule = () => {
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
-      setTimeout(() => ref.current?.resume(), 1000);
+      // setTimeout(() => ref.current?.resume(), 1000);
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
       setStoreLocation(initialLocationValue);
-      setTimeout(() => ref.current?.resume(), 1000);
+      // setTimeout(() => ref.current?.resume(), 1000);
     }
     setCurrentText("");
   }, [isWithinRadius]);
@@ -54,7 +54,7 @@ const HomeModule = () => {
       const newLocation = JSON.parse(decryptedData);
 
       if (newLocation.latitude && newLocation.longitude) {
-        ref.current?.pause(true);
+        // ref.current?.pause(true);
         setStoreLocation({
           latitude: newLocation.latitude,
           longitude: newLocation.longitude,
