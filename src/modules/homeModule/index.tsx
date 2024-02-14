@@ -122,10 +122,20 @@ const HomeModule = () => {
           ))}
         </TextField>
       </div>
-      <div>
-        <h5>current value: {currentText}</h5>
-        <h3>decrypted value: {currentText && decryptString(currentText)}</h3>
-      </div>
+      {currentText && (
+        <div
+          style={{
+            marginTop: "2rem",
+            wordBreak: "break-all",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          <h5>current value: {currentText}</h5>
+          <h3>decrypted value: {currentText && decryptString(currentText)}</h3>
+        </div>
+      )}
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
     </div>
