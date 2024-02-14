@@ -35,6 +35,7 @@ const HomeModule = () => {
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
+      console.warn(data);
       const newLocation = JSON.parse(data);
       if (newLocation.latitude && newLocation.longitude) {
         setStoreDetailsSetup({
