@@ -15,6 +15,7 @@
     "@mui/material": "^5.15.7",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
     "html5-qrcode": "^2.3.8",
     "next": "13.4",
     "qrcode.react": "^3.1.0",
@@ -27,6 +28,7 @@
     "sass": "^1.70.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

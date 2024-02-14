@@ -9,6 +9,7 @@ import { Grid, MenuItem, Paper, TextField } from "@mui/material";
 import styles from "./homemodule.module.scss";
 import useWithinRadius from "@/hooks/useWithinRadius";
 import { meterRadiusArr } from "@/constants/locationConstants";
+import { decryptString, encryptString } from "@/utils/encryptDecrypt";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
@@ -17,6 +18,12 @@ const HomeModule = () => {
   const router = useRouter();
   const [distance, setDistance] = useState<number>(100);
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
+
+  console.log(
+    encryptString(
+      '{"name":"Shopperstop Headquarter","latitude":"19.176755323457076","longitude":"72.83375854373317"}'
+    )
+  );
 
   useEffect(() => {
     if (isWithinRadius) {
@@ -35,8 +42,11 @@ const HomeModule = () => {
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
+      const decryptedData = decryptString(data);
       alert(data);
-      const newLocation = JSON.parse(data);
+      alert(decryptedData);
+      const newLocation = JSON.parse(decryptedData);
+
       if (newLocation.latitude && newLocation.longitude) {
         setStoreDetailsSetup({
           storeLocation: newLocation,
