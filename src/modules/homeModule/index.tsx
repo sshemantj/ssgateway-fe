@@ -31,11 +31,11 @@ const HomeModule = () => {
       toast.warn(`Store is not within ${distance}m distance!`);
       ref.current?.resume();
     }
-  }, [isWithinRadius]);
+  }, [isWithinRadius, distance]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
-      console.warn(data);
+      alert(data);
       const newLocation = JSON.parse(data);
       if (newLocation.latitude && newLocation.longitude) {
         setStoreDetailsSetup({
