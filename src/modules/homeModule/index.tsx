@@ -19,11 +19,7 @@ const HomeModule = () => {
   const [distance, setDistance] = useState<number>(100);
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
-  console.log(
-    encryptString(
-      '{"name":"Shopperstop Headquarter","latitude":"19.176755323457076","longitude":"72.83375854373317"}'
-    )
-  );
+  console.log(isWithinRadius);
 
   useEffect(() => {
     if (isWithinRadius) {
