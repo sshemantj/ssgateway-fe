@@ -43,7 +43,11 @@ const useWithinRadius = () => {
     }
   }, [storeDetailsSetup]);
 
-  return { isWithinRadius, setStoreDetailsSetup };
+  return {
+    isWithinRadius,
+    currLocation,
+    setStoreDetailsSetup,
+  };
 };
 
 export default useWithinRadius;
