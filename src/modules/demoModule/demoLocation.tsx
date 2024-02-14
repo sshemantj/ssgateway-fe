@@ -191,7 +191,9 @@ const App = () => {
               </p>
             </div>
           ) : (
-            <p>Enter latitude and longitude to compare location...</p>
+            <p style={{ margin: "0 1rem" }}>
+              Enter latitude and longitude to compare location...
+            </p>
           )}
         </div>
       </div>
