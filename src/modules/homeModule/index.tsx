@@ -7,17 +7,26 @@ import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import { Grid, MenuItem, Paper, TextField } from "@mui/material";
 import styles from "./homemodule.module.scss";
+import GetLocationDetails from "../demoModule/getLocationDetails";
 // import useWithinRadius from "@/hooks/useWithinRadius";
-// import { meterRadiusArr } from "@/constants/locationConstants";
-// import { decryptString, encryptString } from "@/utils/encryptDecrypt";
+import { meterRadiusArr } from "@/constants/locationConstants";
+import { decryptString } from "@/utils/encryptDecrypt";
+
+interface IStoreLocation {
+  latitude: number | null;
+  longitude: number | null;
+}
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const ref = useRef<Html5QrcodeScanner | null>(null);
+  const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
   const router = useRouter();
-  // const [distance, setDistance] = useState<number>(100);
-  // const [, forceRerender] = useState({});
-  // const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
+  const [distance, setDistance] = useState<number>(100);
+  const [storeLocation, setStoreLocation] = useState<IStoreLocation>({
+    latitude: 19.176755323457076,
+    longitude: 72.83375854373317,
+  });
 
   // useEffect(() => {
   //   forceRerender({});
@@ -36,48 +45,43 @@ const HomeModule = () => {
   //   }
   // }, [isWithinRadius, distance]);
 
-  // const handleStoreQrcodeScan = (data: string) => {
-  //   try {
-  //     const decryptedData = decryptString(data);
-  //     const newLocation = JSON.parse(decryptedData);
+  const handleStoreQrcodeScan = (data: string) => {
+    try {
+      const decryptedData = decryptString(data);
+      const newLocation = JSON.parse(decryptedData);
 
-  //     if (newLocation.latitude && newLocation.longitude) {
-  //       setStoreDetailsSetup({
-  //         storeLocation: newLocation,
-  //         distanceToCalculate: distance,
-  //       });
-  //     } else {
-  //       alert("Scan store Qr-code to get location!");
-  //     }
-  //   } catch (error: any) {
-  //     alert(`Error ${error.message}`);
-  //   }
-  // };
-
-  const onNewScanResult = (
-    decodedText: string,
-    decodedResult: Html5QrcodeResult
-  ) => {
-    if (!currentText) {
-      setCurrentText(decodedText);
-      ref.current?.pause(true);
-      toast.success("Store qr-code scan complete!");
-      setTimeout(
-        () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-        1500
-      );
-      // handleStoreQrcodeScan(decodedText);
-      // forceRerender({});
+      if (newLocation.latitude && newLocation.longitude) {
+        setStoreLocation({
+          latitude: newLocation.latitude,
+          longitude: newLocation.longitude,
+        });
+      } else {
+        alert("Scan store Qr-code to get location!");
+      }
+    } catch (error: any) {
+      alert(`Error ${error.message}`);
     }
   };
 
-  // const handleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   const value = +event.target.value;
-  //   setDistance(value);
-  //   handleStoreQrcodeScan(currentText);
-  // };
+  const onNewScanResult = (decodedText: string) => {
+    if (!currentText) {
+      setCurrentText(decodedText);
+      // ref.current?.pause(true);
+      // toast.success("Store qr-code scan complete!");
+      // setTimeout(
+      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+      //   1500
+      // );
+      handleStoreQrcodeScan(decodedText);
+    }
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = +event.target.value;
+    setDistance(value);
+  };
 
   return (
     <div className={styles.homeWrapper}>
@@ -105,7 +109,8 @@ const HomeModule = () => {
           showZoomSliderIfSupported={true}
         />
       </div>
-      {/* <div
+
+      <div
         style={{
           marginTop: "1rem",
           display: "flex",
@@ -127,29 +132,35 @@ const HomeModule = () => {
           ))}
         </TextField>
       </div>
-      {currentText && (
-        <div
-          style={{
-            marginTop: "2rem",
-            wordBreak: "break-all",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
-          <h4>isWithinRadius: {isWithinRadius}</h4>
-          <h5>
-            current value: <br />
-            {currentText}
-          </h5>
-          <h3>
-            decrypted value: <br />
-            {currentText && decryptString(currentText)}
-          </h3>
-        </div>
-      )} */}
-      {/* <WelcomeScreen /> */}
+      {/* {currentText && ( */}
+      <div
+        style={{
+          marginTop: "2rem",
+          wordBreak: "break-all",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+        }}
+      >
+        <h4>isWithinRadius: {`${isWithinRadius}`}</h4>
+        <h5>
+          current value: <br />
+          {currentText}
+        </h5>
+        <h3>
+          decrypted value: <br />
+          {currentText && decryptString(currentText)}
+        </h3>
+      </div>
+      {/* )} */}
       <ToastContainer autoClose={1000} />
+      <GetLocationDetails
+        {...{
+          storeLocation,
+          distanceToCalculate: distance,
+          setIsWithinRadius,
+        }}
+      />
     </div>
   );
 };
