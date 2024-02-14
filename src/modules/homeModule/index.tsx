@@ -68,11 +68,11 @@ const HomeModule = () => {
   };
 
   const onNewScanResult = (decodedText: string) => {
-    if (!currentText) {
-      setCurrentText(decodedText);
-      // ref.current?.pause(true);
-      handleStoreQrcodeScan(decodedText);
-    }
+    // if (!currentText) {
+    setCurrentText(decodedText);
+    // ref.current?.pause(true);
+    handleStoreQrcodeScan(decodedText);
+    // }
   };
 
   const handleChange = (
