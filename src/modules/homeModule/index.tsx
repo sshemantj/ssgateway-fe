@@ -35,11 +35,12 @@ const HomeModule = () => {
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
+      ref.current?.resume();
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
+      ref.current?.resume();
     }
     setCurrentText("");
-    ref.current?.resume();
   }, [isWithinRadius]);
 
   const handleStoreQrcodeScan = (data: string) => {
