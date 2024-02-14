@@ -124,7 +124,7 @@ const HomeModule = () => {
       </div>
       <div>
         <h5>current value: {currentText}</h5>
-        <h3>decrypted value: {decryptString(currentText)}</h3>
+        <h3>decrypted value: {currentText && decryptString(currentText)}</h3>
       </div>
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
