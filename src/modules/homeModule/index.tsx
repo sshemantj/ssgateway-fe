@@ -1,58 +1,58 @@
 import React, { ForwardedRef, Ref, useEffect, useRef, useState } from "react";
 import CustomQrcodeScanner from "@/component/molecules/customQrcodeScanner";
-import WelcomeScreen from "@/component/atoms/welcomeScreen";
+// import WelcomeScreen from "@/component/atoms/welcomeScreen";
 import { ToastContainer, toast } from "react-toastify";
 import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import { Grid, MenuItem, Paper, TextField } from "@mui/material";
 import styles from "./homemodule.module.scss";
-import useWithinRadius from "@/hooks/useWithinRadius";
-import { meterRadiusArr } from "@/constants/locationConstants";
-import { decryptString, encryptString } from "@/utils/encryptDecrypt";
+// import useWithinRadius from "@/hooks/useWithinRadius";
+// import { meterRadiusArr } from "@/constants/locationConstants";
+// import { decryptString, encryptString } from "@/utils/encryptDecrypt";
 
 const HomeModule = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
-  const [distance, setDistance] = useState<number>(100);
-  const [, forceRerender] = useState({});
-  const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
+  // const [distance, setDistance] = useState<number>(100);
+  // const [, forceRerender] = useState({});
+  // const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
-  useEffect(() => {
-    forceRerender({});
-    if (isWithinRadius) {
-      toast.success("Store qr-code scan complete!");
-      forceRerender({});
-      // setTimeout(
-      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-      //   1500
-      // );
-    } else if (isWithinRadius === false) {
-      toast.warn(`Store is not within ${distance}m distance!`);
-      // setCurrentText("");
-      // ref.current?.resume();
-      forceRerender({});
-    }
-  }, [isWithinRadius, distance]);
+  // useEffect(() => {
+  //   forceRerender({});
+  //   if (isWithinRadius) {
+  //     toast.success("Store qr-code scan complete!");
+  //     forceRerender({});
+  //     // setTimeout(
+  //     //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+  //     //   1500
+  //     // );
+  //   } else if (isWithinRadius === false) {
+  //     toast.warn(`Store is not within ${distance}m distance!`);
+  //     // setCurrentText("");
+  //     // ref.current?.resume();
+  //     forceRerender({});
+  //   }
+  // }, [isWithinRadius, distance]);
 
-  const handleStoreQrcodeScan = (data: string) => {
-    try {
-      const decryptedData = decryptString(data);
-      const newLocation = JSON.parse(decryptedData);
+  // const handleStoreQrcodeScan = (data: string) => {
+  //   try {
+  //     const decryptedData = decryptString(data);
+  //     const newLocation = JSON.parse(decryptedData);
 
-      if (newLocation.latitude && newLocation.longitude) {
-        setStoreDetailsSetup({
-          storeLocation: newLocation,
-          distanceToCalculate: distance,
-        });
-      } else {
-        alert("Scan store Qr-code to get location!");
-      }
-    } catch (error: any) {
-      alert(`Error ${error.message}`);
-    }
-  };
+  //     if (newLocation.latitude && newLocation.longitude) {
+  //       setStoreDetailsSetup({
+  //         storeLocation: newLocation,
+  //         distanceToCalculate: distance,
+  //       });
+  //     } else {
+  //       alert("Scan store Qr-code to get location!");
+  //     }
+  //   } catch (error: any) {
+  //     alert(`Error ${error.message}`);
+  //   }
+  // };
 
   const onNewScanResult = (
     decodedText: string,
@@ -60,19 +60,24 @@ const HomeModule = () => {
   ) => {
     if (!currentText) {
       setCurrentText(decodedText);
-      // ref.current?.pause(true);
-      handleStoreQrcodeScan(decodedText);
-      forceRerender({});
+      ref.current?.pause(true);
+      toast.success("Store qr-code scan complete!");
+      setTimeout(
+        () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+        1500
+      );
+      // handleStoreQrcodeScan(decodedText);
+      // forceRerender({});
     }
   };
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const value = +event.target.value;
-    setDistance(value);
-    handleStoreQrcodeScan(currentText);
-  };
+  // const handleChange = (
+  //   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   const value = +event.target.value;
+  //   setDistance(value);
+  //   handleStoreQrcodeScan(currentText);
+  // };
 
   return (
     <div className={styles.homeWrapper}>
@@ -100,7 +105,7 @@ const HomeModule = () => {
           showZoomSliderIfSupported={true}
         />
       </div>
-      <div
+      {/* <div
         style={{
           marginTop: "1rem",
           display: "flex",
@@ -142,7 +147,7 @@ const HomeModule = () => {
             {currentText && decryptString(currentText)}
           </h3>
         </div>
-      )}
+      )} */}
       {/* <WelcomeScreen /> */}
       <ToastContainer autoClose={1000} />
     </div>
