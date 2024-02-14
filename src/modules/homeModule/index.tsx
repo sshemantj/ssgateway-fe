@@ -34,7 +34,7 @@ const HomeModule = () => {
       // ref.current?.resume();
       forceRerender({});
     }
-  }, [isWithinRadius, distance]);
+  }, [currentText, isWithinRadius, distance]);
 
   const handleStoreQrcodeScan = (data: string) => {
     try {
