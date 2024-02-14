@@ -16,6 +16,7 @@ const HomeModule = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
   const [distance, setDistance] = useState<number>(100);
+  const [, forceRerender] = useState({});
   const { isWithinRadius, setStoreDetailsSetup } = useWithinRadius();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const HomeModule = () => {
     } else if (isWithinRadius === false) {
       toast.warn(`Store is not within ${distance}m distance!`);
       ref.current?.resume();
+      forceRerender({});
     }
   }, [isWithinRadius, distance]);
 
@@ -57,6 +59,7 @@ const HomeModule = () => {
       setCurrentText(decodedText);
       ref.current?.pause(true);
       handleStoreQrcodeScan(decodedText);
+      forceRerender({});
     }
   };
 
