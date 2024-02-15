@@ -35,9 +35,12 @@
 }
 
 #html5qr-code-full-region__2 {
-  transform: scaleX(-1);
   #html5qr-code-full-region__2__header_message {
     display: none !important;
+  }
+
+  #html5qr-code-full-region__2__scan_region {
+    transform: scaleX(-1);
   }
 
   #html5qr-code-full-region__2__dashboard_section_csr {

@@ -35,9 +35,12 @@
 }
 
 #html5qr-code-full-region {
-  transform: scaleX(-1);
   #qr-shaded-region {
     border-width: 130px 30px !important;
+  }
+
+  #html5qr-code-full-region__scan_region {
+    transform: scaleX(-1);
   }
 
   #html5qr-code-full-region__header_message {
