@@ -9,15 +9,18 @@ import GetLocationDetails from "@/modules/demoModule/getLocationDetails";
 import CustomQrcodeScanner from "@/component/molecules/customQrcodeScanner";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { decryptString } from "@/utils/encryptDecrypt";
+import { ToastContainer, toast } from "react-toastify";
 
 interface IStoreLocation {
   latitude: number | null;
   longitude: number | null;
+  name: string | null;
 }
 
 const initialLocationValue = {
   latitude: null,
   longitude: null,
+  name: null,
 };
 
 const Demo: NextPage = () => {
@@ -26,6 +29,7 @@ const Demo: NextPage = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const [storeLocation, setStoreLocation] =
     useState<IStoreLocation>(initialLocationValue);
+  const [distance, setDistance] = useState<number>(200);
 
   useEffect(() => {
     dispatch(hideBackNavbar());
@@ -45,6 +49,17 @@ const Demo: NextPage = () => {
     const newLocation = JSON.parse(decryptedData);
     return newLocation;
   };
+
+  useEffect(() => {
+    if (isWithinRadius) {
+      toast.success(`${storeLocation.name} store qr-code scan successfull!`);
+    }
+    if (isWithinRadius !== null) {
+      toast.success(
+        `${storeLocation.name} store is not within ${distance}m range!`
+      );
+    }
+  }, [isWithinRadius]);
 
   return (
     <>
@@ -68,11 +83,13 @@ const Demo: NextPage = () => {
             showZoomSliderIfSupported={true}
           />
         </div>
-        <h2>isWithinRadius : {`${isWithinRadius}`}</h2>
+        <h2>
+          isWithin {`${distance}`} Radius : {`${isWithinRadius}`}
+        </h2>
         <GetLocationDetails
           {...{
             storeLocation,
-            distanceToCalculate: 200,
+            distanceToCalculate: distance,
             setIsWithinRadius,
             // storeLocation: {
             //   latitude: 19.176755323457076,
@@ -81,6 +98,7 @@ const Demo: NextPage = () => {
           }}
         />
       </main>
+      <ToastContainer autoClose={1000} />
     </>
   );
 };
