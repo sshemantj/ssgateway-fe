@@ -54,9 +54,7 @@ const HomeModule = () => {
       );
     }
     if (isWithinRadius === false) {
-      toast.error(
-        `${storeLocation.name} store is not within ${distance}m range!`
-      );
+      toast.error(`Store is not within ${distance}m range!`);
     }
 
     if (TIMEOUT) clearTimeout(TIMEOUT);
