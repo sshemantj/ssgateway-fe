@@ -25,7 +25,6 @@ const initialLocationValue = {
 };
 
 const HomeModule = () => {
-  const [currentText, setCurrentText] = useState<string>("");
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
   const router = useRouter();
@@ -122,7 +121,7 @@ const HomeModule = () => {
         </h2>
         <h3>
           decrypted value: <br />
-          {currentText && decryptString(currentText)}
+          {JSON.stringify(storeLocation)}
         </h3>
       </div>
       <GetLocationDetails
