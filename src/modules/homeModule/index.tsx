@@ -24,6 +24,8 @@ const initialLocationValue = {
   name: null,
 };
 
+let TIMEOUT: NodeJS.Timeout;
+
 const HomeModule = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
@@ -56,6 +58,12 @@ const HomeModule = () => {
         `${storeLocation.name} store is not within ${distance}m range!`
       );
     }
+
+    if (TIMEOUT) clearTimeout(TIMEOUT);
+
+    TIMEOUT = setTimeout(() => {
+      setIsWithinRadius(null);
+    }, 1500);
   }, [isWithinRadius]);
 
   const handleChange = (
