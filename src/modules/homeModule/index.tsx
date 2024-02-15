@@ -110,7 +110,7 @@ const HomeModule = () => {
           id="outlined-select-currency"
           select
           label="Select"
-          helperText="select your dinstance in meters"
+          // helperText="select your dinstance in meters"
           value={distance}
           onChange={(e) => handleChange(e)}
         >
@@ -121,7 +121,7 @@ const HomeModule = () => {
           ))}
         </TextField>
       </div>
-      <div
+      {/* <div
         style={{
           padding: "0 1rem",
           marginTop: "2rem",
@@ -139,7 +139,7 @@ const HomeModule = () => {
           decrypted value: <br />
           {JSON.stringify(storeLocation, null, 2)}
         </h3>
-      </div>
+      </div> */}
       <GetLocationDetails
         {...{
           storeLocation,
