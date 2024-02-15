@@ -65,10 +65,7 @@
     margin-top: 1rem;
     padding: 0.4rem 0.8rem;
     font-size: 0.7rem;
-    // @media screen and (max-width: 768px) {
-    //   animation: animate-this 1s ease;
-    //   transform: translateX(-60%);
-    // }
+    animation: animate-this 1s ease;
     @media screen and (max-width: 768px) {
       transform: translateX(-60%);
     }
@@ -76,10 +73,16 @@
 
   @keyframes animate-this {
     0% {
-      visibility: hidden;
+      transform: scale(0);
+    }
+    25% {
+      transform: scale(0);
+    }
+    75% {
+      transform: scale(0);
     }
     100% {
-      visibility: visible;
+      transform: scale(1);
     }
   }
 
