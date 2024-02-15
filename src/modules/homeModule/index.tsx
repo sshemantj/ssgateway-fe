@@ -62,8 +62,8 @@ const HomeModule = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const value = +event.target.value;
-    setDistance(value);
     setIsWithinRadius(null);
+    setDistance(value);
   };
 
   return (
