@@ -76,18 +76,16 @@ const HomeModule = () => {
 
   return (
     <div className={styles.homeWrapper}>
-      <Paper>
-        <Grid
-          container
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <div className={styles.headingWrapper}>
-            <p>Scan store QR-code to continue</p>
-          </div>
-        </Grid>
-      </Paper>
+      <Grid
+        container
+        direction={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <div className={styles.headingWrapper}>
+          <p>Scan store QR-code to continue</p>
+        </div>
+      </Grid>
       <div className={styles.qrCodeScanWrapper}>
         <CustomQrcodeScanner
           ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
