@@ -123,10 +123,12 @@ const HomeModule = () => {
       </div>
       <div
         style={{
+          padding: "0 1rem",
           marginTop: "2rem",
           wordBreak: "break-all",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
           gap: "1rem",
         }}
       >
@@ -135,7 +137,7 @@ const HomeModule = () => {
         </h2>
         <h3>
           decrypted value: <br />
-          {JSON.stringify(storeLocation)}
+          {JSON.stringify(storeLocation, null, 2)}
         </h3>
       </div>
       <GetLocationDetails
