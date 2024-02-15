@@ -101,12 +101,14 @@ const HomeModule = () => {
 
       <div
         style={{
-          // marginTop: "1rem",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <TextField
+          style={{ width: "12rem" }}
           id="outlined-select-currency"
           select
           label="Select"
