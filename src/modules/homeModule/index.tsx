@@ -63,7 +63,7 @@ const HomeModule = () => {
 
     TIMEOUT = setTimeout(() => {
       setIsWithinRadius(null);
-    }, 1500);
+    }, 3000);
   }, [isWithinRadius]);
 
   const handleChange = (
