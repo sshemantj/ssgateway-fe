@@ -29,7 +29,7 @@ const HomeModule = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
   const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
   const router = useRouter();
-  const [distance, setDistance] = useState<number>(100);
+  const [distance, setDistance] = useState<number>(200);
   const [storeLocation, setStoreLocation] =
     useState<IStoreLocation>(initialLocationValue);
 
