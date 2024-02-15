@@ -131,7 +131,7 @@ const HomeModule = () => {
           setIsWithinRadius,
         }}
       />
-      <ToastContainer autoClose={1000} />
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
