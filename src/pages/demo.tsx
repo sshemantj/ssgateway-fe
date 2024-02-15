@@ -38,10 +38,6 @@ const Demo: NextPage = () => {
   const onNewScanResult = (result: string) => {
     const decodedObj = getDecodedQrResult(result);
     setStoreLocation(decodedObj);
-    // if (!currentText) {
-    // ref.current?.pause(true);
-    // handleStoreQrcodeScan(decodedText);
-    // }
   };
 
   const getDecodedQrResult = (encoded: string) => {

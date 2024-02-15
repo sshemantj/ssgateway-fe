@@ -4,7 +4,6 @@ import { NextPage } from "next";
 import Navbar from "@/component/molecules/Navbar";
 import Head from "next/head";
 import { useRef } from "react";
-import GetRefButton from "@/component/atoms/getRefButton";
 
 const Home: NextPage = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
       <main ref={ref} className={`${styles.main}`}>
         <HomeModule />
       </main>
-      {/* <GetRefButton ref={ref} /> */}
     </>
   );
 };

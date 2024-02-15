@@ -15,11 +15,13 @@ import { decryptString } from "@/utils/encryptDecrypt";
 interface IStoreLocation {
   latitude: number | null;
   longitude: number | null;
+  name: string | null;
 }
 
 const initialLocationValue = {
   latitude: null,
   longitude: null,
+  name: null,
 };
 
 const HomeModule = () => {
@@ -31,56 +33,31 @@ const HomeModule = () => {
   const [storeLocation, setStoreLocation] =
     useState<IStoreLocation>(initialLocationValue);
 
+  const onNewScanResult = (result: string) => {
+    const decodedObj = getDecodedQrResult(result);
+    setStoreLocation(decodedObj);
+  };
+
+  const getDecodedQrResult = (encoded: string) => {
+    const decryptedData = decryptString(encoded);
+    const newLocation = JSON.parse(decryptedData);
+    return newLocation;
+  };
+
   useEffect(() => {
     if (isWithinRadius) {
-      toast.success("Store qr-code scan complete!");
-      setStoreLocation(initialLocationValue);
+      toast.success(`Store qr-code scan successfull!`);
       // setTimeout(
       //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
       //   1500
       // );
-      // setTimeout(() => ref.current?.resume(), 1000);
-    } else if (isWithinRadius === false) {
-      toast.warn(`Store is not within ${distance}m distance!`);
-      setStoreLocation(initialLocationValue);
-      // setTimeout(() => ref.current?.resume(), 1000);
     }
-    setCurrentText("");
+    if (isWithinRadius === false) {
+      toast.error(
+        `${storeLocation.name} store is not within ${distance}m range!`
+      );
+    }
   }, [isWithinRadius]);
-
-  const handleStoreQrcodeScan = (data: string) => {
-    try {
-      const decryptedData = decryptString(data);
-      const newLocation = JSON.parse(decryptedData);
-
-      if (newLocation.latitude && newLocation.longitude) {
-        // ref.current?.pause(true);
-        setStoreLocation({
-          latitude: newLocation.latitude,
-          longitude: newLocation.longitude,
-        });
-      } else {
-        alert("Scan store Qr-code to get location!");
-      }
-    } catch (error: any) {
-      alert(`Error ${error.message}`);
-    }
-  };
-
-  const onNewScanResult = (decodedText: string) => {
-    // if (!currentText) {
-    setCurrentText(decodedText);
-    // ref.current?.pause(true);
-    handleStoreQrcodeScan(decodedText);
-    // }
-  };
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const value = +event.target.value;
-    setDistance(value);
-  };
 
   return (
     <div className={styles.homeWrapper}>
@@ -109,7 +86,7 @@ const HomeModule = () => {
         />
       </div>
 
-      <div
+      {/* <div
         style={{
           marginTop: "1rem",
           display: "flex",
@@ -130,8 +107,7 @@ const HomeModule = () => {
             </MenuItem>
           ))}
         </TextField>
-      </div>
-      {/* {currentText && ( */}
+      </div> */}
       <div
         style={{
           marginTop: "2rem",
@@ -141,18 +117,14 @@ const HomeModule = () => {
           gap: "1rem",
         }}
       >
-        <h4>isWithinRadius: {`${isWithinRadius}`}</h4>
-        <h5>
-          current value: <br />
-          {currentText}
-        </h5>
+        <h2>
+          isWithin {`${distance}`} Radius : {`${isWithinRadius}`}
+        </h2>
         <h3>
           decrypted value: <br />
           {currentText && decryptString(currentText)}
         </h3>
       </div>
-      {/* )} */}
-      <ToastContainer autoClose={1000} />
       <GetLocationDetails
         {...{
           storeLocation,
@@ -160,6 +132,7 @@ const HomeModule = () => {
           setIsWithinRadius,
         }}
       />
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };
