@@ -58,6 +58,14 @@ const HomeModule = () => {
     }
   }, [isWithinRadius]);
 
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = +event.target.value;
+    setDistance(value);
+    setIsWithinRadius(null);
+  };
+
   return (
     <div className={styles.homeWrapper}>
       <Paper>
@@ -85,7 +93,7 @@ const HomeModule = () => {
         />
       </div>
 
-      {/* <div
+      <div
         style={{
           marginTop: "1rem",
           display: "flex",
@@ -106,7 +114,7 @@ const HomeModule = () => {
             </MenuItem>
           ))}
         </TextField>
-      </div> */}
+      </div>
       <div
         style={{
           marginTop: "2rem",
