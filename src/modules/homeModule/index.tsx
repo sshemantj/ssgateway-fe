@@ -48,10 +48,10 @@ const HomeModule = () => {
   useEffect(() => {
     if (isWithinRadius) {
       toast.success(`Store qr-code scan successfull!`);
-      // setTimeout(
-      //   () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
-      //   1500
-      // );
+      setTimeout(
+        () => router.push(processScreenRoutes.PROCESS_SCANNER_SCREEN),
+        1500
+      );
     }
     if (isWithinRadius === false) {
       toast.error(
