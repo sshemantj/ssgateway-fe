@@ -54,7 +54,7 @@ const Demo: NextPage = () => {
     if (isWithinRadius) {
       toast.success(`${storeLocation.name} store qr-code scan successfull!`);
     }
-    if (isWithinRadius !== null) {
+    if (isWithinRadius === false) {
       toast.error(
         `${storeLocation.name} store is not within ${distance}m range!`
       );
