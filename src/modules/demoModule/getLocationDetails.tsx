@@ -47,7 +47,7 @@ const GetLocationDetails = ({
 
   useEffect(() => {
     handleStoreQrcodeScan();
-  }, [currLocation, distanceToCalculate, setIsWithinRadius, storeLocation]);
+  }, [currLocation, setIsWithinRadius, storeLocation]);
 
   return null;
 };

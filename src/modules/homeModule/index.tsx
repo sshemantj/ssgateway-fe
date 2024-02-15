@@ -101,7 +101,7 @@ const HomeModule = () => {
 
       <div
         style={{
-          marginTop: "1rem",
+          // marginTop: "1rem",
           display: "flex",
           justifyContent: "center",
         }}
