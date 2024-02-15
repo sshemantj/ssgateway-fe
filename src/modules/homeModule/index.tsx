@@ -11,6 +11,7 @@ import GetLocationDetails from "../demoModule/getLocationDetails";
 // import useWithinRadius from "@/hooks/useWithinRadius";
 import { meterRadiusArr } from "@/constants/locationConstants";
 import { decryptString } from "@/utils/encryptDecrypt";
+import useWithinRadius from "@/hooks/useWithinRadius";
 
 interface IStoreLocation {
   latitude: number | null;
@@ -28,11 +29,20 @@ let TIMEOUT: NodeJS.Timeout;
 
 const HomeModule = () => {
   const ref = useRef<Html5QrcodeScanner | null>(null);
-  const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
+  // const [isWithinRadius, setIsWithinRadius] = useState<boolean | null>(null);
   const router = useRouter();
   const [distance, setDistance] = useState<number>(200);
   const [storeLocation, setStoreLocation] =
     useState<IStoreLocation>(initialLocationValue);
+  const { isWithinRadius, setIsWithinRadius, setStoreDetailsSetup } =
+    useWithinRadius();
+
+  useEffect(() => {
+    setStoreDetailsSetup({
+      distanceToCalculate: distance,
+      storeLocation: storeLocation,
+    });
+  }, [storeLocation]);
 
   const onNewScanResult = (result: string) => {
     const decodedObj = getDecodedQrResult(result);
@@ -140,13 +150,13 @@ const HomeModule = () => {
           {JSON.stringify(storeLocation, null, 2)}
         </h3>
       </div> */}
-      <GetLocationDetails
+      {/* <GetLocationDetails
         {...{
           storeLocation,
           distanceToCalculate: distance,
           setIsWithinRadius,
         }}
-      />
+      /> */}
       <ToastContainer autoClose={3000} />
     </div>
   );

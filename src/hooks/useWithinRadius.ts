@@ -19,34 +19,43 @@ const useWithinRadius = () => {
 
   const currLocation = useCurrentLocation();
 
-  useEffect(() => {
+  const handleStoreQrcodeScan = () => {
     const { storeLocation } = storeDetailsSetup;
-    const checkArr = [
-      currLocation.latitude,
-      currLocation.longitude,
-      storeLocation.latitude,
-      storeLocation.longitude,
-    ];
+    try {
+      const checkArr = [
+        currLocation.latitude,
+        currLocation.longitude,
+        storeLocation.latitude,
+        storeLocation.longitude,
+      ];
 
-    if (!checkArr.includes(null)) {
-      const finalObject = {
-        currLocation,
-        storeLocation: {
-          latitude: parseFloat(storeLocation.latitude as unknown as string),
-          longitude: parseFloat(storeLocation.longitude as unknown as string),
-        },
-        distanceToCalculate: storeDetailsSetup.distanceToCalculate,
-      };
+      if (!checkArr.includes(null)) {
+        const finalObject = {
+          currLocation,
+          storeLocation: {
+            latitude: parseFloat(storeLocation.latitude as unknown as string),
+            longitude: parseFloat(storeLocation.longitude as unknown as string),
+          },
+          distanceToCalculate: storeDetailsSetup.distanceToCalculate,
+        };
 
-      const isGoodToGo = isWithinProvidedRadius(finalObject);
-      setIsWithinRadius(isGoodToGo);
+        const isGoodToGo = isWithinProvidedRadius(finalObject);
+        setIsWithinRadius(isGoodToGo);
+      }
+    } catch (error: any) {
+      alert(`Error ${error.message}`);
     }
-  }, [storeDetailsSetup, currLocation]);
+  };
+
+  useEffect(() => {
+    handleStoreQrcodeScan();
+  }, [storeDetailsSetup.storeLocation, currLocation, setIsWithinRadius]);
 
   return {
     isWithinRadius,
     currLocation,
     setStoreDetailsSetup,
+    setIsWithinRadius,
   };
 };
 
