@@ -82,6 +82,17 @@ const HomeModule = () => {
     setDistance(value);
   };
 
+  useEffect(() => {
+    const handleStartCamera = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true });
+      } catch (err: any) {
+        console.log(err.message || "Failed to access camera.");
+      }
+    };
+    handleStartCamera();
+  }, []);
+
   return (
     <div className={styles.homeWrapper}>
       <Grid
