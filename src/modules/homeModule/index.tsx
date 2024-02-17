@@ -45,8 +45,10 @@ const HomeModule = () => {
   }, [storeLocation]);
 
   const onNewScanResult = (result: string) => {
-    const decodedObj = getDecodedQrResult(result);
-    setStoreLocation(decodedObj);
+    const newLocation = JSON.parse(result);
+    setStoreLocation(newLocation);
+    // const decodedObj = getDecodedQrResult(result);
+    // setStoreLocation(decodedObj);
   };
 
   const getDecodedQrResult = (encoded: string) => {
@@ -142,7 +144,7 @@ const HomeModule = () => {
           ))}
         </TextField>
       </div>
-      {/* <div
+      <div
         style={{
           padding: "0 1rem",
           marginTop: "2rem",
@@ -160,7 +162,7 @@ const HomeModule = () => {
           decrypted value: <br />
           {JSON.stringify(storeLocation, null, 2)}
         </h3>
-      </div> */}
+      </div>
       {/* <GetLocationDetails
         {...{
           storeLocation,
