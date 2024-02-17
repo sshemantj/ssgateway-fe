@@ -6,12 +6,12 @@ import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
 import { processScreenRoutes } from "@/constants/allRoutes";
 import { useRouter } from "next/router";
 import { Grid, MenuItem, Paper, TextField } from "@mui/material";
-import styles from "./homemodule.module.scss";
 import GetLocationDetails from "../demoModule/getLocationDetails";
 // import useWithinRadius from "@/hooks/useWithinRadius";
 import { meterRadiusArr } from "@/constants/locationConstants";
 import { decryptString } from "@/utils/encryptDecrypt";
 import useWithinRadius from "@/hooks/useWithinRadius";
+import styles from "./homemodule.module.scss";
 
 interface IStoreLocation {
   latitude: number | null;
