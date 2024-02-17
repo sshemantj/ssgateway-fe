@@ -5,6 +5,8 @@ import {
   Html5QrcodeScanner,
   QrcodeErrorCallback,
   QrcodeSuccessCallback,
+  Html5Qrcode,
+  Html5QrcodeSupportedFormats,
 } from "html5-qrcode";
 
 interface ICustomQrcodeScanner {
@@ -57,29 +59,38 @@ const CustomQrcodeScanner = React.forwardRef<
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
-    const newRef = ref as React.MutableRefObject<Html5QrcodeScanner | null>;
+    const newRef = ref as React.MutableRefObject<Html5Qrcode | null>;
     if (newRef && newRef.current === null) {
-      newRef.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
+      newRef.current = new Html5Qrcode(qrcodeRegionId, {
+        useBarCodeDetectorIfSupported: true,
+        verbose: true,
+        // formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
+      });
     }
     const html5QrcodeScanner = newRef.current;
 
     setTimeout(() => {
       const container = document.getElementById(qrcodeRegionId);
       if (html5QrcodeScanner && container?.innerHTML == "") {
-        html5QrcodeScanner.render(
+        html5QrcodeScanner.start(
+          { facingMode: "user" },
+          config,
           props.qrCodeSuccessCallback,
           props.qrCodeErrorCallback
         );
       }
     }, 0);
 
-    return () => {
-      if (html5QrcodeScanner) {
-        html5QrcodeScanner.clear().catch((error: any) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
-      }
-    };
+    // return () => {
+    //   if (html5QrcodeScanner) {
+    //     html5QrcodeScanner.clear().catch((error: any) => {
+    //       console.error("Failed to clear html5QrcodeScanner. ", error);
+    //     });
+    //   }
+    // };
   }, []);
 
   return <div id={qrcodeRegionId} />;
