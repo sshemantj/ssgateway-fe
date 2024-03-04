@@ -13,7 +13,11 @@ const CustomButton = (props: ICustomButton) => {
   const { variant = "dark", children, style = {}, disabled = false } = props;
 
   return (
-    <Button disabled={disabled} style={style} className={`${styles[variant]}`}>
+    <Button
+      disabled={disabled}
+      style={style}
+      className={`${styles[variant]} ${disabled && styles.disabled}`}
+    >
       {children}
     </Button>
   );
