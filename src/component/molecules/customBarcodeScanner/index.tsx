@@ -1,12 +1,14 @@
 import React, { ForwardedRef, useEffect, useRef } from "react";
-import styles from "./customBarcode.module.scss";
+import styles from "./CustomQrcodeScanner.module.scss";
+
 import {
   Html5QrcodeScanner,
   QrcodeErrorCallback,
   QrcodeSuccessCallback,
+  Html5Qrcode,
 } from "html5-qrcode";
 
-interface ICustomBarcodeScanner {
+interface ICustomBarCodeScanner {
   fps: number;
   qrbox: number;
   aspectRatio?: string;
@@ -19,13 +21,12 @@ interface ICustomBarcodeScanner {
   qrCodeErrorCallback: QrcodeErrorCallback;
 }
 
-const CustomBarcodeScanner = React.forwardRef<
+const CustomBarCodeScanner = React.forwardRef<
   ForwardedRef<Html5QrcodeScanner | null>,
-  ICustomBarcodeScanner
+  ICustomBarCodeScanner
 >((props, ref) => {
-  const qrcodeRegionId = "html5qr-code-full-region";
-
-  const createConfig = (props: ICustomBarcodeScanner) => {
+  const qrcodeRegionId = "html5qr-code-full-region__barcode";
+  const createConfig = (props: ICustomBarCodeScanner) => {
     const config: any = {};
     const {
       fps,
@@ -43,7 +44,6 @@ const CustomBarcodeScanner = React.forwardRef<
     if (showZoomSliderIfSupported !== undefined)
       config.showZoomSliderIfSupported = showZoomSliderIfSupported;
     config.videoConstraints = {
-      // facingMode: { exact: "user" },
       facingMode: { exact: window.innerWidth > 768 ? "user" : "environment" },
     };
     if (defaultZoomValueIfSupported !== undefined)
@@ -53,39 +53,39 @@ const CustomBarcodeScanner = React.forwardRef<
 
   useEffect(() => {
     const config = createConfig(props);
-    const verbose = props.verbose === true;
 
     if (!props.qrCodeSuccessCallback) {
       throw "qrCodeSuccessCallback is required callback.";
     }
-    const newRef = ref as React.MutableRefObject<Html5QrcodeScanner | null>;
+    const newRef = ref as React.MutableRefObject<Html5Qrcode | null>;
     if (newRef && newRef.current === null) {
-      newRef.current = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
+      newRef.current = new Html5Qrcode(qrcodeRegionId, {
+        useBarCodeDetectorIfSupported: true,
+        verbose: true,
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
+      });
     }
     const html5QrcodeScanner = newRef.current;
 
     setTimeout(() => {
       const container = document.getElementById(qrcodeRegionId);
       if (html5QrcodeScanner && container?.innerHTML == "") {
-        html5QrcodeScanner.render(
+        html5QrcodeScanner.start(
+          { facingMode: window.innerWidth > 768 ? "user" : "environment" },
+          config,
           props.qrCodeSuccessCallback,
           props.qrCodeErrorCallback
         );
       }
     }, 0);
 
-    return () => {
-      if (html5QrcodeScanner) {
-        html5QrcodeScanner.clear().catch((error: any) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
-      }
-    };
   }, []);
 
   return <div id={qrcodeRegionId} />;
 });
 
-CustomBarcodeScanner.displayName = "CustomBarcodeScanner";
+CustomBarCodeScanner.displayName = "CustomBarCodeScanner";
 
-export default CustomBarcodeScanner;
+export default CustomBarCodeScanner;

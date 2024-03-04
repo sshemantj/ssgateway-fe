@@ -1,5 +1,5 @@
 import React, { ForwardedRef, Ref, useRef, useState } from "react";
-import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
+import CustomBarCodeScanner from "@/component/molecules/customBarcodeScanner";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
 import styles from "./scannerScreen.module.scss";
@@ -21,7 +21,7 @@ const ScannerScreen = () => {
 
   return (
     <div className={styles.scannerScreenWrapper}>
-      <CustomBarcodeScanner
+      <CustomBarCodeScanner
         ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
         fps={10}
         qrbox={250}
