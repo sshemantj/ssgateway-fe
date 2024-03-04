@@ -1,9 +1,8 @@
-import React, { ForwardedRef, Ref, useEffect, useRef, useState } from "react";
-import { Grid, Paper } from "@mui/material";
-import styles from "./scannerScreen.module.scss";
+import React, { ForwardedRef, Ref, useRef, useState } from "react";
 import CustomBarcodeScanner from "@/component/molecules/customBarcodeScanner";
-import { Html5QrcodeResult, Html5QrcodeScanner } from "html5-qrcode";
+import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
+import styles from "./scannerScreen.module.scss";
 
 const ScannerScreen = () => {
   const [currentText, setCurrentText] = useState<string>("");
@@ -12,7 +11,6 @@ const ScannerScreen = () => {
 
   const onNewScanResult = (
     decodedText: string,
-    decodedResult: Html5QrcodeResult
   ) => {
     if (!currentText) {
       setCurrentText(decodedText);
@@ -22,7 +20,7 @@ const ScannerScreen = () => {
   };
 
   return (
-    <>
+    <div className={styles.scannerScreenWrapper}>
       <CustomBarcodeScanner
         ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
         fps={10}
@@ -42,38 +40,7 @@ const ScannerScreen = () => {
           camRef: ref,
         }}
       />
-    </>
-    // <div className={styles.scannerScreenWrapper}>
-    //   <Paper>
-    //     <Grid
-    //       container
-    //       direction={"column"}
-    //       justifyContent={"center"}
-    //       alignItems={"center"}
-    //     >
-    //       <p>Scan barcode</p>
-    //       <CustomBarcodeScanner
-    //         ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-    //         fps={10}
-    //         qrbox={250}
-    //         disableFlip={false}
-    //         defaultZoomValueIfSupported={4}
-    //         qrCodeSuccessCallback={onNewScanResult}
-    //         qrCodeErrorCallback={(error) => console.log(error)}
-    //         showZoomSliderIfSupported={true}
-    //       />
-    //       <CustomDrawer
-    //         {...{
-    //           open,
-    //           setOpen,
-    //           data: currentText,
-    //           setCurrentText,
-    //           camRef: ref,
-    //         }}
-    //       />
-    //     </Grid>
-    //   </Paper>
-    // </div>
+    </div>
   );
 };
 
