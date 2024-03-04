@@ -8,10 +8,12 @@ import styles from "./scannerScreen.module.scss";
 const ScannerScreen = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
   const onNewScanResult = (decodedText: string) => {
     if (!currentText) {
+      setDisabled(false);
       setCurrentText(decodedText);
       setOpen(true);
       ref.current?.pause(true);
@@ -42,7 +44,11 @@ const ScannerScreen = () => {
         }}
       />
       <div className={styles.buttonWrapper}>
-        <CustomButton style={{ width: "100%" }} variant="dark">
+        <CustomButton
+          disabled={disabled}
+          style={{ width: "100%" }}
+          variant="dark"
+        >
           ADD ITEMS
         </CustomButton>
       </div>
