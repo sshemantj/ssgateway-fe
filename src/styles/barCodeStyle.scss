@@ -39,6 +39,42 @@
 
   #qr-shaded-region {
     border-width: 180px 50px !important;
+
+    &>div:nth-child(1) {
+      width: 50% !important;
+      background-color: black !important;
+    }
+
+    &>div:nth-child(2) {
+      width: 50% !important;
+      background-color: black !important;
+    }
+
+    &>div:nth-child(3) {
+      width: 50% !important;
+      background-color: black !important;
+    }
+
+    &>div:nth-child(4) {
+      width: 50% !important;
+      background-color: black !important;
+    }
+
+    &>div:nth-child(5) {
+      background-color: black !important;
+    }
+
+    &>div:nth-child(6) {
+      background-color: black !important;
+    }
+
+    &>div:nth-child(7) {
+      background-color: black !important;
+    }
+
+    &>div:nth-child(8) {
+      background-color: black !important;
+    }
   }
 
   #html5qr-code-full-region__scan_region {
