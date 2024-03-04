@@ -44,29 +44,31 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     <nav className={styles.navWrapper}>
       <div className={styles.container}>
         <div className={styles.lhsWrapper}>
-          <div className={styles["menu-icon"]} onClick={() => handleShowNavbar()}>
-            <Image src={hamsvg} alt="hamberger" width={20} height={20} />
-          </div>
-          <Link href={allRoutes.HOME}>
-            <div className={styles.logo}>
-              {isShowNav ? (
-                <Button
-                  variant="text"
-                  color="inherit"
-                  onClick={() => router.back()}
-                >
-                  <KeyboardBackspaceIcon /> <span>back</span>
-                </Button>
-              ) : (
+          {isShowNav ||
+            <div className={styles["menu-icon"]} onClick={() => handleShowNavbar()}>
+              <Image src={hamsvg} alt="hamberger" width={20} height={20} />
+            </div>
+          }
+          <div className={styles.logo}>
+            {isShowNav ? (
+              <Button
+                variant="text"
+                color="inherit"
+                onClick={() => router.back()}
+              >
+                <KeyboardBackspaceIcon /> <span>back</span>
+              </Button>
+            ) : (
+              <Link href={allRoutes.HOME}>
                 <Image
                   width={150}
                   height={100}
                   src={logosvg}
                   alt="logo"
                 />
-              )}
-            </div>
-          </Link>
+              </Link>
+            )}
+          </div>
         </div>
         <div className={styles.rhsWrapper}>
           <div className={styles.searchIcon}>
