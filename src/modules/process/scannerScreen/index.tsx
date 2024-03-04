@@ -2,6 +2,7 @@ import React, { ForwardedRef, Ref, useRef, useState } from "react";
 import CustomBarCodeScanner from "@/component/molecules/customBarcodeScanner";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
+import CustomButton from "@/component/atoms/customButton";
 import styles from "./scannerScreen.module.scss";
 
 const ScannerScreen = () => {
@@ -9,9 +10,7 @@ const ScannerScreen = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<Html5QrcodeScanner | null>(null);
 
-  const onNewScanResult = (
-    decodedText: string,
-  ) => {
+  const onNewScanResult = (decodedText: string) => {
     if (!currentText) {
       setCurrentText(decodedText);
       setOpen(true);
@@ -42,6 +41,11 @@ const ScannerScreen = () => {
           camRef: ref,
         }}
       />
+      <div className={styles.buttonWrapper}>
+        <CustomButton style={{ width: "100%" }} variant="dark">
+          ADD ITEMS
+        </CustomButton>
+      </div>
     </div>
   );
 };
