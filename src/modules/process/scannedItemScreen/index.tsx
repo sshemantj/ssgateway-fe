@@ -7,6 +7,7 @@ import styles from "./scannedItemScreen.module.scss";
 import { useRouter } from "next/router";
 import { allRoutes, processScreenRoutes } from "@/constants/allRoutes";
 import { removeProduct } from "@/store/slices/processSlice";
+import CustomButton from "@/component/atoms/customButton";
 
 const ScannedItemScreen = () => {
   const productState = useAppSelector((state) => state.process.productList);
@@ -35,28 +36,38 @@ const ScannedItemScreen = () => {
 
   return (
     <Grid container className={styles.scannedItemWrapper}>
-      <h1 className={styles.title}>Scanned Items</h1>
-      <Grid item xs={12}>
-        {productState.map((pd, index) => {
-          return (
-            <ProductItem
-              key={index}
-              handleQuantityRemove={handleQuantityRemove}
-              {...pd}
-            />
-          );
-        })}
-      </Grid>
-      <Grid item xs={12}>
-        <Subtotal subTotal={500} tax={50} total={500} />
+      <Grid item xs={12} className={styles.scannedItemContainer}>
+        <p className={styles.title}>Scanned Items</p>
+        <Grid item xs={12}>
+          {productState.map((pd, index) => {
+            return (
+              <ProductItem
+                key={index}
+                handleQuantityRemove={handleQuantityRemove}
+                {...pd}
+              />
+            );
+          })}
+        </Grid>
+        <Grid item xs={12}>
+          <Subtotal subTotal={500} tax={50} total={500} />
+        </Grid>
       </Grid>
       <Grid item xs={12} className={styles.btnWrapper}>
-        <Button onClick={() => handleScanMore()} variant="contained">
+        <CustomButton
+          style={{ fontWeight: 600, width: "100%" }}
+          onClick={() => handleScanMore()}
+          variant="dark"
+        >
           Scan more
-        </Button>
-        <Button onClick={() => handleCheckout()} variant="contained">
+        </CustomButton>
+        <CustomButton
+          style={{ fontWeight: 600, width: "100%" }}
+          onClick={() => handleCheckout()}
+          variant="dark"
+        >
           Check out
-        </Button>
+        </CustomButton>
       </Grid>
     </Grid>
   );

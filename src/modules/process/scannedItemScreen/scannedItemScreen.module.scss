@@ -1,12 +1,29 @@
 .scannedItemWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .title {
-    margin: 1rem 0;
+  .scannedItemContainer {
+    margin: 1rem;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1.5px solid #dbdbdb;
+    .title {
+      padding: 0.5rem 1rem;
+      font-size: 16px;
+      letter-spacing: 2px;
+      line-height: 26px;
+      color: #000;
+      font-weight: bold;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 1.5px solid #dbdbdb;
+      }
+    }
   }
   .btnWrapper {
-    margin: 0.5rem 0 1rem 0;
+    padding: 0 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
