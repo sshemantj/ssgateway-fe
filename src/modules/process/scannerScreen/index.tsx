@@ -22,37 +22,58 @@ const ScannerScreen = () => {
   };
 
   return (
-    <div className={styles.scannerScreenWrapper}>
-      <Paper>
-        <Grid
-          container
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <p>Scan barcode</p>
-          <CustomBarcodeScanner
-            ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-            fps={10}
-            qrbox={250}
-            disableFlip={false}
-            defaultZoomValueIfSupported={4}
-            qrCodeSuccessCallback={onNewScanResult}
-            qrCodeErrorCallback={(error) => console.log(error)}
-            showZoomSliderIfSupported={true}
-          />
-          <CustomDrawer
-            {...{
-              open,
-              setOpen,
-              data: currentText,
-              setCurrentText,
-              camRef: ref,
-            }}
-          />
-        </Grid>
-      </Paper>
-    </div>
+    <>
+      <CustomBarcodeScanner
+        ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+        fps={10}
+        qrbox={250}
+        disableFlip={false}
+        defaultZoomValueIfSupported={4}
+        qrCodeSuccessCallback={onNewScanResult}
+        qrCodeErrorCallback={(error) => console.log(error)}
+        showZoomSliderIfSupported={true}
+      />
+      <CustomDrawer
+        {...{
+          open,
+          setOpen,
+          data: currentText,
+          setCurrentText,
+          camRef: ref,
+        }}
+      />
+    </>
+    // <div className={styles.scannerScreenWrapper}>
+    //   <Paper>
+    //     <Grid
+    //       container
+    //       direction={"column"}
+    //       justifyContent={"center"}
+    //       alignItems={"center"}
+    //     >
+    //       <p>Scan barcode</p>
+    //       <CustomBarcodeScanner
+    //         ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+    //         fps={10}
+    //         qrbox={250}
+    //         disableFlip={false}
+    //         defaultZoomValueIfSupported={4}
+    //         qrCodeSuccessCallback={onNewScanResult}
+    //         qrCodeErrorCallback={(error) => console.log(error)}
+    //         showZoomSliderIfSupported={true}
+    //       />
+    //       <CustomDrawer
+    //         {...{
+    //           open,
+    //           setOpen,
+    //           data: currentText,
+    //           setCurrentText,
+    //           camRef: ref,
+    //         }}
+    //       />
+    //     </Grid>
+    //   </Paper>
+    // </div>
   );
 };
 
