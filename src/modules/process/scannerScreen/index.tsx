@@ -21,16 +21,18 @@ const ScannerScreen = () => {
 
   return (
     <div className={styles.scannerScreenWrapper}>
-      <CustomBarCodeScanner
-        ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
-        fps={10}
-        qrbox={250}
-        disableFlip={false}
-        defaultZoomValueIfSupported={4}
-        qrCodeSuccessCallback={onNewScanResult}
-        qrCodeErrorCallback={(error) => console.log(error)}
-        showZoomSliderIfSupported={true}
-      />
+      <div className={styles.scanContainer}>
+        <CustomBarCodeScanner
+          ref={ref as Ref<ForwardedRef<Html5QrcodeScanner | null>>}
+          fps={10}
+          qrbox={250}
+          disableFlip={false}
+          defaultZoomValueIfSupported={4}
+          qrCodeSuccessCallback={onNewScanResult}
+          qrCodeErrorCallback={(error) => console.log(error)}
+          showZoomSliderIfSupported={true}
+        />
+      </div>
       <CustomDrawer
         {...{
           open,
