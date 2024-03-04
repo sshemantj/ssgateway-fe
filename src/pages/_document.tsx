@@ -1,4 +1,4 @@
-import { logo } from "@/images/logo";
+import { logo } from "@/images/AllDataIcons";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
