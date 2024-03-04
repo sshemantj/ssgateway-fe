@@ -21,7 +21,7 @@ const ScannerScreen = () => {
     if (!currentText) {
       setDisabled(false);
       setCurrentText(decodedText);
-      setOpen(true);
+      // setOpen(true);
       ref.current?.pause(true);
     }
   };
