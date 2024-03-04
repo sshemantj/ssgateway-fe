@@ -7,13 +7,21 @@ interface ICustomButton {
   children: string | JSX.Element;
   style?: React.CSSProperties;
   disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const CustomButton = (props: ICustomButton) => {
-  const { variant = "dark", children, style = {}, disabled = false } = props;
+  const {
+    variant = "dark",
+    children,
+    style = {},
+    disabled = false,
+    onClick = () => {},
+  } = props;
 
   return (
     <Button
+      onClick={onClick}
       disabled={disabled}
       style={style}
       className={`${styles[variant]} ${disabled && styles.disabled}`}

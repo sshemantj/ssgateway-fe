@@ -20,6 +20,7 @@ interface Props {
   data: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentText: React.Dispatch<React.SetStateAction<string>>;
+  handleAddProduct: () => void;
   window?: () => Window;
   camRef: React.MutableRefObject<Html5QrcodeScanner | null>;
 }
@@ -47,7 +48,8 @@ const Puller = styled("div")(({ theme }) => ({
 }));
 
 const CustomDrawer = (props: Props) => {
-  const { window, open, setOpen, data, setCurrentText } = props;
+  const { window, open, setOpen, data, setCurrentText, handleAddProduct } =
+    props;
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -63,12 +65,6 @@ const CustomDrawer = (props: Props) => {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
-  const handleAddProduct = () => {
-    setCurrentText("");
-    dispatch(addProduct({ id: data, name: data }));
-    router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
-  };
 
   const resetAndScanAgain = () => {
     setCurrentText("");

@@ -4,12 +4,18 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import CustomDrawer from "@/component/molecules/CustomDrawer";
 import CustomButton from "@/component/atoms/customButton";
 import styles from "./scannerScreen.module.scss";
+import { useAppDispatch } from "@/store/hooks";
+import { useRouter } from "next/router";
+import { addProduct } from "@/store/slices/processSlice";
+import { processScreenRoutes } from "@/constants/allRoutes";
 
 const ScannerScreen = () => {
   const [currentText, setCurrentText] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const ref = useRef<Html5QrcodeScanner | null>(null);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const onNewScanResult = (decodedText: string) => {
     if (!currentText) {
@@ -18,6 +24,12 @@ const ScannerScreen = () => {
       setOpen(true);
       ref.current?.pause(true);
     }
+  };
+
+  const handleAddProduct = () => {
+    setCurrentText("");
+    dispatch(addProduct({ id: currentText, name: currentText }));
+    router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
   };
 
   return (
@@ -41,10 +53,12 @@ const ScannerScreen = () => {
           data: currentText,
           setCurrentText,
           camRef: ref,
+          handleAddProduct,
         }}
       />
       <div className={styles.buttonWrapper}>
         <CustomButton
+          onClick={() => handleAddProduct()}
           disabled={disabled}
           style={{ width: "100%" }}
           variant="dark"
