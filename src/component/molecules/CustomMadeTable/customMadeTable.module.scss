@@ -1,0 +1,36 @@
+.customMadeTable {
+  table {
+    border-collapse: collapse;
+    height: 100%;
+    width: 100%;
+    border: 1.5px solid #dbdbdb;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    overflow-x: auto;
+    text-transform: capitalize;
+    td {
+      border: 1.5px solid #dbdbdb;
+      padding: 0.5rem;
+    }
+    thead {
+      tr {
+        text-align: center;
+        td {
+          font-weight: 700;
+        }
+      }
+    }
+    tbody {
+      tr {
+        text-align: center;
+        position: relative;
+      }
+    }
+  }
+}

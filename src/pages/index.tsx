@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Scan-&-go!</title>
+        <title>SS-gateway!</title>
       </Head>
       <Navbar />
       <main ref={ref} className={`${styles.main}`}>
