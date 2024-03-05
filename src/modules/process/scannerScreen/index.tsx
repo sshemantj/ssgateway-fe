@@ -28,7 +28,15 @@ const ScannerScreen = () => {
 
   const handleAddProduct = () => {
     setCurrentText("");
-    dispatch(addProduct({ id: currentText, name: currentText }));
+    dispatch(
+      addProduct({
+        id: `${Math.random() * 100}`,
+        name: currentText.length >= 15 ? currentText.slice(0, 15) : currentText,
+        description: "Half Sleeve T-shirt",
+        price: "1,299",
+        discount: null,
+      })
+    );
     router.push(processScreenRoutes.PROCESS_SCANNED_ITEM_SCREEN);
   };
 

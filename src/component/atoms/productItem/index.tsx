@@ -2,6 +2,9 @@ import React from "react";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { IProduct } from "@/store/slices/processSlice";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import Image from "next/image";
+import dummyImg from "@/images/dummyproduct.png";
+import CloseIcon from "@/images/closeIcon.svg";
 import styles from "./productItem.module.scss";
 
 interface IProductItem extends IProduct {
@@ -13,27 +16,37 @@ const ProductItem = ({
   id,
   name,
   quantity,
+  description,
+  price,
+  discount,
   handleQuantityRemove = () => {},
   isSummary = false,
 }: IProductItem) => {
+  const handleRemovePd = () => {};
+
   return (
     <div className={styles.productItemsContainer}>
       <div className={styles.pdImgWrapper}>
-        <InventoryIcon fontSize="large" color="action" />
+        <Image src={dummyImg} alt="dummy product" width={100} height={100} />
       </div>
       <div className={styles.pdDescription}>
-        <h4>ID: {id}</h4>
-        <h4>Name: {name}</h4>
-        <div className={styles.qntRemove}>
-          <h4>Quantity: {quantity}</h4>
-          {isSummary ? null : (
-            <DeleteOutlineIcon
-              onClick={() => handleQuantityRemove(id)}
-              color="error"
-            />
-          )}
+        <div className={styles.descContainer}>
+          <p className={styles.title}>{name}</p>
+          <p className={styles.desc}>{description}</p>
+        </div>
+        <div className={styles.pdPriceWrapper}>
+          <p className={styles.price}>{price}</p>
+          <p className={styles.qnt}>Qty {quantity}</p>
         </div>
       </div>
+      <Image
+        src={CloseIcon}
+        width={15}
+        height={15}
+        className={styles.closeIcon}
+        onClick={() => handleRemovePd()}
+        alt="close icon"
+      />
     </div>
   );
 };

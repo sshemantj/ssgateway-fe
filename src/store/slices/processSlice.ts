@@ -2,9 +2,12 @@ import { handleAddProduct, handleRemoveProduct } from "@/utils/pdMethods";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 export interface IProduct {
-  name: string;
   id: string;
+  name: string;
+  description: string;
+  price: string;
   quantity?: number;
+  discount?: number | null;
 }
 
 type IProcessState = {
