@@ -10,7 +10,7 @@ import styles from "./productItem.module.scss";
 interface IProductItem extends IProduct {
   handleQuantityRemove?: (_: string) => void;
   isSummary?: boolean;
-  handleRemovePd: (_: string) => void;
+  handleRemovePd?: (_: string) => void;
 }
 
 const ProductItem = ({
