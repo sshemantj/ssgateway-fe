@@ -6,7 +6,7 @@ import Subtotal from "@/component/atoms/subtotal";
 import styles from "./scannedItemScreen.module.scss";
 import { useRouter } from "next/router";
 import { allRoutes, processScreenRoutes } from "@/constants/allRoutes";
-import { removeProduct } from "@/store/slices/processSlice";
+import { decreasePdQnt, removeProduct } from "@/store/slices/processSlice";
 import CustomButton from "@/component/atoms/customButton";
 
 const ScannedItemScreen = () => {
@@ -31,6 +31,10 @@ const ScannedItemScreen = () => {
   };
 
   const handleQuantityRemove = (id: string) => {
+    dispatch(decreasePdQnt(id));
+  };
+
+  const handleRemovePd = (id: string) => {
     dispatch(removeProduct(id));
   };
 
@@ -43,8 +47,7 @@ const ScannedItemScreen = () => {
             return (
               <ProductItem
                 key={index}
-                handleQuantityRemove={handleQuantityRemove}
-                {...pd}
+                {...{ handleRemovePd, handleQuantityRemove, ...pd }}
               />
             );
           })}

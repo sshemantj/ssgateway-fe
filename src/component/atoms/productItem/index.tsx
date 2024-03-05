@@ -10,6 +10,7 @@ import styles from "./productItem.module.scss";
 interface IProductItem extends IProduct {
   handleQuantityRemove?: (_: string) => void;
   isSummary?: boolean;
+  handleRemovePd: (_: string) => void;
 }
 
 const ProductItem = ({
@@ -20,10 +21,9 @@ const ProductItem = ({
   price,
   discount,
   handleQuantityRemove = () => {},
+  handleRemovePd = () => {},
   isSummary = false,
 }: IProductItem) => {
-  const handleRemovePd = () => {};
-
   return (
     <div className={styles.productItemsContainer}>
       <div className={styles.pdImgWrapper}>
@@ -44,7 +44,7 @@ const ProductItem = ({
         width={15}
         height={15}
         className={styles.closeIcon}
-        onClick={() => handleRemovePd()}
+        onClick={() => handleRemovePd(id)}
         alt="close icon"
       />
     </div>

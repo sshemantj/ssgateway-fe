@@ -1,4 +1,8 @@
-import { handleAddProduct, handleRemoveProduct } from "@/utils/pdMethods";
+import {
+  handleAddProduct,
+  handleDecraseQuantiy,
+  handleRemoveProduct,
+} from "@/utils/pdMethods";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 export interface IProduct {
@@ -25,6 +29,12 @@ export const process = createSlice({
     addProduct: (state, action: PayloadAction<IProduct>) => {
       state.productList = handleAddProduct(action.payload, state.productList);
     },
+    decreasePdQnt: (state, action: PayloadAction<string>) => {
+      state.productList = handleDecraseQuantiy(
+        action.payload,
+        state.productList
+      );
+    },
     removeProduct: (state, action: PayloadAction<string>) => {
       state.productList = handleRemoveProduct(
         action.payload,
@@ -35,5 +45,6 @@ export const process = createSlice({
   },
 });
 
-export const { addProduct, removeProduct, reset } = process.actions;
+export const { addProduct, decreasePdQnt, removeProduct, reset } =
+  process.actions;
 export default process.reducer;

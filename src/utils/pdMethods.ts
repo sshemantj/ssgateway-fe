@@ -20,7 +20,7 @@ const handleAddProduct = (
   return updatedProductList;
 };
 
-const handleRemoveProduct = (
+const handleDecraseQuantiy = (
   id: string,
   productList: IProduct[]
 ): IProduct[] => {
@@ -41,4 +41,14 @@ const handleRemoveProduct = (
   return updatedProductList;
 };
 
-export { handleAddProduct, handleRemoveProduct };
+const handleRemoveProduct = (
+  id: string,
+  productList: IProduct[]
+): IProduct[] => {
+  const newList = productList.filter((item) => {
+    return item.id !== id;
+  });
+  return newList;
+};
+
+export { handleAddProduct, handleDecraseQuantiy, handleRemoveProduct };
