@@ -119,57 +119,6 @@ const HomeModule = () => {
           showZoomSliderIfSupported={true}
         />
       </div>
-
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <TextField
-          style={{ width: "12rem" }}
-          id="outlined-select-currency"
-          select
-          label="Select"
-          // helperText="select your dinstance in meters"
-          value={distance}
-          onChange={(e) => handleChange(e)}
-        >
-          {meterRadiusArr.map(({ name, value }, index) => (
-            <MenuItem key={index} value={value}>
-              {name}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-      <div
-        style={{
-          padding: "0 1rem",
-          marginTop: "2rem",
-          wordBreak: "break-all",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1rem",
-        }}
-      >
-        <h2>
-          isWithin {`${distance}`} Radius : {`${isWithinRadius}`}
-        </h2>
-        <h3>
-          decrypted value: <br />
-          {JSON.stringify(storeLocation, null, 2)}
-        </h3>
-      </div>
-      {/* <GetLocationDetails
-        {...{
-          storeLocation,
-          distanceToCalculate: distance,
-          setIsWithinRadius,
-        }}
-      /> */}
       <ToastContainer autoClose={3000} />
     </div>
   );
