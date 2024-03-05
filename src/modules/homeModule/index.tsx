@@ -13,9 +13,7 @@ const HomeModule = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <div className={styles.headingWrapper}>
-          <p>Scan store QR-code to continue</p>
-        </div>
+        <div className={styles.headingWrapper}></div>
       </Grid>
       <div className={styles.qrCodeScanWrapper}></div>
       <ToastContainer autoClose={3000} />
