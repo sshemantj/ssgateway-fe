@@ -1,14 +1,12 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-
-import { Grid } from "@mui/material";
 import styles from "./homemodule.module.scss";
-import TreeBox from "@/component/atoms/treeBox";
+import TreeGateway from "@/component/molecules/treeGateway";
 
 const HomeModule = () => {
   return (
     <div className={styles.homeWrapper}>
-      <TreeBox />
+      <TreeGateway />
       <ToastContainer autoClose={3000} />
     </div>
   );

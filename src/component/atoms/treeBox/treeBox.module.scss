@@ -1,14 +1,33 @@
 .treeBoxWrapper {
-  width: 200px;
+  width: 220px;
   height: 200px;
-  background-color: lightblue;
+  display: flex;
+  align-items: center;
   .textWrapper {
+    width: 200px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: lightblue;
+    border-radius: 10px;
     p {
       color: black;
+      font-weight: 600;
+    }
+  }
+  .plusIcon {
+    margin-left: 10px;
+    position: relative;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: -10px;
+      width: 50%;
+      background-color: black;
+      height: 2px;
     }
   }
 }
