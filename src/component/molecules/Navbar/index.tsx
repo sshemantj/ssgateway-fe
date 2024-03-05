@@ -104,17 +104,6 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                className={
-                  router.pathname === allRoutes.LOGIN ? styles.active : ""
-                }
-                href={allRoutes.LOGIN}
-                passHref
-              >
-                Login
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

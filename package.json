@@ -1,5 +1,5 @@
 {
-  "name": "scan-and-go",
+  "name": "ss-gateway",
   "version": "0.1.0",
   "private": true,
   "scripts": {
