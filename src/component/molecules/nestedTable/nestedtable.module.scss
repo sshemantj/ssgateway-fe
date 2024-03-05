@@ -1,0 +1,16 @@
+.tableCellMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  .plusIcon {
+    margin-right: 6px;
+    transition: all 0.3s;
+    &.open {
+      transform: translateY(6px) rotate(0deg);
+    }
+    &.close {
+      transform: translateY(6px) rotate(180deg);
+    }
+  }
+}

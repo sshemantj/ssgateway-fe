@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./treeGateway.module.scss";
-import TreeBox from "@/component/atoms/treeBox";
 import { useAppSelector } from "@/store/hooks";
+import CustomTable from "../CustomeTable";
 
 interface IProps {}
 
@@ -10,7 +10,7 @@ const TreeGateway = (props: IProps) => {
   console.log(pdjson);
   return (
     <div className={styles.treeGatewayWrapper}>
-      <TreeBox />
+      <CustomTable />
     </div>
   );
 };
