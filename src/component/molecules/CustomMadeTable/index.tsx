@@ -11,7 +11,6 @@ interface IProps {
 const CustomMadeTable = (props: IProps) => {
   const { level = 1 } = props;
   const [open, setOpen] = useState<any>({});
-  const [currInd, setCurrInd] = useState<number>();
   const [currHeight, setCurrHeight] = useState<number>(0);
 
   const { allHeights } = useAppSelector((state) => state.gateway);
@@ -20,49 +19,39 @@ const CustomMadeTable = (props: IProps) => {
   const divRef = useRef<any>(null);
 
   const handleClick = (index: number) => {
-    setCurrInd(index);
-
     const handleSetOpen = (prev: any) => {
       const isCurrentlyOpen = prev[index];
 
-      if (divRef && divRef.current) {
-        const rect = divRef.current.getBoundingClientRect();
-        let height = rect.height + 20;
+      const updatedHeights = {
+        ...allHeights,
+        level: {
+          ...allHeights.level,
+          [level]: currHeight,
+        },
+      };
 
-        // console.log(height);
-
-        const updatedHeights = {
-          ...allHeights,
-          level: {
-            ...allHeights.level,
-            [level]: height,
-          },
-        };
-
-        if (!isCurrentlyOpen) {
-          if (level === 2 && !isCurrentlyOpen) {
-            updatedHeights.level["1"] += updatedHeights.level["2"];
-          }
-          if (level === 3 && !isCurrentlyOpen) {
-            updatedHeights.level["1"] += updatedHeights.level["2"];
-            updatedHeights.level["2"] += updatedHeights.level["3"];
-          }
+      if (!isCurrentlyOpen) {
+        if (level === 2 && !isCurrentlyOpen) {
+          updatedHeights.level["1"] += updatedHeights.level["2"];
         }
-        if (isCurrentlyOpen) {
-          console.log(updatedHeights.level, currHeight);
-          if (level === 2 && isCurrentlyOpen) {
-            updatedHeights.level["1"] -= currHeight;
-          }
-          if (level === 3 && isCurrentlyOpen) {
-            updatedHeights.level["1"] -= currHeight;
-            updatedHeights.level["2"] -= currHeight;
-          }
+        if (level === 3 && !isCurrentlyOpen) {
+          updatedHeights.level["1"] += updatedHeights.level["2"];
+          updatedHeights.level["2"] += updatedHeights.level["3"];
         }
-        dispatch(updateHeights(updatedHeights));
-        setCurrHeight(height);
       }
+      if (isCurrentlyOpen) {
+        console.log(updatedHeights.level, currHeight);
+        if (level === 2 && isCurrentlyOpen) {
+          updatedHeights.level["1"] -= currHeight;
+        }
+        if (level === 3 && isCurrentlyOpen) {
+          updatedHeights.level["1"] -= currHeight;
+          updatedHeights.level["2"] -= currHeight;
+        }
+      }
+      dispatch(updateHeights(updatedHeights));
 
-      return { ...prev, [index]: isCurrentlyOpen ? false : true };
+      return { [index]: isCurrentlyOpen ? false : true };
     };
     setOpen(handleSetOpen);
   };
@@ -80,11 +69,13 @@ const CustomMadeTable = (props: IProps) => {
     }
   };
 
-  // console.log({
-  //   // [`${level}`]: currHeight,
-  //   ...allHeights,
-  //   // bg: handleBgColor(),
-  // });
+  useEffect(() => {
+    if (divRef && divRef.current) {
+      const rect = divRef.current.getBoundingClientRect();
+      let height = rect.height + 20;
+      setCurrHeight(height);
+    }
+  }, [divRef]);
 
   return (
     <div
