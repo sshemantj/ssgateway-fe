@@ -18,37 +18,54 @@ const CustomMadeTable = (props: IProps) => {
 
   const divRef = useRef<any>(null);
 
+  const getUpdatedHeight = () => {
+    return {
+      ...allHeights,
+      level: {
+        ...allHeights.level,
+        [level]: currHeight,
+      },
+    };
+  };
+
+  const handleAccordionOnOpen = (
+    updatedHeights: any,
+    isCurrentlyOpen: boolean
+  ) => {
+    if (!isCurrentlyOpen) {
+      if (level === 2 && !isCurrentlyOpen) {
+        updatedHeights.level["1"] += updatedHeights.level["2"];
+      }
+      if (level === 3 && !isCurrentlyOpen) {
+        updatedHeights.level["1"] += updatedHeights.level["2"];
+        updatedHeights.level["2"] += updatedHeights.level["3"];
+      }
+    }
+  };
+  const handleAccordionOnClose = (
+    updatedHeights: any,
+    isCurrentlyOpen: boolean
+  ) => {
+    if (isCurrentlyOpen) {
+      console.log(updatedHeights.level, currHeight);
+      if (level === 2 && isCurrentlyOpen) {
+        updatedHeights.level["1"] -= currHeight;
+      }
+      if (level === 3 && isCurrentlyOpen) {
+        updatedHeights.level["1"] -= currHeight;
+        updatedHeights.level["2"] -= currHeight;
+      }
+    }
+  };
+
   const handleClick = (index: number) => {
     const handleSetOpen = (prev: any) => {
       const isCurrentlyOpen = prev[index];
 
-      const updatedHeights = {
-        ...allHeights,
-        level: {
-          ...allHeights.level,
-          [level]: currHeight,
-        },
-      };
+      const updatedHeights = getUpdatedHeight();
+      handleAccordionOnOpen(updatedHeights, isCurrentlyOpen);
+      handleAccordionOnClose(updatedHeights, isCurrentlyOpen);
 
-      if (!isCurrentlyOpen) {
-        if (level === 2 && !isCurrentlyOpen) {
-          updatedHeights.level["1"] += updatedHeights.level["2"];
-        }
-        if (level === 3 && !isCurrentlyOpen) {
-          updatedHeights.level["1"] += updatedHeights.level["2"];
-          updatedHeights.level["2"] += updatedHeights.level["3"];
-        }
-      }
-      if (isCurrentlyOpen) {
-        console.log(updatedHeights.level, currHeight);
-        if (level === 2 && isCurrentlyOpen) {
-          updatedHeights.level["1"] -= currHeight;
-        }
-        if (level === 3 && isCurrentlyOpen) {
-          updatedHeights.level["1"] -= currHeight;
-          updatedHeights.level["2"] -= currHeight;
-        }
-      }
       dispatch(updateHeights(updatedHeights));
 
       return { [index]: isCurrentlyOpen ? false : true };
