@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import styles from "./customMadeTable.module.scss";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { updateHeights } from "@/store/slices/gatewaySlice";
 
 interface IProps {
   level?: number;
 }
 
 const CustomMadeTable = (props: IProps) => {
-  const { level } = props;
+  const { level = 1 } = props;
   const [open, setOpen] = useState<any>({});
   const [currInd, setCurrInd] = useState<number>();
-  const [currHeight, setCurrHeight] = useState<string>("unset");
+  const [currHeight, setCurrHeight] = useState<number>(0);
+
+  const { allHeights } = useAppSelector((state) => state.gateway);
+  const dispatch = useAppDispatch();
 
   const divRef = useRef<any>(null);
 
@@ -20,9 +25,41 @@ const CustomMadeTable = (props: IProps) => {
     const handleSetOpen = (prev: any) => {
       const isCurrentlyOpen = prev[index];
 
-      if (!isCurrentlyOpen && divRef && divRef.current) {
+      if (divRef && divRef.current) {
         const rect = divRef.current.getBoundingClientRect();
-        setCurrHeight(`${rect.height}px`);
+        let height = rect.height + 20;
+
+        // console.log(height);
+
+        const updatedHeights = {
+          ...allHeights,
+          level: {
+            ...allHeights.level,
+            [level]: height,
+          },
+        };
+
+        if (!isCurrentlyOpen) {
+          if (level === 2 && !isCurrentlyOpen) {
+            updatedHeights.level["1"] += updatedHeights.level["2"];
+          }
+          if (level === 3 && !isCurrentlyOpen) {
+            updatedHeights.level["1"] += updatedHeights.level["2"];
+            updatedHeights.level["2"] += updatedHeights.level["3"];
+          }
+        }
+        if (isCurrentlyOpen) {
+          console.log(updatedHeights.level, currHeight);
+          if (level === 2 && isCurrentlyOpen) {
+            updatedHeights.level["1"] -= currHeight;
+          }
+          if (level === 3 && isCurrentlyOpen) {
+            updatedHeights.level["1"] -= currHeight;
+            updatedHeights.level["2"] -= currHeight;
+          }
+        }
+        dispatch(updateHeights(updatedHeights));
+        setCurrHeight(height);
       }
 
       return { ...prev, [index]: isCurrentlyOpen ? false : true };
@@ -30,10 +67,31 @@ const CustomMadeTable = (props: IProps) => {
     setOpen(handleSetOpen);
   };
 
-  console.log(open);
+  const handleBgColor = () => {
+    switch (level) {
+      case 1:
+        return { background: "lightblue" };
+      case 2:
+        return { background: "lightgreen" };
+      case 3:
+        return { background: "lightcoral" };
+      default:
+        return { background: "black" };
+    }
+  };
+
+  // console.log({
+  //   // [`${level}`]: currHeight,
+  //   ...allHeights,
+  //   // bg: handleBgColor(),
+  // });
 
   return (
-    <div ref={divRef} className={styles.customMadeTable}>
+    <div
+      ref={divRef}
+      style={handleBgColor()}
+      className={styles.customMadeTable}
+    >
       <table>
         <thead>
           <tr>
@@ -80,7 +138,9 @@ const CustomMadeTable = (props: IProps) => {
                 <tr
                   style={{
                     position: "relative",
-                    height: open[ind] ? currHeight : "unset",
+                    height: open[ind]
+                      ? `${allHeights.level[level]}px`
+                      : "unset",
                   }}
                 >
                   {open[ind] && (
@@ -92,7 +152,7 @@ const CustomMadeTable = (props: IProps) => {
                         width: "100%",
                       }}
                     >
-                      <CustomMadeTable level={1} />
+                      <CustomMadeTable level={level ? level + 1 : 1} />
                     </td>
                   )}
                 </tr>

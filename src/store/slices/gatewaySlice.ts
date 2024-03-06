@@ -3,11 +3,16 @@ import pdJson from "@/jsons/tree.json";
 
 type IGatewaySlice = {
   value: number;
-  product: any;
+  allHeights: any;
 };
 
 const initialState = {
   value: JSON.parse(JSON.stringify(pdJson as unknown as string)),
+  allHeights: {
+    level: {
+      1: 0,
+    },
+  },
 } as IGatewaySlice;
 
 export const gatewaySlice = createSlice({
@@ -20,8 +25,12 @@ export const gatewaySlice = createSlice({
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload;
     },
+    updateHeights: (state, action: PayloadAction<any>) => {
+      state.allHeights = action.payload;
+    },
   },
 });
 
-export const { increment, incrementByAmount } = gatewaySlice.actions;
+export const { increment, incrementByAmount, updateHeights } =
+  gatewaySlice.actions;
 export default gatewaySlice.reducer;
