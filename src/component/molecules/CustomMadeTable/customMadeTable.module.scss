@@ -8,7 +8,7 @@
     color: rgba(0, 0, 0, 0.87);
     -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-radius: 4px;
+    border-radius: 6px;
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
       0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     width: 100%;
@@ -20,7 +20,7 @@
     }
     thead {
       tr {
-        text-align: center;
+        text-align: start;
         td {
           font-weight: 700;
         }
@@ -28,8 +28,21 @@
     }
     tbody {
       tr {
-        text-align: center;
+        text-align: start;
         position: relative;
+        .triggerTd {
+          cursor: pointer;
+          .arrow {
+            margin-right: 6px;
+            transition: all 0.3s;
+            &.open {
+              transform: translateY(6px) rotate(0deg);
+            }
+            &.close {
+              transform: translateY(6px) rotate(180deg);
+            }
+          }
+        }
       }
     }
   }
