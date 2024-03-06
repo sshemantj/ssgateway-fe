@@ -11,6 +11,7 @@ interface IProps {
 const CustomMadeTable = (props: IProps) => {
   const { level = 1 } = props;
   const [open, setOpen] = useState<any>({});
+  const [alreadyClicked, setAlreadyClicked] = useState<any>(false);
   const [currHeight, setCurrHeight] = useState<number>(0);
 
   const { allHeights } = useAppSelector((state) => state.gateway);
@@ -33,8 +34,10 @@ const CustomMadeTable = (props: IProps) => {
     isCurrentlyOpen: boolean
   ) => {
     if (!isCurrentlyOpen) {
-      if (level === 2 && !isCurrentlyOpen) {
+      if (level === 2 && !isCurrentlyOpen && !alreadyClicked) {
+        console.log("it ran 1");
         updatedHeights.level["1"] += updatedHeights.level["2"];
+        setAlreadyClicked(true);
       }
       if (level === 3 && !isCurrentlyOpen) {
         updatedHeights.level["1"] += updatedHeights.level["2"];
@@ -42,14 +45,16 @@ const CustomMadeTable = (props: IProps) => {
       }
     }
   };
+
   const handleAccordionOnClose = (
     updatedHeights: any,
     isCurrentlyOpen: boolean
   ) => {
     if (isCurrentlyOpen) {
-      console.log(updatedHeights.level, currHeight);
+      // console.log(updatedHeights.level, currHeight);
       if (level === 2 && isCurrentlyOpen) {
         updatedHeights.level["1"] -= currHeight;
+        console.log("it ran 2");
       }
       if (level === 3 && isCurrentlyOpen) {
         updatedHeights.level["1"] -= currHeight;
