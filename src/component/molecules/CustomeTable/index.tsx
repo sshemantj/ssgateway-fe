@@ -6,8 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import styles from "./customtable.module.scss";
 import NestedTable from "../nestedTable";
+import styles from "./customtable.module.scss";
 
 const createData = (
   name: string,
@@ -29,9 +29,7 @@ const rows = [
 
 const CustomTable = () => {
   const [open, setOpen] = useState<any>({});
-  const [currInd, setCurrInd] = useState<number>(0);
 
-  console.log(open);
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer component={Paper}>
@@ -48,11 +46,10 @@ const CustomTable = () => {
           <TableBody>
             {rows.map((row, index) => (
               <TableRow
+                className={`${open[index] && styles.open}`}
                 onClick={() => {
-                  setCurrInd(index);
                   setOpen((prev: any) => {
                     return {
-                      ...prev,
                       [index]: prev[index] ? false : true,
                     };
                   });
@@ -60,14 +57,7 @@ const CustomTable = () => {
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <NestedTable
-                  //   index={index}
-                  open={open[index]}
-                  //   setOpen={setOpen}
-                  primary
-                  component="th"
-                  scope="row"
-                >
+                <NestedTable primary component="th" scope="row">
                   {row.name}
                 </NestedTable>
                 <NestedTable align="right">{row.calories}</NestedTable>
@@ -79,7 +69,6 @@ const CustomTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {open[currInd] && <CustomTable />}
     </div>
   );
 };
