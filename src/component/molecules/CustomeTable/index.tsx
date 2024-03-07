@@ -12,21 +12,7 @@ import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import CustomModal from "../CustomModal";
 import styles from "./customtable.module.scss";
 import SelectDropdown from "../selectDropdown";
-
-const categoryDB = [
-  {
-    label: "Desktop PC",
-    value: 1,
-  },
-  {
-    label: "Notebook",
-    value: 2,
-  },
-  {
-    label: "Monitor",
-    value: 3,
-  },
-];
+import ModalComponent from "@/modules/demoModule/modalComponent";
 
 const CustomTable = () => {
   const [open, setOpen] = useState<any>({});
@@ -94,13 +80,8 @@ const CustomTable = () => {
         open={openModal}
         setOpen={setOpenModal}
       >
-        <div>
-          <SelectDropdown label="Select StyleVariants" data={categoryDB} />
-        </div>
-      </CustomModal>
-      {/* <CustomModal open={openModal} setOpen={setOpenModal}>
         <ModalComponent />
-      </CustomModal> */}
+      </CustomModal>
     </div>
   );
 };
