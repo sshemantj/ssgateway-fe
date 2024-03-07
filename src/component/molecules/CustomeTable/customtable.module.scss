@@ -1,5 +1,9 @@
 .customTableWrapper {
   min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
   .tableRow {
     &:hover {
       background-color: lightcyan;

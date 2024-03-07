@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
+import { Pagination } from "@mui/material";
 import styles from "./customtable.module.scss";
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
   open?: any;
   isMultiSelects?: boolean;
   allCheckBox?: any;
+  handlePagination?: (pageNumber: number) => void;
   handleSingleRowClick?: (
     e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
     key: string,
@@ -33,6 +35,7 @@ const CustomTable = (props: IProps) => {
     allCheckBox = {},
     isMultiSelects = false,
     handleSingleRowClick = () => {},
+    handlePagination = () => {},
   } = props;
 
   const handleRowValue = (row: any) => {
@@ -50,7 +53,7 @@ const CustomTable = (props: IProps) => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <TableContainer style={{ height: "90vh" }}>
+      <TableContainer style={{ height: "80vh" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -96,6 +99,12 @@ const CustomTable = (props: IProps) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Pagination
+        onChange={(_, page) => handlePagination(page)}
+        count={Number.MAX_SAFE_INTEGER}
+        sx={{ "& .MuiPagination-ul li:nth-child(8)": { display: "none" } }}
+        variant="outlined"
+      />
     </div>
   );
 };

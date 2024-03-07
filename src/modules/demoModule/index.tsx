@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import styles from "./customtable.module.scss";
 import ModalComponent from "@/modules/demoModule/modalComponent";
 import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
+import { fetchTableData } from "@/services/thunks/tableApis";
 
 const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -16,6 +17,10 @@ const DemoModule = () => {
     (item) => item !== "styleVariants"
   );
   // console.log(apiRes);
+
+  useEffect(() => {
+    dispatch(fetchTableData(1));
+  }, []);
 
   const handleModalOpen = () => {
     setOpenModal(true);
@@ -31,9 +36,14 @@ const DemoModule = () => {
     handleModalOpen();
   };
 
+  const handlePagination = (pageNumber: number) => {
+    dispatch(fetchTableData(pageNumber));
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <CustomTable
+        handlePagination={handlePagination}
         handleRowClick={handleRowClick}
         open={open}
         theadArr={keysArray}

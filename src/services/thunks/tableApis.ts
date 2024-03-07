@@ -5,7 +5,7 @@ import { axiosPrivate } from "../client";
 
 const fetchTableData = createAsyncThunk(
   "table/fetchProducts",
-  async (pageNumber) => {
+  async (pageNumber: number) => {
     const response = await axiosPrivate.get(
       `/api/Products/GetProducts?pageSize=100&pageNumber=${pageNumber}`
     );
