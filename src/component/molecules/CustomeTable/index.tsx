@@ -15,10 +15,12 @@ interface IProps {
   handleRowClick: (row: any, index: number) => void;
   open?: any;
   isMultiSelects?: boolean;
+  allCheckBox?: any;
   handleSingleRowClick?: (
     e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
     key: string,
-    value: any
+    value: any,
+    index: number
   ) => void;
 }
 
@@ -28,6 +30,7 @@ const CustomTable = (props: IProps) => {
     tbodyArr,
     handleRowClick,
     open = {},
+    allCheckBox = {},
     isMultiSelects = false,
     handleSingleRowClick = () => {},
   } = props;
@@ -59,11 +62,15 @@ const CustomTable = (props: IProps) => {
                         style={{ whiteSpace: "nowrap" }}
                         align="center"
                         onClick={(e) =>
-                          handleSingleRowClick(e, item, row[item])
+                          handleSingleRowClick(e, item, row[item], index)
                         }
                       >
                         <>
-                          {isMultiSelects && <Checkbox />}
+                          {isMultiSelects && (
+                            <Checkbox
+                              checked={Boolean(allCheckBox?.[index]?.[item])}
+                            />
+                          )}
                           {row[item] || "-"}
                         </>
                       </NestedTable>

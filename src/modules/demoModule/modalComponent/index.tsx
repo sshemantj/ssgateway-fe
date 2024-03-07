@@ -41,6 +41,7 @@ const style = {
 const ModalComponent = (props: IProps) => {
   const {} = props;
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [allCheckBox, setAllCheckBox] = useState<any>({});
   const [open, setOpen] = useState<any>({});
 
   const rowData = useAppSelector((state) => state.gateway.singleItem);
@@ -49,7 +50,8 @@ const ModalComponent = (props: IProps) => {
 
   const theadArr = Object.keys(tableDataList?.[0]);
 
-  console.log(selectedRows);
+  // console.log(selectedRows);
+  console.log(allCheckBox);
 
   const selectedRowFunWrapper = (currItem: any, index: number) => {
     return (prevRow: any) => {
@@ -87,10 +89,22 @@ const ModalComponent = (props: IProps) => {
   const handleSingleRowClick = (
     e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
     key: string,
-    value: any
+    value: any,
+    index: number
   ) => {
     e.stopPropagation();
-    console.log(key, value);
+    const newCheckBox = { ...allCheckBox };
+
+    if (newCheckBox[index] === undefined) {
+      newCheckBox[index] = {};
+    }
+
+    if (newCheckBox[index][key]) {
+      newCheckBox[index][key] = null;
+    } else {
+      newCheckBox[index][key] = true;
+    }
+    setAllCheckBox(newCheckBox);
   };
 
   return (
@@ -100,6 +114,7 @@ const ModalComponent = (props: IProps) => {
         {...{
           open,
           theadArr,
+          allCheckBox,
           handleRowClick,
           isMultiSelects: true,
           handleSingleRowClick,
