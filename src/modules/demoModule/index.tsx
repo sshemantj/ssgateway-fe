@@ -15,7 +15,7 @@ const DemoModule = () => {
   const keysArray = Object.keys(apiRes?.[0])?.filter(
     (item) => item !== "styleVariants"
   );
-  console.log(apiRes);
+  // console.log(apiRes);
 
   const handleModalOpen = () => {
     setOpenModal(true);

@@ -13,11 +13,11 @@ interface IProps {
   theadArr: any[];
   tbodyArr: any[];
   handleRowClick: (row: any, index: number) => void;
-  open: any;
+  open?: any;
 }
 
 const CustomTable = (props: IProps) => {
-  const { theadArr, tbodyArr, handleRowClick, open } = props;
+  const { theadArr, tbodyArr, handleRowClick, open = {} } = props;
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer component={Paper}>
@@ -33,7 +33,9 @@ const CustomTable = (props: IProps) => {
             {tbodyArr.map((row: any, index: number) => {
               return (
                 <TableRow
-                  className={`${styles.tableRow} ${open[index] && styles.open}`}
+                  className={`${styles.tableRow} ${
+                    open?.[index] && styles.open
+                  }`}
                   onClick={() => handleRowClick(row, index)}
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
