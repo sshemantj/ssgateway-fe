@@ -12,21 +12,7 @@ import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import CustomModal from "../CustomModal";
 import { Box } from "@mui/material";
 import styles from "./customtable.module.scss";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "90%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  borderRadius: "6px",
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+import ModalComponent from "@/modules/demoModule/modalComponent";
 
 const createData = (
   name: string,
@@ -99,12 +85,7 @@ const CustomTable = () => {
         </Table>
       </TableContainer>
       <CustomModal open={openModal} setOpen={setOpenModal}>
-        <Box sx={{ ...style }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
-          <p id="parent-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-        </Box>
+        <ModalComponent />
       </CustomModal>
     </div>
   );
