@@ -34,6 +34,20 @@ const CustomTable = (props: IProps) => {
     isMultiSelects = false,
     handleSingleRowClick = () => {},
   } = props;
+
+  const handleRowValue = (row: any) => {
+    switch (row) {
+      case false:
+      case true:
+      case null:
+        return JSON.stringify(row);
+      case "":
+        return "-";
+      default:
+        return row;
+    }
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer>
@@ -71,7 +85,7 @@ const CustomTable = (props: IProps) => {
                               checked={Boolean(allCheckBox?.[index]?.[item])}
                             />
                           )}
-                          {row[item] || "-"}
+                          {handleRowValue(row[item])}
                         </>
                       </NestedTable>
                     );

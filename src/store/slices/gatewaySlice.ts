@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import pdJson from "@/jsons/tree.json";
+import pdJson from "@/jsons/pd.json";
 import { fetchTableData } from "@/services/thunks/tableApis";
 
 type IGatewaySlice = {
