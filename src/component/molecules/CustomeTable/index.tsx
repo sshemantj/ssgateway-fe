@@ -50,7 +50,7 @@ const CustomTable = (props: IProps) => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <TableContainer>
+      <TableContainer style={{ height: "90vh" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

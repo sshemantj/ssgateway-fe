@@ -3,7 +3,7 @@ import { NextPage } from "next";
 
 const Demo: NextPage = () => {
   return (
-    <div style={{ margin: "2rem" }}>
+    <div style={{ margin: "1rem" }}>
       <DemoModule />
     </div>
   );
