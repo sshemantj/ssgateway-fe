@@ -9,10 +9,11 @@ interface IProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: JSX.Element;
+  closeIconStyle?: React.CSSProperties;
 }
 
 const CustomModal = (props: IProps) => {
-  const { open, setOpen, children } = props;
+  const { open, setOpen, children, closeIconStyle } = props;
 
   const handleClose = () => {
     setOpen(false);
@@ -36,6 +37,7 @@ const CustomModal = (props: IProps) => {
               right: "3.5rem",
               opacity: 0.5,
               cursor: "pointer",
+              ...closeIconStyle,
             }}
           />
         </>

@@ -13,6 +13,7 @@ import CustomModal from "../CustomModal";
 import { Box } from "@mui/material";
 import styles from "./customtable.module.scss";
 import ModalComponent from "@/modules/demoModule/modalComponent";
+import MultiSelectDropdown from "../multiSelectDropdown";
 
 const createData = (
   name: string,
@@ -93,9 +94,16 @@ const CustomTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <CustomModal open={openModal} setOpen={setOpenModal}>
-        <ModalComponent />
+      <CustomModal
+        closeIconStyle={{ top: "1rem", right: "1rem" }}
+        open={openModal}
+        setOpen={setOpenModal}
+      >
+        <MultiSelectDropdown />
       </CustomModal>
+      {/* <CustomModal open={openModal} setOpen={setOpenModal}>
+        <ModalComponent />
+      </CustomModal> */}
     </div>
   );
 };
