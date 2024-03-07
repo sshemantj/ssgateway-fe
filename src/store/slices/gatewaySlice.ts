@@ -1,15 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import pdJson from "@/jsons/tree.json";
+import { fetchTableData } from "@/services/thunks/tableApis";
 
 type IGatewaySlice = {
+  status: "loading" | "succeeded" | "failed";
   value: any;
+  data: any;
+  error: string;
   allHeights: any;
   singleItem: any;
 };
 
 const initialState = {
   value: JSON.parse(JSON.stringify(pdJson as unknown as string)),
+  data: {},
   singleItem: {},
+  error: "",
   allHeights: {
     level: {
       1: 0,
@@ -33,6 +39,20 @@ export const gatewaySlice = createSlice({
     updateHeights: (state, action: PayloadAction<any>) => {
       state.allHeights = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchTableData.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchTableData.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(fetchTableData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
+      });
   },
 });
 
