@@ -7,7 +7,26 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NestedTable from "../nestedTable";
+import { useAppDispatch } from "@/store/hooks";
+import { setCurrentProduct } from "@/store/slices/gatewaySlice";
+import CustomModal from "../CustomModal";
+import { Box } from "@mui/material";
 import styles from "./customtable.module.scss";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90%",
+  height: "90%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "6px",
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
 const createData = (
   name: string,
@@ -29,6 +48,22 @@ const rows = [
 
 const CustomTable = () => {
   const [open, setOpen] = useState<any>({});
+  const [openModal, setOpenModal] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleRowClick = (item: any, index: number) => {
+    dispatch(setCurrentProduct(item));
+    setOpen((prev: any) => {
+      return {
+        [index]: prev[index] ? false : true,
+      };
+    });
+    handleModalOpen();
+  };
 
   return (
     <div className={styles.customTableWrapper}>
@@ -46,14 +81,8 @@ const CustomTable = () => {
           <TableBody>
             {rows.map((row, index) => (
               <TableRow
-                className={`${open[index] && styles.open}`}
-                onClick={() => {
-                  setOpen((prev: any) => {
-                    return {
-                      [index]: prev[index] ? false : true,
-                    };
-                  });
-                }}
+                className={`${styles.tableRow} ${open[index] && styles.open}`}
+                onClick={() => handleRowClick(row, index)}
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
@@ -69,6 +98,14 @@ const CustomTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <CustomModal open={openModal} setOpen={setOpenModal}>
+        <Box sx={{ ...style }}>
+          <h2 id="parent-modal-title">Text in a modal</h2>
+          <p id="parent-modal-description">
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </p>
+        </Box>
+      </CustomModal>
     </div>
   );
 };

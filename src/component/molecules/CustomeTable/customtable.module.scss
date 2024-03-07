@@ -1,4 +1,10 @@
 .customTableWrapper {
+  .tableRow {
+    &:hover {
+      background-color: lightcyan;
+      cursor: pointer;
+    }
+  }
   .open {
     background-color: lightblue !important;
   }
