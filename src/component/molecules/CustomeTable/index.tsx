@@ -5,8 +5,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import NestedTable from "../nestedTable";
+import Checkbox from "@mui/material/Checkbox";
 import styles from "./customtable.module.scss";
 
 interface IProps {
@@ -14,6 +14,7 @@ interface IProps {
   tbodyArr: any[];
   handleRowClick: (row: any, index: number) => void;
   open?: any;
+  isMultiSelects?: boolean;
   handleSingleRowClick?: (
     e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
     key: string,
@@ -27,11 +28,12 @@ const CustomTable = (props: IProps) => {
     tbodyArr,
     handleRowClick,
     open = {},
+    isMultiSelects = false,
     handleSingleRowClick = () => {},
   } = props;
   return (
     <div className={styles.customTableWrapper}>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -60,7 +62,10 @@ const CustomTable = (props: IProps) => {
                           handleSingleRowClick(e, item, row[item])
                         }
                       >
-                        {row[item] || "-"}
+                        <>
+                          {isMultiSelects && <Checkbox />}
+                          {row[item] || "-"}
+                        </>
                       </NestedTable>
                     );
                   })}

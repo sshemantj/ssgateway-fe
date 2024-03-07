@@ -101,6 +101,7 @@ const ModalComponent = (props: IProps) => {
           open,
           theadArr,
           handleRowClick,
+          isMultiSelects: true,
           handleSingleRowClick,
           tbodyArr: tableDataList,
         }}

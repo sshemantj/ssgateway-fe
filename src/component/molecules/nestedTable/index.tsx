@@ -3,7 +3,7 @@ import { TableCell, TableCellProps } from "@mui/material";
 import styles from "./nestedtable.module.scss";
 
 interface IProps extends TableCellProps {
-  children: string | number;
+  children: string | number | JSX.Element;
   primary?: boolean;
 }
 
