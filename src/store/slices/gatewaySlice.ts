@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import pdJson from "@/jsons/tree.json";
 
 type IGatewaySlice = {
-  value: number;
+  value: any;
   allHeights: any;
   singleItem: any;
 };

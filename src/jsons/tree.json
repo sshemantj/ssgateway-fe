@@ -49,6 +49,106 @@
           ]
         }
       ]
+    },
+    {
+      "CorrelationID": "0000000301037896",
+      "action": "M",
+      "code": "ELRUW165",
+      "styleCode": "ELRUW165",
+      "styleDesc": "ELLE SANDALS FOR WOMEN",
+      "brandCode": "E279",
+      "brandDesc": "",
+      "seasonCode": "A23",
+      "primaryVendor": 1,
+      "styleVariants": [
+        {
+          "action": "M",
+          "baseProduct": "ELRUW165",
+          "code": "ELRUW165_CREAM",
+          "colourCode": "CREAM",
+          "colourDesc": "CREAM",
+          "styleCode": "ELRUW165",
+          "sizeVariants": [
+            {
+              "action": "M",
+              "baseProduct": "ELRUW165_CREAM",
+              "code": "ELRUW165010",
+              "sizeCode": "SIZE_39",
+              "sizeDesc": "SIZE_39",
+              "HSNCode": "64041990",
+              "ean": "8905254267822",
+              "taxCategoryCode": "64041990",
+              "vendorPartNumber": "",
+              "departmentCode": "NB07",
+              "styleCode": "ELRUW165",
+              "subDepartmentCode": "NB07C045",
+              "classCode": "NB07C045D0948",
+              "subClassCode": "NB07C045D0948E148",
+              "productWeight": "0.000",
+              "productLength": "12.500",
+              "productHeight": "13.300",
+              "productWidth": "4.700",
+              "merchandiseGroup": "SANDALS",
+              "buyingUOM": "EA",
+              "sellingUnitWeight": "0.000",
+              "seasonCode": "A23",
+              "merchandiseCategory": 1786,
+              "sizeNew": "SIZE_39",
+              "length": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CorrelationID": "0000000301037896",
+      "action": "M",
+      "code": "ELRUW165",
+      "styleCode": "ELRUW165",
+      "styleDesc": "ELLE SANDALS FOR WOMEN",
+      "brandCode": "E279",
+      "brandDesc": "",
+      "seasonCode": "A23",
+      "primaryVendor": 1,
+      "styleVariants": [
+        {
+          "action": "M",
+          "baseProduct": "ELRUW165",
+          "code": "ELRUW165_CREAM",
+          "colourCode": "CREAM",
+          "colourDesc": "CREAM",
+          "styleCode": "ELRUW165",
+          "sizeVariants": [
+            {
+              "action": "M",
+              "baseProduct": "ELRUW165_CREAM",
+              "code": "ELRUW165010",
+              "sizeCode": "SIZE_39",
+              "sizeDesc": "SIZE_39",
+              "HSNCode": "64041990",
+              "ean": "8905254267822",
+              "taxCategoryCode": "64041990",
+              "vendorPartNumber": "",
+              "departmentCode": "NB07",
+              "styleCode": "ELRUW165",
+              "subDepartmentCode": "NB07C045",
+              "classCode": "NB07C045D0948",
+              "subClassCode": "NB07C045D0948E148",
+              "productWeight": "0.000",
+              "productLength": "12.500",
+              "productHeight": "13.300",
+              "productWidth": "4.700",
+              "merchandiseGroup": "SANDALS",
+              "buyingUOM": "EA",
+              "sellingUnitWeight": "0.000",
+              "seasonCode": "A23",
+              "merchandiseCategory": 1786,
+              "sizeNew": "SIZE_39",
+              "length": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

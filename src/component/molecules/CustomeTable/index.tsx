@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NestedTable from "../nestedTable";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import CustomModal from "../CustomModal";
 import { Box } from "@mui/material";
@@ -37,6 +37,12 @@ const CustomTable = () => {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useAppDispatch();
 
+  const apiRes = useAppSelector((state) => state.gateway.value.products);
+  const keysArray = Object.keys(apiRes?.[0])?.filter(
+    (item) => item !== "styleVariants"
+  );
+  console.log(apiRes);
+
   const handleModalOpen = () => {
     setOpenModal(true);
   };
@@ -57,30 +63,33 @@ const CustomTable = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              {keysArray.map((item) => {
+                return <TableCell align="center">{item}</TableCell>;
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
-              <TableRow
-                className={`${styles.tableRow} ${open[index] && styles.open}`}
-                onClick={() => handleRowClick(row, index)}
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <NestedTable primary component="th" scope="row">
-                  {row.name}
-                </NestedTable>
-                <NestedTable align="right">{row.calories}</NestedTable>
-                <NestedTable align="right">{row.fat}</NestedTable>
-                <NestedTable align="right">{row.carbs}</NestedTable>
-                <NestedTable align="right">{row.protein}</NestedTable>
-              </TableRow>
-            ))}
+            {apiRes.map((row: any, index: number) => {
+              return (
+                <TableRow
+                  className={`${styles.tableRow} ${open[index] && styles.open}`}
+                  onClick={() => handleRowClick(row, index)}
+                  key={row.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  {keysArray.map((item) => {
+                    return (
+                      <NestedTable
+                        style={{ whiteSpace: "nowrap" }}
+                        align="center"
+                      >
+                        {row[item] || "-"}
+                      </NestedTable>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
