@@ -4,8 +4,6 @@ import { useAppSelector } from "@/store/hooks";
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 
-interface IProps {}
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -23,15 +21,14 @@ const style = {
   gap: "1rem",
 };
 
-const ModalComponent = (props: IProps) => {
-  const {} = props;
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
+const ModalComponent = () => {
   const [allCheckBox, setAllCheckBox] = useState<any>({});
-  const [open, setOpen] = useState<any>({});
 
-  const rowData = useAppSelector((state) => state.gateway.singleItem);
   const { styleVariants } = useAppSelector(
     (state) => state.gateway.styleVariants
+  );
+  const { sizeVariants } = useAppSelector(
+    (state) => state.gateway.sizeVariants
   );
 
   const selectDataList = styleVariants.map((item: any) => ({
@@ -39,83 +36,43 @@ const ModalComponent = (props: IProps) => {
     value: item.colourDesc,
   }));
 
-  console.log(styleVariants);
+  const tableDataList = sizeVariants;
 
-  // const tableDataList = rowData.styleVariants[0].sizeVariants;
+  const theadArr = Object.keys(sizeVariants?.[0]);
 
-  // const theadArr = Object.keys(tableDataList?.[0]);
+  const handleSingleRowClick = (
+    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
+    key: string,
+    value: any,
+    index: number
+  ) => {
+    e.stopPropagation();
+    const newCheckBox = { ...allCheckBox };
 
-  // console.log(selectedRows);
-  console.log(allCheckBox);
+    if (newCheckBox[index] === undefined) {
+      newCheckBox[index] = {};
+    }
 
-  // const selectedRowFunWrapper = (currItem: any, index: number) => {
-  //   return (prevRow: any) => {
-  //     let newRow = [...prevRow];
-  //     if (
-  //       prevRow.find((item: any) => {
-  //         return item.code === currItem.code;
-  //       })
-  //     ) {
-  //       newRow = newRow.filter((item) => item.code !== currItem.code);
-  //       setOpen((prev: any) => {
-  //         return {
-  //           ...prev,
-  //           [index]: false,
-  //         };
-  //       });
-  //     } else {
-  //       newRow.push(currItem);
-  //       setOpen((prev: any) => {
-  //         return {
-  //           ...prev,
-  //           [index]: true,
-  //         };
-  //       });
-  //     }
-  //     return newRow;
-  //   };
-  // };
-
-  // const handleRowClick = (currItem: any, index: number) => {
-  //   // const handleSelectedRows = selectedRowFunWrapper(currItem, index);
-  //   // setSelectedRows(handleSelectedRows);
-  // };
-
-  // const handleSingleRowClick = (
-  //   e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
-  //   key: string,
-  //   value: any,
-  //   index: number
-  // ) => {
-  //   e.stopPropagation();
-  //   const newCheckBox = { ...allCheckBox };
-
-  //   if (newCheckBox[index] === undefined) {
-  //     newCheckBox[index] = {};
-  //   }
-
-  //   if (newCheckBox[index][key]) {
-  //     newCheckBox[index][key] = null;
-  //   } else {
-  //     newCheckBox[index][key] = true;
-  //   }
-  //   setAllCheckBox(newCheckBox);
-  // };
+    if (newCheckBox[index][key]) {
+      newCheckBox[index][key] = null;
+    } else {
+      newCheckBox[index][key] = true;
+    }
+    setAllCheckBox(newCheckBox);
+  };
 
   return (
     <Box sx={{ ...style }}>
       <SelectDropdown label="Select StyleVariants" data={selectDataList} />
-      {/* <CustomTable
+      <CustomTable
         {...{
-          open,
           theadArr,
           allCheckBox,
-          handleRowClick,
           isMultiSelects: true,
           handleSingleRowClick,
           tbodyArr: tableDataList,
         }}
-      /> */}
+      />
     </Box>
   );
 };

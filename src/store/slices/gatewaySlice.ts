@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchTableData } from "@/services/thunks/tableApis";
 import pdJson from "@/jsons/pd.json";
 import styleVariants from "@/jsons/styleVariants.json";
-import { fetchTableData } from "@/services/thunks/tableApis";
+import sizeVariants from "@/jsons/sizeVariants.json";
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
   value: any;
   data: any;
   styleVariants: any;
+  sizeVariants: any;
   error: string;
   allHeights: any;
   singleItem: any;
@@ -15,8 +17,9 @@ type IGatewaySlice = {
 
 const initialState = {
   value: JSON.parse(JSON.stringify(pdJson as unknown as string)),
-  data: {},
   styleVariants: JSON.parse(JSON.stringify(styleVariants)),
+  sizeVariants: JSON.parse(JSON.stringify(sizeVariants)),
+  data: {},
   singleItem: {},
   error: "",
   allHeights: {
@@ -30,12 +33,6 @@ export const gatewaySlice = createSlice({
   name: "gateway",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    },
     setCurrentProduct: (state, action: PayloadAction<any>) => {
       state.singleItem = action.payload;
     },
@@ -45,6 +42,7 @@ export const gatewaySlice = createSlice({
   },
   extraReducers(builder) {
     builder
+      // fetchTableData
       .addCase(fetchTableData.pending, (state) => {
         state.status = "loading";
       })
@@ -59,10 +57,5 @@ export const gatewaySlice = createSlice({
   },
 });
 
-export const {
-  increment,
-  incrementByAmount,
-  updateHeights,
-  setCurrentProduct,
-} = gatewaySlice.actions;
+export const { updateHeights, setCurrentProduct } = gatewaySlice.actions;
 export default gatewaySlice.reducer;

@@ -12,7 +12,7 @@ import styles from "./customtable.module.scss";
 interface IProps {
   theadArr: any[];
   tbodyArr: any[];
-  handleRowClick: (row: any, index: number) => void;
+  handleRowClick?: (row: any, index: number) => void;
   open?: any;
   isMultiSelects?: boolean;
   allCheckBox?: any;
@@ -28,7 +28,7 @@ const CustomTable = (props: IProps) => {
   const {
     theadArr,
     tbodyArr,
-    handleRowClick,
+    handleRowClick = () => {},
     open = {},
     allCheckBox = {},
     isMultiSelects = false,
