@@ -1,0 +1,52 @@
+{
+  "styleVariants": [
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM1",
+      "styleCode": "ELRUW165"
+    },
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM2",
+      "styleCode": "ELRUW165"
+    },
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM3",
+      "styleCode": "ELRUW165"
+    },
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM4",
+      "styleCode": "ELRUW165"
+    },
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM5",
+      "styleCode": "ELRUW165"
+    },
+    {
+      "action": "M",
+      "baseProduct": "ELRUW165",
+      "code": "ELRUW165_CREAM",
+      "colourCode": "CREAM",
+      "colourDesc": "CREAM6",
+      "styleCode": "ELRUW165"
+    }
+  ]
+}

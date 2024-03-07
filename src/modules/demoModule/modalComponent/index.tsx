@@ -6,21 +6,6 @@ import React, { useState } from "react";
 
 interface IProps {}
 
-const categoryDB = [
-  {
-    label: "Desktop PC",
-    value: 1,
-  },
-  {
-    label: "Notebook",
-    value: 2,
-  },
-  {
-    label: "Monitor",
-    value: 3,
-  },
-];
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -45,72 +30,82 @@ const ModalComponent = (props: IProps) => {
   const [open, setOpen] = useState<any>({});
 
   const rowData = useAppSelector((state) => state.gateway.singleItem);
+  const { styleVariants } = useAppSelector(
+    (state) => state.gateway.styleVariants
+  );
 
-  const tableDataList = rowData.styleVariants[0].sizeVariants;
+  const selectDataList = styleVariants.map((item: any) => ({
+    label: item.colourDesc,
+    value: item.colourDesc,
+  }));
 
-  const theadArr = Object.keys(tableDataList?.[0]);
+  console.log(styleVariants);
+
+  // const tableDataList = rowData.styleVariants[0].sizeVariants;
+
+  // const theadArr = Object.keys(tableDataList?.[0]);
 
   // console.log(selectedRows);
   console.log(allCheckBox);
 
-  const selectedRowFunWrapper = (currItem: any, index: number) => {
-    return (prevRow: any) => {
-      let newRow = [...prevRow];
-      if (
-        prevRow.find((item: any) => {
-          return item.code === currItem.code;
-        })
-      ) {
-        newRow = newRow.filter((item) => item.code !== currItem.code);
-        setOpen((prev: any) => {
-          return {
-            ...prev,
-            [index]: false,
-          };
-        });
-      } else {
-        newRow.push(currItem);
-        setOpen((prev: any) => {
-          return {
-            ...prev,
-            [index]: true,
-          };
-        });
-      }
-      return newRow;
-    };
-  };
+  // const selectedRowFunWrapper = (currItem: any, index: number) => {
+  //   return (prevRow: any) => {
+  //     let newRow = [...prevRow];
+  //     if (
+  //       prevRow.find((item: any) => {
+  //         return item.code === currItem.code;
+  //       })
+  //     ) {
+  //       newRow = newRow.filter((item) => item.code !== currItem.code);
+  //       setOpen((prev: any) => {
+  //         return {
+  //           ...prev,
+  //           [index]: false,
+  //         };
+  //       });
+  //     } else {
+  //       newRow.push(currItem);
+  //       setOpen((prev: any) => {
+  //         return {
+  //           ...prev,
+  //           [index]: true,
+  //         };
+  //       });
+  //     }
+  //     return newRow;
+  //   };
+  // };
 
-  const handleRowClick = (currItem: any, index: number) => {
-    // const handleSelectedRows = selectedRowFunWrapper(currItem, index);
-    // setSelectedRows(handleSelectedRows);
-  };
+  // const handleRowClick = (currItem: any, index: number) => {
+  //   // const handleSelectedRows = selectedRowFunWrapper(currItem, index);
+  //   // setSelectedRows(handleSelectedRows);
+  // };
 
-  const handleSingleRowClick = (
-    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
-    key: string,
-    value: any,
-    index: number
-  ) => {
-    e.stopPropagation();
-    const newCheckBox = { ...allCheckBox };
+  // const handleSingleRowClick = (
+  //   e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
+  //   key: string,
+  //   value: any,
+  //   index: number
+  // ) => {
+  //   e.stopPropagation();
+  //   const newCheckBox = { ...allCheckBox };
 
-    if (newCheckBox[index] === undefined) {
-      newCheckBox[index] = {};
-    }
+  //   if (newCheckBox[index] === undefined) {
+  //     newCheckBox[index] = {};
+  //   }
 
-    if (newCheckBox[index][key]) {
-      newCheckBox[index][key] = null;
-    } else {
-      newCheckBox[index][key] = true;
-    }
-    setAllCheckBox(newCheckBox);
-  };
+  //   if (newCheckBox[index][key]) {
+  //     newCheckBox[index][key] = null;
+  //   } else {
+  //     newCheckBox[index][key] = true;
+  //   }
+  //   setAllCheckBox(newCheckBox);
+  // };
 
   return (
     <Box sx={{ ...style }}>
-      <SelectDropdown label="Select StyleVariants" data={categoryDB} />
-      <CustomTable
+      <SelectDropdown label="Select StyleVariants" data={selectDataList} />
+      {/* <CustomTable
         {...{
           open,
           theadArr,
@@ -120,7 +115,7 @@ const ModalComponent = (props: IProps) => {
           handleSingleRowClick,
           tbodyArr: tableDataList,
         }}
-      />
+      /> */}
     </Box>
   );
 };

@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import pdJson from "@/jsons/pd.json";
+import styleVariants from "@/jsons/styleVariants.json";
 import { fetchTableData } from "@/services/thunks/tableApis";
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
   value: any;
   data: any;
+  styleVariants: any;
   error: string;
   allHeights: any;
   singleItem: any;
@@ -14,6 +16,7 @@ type IGatewaySlice = {
 const initialState = {
   value: JSON.parse(JSON.stringify(pdJson as unknown as string)),
   data: {},
+  styleVariants: JSON.parse(JSON.stringify(styleVariants)),
   singleItem: {},
   error: "",
   allHeights: {
