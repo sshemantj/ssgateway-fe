@@ -33,6 +33,9 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
 };
 
 const ModalComponent = (props: IProps) => {
@@ -48,11 +51,11 @@ const ModalComponent = (props: IProps) => {
 
   console.log(selectedRows);
 
-  const handleRowClick = (currItem: any, index: number) => {
-    setSelectedRows((prevRow) => {
+  const selectedRowFunWrapper = (currItem: any, index: number) => {
+    return (prevRow: any) => {
       let newRow = [...prevRow];
       if (
-        prevRow.find((item) => {
+        prevRow.find((item: any) => {
           return item.code === currItem.code;
         })
       ) {
@@ -73,17 +76,34 @@ const ModalComponent = (props: IProps) => {
         });
       }
       return newRow;
-    });
+    };
+  };
+
+  const handleRowClick = (currItem: any, index: number) => {
+    // const handleSelectedRows = selectedRowFunWrapper(currItem, index);
+    // setSelectedRows(handleSelectedRows);
+  };
+
+  const handleSingleRowClick = (
+    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
+    key: string,
+    value: any
+  ) => {
+    e.stopPropagation();
+    console.log(key, value);
   };
 
   return (
     <Box sx={{ ...style }}>
       <SelectDropdown label="Select StyleVariants" data={categoryDB} />
       <CustomTable
-        handleRowClick={handleRowClick}
-        open={open}
-        theadArr={theadArr}
-        tbodyArr={tableDataList}
+        {...{
+          open,
+          theadArr,
+          handleRowClick,
+          handleSingleRowClick,
+          tbodyArr: tableDataList,
+        }}
       />
     </Box>
   );

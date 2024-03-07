@@ -14,10 +14,21 @@ interface IProps {
   tbodyArr: any[];
   handleRowClick: (row: any, index: number) => void;
   open?: any;
+  handleSingleRowClick?: (
+    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
+    key: string,
+    value: any
+  ) => void;
 }
 
 const CustomTable = (props: IProps) => {
-  const { theadArr, tbodyArr, handleRowClick, open = {} } = props;
+  const {
+    theadArr,
+    tbodyArr,
+    handleRowClick,
+    open = {},
+    handleSingleRowClick = () => {},
+  } = props;
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer component={Paper}>
@@ -45,6 +56,9 @@ const CustomTable = (props: IProps) => {
                       <NestedTable
                         style={{ whiteSpace: "nowrap" }}
                         align="center"
+                        onClick={(e) =>
+                          handleSingleRowClick(e, item, row[item])
+                        }
                       >
                         {row[item] || "-"}
                       </NestedTable>
