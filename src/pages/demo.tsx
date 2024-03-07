@@ -1,10 +1,10 @@
-import CustomTable from "@/component/molecules/CustomeTable";
+import DemoModule from "@/modules/demoModule";
 import { NextPage } from "next";
 
 const Demo: NextPage = () => {
   return (
     <div style={{ margin: "2rem" }}>
-      <CustomTable />
+      <DemoModule />
     </div>
   );
 };

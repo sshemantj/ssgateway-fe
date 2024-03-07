@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,51 +7,30 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NestedTable from "../nestedTable";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setCurrentProduct } from "@/store/slices/gatewaySlice";
-import CustomModal from "../CustomModal";
 import styles from "./customtable.module.scss";
-import SelectDropdown from "../selectDropdown";
-import ModalComponent from "@/modules/demoModule/modalComponent";
 
-const CustomTable = () => {
-  const [open, setOpen] = useState<any>({});
-  const [openModal, setOpenModal] = useState(false);
-  const dispatch = useAppDispatch();
+interface IProps {
+  theadArr: any[];
+  tbodyArr: any[];
+  handleRowClick: (row: any, index: number) => void;
+  open: any;
+}
 
-  const apiRes = useAppSelector((state) => state.gateway.value.products);
-  const keysArray = Object.keys(apiRes?.[0])?.filter(
-    (item) => item !== "styleVariants"
-  );
-  console.log(apiRes);
-
-  const handleModalOpen = () => {
-    setOpenModal(true);
-  };
-
-  const handleRowClick = (item: any, index: number) => {
-    dispatch(setCurrentProduct(item));
-    setOpen((prev: any) => {
-      return {
-        [index]: prev[index] ? false : true,
-      };
-    });
-    handleModalOpen();
-  };
-
+const CustomTable = (props: IProps) => {
+  const { theadArr, tbodyArr, handleRowClick, open } = props;
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {keysArray.map((item) => {
+              {theadArr.map((item) => {
                 return <TableCell align="center">{item}</TableCell>;
               })}
             </TableRow>
           </TableHead>
           <TableBody>
-            {apiRes.map((row: any, index: number) => {
+            {tbodyArr.map((row: any, index: number) => {
               return (
                 <TableRow
                   className={`${styles.tableRow} ${open[index] && styles.open}`}
@@ -59,7 +38,7 @@ const CustomTable = () => {
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {keysArray.map((item) => {
+                  {theadArr.map((item) => {
                     return (
                       <NestedTable
                         style={{ whiteSpace: "nowrap" }}
@@ -75,13 +54,6 @@ const CustomTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <CustomModal
-        closeIconStyle={{ top: "1rem", right: "1rem" }}
-        open={openModal}
-        setOpen={setOpenModal}
-      >
-        <ModalComponent />
-      </CustomModal>
     </div>
   );
 };

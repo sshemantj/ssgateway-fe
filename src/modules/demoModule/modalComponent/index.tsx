@@ -44,11 +44,6 @@ const ModalComponent = (props: IProps) => {
   return (
     <Box sx={{ ...style }}>
       <SelectDropdown label="Select StyleVariants" data={categoryDB} />
-
-      <h2 id="parent-modal-title">Text in a modal</h2>
-      <p id="parent-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
     </Box>
   );
 };
