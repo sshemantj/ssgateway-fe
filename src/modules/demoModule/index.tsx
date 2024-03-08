@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentProduct } from "@/store/slices/gatewaySlice";
-import styles from "./customtable.module.scss";
 import ModalComponent from "@/modules/demoModule/modalComponent";
 import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { fetchTableData } from "@/services/thunks/tableApis";
+import SearchBar from "@/component/molecules/SearchBar";
+import styles from "./customtable.module.scss";
 
 const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
+  const [search, setSearch] = useState<string>("");
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.value.products);
@@ -42,6 +44,9 @@ const DemoModule = () => {
 
   return (
     <div className={styles.customTableWrapper}>
+      <div className={styles.searchContainer}>
+        <SearchBar value={search} setSearch={setSearch} />
+      </div>
       <CustomTable
         handlePagination={handlePagination}
         handleRowClick={handleRowClick}

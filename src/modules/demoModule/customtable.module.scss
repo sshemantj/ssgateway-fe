@@ -1,4 +1,9 @@
 .customTableWrapper {
+  .searchContainer {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+  }
   min-height: 90vh;
   .tableRow {
     &:hover {
