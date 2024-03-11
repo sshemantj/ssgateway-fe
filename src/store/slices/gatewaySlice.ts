@@ -10,40 +10,23 @@ import sizeVariants from "@/jsons/sizeVariants.json";
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
-  value: any;
   data: any;
   styleVariants: any;
   sizeVariants: any;
   error: string;
-  allHeights: any;
-  singleItem: any;
 };
 
 const initialState = {
-  value: JSON.parse(JSON.stringify(pdJson as unknown as string)),
+  data: { products: [] },
   styleVariants: JSON.parse(JSON.stringify(styleVariants)),
   sizeVariants: JSON.parse(JSON.stringify(sizeVariants)),
-  data: {},
-  singleItem: {},
   error: "",
-  allHeights: {
-    level: {
-      1: 0,
-    },
-  },
 } as IGatewaySlice;
 
 export const gatewaySlice = createSlice({
   name: "gateway",
   initialState,
-  reducers: {
-    setCurrentProduct: (state, action: PayloadAction<any>) => {
-      state.singleItem = action.payload;
-    },
-    updateHeights: (state, action: PayloadAction<any>) => {
-      state.allHeights = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       // fetchTableData
@@ -85,5 +68,5 @@ export const gatewaySlice = createSlice({
   },
 });
 
-export const { updateHeights, setCurrentProduct } = gatewaySlice.actions;
+export const {} = gatewaySlice.actions;
 export default gatewaySlice.reducer;

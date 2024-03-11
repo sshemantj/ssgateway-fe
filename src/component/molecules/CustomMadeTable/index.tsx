@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import styles from "./customMadeTable.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { updateHeights } from "@/store/slices/gatewaySlice";
+// import { updateHeights } from "@/store/slices/gatewaySlice";
 
 interface IProps {
   level?: number;
@@ -71,7 +71,7 @@ const CustomMadeTable = (props: IProps) => {
       handleAccordionOnOpen(updatedHeights, isCurrentlyOpen);
       handleAccordionOnClose(updatedHeights, isCurrentlyOpen);
 
-      dispatch(updateHeights(updatedHeights));
+      // dispatch(updateHeights(updatedHeights));
 
       return { [index]: isCurrentlyOpen ? false : true };
     };

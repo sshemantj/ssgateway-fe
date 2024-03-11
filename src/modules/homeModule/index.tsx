@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import ModalComponent from "@/modules/homeModule/modalComponent";
 import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
@@ -14,8 +13,8 @@ const DemoModule = () => {
   const [search, setSearch] = useState<string>("");
   const dispatch = useAppDispatch();
 
-  const apiRes = useAppSelector((state) => state.gateway.value.products);
-  const keysArray = Object.keys(apiRes?.[0])?.filter(
+  const apiRes = useAppSelector((state) => state.gateway.data.products);
+  const keysArray = Object.keys(apiRes?.[0] || {})?.filter(
     (item) => item !== "styleVariants"
   );
   // console.log(apiRes);
