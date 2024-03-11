@@ -4,9 +4,6 @@ import {
   getSizeVariants,
   getStyleVariants,
 } from "@/services/thunks/tableApis";
-import getProductJson from "@/jsons/getProducts.json";
-import getStyleVariantJson from "@/jsons/getStyleVariants.json";
-import getSizeVariantJson from "@/jsons/getSizeVariants.json";
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
@@ -17,9 +14,9 @@ type IGatewaySlice = {
 };
 
 const initialState = {
-  data: JSON.parse(JSON.stringify(getProductJson)),
-  styleVariants: JSON.parse(JSON.stringify(getStyleVariantJson)),
-  sizeVariants: JSON.parse(JSON.stringify(getSizeVariantJson)),
+  data: { products: [] },
+  styleVariants: [],
+  sizeVariants: [],
   error: "",
 } as IGatewaySlice;
 

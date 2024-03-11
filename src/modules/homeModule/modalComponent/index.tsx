@@ -27,12 +27,8 @@ const ModalComponent = () => {
 
   const dispatch = useAppDispatch();
 
-  const { styleVariants } = useAppSelector(
-    (state) => state.gateway.styleVariants
-  );
-  const { sizeVariants } = useAppSelector(
-    (state) => state.gateway.sizeVariants
-  );
+  const { styleVariants } = useAppSelector((state) => state.gateway);
+  const { sizeVariants } = useAppSelector((state) => state.gateway);
 
   const selectDataList = styleVariants.map((item: any) => ({
     label: item.colourDesc,
