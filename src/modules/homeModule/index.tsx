@@ -4,7 +4,7 @@ import { setCurrentProduct } from "@/store/slices/gatewaySlice";
 import ModalComponent from "@/modules/homeModule/modalComponent";
 import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
-import { fetchTableData } from "@/services/thunks/tableApis";
+import { fetchTableData, getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
 import styles from "./customtable.module.scss";
 
@@ -29,13 +29,16 @@ const DemoModule = () => {
   };
 
   const handleRowClick = (item: any, index: number) => {
-    dispatch(setCurrentProduct(item));
     setOpen((prev: any) => {
       return {
         [index]: prev[index] ? false : true,
       };
     });
-    handleModalOpen();
+    dispatch(getStyleVariants({ productid: item.id }))
+      .unwrap()
+      .then(() => {
+        handleModalOpen();
+      });
   };
 
   const handlePagination = (pageNumber: number) => {
