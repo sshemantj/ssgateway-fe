@@ -1,14 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
 
-// const url = "api/Products/GetProducts?pageSize=100&pageNumber=1";
+interface IFetchTableData {
+  pageNumber?: number;
+  pageSize?: number;
+  searchTerm?: string;
+}
 
 const fetchTableData = createAsyncThunk(
   "table/fetchProducts",
-  async (pageNumber: number) => {
-    const response = await axiosPrivate.get(
-      `/api/Products/GetProducts?pageSize=100&pageNumber=${pageNumber}`
-    );
+  async ({
+    pageNumber = 1,
+    pageSize = 100,
+    searchTerm = "",
+  }: IFetchTableData) => {
+    const search = searchTerm ? { searchTerm } : {};
+    const params = {
+      pageNumber,
+      pageSize,
+      ...search,
+    };
+
+    const response = await axiosPrivate.get(`/api/Products/GetProducts`, {
+      params,
+    });
+
     return response.data;
   }
 );

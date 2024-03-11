@@ -21,7 +21,7 @@ const DemoModule = () => {
   // console.log(apiRes);
 
   useEffect(() => {
-    dispatch(fetchTableData(1));
+    dispatch(fetchTableData({}));
   }, []);
 
   const handleModalOpen = () => {
@@ -39,13 +39,21 @@ const DemoModule = () => {
   };
 
   const handlePagination = (pageNumber: number) => {
-    dispatch(fetchTableData(pageNumber));
+    dispatch(fetchTableData({ pageNumber, searchTerm: search }));
+  };
+
+  const handleSearchClick = () => {
+    dispatch(fetchTableData({ searchTerm: search }));
   };
 
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.searchContainer}>
-        <SearchBar value={search} setSearch={setSearch} />
+        <SearchBar
+          handleSearchClick={handleSearchClick}
+          value={search}
+          setSearch={setSearch}
+        />
       </div>
       <CustomTable
         handlePagination={handlePagination}

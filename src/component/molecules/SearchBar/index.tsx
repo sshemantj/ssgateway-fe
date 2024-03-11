@@ -3,28 +3,29 @@ import { TextField } from "@mui/material";
 import styles from "./searchBar.module.scss";
 import Image from "next/image";
 import { searchIcon } from "@/images/AllDataIcons";
-import { useDebounce } from "@/hooks/useDebounce";
+// import { useDebounce } from "@/hooks/useDebounce";
 
 interface IProps {
   value: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  handleSearchClick: () => void;
 }
 
 const SearchBar = (props: IProps) => {
-  const { value, setSearch } = props;
+  const { value, setSearch, handleSearchClick } = props;
 
-  const delayedValue = useDebounce(value, 1000);
+  // const delayedValue = useDebounce(value, 1000);
 
-  const handleSearch = () => {
-    alert(value);
-  };
+  // const handleSearch = () => {
+  //   alert(value);
+  // };
 
   const handleOnKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const pressedKey = e.key;
       switch (pressedKey) {
         case "Enter":
-          handleSearch();
+          handleSearchClick();
           break;
       }
     },
@@ -41,7 +42,7 @@ const SearchBar = (props: IProps) => {
         onKeyDown={handleOnKeyDown}
         placeholder="search here..."
       />
-      <div onClick={() => handleSearch()} className={styles.searchIcon}>
+      <div onClick={() => handleSearchClick()} className={styles.searchIcon}>
         <Image src={searchIcon} alt="search" width={25} height={25} />
       </div>
     </div>
