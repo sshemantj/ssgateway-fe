@@ -57,8 +57,12 @@ const CustomTable = (props: IProps) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {theadArr.map((item) => {
-                return <TableCell align="center">{item}</TableCell>;
+              {theadArr.map((item, index) => {
+                return (
+                  <TableCell key={index} align="center">
+                    {item}
+                  </TableCell>
+                );
               })}
             </TableRow>
           </TableHead>
@@ -73,9 +77,10 @@ const CustomTable = (props: IProps) => {
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {theadArr.map((item) => {
+                  {theadArr.map((item, index2) => {
                     return (
                       <NestedTable
+                        key={index2}
                         style={{ whiteSpace: "nowrap" }}
                         align="center"
                         onClick={(e) =>

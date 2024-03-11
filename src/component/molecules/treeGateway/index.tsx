@@ -9,9 +9,7 @@ const TreeGateway = (props: IProps) => {
   const pdjson = useAppSelector((state) => state.gateway.value);
   console.log(pdjson);
   return (
-    <div className={styles.treeGatewayWrapper}>
-      <CustomTable />
-    </div>
+    <div className={styles.treeGatewayWrapper}>{/* <CustomTable /> */}</div>
   );
 };
 

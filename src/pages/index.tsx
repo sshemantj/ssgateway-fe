@@ -1,21 +1,19 @@
-import styles from "@/styles/Home.module.css";
-import HomeModule from "@/modules/homeModule";
+import Head from "next/head";
 import { NextPage } from "next";
 import Navbar from "@/component/molecules/Navbar";
-import Head from "next/head";
-import { useRef } from "react";
+import HomeModule from "@/modules/homeModule";
 
 const Home: NextPage = () => {
-  const ref = useRef<HTMLElement | null>(null);
-
   return (
     <>
       <Head>
         <title>SS-gateway!</title>
       </Head>
       <Navbar />
-      <main ref={ref} className={`${styles.main}`}>
-        <HomeModule />
+      <main>
+        <div style={{ margin: "1rem" }}>
+          <HomeModule />
+        </div>
       </main>
     </>
   );

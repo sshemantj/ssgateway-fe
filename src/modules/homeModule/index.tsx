@@ -1,16 +1,68 @@
-import React from "react";
-import { ToastContainer } from "react-toastify";
-import styles from "./homemodule.module.scss";
-import TreeGateway from "@/component/molecules/treeGateway";
-import CustomMadeTable from "@/component/molecules/CustomMadeTable";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setCurrentProduct } from "@/store/slices/gatewaySlice";
+import ModalComponent from "@/modules/homeModule/modalComponent";
+import CustomModal from "@/component/molecules/CustomModal";
+import CustomTable from "@/component/molecules/CustomeTable";
+import { fetchTableData } from "@/services/thunks/tableApis";
+import SearchBar from "@/component/molecules/SearchBar";
+import styles from "./customtable.module.scss";
 
-const HomeModule = () => {
+const DemoModule = () => {
+  const [open, setOpen] = useState<any>({});
+  const [openModal, setOpenModal] = useState(false);
+  const [search, setSearch] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const apiRes = useAppSelector((state) => state.gateway.value.products);
+  const keysArray = Object.keys(apiRes?.[0])?.filter(
+    (item) => item !== "styleVariants"
+  );
+  // console.log(apiRes);
+
+  useEffect(() => {
+    dispatch(fetchTableData(1));
+  }, []);
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleRowClick = (item: any, index: number) => {
+    dispatch(setCurrentProduct(item));
+    setOpen((prev: any) => {
+      return {
+        [index]: prev[index] ? false : true,
+      };
+    });
+    handleModalOpen();
+  };
+
+  const handlePagination = (pageNumber: number) => {
+    dispatch(fetchTableData(pageNumber));
+  };
+
   return (
-    <div className={styles.homeWrapper}>
-      <CustomMadeTable />
-      <ToastContainer autoClose={3000} />
+    <div className={styles.customTableWrapper}>
+      <div className={styles.searchContainer}>
+        <SearchBar value={search} setSearch={setSearch} />
+      </div>
+      <CustomTable
+        handlePagination={handlePagination}
+        handleRowClick={handleRowClick}
+        open={open}
+        theadArr={keysArray}
+        tbodyArr={apiRes}
+      />
+      <CustomModal
+        closeIconStyle={{ top: "1rem", right: "1rem" }}
+        open={openModal}
+        setOpen={setOpenModal}
+      >
+        <ModalComponent />
+      </CustomModal>
     </div>
   );
 };
 
-export default HomeModule;
+export default DemoModule;
