@@ -4,6 +4,9 @@ import styles from "./selectDropdown.module.scss";
 
 interface IProps {
   label: string;
+  handleOnChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   data: {
     label: string;
     value: string | number;
@@ -11,7 +14,7 @@ interface IProps {
 }
 
 const SelectDropdown = (props: IProps) => {
-  const { data, label } = props;
+  const { data, label, handleOnChange } = props;
   return (
     <div className={styles.selectWrapper}>
       <TextField
@@ -19,6 +22,7 @@ const SelectDropdown = (props: IProps) => {
         select
         label={label}
         size="medium"
+        onChange={handleOnChange}
       >
         {data.map(({ label, value }) => (
           <MenuItem key={value} value={value}>

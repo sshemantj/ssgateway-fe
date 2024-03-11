@@ -54,7 +54,7 @@ const getStyleVariants = createAsyncThunk(
 );
 
 const getSizeVariants = createAsyncThunk(
-  "table/getStyleVariants",
+  "table/getSizeVariants",
   async ({ stylevairiantId }: IGetSizeVariants) => {
     const url = "/api/Products/GetSizevariant";
     const params = {

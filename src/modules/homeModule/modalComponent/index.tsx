@@ -1,11 +1,12 @@
 import CustomTable from "@/component/molecules/CustomeTable";
 import SelectDropdown from "@/component/molecules/selectDropdown";
-import { useAppSelector } from "@/store/hooks";
+import { getSizeVariants } from "@/services/thunks/tableApis";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -24,6 +25,8 @@ const style = {
 const ModalComponent = () => {
   const [allCheckBox, setAllCheckBox] = useState<any>({});
 
+  const dispatch = useAppDispatch();
+
   const { styleVariants } = useAppSelector(
     (state) => state.gateway.styleVariants
   );
@@ -38,7 +41,7 @@ const ModalComponent = () => {
 
   const tableDataList = sizeVariants;
 
-  const theadArr = Object.keys(sizeVariants?.[0]);
+  const theadArr = Object.keys(sizeVariants?.[0] || {});
 
   const handleSingleRowClick = (
     e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
@@ -61,9 +64,20 @@ const ModalComponent = () => {
     setAllCheckBox(newCheckBox);
   };
 
+  const handleOnChange = async (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { value } = e.target;
+    dispatch(getSizeVariants({ stylevairiantId: value }));
+  };
+
   return (
     <Box sx={{ ...style }}>
-      <SelectDropdown label="Select StyleVariants" data={selectDataList} />
+      <SelectDropdown
+        handleOnChange={handleOnChange}
+        label="Select StyleVariants"
+        data={selectDataList}
+      />
       <CustomTable
         {...{
           theadArr,

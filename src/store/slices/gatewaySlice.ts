@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchTableData } from "@/services/thunks/tableApis";
+import { fetchTableData, getSizeVariants } from "@/services/thunks/tableApis";
 import pdJson from "@/jsons/pd.json";
 import styleVariants from "@/jsons/styleVariants.json";
 import sizeVariants from "@/jsons/sizeVariants.json";
@@ -51,6 +51,30 @@ export const gatewaySlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchTableData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
+      })
+      // fetchTableData
+      // .addCase(fetchTableData.pending, (state) => {
+      //   state.status = "loading";
+      // })
+      // .addCase(fetchTableData.fulfilled, (state, action) => {
+      //   state.status = "succeeded";
+      //   state.data = action.payload;
+      // })
+      // .addCase(fetchTableData.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message || "";
+      // })
+      // fetch size variants
+      .addCase(getSizeVariants.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getSizeVariants.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.sizeVariants = action.payload;
+      })
+      .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
       });
