@@ -14,18 +14,19 @@ const CustomMadeTable = (props: IProps) => {
   const [alreadyClicked, setAlreadyClicked] = useState<any>(false);
   const [currHeight, setCurrHeight] = useState<number>(0);
 
-  const { allHeights } = useAppSelector((state) => state.gateway);
+  // const { allHeights } = useAppSelector((state) => state.gateway);
+  const allHeights: any = {};
   const dispatch = useAppDispatch();
 
   const divRef = useRef<any>(null);
 
   const getUpdatedHeight = () => {
     return {
-      ...allHeights,
-      level: {
-        ...allHeights.level,
-        [level]: currHeight,
-      },
+      // ...allHeights,
+      // level: {
+      //   ...allHeights.level,
+      //   [level]: currHeight,
+      // },
     };
   };
 
