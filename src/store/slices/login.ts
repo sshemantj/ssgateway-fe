@@ -1,4 +1,4 @@
-import { callLogin } from "@/services/thunks/tableApis";
+import { callLogin } from "@/services/thunks/loginApi";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IloginSlice {

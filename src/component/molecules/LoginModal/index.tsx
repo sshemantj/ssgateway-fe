@@ -5,7 +5,7 @@ import CustomModal from "../CustomModal";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
 import { useAppDispatch } from "@/store/hooks";
-import { callLogin } from "@/services/thunks/tableApis";
+import { callLogin } from "@/services/thunks/loginApi";
 
 const LoginComponent = () => {
   const [open, setOpen] = useState(true);

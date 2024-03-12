@@ -1,5 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
+// import { store } from "@/store";
+let store = null;
+import("@/store").then((res) => {
+  store = res.store.getState();
+});
+
+// const token = store.getState().login.token;
+console.log(store);
 
 interface IFetchTableData {
   pageNumber?: number;
@@ -13,27 +21,6 @@ interface IGetStyleVariants {
 interface IGetSizeVariants {
   stylevairiantId: string;
 }
-interface ILogin {
-  Username: string;
-  Password: string;
-}
-
-const callLogin = createAsyncThunk(
-  "login",
-  async ({ Username, Password }: ILogin) => {
-    const url = "/api/Authentication/authenticate";
-    const params = {
-      Username,
-      Password,
-    };
-
-    const response = await axiosPrivate.get(url, {
-      params,
-    });
-
-    return response.data;
-  }
-);
 
 const fetchTableData = createAsyncThunk(
   "table/fetchProducts",
@@ -90,4 +77,4 @@ const getSizeVariants = createAsyncThunk(
   }
 );
 
-export { callLogin, fetchTableData, getStyleVariants, getSizeVariants };
+export { fetchTableData, getStyleVariants, getSizeVariants };
