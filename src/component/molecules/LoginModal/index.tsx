@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Grid, TextField, Paper, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import CustomModal from "../CustomModal";
+import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
+import { useAppDispatch } from "@/store/hooks";
+import { callLogin } from "@/services/thunks/tableApis";
 
 const LoginComponent = () => {
   const [open, setOpen] = useState(true);
@@ -10,9 +13,15 @@ const LoginComponent = () => {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
-    // router.push(processScreenRoutes.);
+    if (!username && !password) toast.error("username and password required!");
+    dispatch(callLogin({ Username: username, Password: password }))
+      .unwrap()
+      .then(() => {
+        setOpen(false);
+      });
   };
 
   return (
@@ -82,6 +91,7 @@ const LoginComponent = () => {
             </Grid>
           </Paper>
         </div>
+        <ToastContainer />
       </div>
     </CustomModal>
   );

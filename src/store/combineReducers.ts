@@ -1,12 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import counterReducer from "./slices/counterSlice";
-import menu from "./slices/menu";
 import gatewaySlice from "./slices/gatewaySlice";
+import menu from "./slices/menu";
+import login from "./slices/login";
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
   menu,
+  login,
   gateway: gatewaySlice,
+  counter: counterReducer,
 });
 
 export { rootReducer };
