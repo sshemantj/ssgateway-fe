@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosPrivate } from "../client";
+import { axiosPublic } from "../client";
 import { Cookies } from "react-cookie";
 
 const cookie = new Cookies();
@@ -18,7 +18,7 @@ const callLogin = createAsyncThunk(
       Password,
     };
 
-    const response = await axiosPrivate.post(url, body);
+    const response = await axiosPublic.post(url, body);
     const accessToken = response.data.accessToken;
 
     cookie.set("token", accessToken, {

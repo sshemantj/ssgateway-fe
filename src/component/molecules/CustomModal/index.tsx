@@ -7,17 +7,26 @@ import styles from "./customModal.module.scss";
 
 interface IProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleModalClose?: () => void;
   children: JSX.Element;
   closeIconStyle?: React.CSSProperties;
   showClose?: boolean;
 }
 
 const CustomModal = (props: IProps) => {
-  const { open, setOpen, children, closeIconStyle, showClose = true } = props;
+  const {
+    open,
+    setOpen = () => {},
+    handleModalClose = () => {},
+    children,
+    closeIconStyle,
+    showClose = true,
+  } = props;
 
   const handleClose = () => {
     setOpen(false);
+    handleModalClose();
   };
 
   return (

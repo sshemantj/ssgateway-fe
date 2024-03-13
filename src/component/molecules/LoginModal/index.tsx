@@ -4,28 +4,39 @@ import { useRouter } from "next/router";
 import CustomModal from "../CustomModal";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { callLogin } from "@/services/thunks/loginApi";
+import { closeLoginModal } from "@/store/slices/loginSlice";
 
 const LoginComponent = () => {
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const showLoginModal = useAppSelector((state) => state.login.showLoginModal);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const handleLogin = () => {
-    if (!username && !password) toast.error("username and password required!");
+    if (!username && !password) toast.warn("username and password required!");
     dispatch(callLogin({ Username: username, Password: password }))
-      .unwrap()
       .then(() => {
-        setOpen(false);
-      });
+        handleModalClose();
+      })
+      .catch((error: any) =>
+        toast.error(error.message || "Error while trying to login!")
+      );
+  };
+
+  const handleModalClose = () => {
+    dispatch(closeLoginModal());
   };
 
   return (
-    <CustomModal {...{ open, setOpen, showClose: false }}>
+    <CustomModal
+      {...{ open: showLoginModal, handleModalClose, showClose: false }}
+    >
       <div className={styles.loginWrapper}>
         <div style={{ padding: 30, height: "100%" }}>
           <Paper

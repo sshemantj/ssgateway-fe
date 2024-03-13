@@ -1,13 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
-// import { store } from "@/store";
-let store = null;
-import("@/store").then((res) => {
-  store = res.store.getState();
-});
-
-// const token = store.getState().login.token;
-console.log(store);
 
 interface IFetchTableData {
   pageNumber?: number;
@@ -29,51 +21,64 @@ const fetchTableData = createAsyncThunk(
     pageSize = 100,
     searchTerm = "",
   }: IFetchTableData) => {
-    const url = "/api/Products/GetProducts";
-    const search = searchTerm ? { searchTerm } : {};
-    const params = {
-      pageNumber,
-      pageSize,
-      ...search,
-    };
+    try {
+      const url = "/api/Products/GetProducts";
+      const search = searchTerm ? { searchTerm } : {};
+      const params = {
+        pageNumber,
+        pageSize,
+        ...search,
+      };
 
-    const response = await axiosPrivate.get(url, {
-      params,
-    });
+      const response = await axiosPrivate.get(url, {
+        params,
+      });
 
-    return response.data;
+      return response.data;
+    } catch (error: any) {
+      console.log(error.message);
+      return { products: [] };
+    }
   }
 );
 
 const getStyleVariants = createAsyncThunk(
   "table/getStyleVariants",
   async ({ productid }: IGetStyleVariants) => {
-    const url = "/api/Products/GetStylevariant";
-    const params = {
-      productid,
-    };
+    try {
+      const url = "/api/Products/GetStylevariant";
+      const params = {
+        productid,
+      };
 
-    const response = await axiosPrivate.get(url, {
-      params,
-    });
+      const response = await axiosPrivate.get(url, {
+        params,
+      });
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
 const getSizeVariants = createAsyncThunk(
   "table/getSizeVariants",
   async ({ stylevairiantId }: IGetSizeVariants) => {
-    const url = "/api/Products/GetSizevariant";
-    const params = {
-      stylevairiantId,
-    };
+    try {
+      const url = "/api/Products/GetSizevariant";
+      const params = {
+        stylevairiantId,
+      };
 
-    const response = await axiosPrivate.get(url, {
-      params,
-    });
+      const response = await axiosPrivate.get(url, {
+        params,
+      });
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
