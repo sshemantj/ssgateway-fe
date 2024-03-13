@@ -29,9 +29,9 @@ const ModalComponent = () => {
   const { sizeVariants } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
 
-  const selectDataList = styleVariants.map((item: any) => ({
-    label: item.colourDesc,
-    value: item.colourDesc,
+  const selectDataList = styleVariants.map((item: any, index: number) => ({
+    label: `${item.colourDesc} ${index}`,
+    value: `${item.colourDesc} ${index}`,
   }));
 
   const theadArr = Object.keys(sizeVariants?.[0] || {});
@@ -60,15 +60,17 @@ const ModalComponent = () => {
         label="Select StyleVariants"
         data={selectDataList}
       />
-      <CustomTable
-        {...{
-          theadArr,
-          allCheckBox,
-          isMultiSelects: true,
-          handleRowClick,
-          tbodyArr: sizeVariants,
-        }}
-      />
+      {sizeVariants.length ? (
+        <CustomTable
+          {...{
+            theadArr,
+            allCheckBox,
+            isMultiSelects: true,
+            handleRowClick,
+            tbodyArr: sizeVariants,
+          }}
+        />
+      ) : null}
     </Box>
   );
 };
