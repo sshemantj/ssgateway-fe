@@ -3,24 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface IloginSlice {
   status: "loading" | "succeeded" | "failed" | null;
-  token: string | null;
   error: string | null;
 }
 
 const initialState = {
   status: null,
-  token: null,
   error: null,
 } as IloginSlice;
 
 export const login = createSlice({
   name: "login",
   initialState,
-  reducers: {
-    setToken: (state, action) => {
-      state.token = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       // callLogin
@@ -29,7 +23,6 @@ export const login = createSlice({
       })
       .addCase(callLogin.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.token = action.payload.accessToken;
       })
       .addCase(callLogin.rejected, (state, action) => {
         state.status = "failed";
@@ -38,5 +31,5 @@ export const login = createSlice({
   },
 });
 
-export const { setToken } = login.actions;
+export const {} = login.actions;
 export default login.reducer;

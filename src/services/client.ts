@@ -11,10 +11,11 @@ axios.interceptors.request.use(
 export const axiosPrivate = axios.create({
   baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
+  // withCredentials: true,
 });
 
 export const axiosPublic = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: "",
   headers: { "Content-Type": "application/json" },
   // withCredentials: true,
 });

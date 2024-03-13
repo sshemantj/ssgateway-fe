@@ -1,5 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
+import { Cookies } from "react-cookie";
+
+const cookie = new Cookies();
 
 interface ILogin {
   Username: string;
@@ -10,16 +13,22 @@ const callLogin = createAsyncThunk(
   "login",
   async ({ Username, Password }: ILogin) => {
     const url = "/api/Authentication/authenticate";
-    const params = {
+    const body = {
       Username,
       Password,
     };
 
-    const response = await axiosPrivate.get(url, {
-      params,
+    const response = await axiosPrivate.post(url, body);
+    const accessToken = response.data.accessToken;
+
+    cookie.set("token", accessToken, {
+      secure: process.env.NODE_ENV !== "development",
+      path: "/",
     });
 
-    return response.data;
+    return {
+      message: "token has been set successfully",
+    };
   }
 );
 

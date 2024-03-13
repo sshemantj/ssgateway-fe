@@ -70,11 +70,11 @@ const CustomTable = (props: IProps) => {
             {tbodyArr.map((row: any, index: number) => {
               return (
                 <TableRow
+                  key={`${row.name}${index}`}
                   className={`${styles.tableRow} ${
                     open?.[index] && styles.open
                   }`}
                   onClick={() => handleRowClick(row, index)}
-                  key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   {theadArr.map((item, index2) => {
