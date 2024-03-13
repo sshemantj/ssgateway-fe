@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -51,13 +51,18 @@ const CustomTable = (props: IProps) => {
     }
   };
 
+  const customTheadArr = useMemo(
+    () => (isMultiSelects ? ["check", ...theadArr] : theadArr),
+    [theadArr]
+  );
+
   return (
     <div className={styles.customTableWrapper}>
       <TableContainer style={{ height: "80vh" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {theadArr.map((item, index) => {
+              {customTheadArr.map((item, index) => {
                 return (
                   <TableCell key={index} align="center">
                     {item}
@@ -77,27 +82,27 @@ const CustomTable = (props: IProps) => {
                   onClick={() => handleRowClick(row, index)}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {theadArr.map((item, index2) => {
-                    return (
-                      <NestedTable
-                        key={index2}
-                        style={{ whiteSpace: "nowrap" }}
-                        align="center"
-                        onClick={(e) =>
-                          handleSingleRowClick(e, item, row[item], index)
-                        }
-                      >
-                        <>
-                          {isMultiSelects && (
-                            <Checkbox
-                              checked={Boolean(allCheckBox?.[index]?.[item])}
-                            />
-                          )}
+                  {isMultiSelects ? (
+                    <NestedTable
+                      style={{ whiteSpace: "nowrap" }}
+                      align="center"
+                    >
+                      <Checkbox checked={Boolean(allCheckBox?.[index])} />
+                    </NestedTable>
+                  ) : null}
+                  {customTheadArr
+                    .filter((item) => item !== "check")
+                    .map((item, index2) => {
+                      return (
+                        <NestedTable
+                          key={index2}
+                          style={{ whiteSpace: "nowrap" }}
+                          align="center"
+                        >
                           {handleRowValue(row[item])}
-                        </>
-                      </NestedTable>
-                    );
-                  })}
+                        </NestedTable>
+                      );
+                    })}
                 </TableRow>
               );
             })}

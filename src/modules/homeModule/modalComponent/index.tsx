@@ -25,37 +25,23 @@ const style = {
 const ModalComponent = () => {
   const [allCheckBox, setAllCheckBox] = useState<any>({});
 
-  const dispatch = useAppDispatch();
-
   const { styleVariants } = useAppSelector((state) => state.gateway);
   const { sizeVariants } = useAppSelector((state) => state.gateway);
+  const dispatch = useAppDispatch();
 
   const selectDataList = styleVariants.map((item: any) => ({
     label: item.colourDesc,
     value: item.colourDesc,
   }));
 
-  const tableDataList = sizeVariants;
-
   const theadArr = Object.keys(sizeVariants?.[0] || {});
 
-  const handleSingleRowClick = (
-    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
-    key: string,
-    value: any,
-    index: number
-  ) => {
-    e.stopPropagation();
+  const handleRowClick = (row: any, index: number) => {
     const newCheckBox = { ...allCheckBox };
-
-    if (newCheckBox[index] === undefined) {
-      newCheckBox[index] = {};
-    }
-
-    if (newCheckBox[index][key]) {
-      newCheckBox[index][key] = null;
+    if (newCheckBox[index]) {
+      newCheckBox[index] = null;
     } else {
-      newCheckBox[index][key] = true;
+      newCheckBox[index] = true;
     }
     setAllCheckBox(newCheckBox);
   };
@@ -79,8 +65,8 @@ const ModalComponent = () => {
           theadArr,
           allCheckBox,
           isMultiSelects: true,
-          handleSingleRowClick,
-          tbodyArr: tableDataList,
+          handleRowClick,
+          tbodyArr: sizeVariants,
         }}
       />
     </Box>

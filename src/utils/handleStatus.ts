@@ -8,7 +8,7 @@ const handleStatus = (status: number | undefined) => {
       handleUnauthorize();
       break;
     default:
-      console.log(status);
+    // console.log(status);
   }
 };
 
