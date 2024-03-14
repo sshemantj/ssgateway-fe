@@ -63,6 +63,7 @@ const DemoModule = () => {
         open={open}
         theadArr={keysArray}
         tbodyArr={apiRes}
+        showPagination
       />
       <CustomModal
         closeIconStyle={{ top: "1rem", right: "1rem" }}

@@ -18,12 +18,7 @@ interface IProps {
   isMultiSelects?: boolean;
   allCheckBox?: any;
   handlePagination?: (pageNumber: number) => void;
-  handleSingleRowClick?: (
-    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>,
-    key: string,
-    value: any,
-    index: number
-  ) => void;
+  showPagination?: boolean;
 }
 
 const CustomTable = (props: IProps) => {
@@ -34,8 +29,8 @@ const CustomTable = (props: IProps) => {
     open = {},
     allCheckBox = {},
     isMultiSelects = false,
-    handleSingleRowClick = () => {},
     handlePagination = () => {},
+    showPagination = false,
   } = props;
 
   const handleRowValue = (row: any) => {
@@ -109,12 +104,13 @@ const CustomTable = (props: IProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination
-        onChange={(_, page) => handlePagination(page)}
-        count={Number.MAX_SAFE_INTEGER}
-        sx={{ "& .MuiPagination-ul li:nth-child(8)": { display: "none" } }}
-        variant="outlined"
-      />
+      {showPagination && (
+        <Pagination
+          onChange={(_, page) => handlePagination(page)}
+          sx={{ "& .MuiPagination-ul li:nth-child(8)": { display: "none" } }}
+          variant="outlined"
+        />
+      )}
     </div>
   );
 };
