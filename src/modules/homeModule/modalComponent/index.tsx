@@ -2,7 +2,7 @@ import CustomTable from "@/component/molecules/CustomeTable";
 import SelectDropdown from "@/component/molecules/selectDropdown";
 import { getSizeVariants } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { Box } from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 import React, { useState } from "react";
 
 const style = {
@@ -53,6 +53,10 @@ const ModalComponent = () => {
     dispatch(getSizeVariants({ stylevairiantId: value }));
   };
 
+  const handlePagination = (pageNumber: number) => {
+    // dispatch(fetchTableData({ pageNumber, searchTerm: search }));
+  };
+
   return (
     <Box sx={{ ...style }}>
       <SelectDropdown
@@ -60,17 +64,46 @@ const ModalComponent = () => {
         label="Select StyleVariants"
         data={selectDataList}
       />
-      {sizeVariants.length ? (
-        <CustomTable
-          {...{
-            theadArr,
-            allCheckBox,
-            isMultiSelects: true,
-            handleRowClick,
-            tbodyArr: sizeVariants,
-          }}
-        />
-      ) : null}
+      <div style={{ position: "relative", overflowY: "scroll" }}>
+        {sizeVariants.length ? (
+          <>
+            <CustomTable
+              {...{
+                theadArr,
+                allCheckBox,
+                isMultiSelects: true,
+                handleRowClick,
+                tbodyArr: sizeVariants,
+              }}
+            />
+            <div
+              style={{
+                marginTop: "1rem",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Pagination
+                onChange={(_, page) => handlePagination(page)}
+                sx={{
+                  "& .MuiPagination-ul li:nth-child(8)": { display: "none" },
+                }}
+                variant="outlined"
+              />
+              <Button
+                style={{
+                  padding: "0.3rem 3rem",
+                }}
+                variant="contained"
+              >
+                Submit
+              </Button>
+            </div>
+          </>
+        ) : null}
+      </div>
     </Box>
   );
 };

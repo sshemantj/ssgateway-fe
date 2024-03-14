@@ -53,7 +53,16 @@ const CustomTable = (props: IProps) => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <TableContainer style={{ height: "80vh" }}>
+      <TableContainer
+        sx={{
+          height: "70vh",
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
