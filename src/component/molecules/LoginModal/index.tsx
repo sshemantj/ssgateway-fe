@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, TextField, Paper, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import CustomModal from "../CustomModal";
@@ -6,7 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { callLogin } from "@/services/thunks/loginApi";
-import { closeLoginModal } from "@/store/slices/loginSlice";
+import { closeLoginModal, openLoginModal } from "@/store/slices/loginSlice";
+import { Cookies } from "react-cookie";
+
+const cookie = new Cookies();
 
 const LoginComponent = () => {
   // const [open, setOpen] = useState(false);
@@ -32,6 +35,12 @@ const LoginComponent = () => {
   const handleModalClose = () => {
     dispatch(closeLoginModal());
   };
+
+  useEffect(()=>{
+    if(!cookie.get('token')) {
+      dispatch(openLoginModal())
+    }
+  }, [])
 
   return (
     <CustomModal

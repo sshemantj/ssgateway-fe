@@ -22,7 +22,7 @@ const fetchTableData = createAsyncThunk(
     searchTerm = "",
   }: IFetchTableData) => {
     try {
-      const url = "/api/Products/GetProducts";
+      const url = "/api/Products/GetApprovedProducts";
       const search = searchTerm ? { searchTerm } : {};
       const params = {
         pageNumber,

@@ -29,9 +29,11 @@ const ModalComponent = () => {
   const { sizeVariants } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
 
+  console.log(styleVariants)
+
   const selectDataList = styleVariants.map((item: any, index: number) => ({
-    label: `${item.colourDesc} ${index}`,
-    value: `${item.colourDesc} ${index}`,
+    label: `${item.colourDesc}`,
+    value: `${item.id}`,
   }));
 
   const theadArr = Object.keys(sizeVariants?.[0] || {});
