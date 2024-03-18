@@ -36,7 +36,6 @@ const fetchTableData = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      console.log(error.message);
       return { products: [] };
     }
   }

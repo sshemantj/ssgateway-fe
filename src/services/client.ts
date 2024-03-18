@@ -13,7 +13,7 @@ const axiosPrivate = axios.create({
 axiosPrivate.interceptors.request.use(
   (config) => {
     const token = cookie.get('token');
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (err) => Promise.reject(err)
@@ -23,8 +23,8 @@ axiosPrivate.interceptors.response.use(
     return config;
   },
   (err: AxiosError) => {
-    const { response } = err;
-    if (response?.status) handleStatus(response?.status);
+    const { response, message } = err;
+    handleStatus(response?.status, message);
   }
 );
 
