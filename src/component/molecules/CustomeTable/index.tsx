@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,6 +9,9 @@ import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
 import { Pagination } from "@mui/material";
 import styles from "./customtable.module.scss";
+import MultiSelectDropdown from "../multiSelectDropdown";
+import { useAppDispatch } from "@/store/hooks";
+import { getChannelMasters } from "@/services/thunks/tableApis";
 
 interface IProps {
   theadArr: any[];
@@ -19,6 +22,8 @@ interface IProps {
   allCheckBox?: any;
   handlePagination?: (pageNumber: number) => void;
   showPagination?: boolean;
+  setselectedChannels?: React.Dispatch<any>;
+  selectedChannels?: string[];
 }
 
 const CustomTable = (props: IProps) => {
@@ -31,7 +36,17 @@ const CustomTable = (props: IProps) => {
     isMultiSelects = false,
     handlePagination = () => {},
     showPagination = false,
+    setselectedChannels,
+    selectedChannels,
   } = props;
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isMultiSelects) {
+      dispatch(getChannelMasters());
+    }
+  }, [isMultiSelects]);
 
   const handleRowValue = (row: any) => {
     switch (row) {
@@ -47,9 +62,15 @@ const CustomTable = (props: IProps) => {
   };
 
   const customTheadArr = useMemo(
-    () => (isMultiSelects ? ["check", ...theadArr] : theadArr),
+    () =>
+      isMultiSelects ? ["check", "channel mapping", ...theadArr] : theadArr,
     [theadArr]
   );
+
+  const handleChannel = (index: number): boolean => {
+    const condition = Boolean(selectedChannels?.[index]?.length);
+    return condition;
+  };
 
   return (
     <div className={styles.customTableWrapper}>
@@ -87,15 +108,34 @@ const CustomTable = (props: IProps) => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   {isMultiSelects ? (
-                    <NestedTable
-                      style={{ whiteSpace: "nowrap" }}
-                      align="center"
-                    >
-                      <Checkbox checked={Boolean(allCheckBox?.[index])} />
-                    </NestedTable>
+                    <>
+                      <NestedTable
+                        style={{ whiteSpace: "nowrap" }}
+                        align="center"
+                      >
+                        <Checkbox
+                          checked={
+                            Boolean(allCheckBox?.[index]) ||
+                            handleChannel(index)
+                          }
+                        />
+                      </NestedTable>
+                      <NestedTable
+                        style={{ whiteSpace: "nowrap" }}
+                        align="center"
+                      >
+                        <MultiSelectDropdown
+                          {...{
+                            setselectedChannels,
+                            index,
+                          }}
+                        />
+                      </NestedTable>
+                    </>
                   ) : null}
                   {customTheadArr
                     .filter((item) => item !== "check")
+                    .filter((item) => item !== "channel mapping")
                     .map((item, index2) => {
                       return (
                         <NestedTable

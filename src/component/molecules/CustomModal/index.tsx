@@ -32,6 +32,9 @@ const CustomModal = (props: IProps) => {
   return (
     <div>
       <Modal
+        style={{
+          margin: "1rem",
+        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"

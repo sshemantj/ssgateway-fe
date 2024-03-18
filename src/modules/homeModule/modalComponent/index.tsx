@@ -24,12 +24,10 @@ const style = {
 
 const ModalComponent = () => {
   const [allCheckBox, setAllCheckBox] = useState<any>({});
-
+  const [selectedChannels, setselectedChannels] = useState<any>({});
   const { styleVariants } = useAppSelector((state) => state.gateway);
   const { sizeVariants } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
-
-  console.log(styleVariants)
 
   const selectDataList = styleVariants.map((item: any, index: number) => ({
     label: `${item.colourDesc}`,
@@ -59,6 +57,8 @@ const ModalComponent = () => {
     // dispatch(fetchTableData({ pageNumber, searchTerm: search }));
   };
 
+  const handleSubmit = () => {};
+
   return (
     <Box sx={{ ...style }}>
       <SelectDropdown
@@ -76,6 +76,8 @@ const ModalComponent = () => {
                 isMultiSelects: true,
                 handleRowClick,
                 tbodyArr: sizeVariants,
+                setselectedChannels,
+                selectedChannels,
               }}
             />
             <div
@@ -95,6 +97,7 @@ const ModalComponent = () => {
                 variant="outlined"
               />
               <Button
+                onClick={() => handleSubmit()}
                 style={{
                   padding: "0.3rem 3rem",
                 }}

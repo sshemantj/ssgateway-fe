@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   fetchTableData,
+  getChannelMasters,
   getSizeVariants,
   getStyleVariants,
 } from "@/services/thunks/tableApis";
@@ -10,6 +11,7 @@ type IGatewaySlice = {
   data: any;
   styleVariants: any;
   sizeVariants: any;
+  channelMasters: any;
   error: string;
 };
 
@@ -17,6 +19,7 @@ const initialState = {
   data: { products: [] },
   styleVariants: [],
   sizeVariants: [],
+  channelMasters: [],
   error: "",
 } as IGatewaySlice;
 
@@ -61,9 +64,21 @@ export const gatewaySlice = createSlice({
       .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+      })
+      // fetch  GetChannelMasters
+      .addCase(getChannelMasters.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getChannelMasters.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.channelMasters = action.payload;
+      })
+      .addCase(getChannelMasters.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
       });
   },
 });
 
-export const {} = gatewaySlice.actions;
+export const { } = gatewaySlice.actions;
 export default gatewaySlice.reducer;
