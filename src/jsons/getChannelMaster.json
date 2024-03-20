@@ -1,0 +1,57 @@
+[
+  {
+    "id": 3,
+    "channelid": "SS",
+    "channelname": "SS.com",
+    "description": "Shoppers Stop site",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-14T17:15:48.522884",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-15T11:00:53.844261"
+  },
+  {
+    "id": 4,
+    "channelid": "intune",
+    "channelname": "intune.com",
+    "description": "intune site",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-19T16:35:14.318165",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-19T16:35:14.318679"
+  },
+  {
+    "id": 5,
+    "channelid": "beauty",
+    "channelname": "ssbeauty.com",
+    "description": "ssbeauty site",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-19T16:35:31.826306",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-19T16:35:31.826308"
+  },
+  {
+    "id": 6,
+    "channelid": "cannel 1",
+    "channelname": "channel name1",
+    "description": "channel description1 ",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-19T16:36:06.608388",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-19T16:36:06.60839"
+  },
+  {
+    "id": 7,
+    "channelid": "cannel 2",
+    "channelname": "channel name2",
+    "description": "channel description2 ",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-19T16:36:15.298615",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-19T16:36:15.298619"
+  }
+]
