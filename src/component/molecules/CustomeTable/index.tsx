@@ -23,7 +23,9 @@ interface IProps {
   handlePagination?: (pageNumber: number) => void;
   showPagination?: boolean;
   setselectedChannels?: React.Dispatch<any>;
-  selectedChannels?: string[];
+  selectedChannels?: {
+    value: string[];
+  }[];
 }
 
 const CustomTable = (props: IProps) => {
@@ -68,7 +70,7 @@ const CustomTable = (props: IProps) => {
   );
 
   const handleChannel = (index: number): boolean => {
-    const condition = Boolean(selectedChannels?.[index]?.length);
+    const condition = Boolean(selectedChannels?.[index]?.value?.length);
     return condition;
   };
 

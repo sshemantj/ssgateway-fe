@@ -11,6 +11,7 @@ const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
+  const [currPdId, setCurrPdId] = useState<string>("");
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.data.products);
@@ -33,6 +34,7 @@ const DemoModule = () => {
         [index]: prev[index] ? false : true,
       };
     });
+    setCurrPdId(item.id);
     dispatch(getStyleVariants({ productid: item.id }))
       .unwrap()
       .then(() => {
@@ -70,7 +72,7 @@ const DemoModule = () => {
         open={openModal}
         setOpen={setOpenModal}
       >
-        <ModalComponent />
+        <ModalComponent {...{ currPdId }} />
       </CustomModal>
     </div>
   );

@@ -2,8 +2,13 @@ import CustomTable from "@/component/molecules/CustomeTable";
 import SelectDropdown from "@/component/molecules/selectDropdown";
 import { getSizeVariants } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getSplit } from "@/utils";
 import { Box, Button, Pagination } from "@mui/material";
 import React, { useState } from "react";
+
+interface IProps {
+  currPdId: string;
+}
 
 const style = {
   position: "absolute",
@@ -22,11 +27,15 @@ const style = {
   gap: "1rem",
 };
 
-const ModalComponent = () => {
+const ModalComponent = (props: IProps) => {
+  const { currPdId } = props;
   const [allCheckBox, setAllCheckBox] = useState<any>({});
   const [selectedChannels, setselectedChannels] = useState<any>({});
   const { styleVariants } = useAppSelector((state) => state.gateway);
   const { sizeVariants } = useAppSelector((state) => state.gateway);
+  const { data: productState } = useAppSelector((state) => state.gateway);
+  const [currStyleId, setCurrStyleId] = useState<string>();
+  const { channelMasters } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
 
   const selectDataList = styleVariants.map((item: any, index: number) => ({
@@ -50,6 +59,7 @@ const ModalComponent = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { value } = e.target;
+    setCurrStyleId(value);
     dispatch(getSizeVariants({ stylevairiantId: value }));
   };
 
@@ -57,7 +67,59 @@ const ModalComponent = () => {
     // dispatch(fetchTableData({ pageNumber, searchTerm: search }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    // console.log(sizeVariants);
+    const styleData = styleVariants.find(
+      (item: any) => +item.id === Number(currStyleId)
+    );
+    const pdData = productState.products.find(
+      (item: any) => +item.id === +currPdId
+    );
+
+    // const loop1 = Object.keys(selectedChannels).map((selectedInd) => {
+    //   const myData = selectedChannels[selectedInd].value.map((item: string) => {
+    //     const { value2 } = getSplit(item);
+    //     return value2;
+    //   });
+    //   return myData;
+    // });
+
+    // console.log(loop1);
+
+    // const selectedCMData = channelMasters.filter((item: any) => {
+    //   return loop1.includes(`${item.id}`);
+    // });
+    // console.log(selectedCMData);
+
+    const finalData: any = {
+      productid: pdData.id,
+      productcode: pdData.code,
+      stylevariantid: styleData.id,
+      stylecode: styleData.stylecode,
+      // channelmasterid: 3,
+      // channelid: "ss",
+      // channelname: "SS.com",
+      isactive: true,
+    };
+
+    // console.log(selectedChannels);
+
+    // Object.keys(selectedChannels).forEach((selectedInd) => {
+    //   const sizeData = sizeVariants[selectedInd];
+    //   // console.log(sizeVariants);
+    //   finalData.sizevariantid = sizeData.id;
+    //   finalData.sizecode = sizeData.sizeCode;
+
+    //   console.log(finalData);
+    // });
+    // console.log(selectedChannels);
+    // const finalDate = selectedChannels.map((item: string) => {
+    //   const { value1, value2 } = getSplit(item);
+    //   console.log(value1, value2);
+    //   return {};
+    // });
+    // alert(JSON.stringify(selectedChannels));
+  };
 
   return (
     <Box sx={{ ...style }}>

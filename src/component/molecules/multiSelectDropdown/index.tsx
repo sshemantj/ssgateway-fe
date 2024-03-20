@@ -12,6 +12,7 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useAppSelector } from "@/store/hooks";
+import { getSplit, setSplit } from "@/utils";
 
 interface IProps {
   setselectedChannels: React.Dispatch<any> | undefined;
@@ -36,13 +37,15 @@ const MultiSelectDropdown = (props: IProps) => {
   const handleChange = (e: SelectChangeEvent<string[]>) => {
     const value = e.target.value as string[];
     setSelectedNames(value);
-
     setselectedChannels?.((prev: any) => {
       const newPrev = { ...prev };
-      newPrev[index] = value;
+      newPrev[index] = {
+        value,
+      };
       return newPrev;
     });
   };
+
   return (
     <div style={style}>
       <FormControl sx={{ m: 1 }}>
@@ -58,7 +61,7 @@ const MultiSelectDropdown = (props: IProps) => {
               {selected.map((value) => (
                 <Chip
                   key={value}
-                  label={value}
+                  label={getSplit(value).value1}
                   onDelete={() => {
                     setSelectedNames(() => {
                       const newValue = selectedNames.filter(
@@ -66,7 +69,9 @@ const MultiSelectDropdown = (props: IProps) => {
                       );
                       setselectedChannels?.((prev: any) => {
                         const newPrev = { ...prev };
-                        newPrev[index] = newValue;
+                        newPrev[index] = {
+                          value: newValue,
+                        };
                         return newPrev;
                       });
                       return newValue;
@@ -85,7 +90,7 @@ const MultiSelectDropdown = (props: IProps) => {
           {channelMasters.map((item: any) => (
             <MenuItem
               key={item.id}
-              value={item.channelid}
+              value={setSplit(item.channelid, item.id)}
               sx={{ justifyContent: "space-between" }}
             >
               {item.channelname}
