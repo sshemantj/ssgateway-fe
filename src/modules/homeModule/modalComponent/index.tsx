@@ -1,6 +1,10 @@
 import CustomTable from "@/component/molecules/CustomeTable";
 import SelectDropdown from "@/component/molecules/selectDropdown";
-import { getSizeVariants } from "@/services/thunks/tableApis";
+import {
+  IPostChannelMapping,
+  getSizeVariants,
+  postChannelMapping,
+} from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getSplit } from "@/utils";
 import { Box, Button, Pagination } from "@mui/material";
@@ -67,8 +71,24 @@ const ModalComponent = (props: IProps) => {
     // dispatch(fetchTableData({ pageNumber, searchTerm: search }));
   };
 
+  const getNewSelectedChannels = () => {
+    const channelMap: any = {};
+    const finalObj: any = {};
+    channelMasters.forEach((item: any) => {
+      channelMap[item.id] = item;
+    });
+
+    Object.entries(selectedChannels).forEach(([key, item]: any) => {
+      finalObj[key] = item.value.map((item2: any) => {
+        const { value2 } = getSplit(item2);
+        return channelMap[+value2] || null;
+      });
+    });
+
+    return finalObj;
+  };
+
   const handleSubmit = () => {
-    // console.log(sizeVariants);
     const styleData = styleVariants.find(
       (item: any) => +item.id === Number(currStyleId)
     );
@@ -76,49 +96,39 @@ const ModalComponent = (props: IProps) => {
       (item: any) => +item.id === +currPdId
     );
 
-    // const loop1 = Object.keys(selectedChannels).map((selectedInd) => {
-    //   const myData = selectedChannels[selectedInd].value.map((item: string) => {
-    //     const { value2 } = getSplit(item);
-    //     return value2;
-    //   });
-    //   return myData;
-    // });
-
-    // console.log(loop1);
-
-    // const selectedCMData = channelMasters.filter((item: any) => {
-    //   return loop1.includes(`${item.id}`);
-    // });
-    // console.log(selectedCMData);
-
     const finalData: any = {
       productid: pdData.id,
       productcode: pdData.code,
       stylevariantid: styleData.id,
       stylecode: styleData.stylecode,
-      // channelmasterid: 3,
-      // channelid: "ss",
-      // channelname: "SS.com",
       isactive: true,
+      channelmasterid: null,
+      channelid: null,
+      channelname: null,
+      sizevariantid: null,
+      sizecode: null,
     };
 
-    // console.log(selectedChannels);
+    const newSelectedChannels = getNewSelectedChannels();
 
-    // Object.keys(selectedChannels).forEach((selectedInd) => {
-    //   const sizeData = sizeVariants[selectedInd];
-    //   // console.log(sizeVariants);
-    //   finalData.sizevariantid = sizeData.id;
-    //   finalData.sizecode = sizeData.sizeCode;
+    const newObj: any = {};
 
-    //   console.log(finalData);
-    // });
-    // console.log(selectedChannels);
-    // const finalDate = selectedChannels.map((item: string) => {
-    //   const { value1, value2 } = getSplit(item);
-    //   console.log(value1, value2);
-    //   return {};
-    // });
-    // alert(JSON.stringify(selectedChannels));
+    Object.entries(newSelectedChannels).forEach(([key, value]: any) => {
+      const currSizeVariant = sizeVariants[key];
+      newObj[key] = value.map((item: any) => {
+        finalData.channelmasterid = item.id;
+        finalData.channelid = item.channelid;
+        finalData.channelname = item.channelname;
+        finalData.sizevariantid = currSizeVariant.id;
+        finalData.sizecode = currSizeVariant.sizecode;
+        return finalData;
+      });
+    });
+    const finalArr = Object.values(newObj).reduce(
+      (acc: any, curr: any) => [...acc, ...curr],
+      []
+    );
+    dispatch(postChannelMapping(finalArr as IPostChannelMapping[]));
   };
 
   return (

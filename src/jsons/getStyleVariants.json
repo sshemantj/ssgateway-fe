@@ -4,9 +4,9 @@
     "action": "M",
     "baseProduct": "ELRUW165",
     "code": "ELRUW165_CREAM",
-    "colourCode": "CREAM",
-    "colourDesc": "CREAM",
-    "styleCode": "ELRUW165",
+    "colourCode": "CREAM1",
+    "colourDesc": "CREAM1",
+    "stylecode": "ELRUW165",
     "sizeVariants": null
   },
   {
@@ -14,9 +14,9 @@
     "action": "M",
     "baseProduct": "ELRUW165",
     "code": "ELRUW165_CREAM",
-    "colourCode": "CREAM",
-    "colourDesc": "CREAM",
-    "styleCode": "ELRUW165",
+    "colourCode": "CREAM2",
+    "colourDesc": "CREAM2",
+    "stylecode": "ELRUW165",
     "sizeVariants": null
   },
   {
@@ -24,9 +24,9 @@
     "action": "M",
     "baseProduct": "ELRUW165",
     "code": "ELRUW165_CREAM",
-    "colourCode": "CREAM",
-    "colourDesc": "CREAM",
-    "styleCode": "ELRUW165",
+    "colourCode": "CREAM3",
+    "colourDesc": "CREAM3",
+    "stylecode": "ELRUW165",
     "sizeVariants": null
   },
   {
@@ -34,9 +34,9 @@
     "action": "M",
     "baseProduct": "ELRUW165",
     "code": "ELRUW165_CREAM",
-    "colourCode": "CREAM",
-    "colourDesc": "CREAM",
-    "styleCode": "ELRUW165",
+    "colourCode": "CREAM4",
+    "colourDesc": "CREAM4",
+    "stylecode": "ELRUW165",
     "sizeVariants": null
   }
 ]

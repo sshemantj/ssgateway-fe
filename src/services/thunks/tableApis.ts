@@ -13,13 +13,17 @@ interface IGetStyleVariants {
 interface IGetSizeVariants {
   stylevairiantId: string;
 }
-interface IPostChannelMapping {
-  channelmasterid: number,
-  channelid: string,
-  channelname: string,
-  productid: string,
-  productcode: string,
-  isactive: boolean
+export interface IPostChannelMapping {
+  channelmasterid: number;
+  channelid: string;
+  channelname: string;
+  productid: number;
+  productcode: string;
+  stylevariantid: string;
+  stylecode: string;
+  sizevariantid: number;
+  sizecode: string;
+  isactive: boolean;
 }
 
 const fetchTableData = createAsyncThunk(
@@ -105,10 +109,10 @@ const getChannelMasters = createAsyncThunk(
 );
 
 const postChannelMapping = createAsyncThunk(
-  "table/postChannelMapping",
+  "table/MapChannel",
   async (payload: IPostChannelMapping[]) => {
     try {
-      const url = "/api/Channel/MapProductwithChannel";
+      const url = "/api/Channel/MapChannel";
 
       const response = await axiosPrivate.post(url, payload);
 
@@ -119,4 +123,10 @@ const postChannelMapping = createAsyncThunk(
   }
 );
 
-export { fetchTableData, getStyleVariants, getSizeVariants, getChannelMasters, postChannelMapping };
+export {
+  fetchTableData,
+  getStyleVariants,
+  getSizeVariants,
+  getChannelMasters,
+  postChannelMapping,
+};
