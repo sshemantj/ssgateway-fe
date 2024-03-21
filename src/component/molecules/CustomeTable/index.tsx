@@ -28,6 +28,8 @@ interface IProps {
   }[];
 }
 
+const excludedFields = ["check", "channel mapping", "channelMappings"];
+
 const CustomTable = (props: IProps) => {
   const {
     theadArr,
@@ -58,6 +60,8 @@ const CustomTable = (props: IProps) => {
         return JSON.stringify(row);
       case "":
         return "-";
+      case "channelMappings":
+        return "";
       default:
         return row;
     }
@@ -65,7 +69,13 @@ const CustomTable = (props: IProps) => {
 
   const customTheadArr = useMemo(
     () =>
-      isMultiSelects ? ["check", "channel mapping", ...theadArr] : theadArr,
+      isMultiSelects
+        ? [
+            "check",
+            "channel mapping",
+            ...theadArr.filter((item) => item !== "channelMappings"),
+          ]
+        : theadArr,
     [theadArr]
   );
 
@@ -128,6 +138,7 @@ const CustomTable = (props: IProps) => {
                       >
                         <MultiSelectDropdown
                           {...{
+                            selectedChannels,
                             setselectedChannels,
                             index,
                           }}
@@ -136,8 +147,7 @@ const CustomTable = (props: IProps) => {
                     </>
                   ) : null}
                   {customTheadArr
-                    .filter((item) => item !== "check")
-                    .filter((item) => item !== "channel mapping")
+                    .filter((item) => !excludedFields.includes(item))
                     .map((item, index2) => {
                       return (
                         <NestedTable

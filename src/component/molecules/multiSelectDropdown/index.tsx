@@ -15,6 +15,9 @@ import { useAppSelector } from "@/store/hooks";
 import { getSplit, setSplit } from "@/utils";
 
 interface IProps {
+  selectedChannels?: {
+    value: string[];
+  }[];
   setselectedChannels: React.Dispatch<any> | undefined;
   index: number;
 }
@@ -30,7 +33,7 @@ const style: React.CSSProperties = {
 };
 
 const MultiSelectDropdown = (props: IProps) => {
-  const { index, setselectedChannels } = props;
+  const { index, selectedChannels, setselectedChannels } = props;
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
   const { channelMasters } = useAppSelector((state) => state.gateway);
 
@@ -52,7 +55,7 @@ const MultiSelectDropdown = (props: IProps) => {
         <InputLabel>Multiple Select</InputLabel>
         <Select
           multiple
-          value={selectedNames}
+          value={selectedChannels?.[index]?.value || []}
           onClick={(e) => e.stopPropagation()}
           onChange={handleChange}
           input={<OutlinedInput label="Multiple Select" />}
@@ -64,9 +67,10 @@ const MultiSelectDropdown = (props: IProps) => {
                   label={getSplit(value).value1}
                   onDelete={() => {
                     setSelectedNames(() => {
-                      const newValue = selectedNames.filter(
-                        (item) => item !== value
-                      );
+                      const newValue = (
+                        selectedChannels?.[index]?.value || []
+                      ).filter((item) => item !== value);
+                      // console.log({ selectedNames, value, newValue });
                       setselectedChannels?.((prev: any) => {
                         const newPrev = { ...prev };
                         newPrev[index] = {
@@ -93,8 +97,14 @@ const MultiSelectDropdown = (props: IProps) => {
               value={setSplit(item.channelid, item.id)}
               sx={{ justifyContent: "space-between" }}
             >
+              {/* {selectedNames.length
+                ? console.log(
+                    { selectedNames, channelMasters },
+                    setSplit(item.channelid, item.id)
+                  )
+                : null} */}
               {item.channelname}
-              {selectedNames.includes(item.channelid) ? (
+              {selectedNames.includes(item.id) ? (
                 <CheckIcon color="info" />
               ) : null}
             </MenuItem>

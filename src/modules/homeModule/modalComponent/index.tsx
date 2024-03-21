@@ -6,9 +6,9 @@ import {
   postChannelMapping,
 } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getSplit } from "@/utils";
+import { getSplit, setSplit } from "@/utils";
 import { Box, Button, Pagination } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface IProps {
   currPdId: string;
@@ -41,6 +41,21 @@ const ModalComponent = (props: IProps) => {
   const [currStyleId, setCurrStyleId] = useState<string>();
   const { channelMasters } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setselectedChannels((prev: any) => {
+      sizeVariants.forEach((item1: any, index: any) => {
+        const finalArr = item1.channelMappings.map((item2: any) => {
+          return setSplit(item2.channelid, item2.id);
+        });
+        prev[index] = {
+          value: finalArr,
+        };
+      });
+
+      return prev;
+    });
+  }, [sizeVariants]);
 
   const selectDataList = styleVariants.map((item: any, index: number) => ({
     label: `${item.colourDesc}`,
@@ -77,13 +92,14 @@ const ModalComponent = (props: IProps) => {
     channelMasters.forEach((item: any) => {
       channelMap[item.id] = item;
     });
-
     Object.entries(selectedChannels).forEach(([key, item]: any) => {
       finalObj[key] = item.value.map((item2: any) => {
         const { value2 } = getSplit(item2);
         return channelMap[+value2] || null;
       });
     });
+
+    console.log({ channelMasters, selectedChannels, finalObj });
 
     return finalObj;
   };
@@ -111,17 +127,21 @@ const ModalComponent = (props: IProps) => {
 
     const newSelectedChannels = getNewSelectedChannels();
 
+    // console.log(styleData, pdData, newSelectedChannels);
+
     const newObj: any = {};
 
     Object.entries(newSelectedChannels).forEach(([key, value]: any) => {
       const currSizeVariant = sizeVariants[key];
       newObj[key] = value.map((item: any) => {
-        finalData.channelmasterid = item.id;
-        finalData.channelid = item.channelid;
-        finalData.channelname = item.channelname;
-        finalData.sizevariantid = currSizeVariant.id;
-        finalData.sizeCode = currSizeVariant.sizeCode;
-        return finalData;
+        // console.log({ channelmasterid: item.id });
+        const newfinalData = { ...finalData };
+        newfinalData.channelmasterid = item.id;
+        newfinalData.channelid = item.channelid;
+        newfinalData.channelname = item.channelname;
+        newfinalData.sizevariantid = currSizeVariant.id;
+        newfinalData.sizeCode = currSizeVariant.sizeCode;
+        return newfinalData;
       });
     });
     const finalArr = Object.values(newObj).reduce(
@@ -138,7 +158,16 @@ const ModalComponent = (props: IProps) => {
         label="Select StyleVariants"
         data={selectDataList}
       />
-      <div style={{ position: "relative", overflowY: "scroll" }}>
+      <Box
+        style={{ position: "relative", overflowY: "scroll" }}
+        sx={{
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
         {sizeVariants.length ? (
           <>
             <CustomTable
@@ -180,7 +209,7 @@ const ModalComponent = (props: IProps) => {
             </div>
           </>
         ) : null}
-      </div>
+      </Box>
     </Box>
   );
 };
