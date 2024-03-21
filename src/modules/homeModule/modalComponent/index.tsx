@@ -100,13 +100,13 @@ const ModalComponent = (props: IProps) => {
       productid: pdData.id,
       productcode: pdData.code,
       stylevariantid: styleData.id,
-      stylecode: styleData.stylecode,
+      styleCode: styleData.styleCode,
       isactive: true,
       channelmasterid: null,
       channelid: null,
       channelname: null,
       sizevariantid: null,
-      sizecode: null,
+      sizeCode: null,
     };
 
     const newSelectedChannels = getNewSelectedChannels();
@@ -120,7 +120,7 @@ const ModalComponent = (props: IProps) => {
         finalData.channelid = item.channelid;
         finalData.channelname = item.channelname;
         finalData.sizevariantid = currSizeVariant.id;
-        finalData.sizecode = currSizeVariant.sizecode;
+        finalData.sizeCode = currSizeVariant.sizeCode;
         return finalData;
       });
     });

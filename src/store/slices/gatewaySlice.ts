@@ -68,9 +68,21 @@ export const gatewaySlice = createSlice({
       .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+      })
+      // fetch channel master
+      .addCase(getChannelMasters.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getChannelMasters.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.channelMasters = action.payload;
+      })
+      .addCase(getChannelMasters.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
       });
   },
 });
 
-export const {} = gatewaySlice.actions;
+export const { } = gatewaySlice.actions;
 export default gatewaySlice.reducer;
