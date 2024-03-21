@@ -16,6 +16,7 @@ import {
   heartIcon,
   searchIcon,
 } from "@/images/AllDataIcons";
+import LogoutModal from "../LogoutModal";
 
 interface INavbar {
   showBackBtn?: boolean;
@@ -24,6 +25,7 @@ interface INavbar {
 const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const showBack = router.query.showBack;
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
@@ -93,20 +95,16 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
           }`}
         >
           <ul>
-            <li>
-              <Link
-                className={
-                  router.pathname === allRoutes.HOME ? styles.active : ""
-                }
-                href={allRoutes.HOME}
-                passHref
-              >
-                Home
-              </Link>
+            <li
+              onClick={() => setOpenModal(true)}
+              style={{ fontWeight: 600, cursor: "pointer" }}
+            >
+              Logout
             </li>
           </ul>
         </div>
       </div>
+      <LogoutModal {...{ openModal, setOpenModal }} />
     </nav>
   );
 };

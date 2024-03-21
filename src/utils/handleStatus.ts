@@ -11,14 +11,14 @@ const handleStatus = (status: number | undefined, message: string) => {
       break;
   }
   switch (message) {
-    case 'Network Error':
+    case "Network Error":
       handleUnauthorize();
       break;
   }
 };
 
 function handleUnauthorize(message?: string) {
-  cookie.remove("token")
+  cookie.remove("token");
   store.dispatch(openLoginModal());
 }
 

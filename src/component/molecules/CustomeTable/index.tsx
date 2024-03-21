@@ -28,7 +28,12 @@ interface IProps {
   }[];
 }
 
-const excludedFields = ["check", "channel mapping", "channelMappings"];
+const excludedFields = [
+  "check",
+  "channel mapping",
+  "channelMappings",
+  "globalAttributes",
+];
 
 const CustomTable = (props: IProps) => {
   const {
@@ -61,6 +66,7 @@ const CustomTable = (props: IProps) => {
       case "":
         return "-";
       case "channelMappings":
+      case "globalAttributes":
         return "";
       default:
         return row;
@@ -73,7 +79,9 @@ const CustomTable = (props: IProps) => {
         ? [
             "check",
             "channel mapping",
-            ...theadArr.filter((item) => item !== "channelMappings"),
+            ...theadArr.filter(
+              (item) => !["channelMappings", "globalAttributes"].includes(item)
+            ),
           ]
         : theadArr,
     [theadArr]
