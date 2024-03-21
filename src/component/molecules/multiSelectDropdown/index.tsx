@@ -12,7 +12,6 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useAppSelector } from "@/store/hooks";
-import { getSplit, setSplit } from "@/utils";
 
 interface IProps {
   selectedChannels?: {
@@ -64,7 +63,7 @@ const MultiSelectDropdown = (props: IProps) => {
               {selected.map((value) => (
                 <Chip
                   key={value}
-                  label={getSplit(value).value1}
+                  label={value}
                   onDelete={() => {
                     setSelectedNames(() => {
                       const newValue = (
@@ -94,17 +93,11 @@ const MultiSelectDropdown = (props: IProps) => {
           {channelMasters.map((item: any) => (
             <MenuItem
               key={item.id}
-              value={setSplit(item.channelid, item.id)}
+              value={item.channelid}
               sx={{ justifyContent: "space-between" }}
             >
-              {/* {selectedNames.length
-                ? console.log(
-                    { selectedNames, channelMasters },
-                    setSplit(item.channelid, item.id)
-                  )
-                : null} */}
               {item.channelname}
-              {selectedNames.includes(item.id) ? (
+              {selectedNames.includes(item.channelid) ? (
                 <CheckIcon color="info" />
               ) : null}
             </MenuItem>

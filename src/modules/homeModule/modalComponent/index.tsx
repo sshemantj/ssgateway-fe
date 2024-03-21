@@ -6,7 +6,6 @@ import {
   postChannelMapping,
 } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getSplit, setSplit } from "@/utils";
 import { Box, Button, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -46,7 +45,7 @@ const ModalComponent = (props: IProps) => {
     setselectedChannels((prev: any) => {
       sizeVariants.forEach((item1: any, index: any) => {
         const finalArr = item1.channelMappings.map((item2: any) => {
-          return setSplit(item2.channelid, item2.id);
+          return item2.channelid;
         });
         prev[index] = {
           value: finalArr,
@@ -90,16 +89,13 @@ const ModalComponent = (props: IProps) => {
     const channelMap: any = {};
     const finalObj: any = {};
     channelMasters.forEach((item: any) => {
-      channelMap[item.id] = item;
+      channelMap[item.channelid] = item;
     });
     Object.entries(selectedChannels).forEach(([key, item]: any) => {
       finalObj[key] = item.value.map((item2: any) => {
-        const { value2 } = getSplit(item2);
-        return channelMap[+value2] || null;
+        return channelMap[item2] || null;
       });
     });
-
-    console.log({ channelMasters, selectedChannels, finalObj });
 
     return finalObj;
   };
@@ -126,8 +122,6 @@ const ModalComponent = (props: IProps) => {
     };
 
     const newSelectedChannels = getNewSelectedChannels();
-
-    // console.log(styleData, pdData, newSelectedChannels);
 
     const newObj: any = {};
 
