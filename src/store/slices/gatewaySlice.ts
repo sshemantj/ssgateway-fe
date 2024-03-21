@@ -34,7 +34,12 @@ const initialState = {
 export const gatewaySlice = createSlice({
   name: "gateway",
   initialState,
-  reducers: {},
+  reducers: {
+    resetSizeAndStyleVariants: (state) => {
+      state.styleVariants = [];
+      state.sizeVariants = [];
+    },
+  },
   // extraReducers(builder) {
   //   builder
   //     // fetchTableData
@@ -88,5 +93,5 @@ export const gatewaySlice = createSlice({
   // },
 });
 
-export const {} = gatewaySlice.actions;
+export const { resetSizeAndStyleVariants } = gatewaySlice.actions;
 export default gatewaySlice.reducer;

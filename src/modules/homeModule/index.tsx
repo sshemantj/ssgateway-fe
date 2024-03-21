@@ -6,6 +6,7 @@ import CustomTable from "@/component/molecules/CustomeTable";
 import { fetchTableData, getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
 import styles from "./customtable.module.scss";
+import { resetSizeAndStyleVariants } from "@/store/slices/gatewaySlice";
 
 const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -50,6 +51,10 @@ const DemoModule = () => {
     dispatch(fetchTableData({ searchTerm: search }));
   };
 
+  const handleModalClose = () => {
+    dispatch(resetSizeAndStyleVariants());
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.searchContainer}>
@@ -71,6 +76,7 @@ const DemoModule = () => {
         closeIconStyle={{ top: "1rem", right: "1rem" }}
         open={openModal}
         setOpen={setOpenModal}
+        handleModalClose={handleModalClose}
       >
         <ModalComponent {...{ currPdId }} />
       </CustomModal>
