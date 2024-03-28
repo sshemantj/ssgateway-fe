@@ -85,13 +85,15 @@ const DemoModule = () => {
             { label: "Unmapped", value: "aprovedProducts" },
           ]}
         />
-        <div className={styles.searchContainer}>
-          <SearchBar
-            handleSearchClick={handleSearchClick}
-            value={search}
-            setSearch={setSearch}
-          />
-        </div>
+        {productType && (
+          <div className={styles.searchContainer}>
+            <SearchBar
+              handleSearchClick={handleSearchClick}
+              value={search}
+              setSearch={setSearch}
+            />
+          </div>
+        )}
       </div>
       <CustomTable
         handlePagination={handlePagination}
