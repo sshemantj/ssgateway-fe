@@ -14,16 +14,16 @@ import styles from "./customtable.module.scss";
 
 type IProducts = "mappedProducts" | "aprovedProducts";
 
-const DemoModule = () => {
+const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [currPdId, setCurrPdId] = useState<string>("");
   const [productType, setProductType] = useState<IProducts>();
-  const [tableData, setTableData] = useState();
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.data.products);
+  const pdType = useAppSelector((state) => state.gateway.pdType);
   const keysArray = Object.keys(apiRes?.[0] || {})?.filter(
     (item) => item !== "styleVariants"
   );
@@ -77,14 +77,17 @@ const DemoModule = () => {
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
-        <CustomTab
-          value={productType}
-          setValue={setProductType}
-          buttonList={[
-            { label: "Mapped", value: "mappedProducts" },
-            { label: "Unmapped", value: "aprovedProducts" },
-          ]}
-        />
+        {pdType === "aprovedProducts" ? (
+          <CustomTab
+            type={1}
+            value={productType}
+            setValue={setProductType}
+            buttonList={[
+              { label: "Mapped", value: "mappedProducts" },
+              { label: "Unmapped", value: "aprovedProducts" },
+            ]}
+          />
+        ) : null}
         {productType && (
           <div className={styles.searchContainer}>
             <SearchBar
@@ -95,14 +98,16 @@ const DemoModule = () => {
           </div>
         )}
       </div>
-      <CustomTable
-        handlePagination={handlePagination}
-        handleRowClick={handleRowClick}
-        open={open}
-        theadArr={keysArray}
-        tbodyArr={apiRes}
-        showPagination
-      />
+      {pdType ? (
+        <CustomTable
+          handlePagination={handlePagination}
+          handleRowClick={handleRowClick}
+          open={open}
+          theadArr={keysArray}
+          tbodyArr={apiRes}
+          showPagination
+        />
+      ) : null}
       <CustomModal
         closeIconStyle={{ top: "1rem", right: "1rem" }}
         open={openModal}
@@ -115,4 +120,4 @@ const DemoModule = () => {
   );
 };
 
-export default DemoModule;
+export default HomeModule;

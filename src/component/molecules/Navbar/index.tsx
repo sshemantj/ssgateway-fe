@@ -3,11 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./navbar.module.scss";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { allRoutes } from "@/constants/allRoutes";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import hamsvg from "@/images/ham.svg";
 import logosvg from "@/images/logo.svg";
 import {
@@ -17,18 +16,35 @@ import {
   searchIcon,
 } from "@/images/AllDataIcons";
 import LogoutModal from "../LogoutModal";
+import CustomTab from "@/component/atoms/customTab";
+import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
+import { fetchTableData } from "@/services/thunks/tableApis";
 
 interface INavbar {
   showBackBtn?: boolean;
 }
 
+type IProducts = "aprovedProducts" | "unAprovedProducts";
+
 const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [productType, setProductType] = useState<IProducts>();
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const showBack = router.query.showBack;
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
+
+  useEffect(() => {
+    if (productType) {
+      dispatch(resetHomeTableData());
+      dispatch(changePdType(productType));
+      if (productType === "unAprovedProducts") {
+        dispatch(fetchTableData({ type: productType }));
+      }
+    }
+  }, [productType]);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -74,6 +90,15 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
               </Link>
             )}
           </div>
+          <CustomTab
+            type={1}
+            value={productType}
+            setValue={setProductType}
+            buttonList={[
+              { label: "approved products", value: "aprovedProducts" },
+              { label: "unapproved products", value: "unAprovedProducts" },
+            ]}
+          />
         </div>
         <div className={styles.rhsWrapper}>
           <div className={styles.barcodeIcon}>

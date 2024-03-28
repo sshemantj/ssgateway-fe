@@ -5,7 +5,7 @@ interface IFetchTableData {
   pageNumber?: number;
   pageSize?: number;
   searchTerm?: string;
-  type: 'aprovedProducts' | 'mappedProducts'
+  type: 'aprovedProducts' | 'mappedProducts' | 'unAprovedProducts';
 }
 
 interface IGetStyleVariants {
@@ -43,6 +43,9 @@ const fetchTableData = createAsyncThunk(
           break;
         case 'aprovedProducts':
           product = 'GetApprovedProducts';
+          break;
+        case 'unAprovedProducts':
+          product = 'GetUnAprrovedProducts';
           break;
       }
       const url = `/api/Products/${product}`;

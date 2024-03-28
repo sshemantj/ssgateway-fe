@@ -10,12 +10,15 @@ import {
   getStyleVariants,
 } from "@/services/thunks/tableApis";
 
+type IProducts = "aprovedProducts" | "unAprovedProducts" | '';
+
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
   data: any;
   styleVariants: any;
   sizeVariants: any;
   channelMasters: any;
+  pdType: IProducts;
   error: string;
 };
 
@@ -28,6 +31,7 @@ const initialState = {
   styleVariants: [],
   sizeVariants: [],
   channelMasters: [],
+  pdType: "",
   error: "",
 } as IGatewaySlice;
 
@@ -41,6 +45,9 @@ export const gatewaySlice = createSlice({
     },
     resetHomeTableData: (state) => {
       state.data = { products: [] }
+    },
+    changePdType: (state, action: PayloadAction<IProducts>) => {
+      state.pdType = action.payload
     }
   },
   extraReducers(builder) {
@@ -96,5 +103,5 @@ export const gatewaySlice = createSlice({
   },
 });
 
-export const { resetSizeAndStyleVariants, resetHomeTableData } = gatewaySlice.actions;
+export const { resetSizeAndStyleVariants, resetHomeTableData, changePdType } = gatewaySlice.actions;
 export default gatewaySlice.reducer;
