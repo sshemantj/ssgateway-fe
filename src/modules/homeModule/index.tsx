@@ -5,14 +5,16 @@ import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { fetchTableData, getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
-import styles from "./customtable.module.scss";
 import { resetSizeAndStyleVariants } from "@/store/slices/gatewaySlice";
+import CustomTab from "@/component/atoms/customTab";
+import styles from "./customtable.module.scss";
 
 const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [currPdId, setCurrPdId] = useState<string>("");
+  const [currButton, setCurrButton] = useState<string>("");
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.data.products);
@@ -57,12 +59,18 @@ const DemoModule = () => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <div className={styles.searchContainer}>
-        <SearchBar
-          handleSearchClick={handleSearchClick}
-          value={search}
-          setSearch={setSearch}
+      <div className={styles.btnWrapper}>
+        <CustomTab
+          {...{ ...{ value: currButton, setValue: setCurrButton } }}
+          buttonList={["Mapped", "Unmapped"]}
         />
+        <div className={styles.searchContainer}>
+          <SearchBar
+            handleSearchClick={handleSearchClick}
+            value={search}
+            setSearch={setSearch}
+          />
+        </div>
       </div>
       <CustomTable
         handlePagination={handlePagination}
