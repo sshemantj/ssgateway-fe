@@ -5,6 +5,7 @@ interface IFetchTableData {
   pageNumber?: number;
   pageSize?: number;
   searchTerm?: string;
+  type: 'aprovedProducts' | 'mappedProducts'
 }
 
 interface IGetStyleVariants {
@@ -32,9 +33,20 @@ const fetchTableData = createAsyncThunk(
     pageNumber = 1,
     pageSize = 100,
     searchTerm = "",
+    type
   }: IFetchTableData) => {
     try {
-      const url = "/api/Products/GetApprovedProducts";
+      let product = '';
+      switch (type) {
+        case "mappedProducts":
+          product = 'GetApprovedMappedProducts';
+          break;
+        case 'aprovedProducts':
+          product = 'GetApprovedProducts';
+          break;
+      }
+      const url = `/api/Products/${product}`;
+      console.log(url)
       const search = searchTerm ? { searchTerm } : {};
       const params = {
         pageNumber,

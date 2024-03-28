@@ -4,9 +4,9 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 interface IProps {
-  buttonList: string[];
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  buttonList: { label: string; value: string }[];
+  value: any;
+  setValue: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ColorTabs = (props: IProps) => {
@@ -26,7 +26,7 @@ const ColorTabs = (props: IProps) => {
         aria-label="secondary tabs example"
       >
         {buttonList.map((item, index) => {
-          return <Tab key={index} value={item} label={item} />;
+          return <Tab key={index} value={item.value} label={item.label} />;
         })}
       </Tabs>
     </Box>

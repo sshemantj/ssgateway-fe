@@ -39,6 +39,9 @@ export const gatewaySlice = createSlice({
       state.styleVariants = [];
       state.sizeVariants = [];
     },
+    resetHomeTableData: (state) => {
+      state.data = { products: [] }
+    }
   },
   extraReducers(builder) {
     builder
@@ -93,5 +96,5 @@ export const gatewaySlice = createSlice({
   },
 });
 
-export const { resetSizeAndStyleVariants } = gatewaySlice.actions;
+export const { resetSizeAndStyleVariants, resetHomeTableData } = gatewaySlice.actions;
 export default gatewaySlice.reducer;

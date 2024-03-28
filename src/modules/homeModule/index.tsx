@@ -5,27 +5,36 @@ import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { fetchTableData, getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
-import { resetSizeAndStyleVariants } from "@/store/slices/gatewaySlice";
+import {
+  resetHomeTableData,
+  resetSizeAndStyleVariants,
+} from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import styles from "./customtable.module.scss";
+
+type IProducts = "mappedProducts" | "aprovedProducts";
 
 const DemoModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [currPdId, setCurrPdId] = useState<string>("");
-  const [currButton, setCurrButton] = useState<string>("");
+  const [productType, setProductType] = useState<IProducts>();
+  const [tableData, setTableData] = useState();
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.data.products);
   const keysArray = Object.keys(apiRes?.[0] || {})?.filter(
     (item) => item !== "styleVariants"
   );
-  // console.log(apiRes);
 
   useEffect(() => {
-    dispatch(fetchTableData({}));
-  }, []);
+    if (productType) {
+      setSearch("");
+      dispatch(resetHomeTableData());
+      dispatch(fetchTableData({ type: productType }));
+    }
+  }, [productType]);
 
   const handleModalOpen = () => {
     setOpenModal(true);
@@ -46,11 +55,19 @@ const DemoModule = () => {
   };
 
   const handlePagination = (pageNumber: number) => {
-    dispatch(fetchTableData({ pageNumber, searchTerm: search }));
+    dispatch(
+      fetchTableData({
+        pageNumber,
+        searchTerm: search,
+        type: productType as IProducts,
+      })
+    );
   };
 
   const handleSearchClick = () => {
-    dispatch(fetchTableData({ searchTerm: search }));
+    dispatch(
+      fetchTableData({ searchTerm: search, type: productType as IProducts })
+    );
   };
 
   const handleModalClose = () => {
@@ -61,8 +78,12 @@ const DemoModule = () => {
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
         <CustomTab
-          {...{ ...{ value: currButton, setValue: setCurrButton } }}
-          buttonList={["Mapped", "Unmapped"]}
+          value={productType}
+          setValue={setProductType}
+          buttonList={[
+            { label: "Mapped", value: "mappedProducts" },
+            { label: "Unmapped", value: "aprovedProducts" },
+          ]}
         />
         <div className={styles.searchContainer}>
           <SearchBar
