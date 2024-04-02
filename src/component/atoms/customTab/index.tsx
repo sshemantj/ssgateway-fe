@@ -7,15 +7,19 @@ import AppBar from "@mui/material/AppBar";
 interface IProps {
   buttonList: { label: string; value: string }[];
   value: any;
-  setValue: React.Dispatch<React.SetStateAction<any>>;
+  setValue?: React.Dispatch<React.SetStateAction<any>>;
   type: 1 | 2;
+  handleChange?: (event: React.SyntheticEvent, newValue: string) => void;
 }
 
 const CustomTab = (props: IProps) => {
-  const { buttonList, value, setValue, type } = props;
+  const { buttonList, value, setValue, type, handleChange } = props;
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const handleChangeCustom = (
+    event: React.SyntheticEvent,
+    newValue: string
+  ) => {
+    setValue?.(newValue);
   };
 
   return (
@@ -23,7 +27,7 @@ const CustomTab = (props: IProps) => {
       {type === 1 ? (
         <Tabs
           value={value}
-          onChange={handleChange}
+          onChange={handleChange || handleChangeCustom}
           textColor="primary"
           indicatorColor="primary"
           aria-label="secondary tabs example"
@@ -44,7 +48,7 @@ function FullWidthTabs(props: IProps) {
   const { buttonList, value, setValue } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setValue?.(newValue);
   };
 
   const a11yProps = (index: number) => {

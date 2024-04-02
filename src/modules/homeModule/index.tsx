@@ -22,11 +22,22 @@ const HomeModule = () => {
   const [productType, setProductType] = useState<IProducts>();
   const dispatch = useAppDispatch();
 
-  const apiRes = useAppSelector((state) => state.gateway.data.products);
-  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
-  const keysArray = Object.keys(apiRes?.[0] || {})?.filter(
-    (item) => item !== "styleVariants"
+  const { products: apiRes, totalRecords } = useAppSelector(
+    (state) => state.gateway.data
   );
+  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
+
+  const keysArray =
+    apiRes && apiRes?.length
+      ? [
+          "code",
+          "stylecode",
+          "styledesc",
+          "brandcode",
+          "description",
+          "material",
+        ]
+      : [];
 
   useEffect(() => {
     if (productType) {
@@ -122,6 +133,7 @@ const HomeModule = () => {
           theadArr={keysArray}
           tbodyArr={apiRes}
           showPagination
+          totalRecords={totalRecords}
         />
       ) : null}
       <CustomModal

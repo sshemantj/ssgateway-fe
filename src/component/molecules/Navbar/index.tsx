@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -38,15 +38,17 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openSelect, setOpenSelect] = useState(false);
   const [currValue, setCurrValue] = useState("");
   const [productType, setProductType] = useState<IProducts>();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  const showBack = router.query.showBack;
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
   const { userChannelMappings, selectedChannel } = useAppSelector(
     (state) => state.gateway
   );
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const showBack = router.query.showBack;
+  const inputRef = useRef<any>(null);
 
   const channelMappingsArr =
     userChannelMappings?.map((item: any) => {
@@ -55,18 +57,6 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
         value: item.channelId,
       };
     }) || [];
-
-  useEffect(() => {
-    if (productType) {
-      dispatch(resetHomeTableData());
-      dispatch(changePdType(productType));
-      if (productType === "unAprovedProducts") {
-        dispatch(
-          fetchTableData({ type: productType, channelid: selectedChannel })
-        );
-      }
-    }
-  }, [productType]);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -95,6 +85,23 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     const { value } = e.target;
     setCurrValue(value);
     dispatch(setChannelMapping(value));
+    setOpenSelect(false);
+  };
+
+  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+    if (selectedChannel) {
+      setProductType(newValue);
+      dispatch(resetHomeTableData());
+      dispatch(changePdType(newValue));
+      if (newValue === "unAprovedProducts") {
+        dispatch(
+          fetchTableData({ type: newValue, channelid: selectedChannel })
+        );
+      }
+    } else {
+      inputRef && inputRef?.current.focus();
+      setOpenSelect(true);
+    }
   };
 
   return (
@@ -127,7 +134,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
           <CustomTab
             type={1}
             value={productType}
-            setValue={setProductType}
+            handleChange={handleChange}
             buttonList={[
               { label: "approved products", value: "aprovedProducts" },
               { label: "unapproved products", value: "unAprovedProducts" },
@@ -135,6 +142,15 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
           />
           {userChannelMappings?.length && (
             <SelectDropdown
+              ref={inputRef}
+              open={openSelect}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenSelect((v) => !v);
+              }}
+              onMenuClick={() => {
+                setOpenSelect((v) => !v);
+              }}
               selectSx={{
                 "& .MuiInputBase-input": {
                   padding: "5px",

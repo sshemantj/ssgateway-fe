@@ -8,10 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
 import { Pagination } from "@mui/material";
-import styles from "./customtable.module.scss";
 import MultiSelectDropdown from "../multiSelectDropdown";
 import { useAppDispatch } from "@/store/hooks";
 import { getChannelMasters } from "@/services/thunks/tableApis";
+import styles from "./customtable.module.scss";
 
 interface IProps {
   theadArr: any[];
@@ -23,6 +23,7 @@ interface IProps {
   handlePagination?: (pageNumber: number) => void;
   showPagination?: boolean;
   setselectedChannels?: React.Dispatch<any>;
+  totalRecords?: number;
   selectedChannels?: {
     value: string[];
   }[];
@@ -41,10 +42,11 @@ const CustomTable = (props: IProps) => {
     tbodyArr,
     handleRowClick = () => {},
     open = {},
-    allCheckBox = {},
     isMultiSelects = false,
     handlePagination = () => {},
     showPagination = false,
+    totalRecords = 1,
+    allCheckBox = {},
     setselectedChannels,
     selectedChannels,
   } = props;
@@ -117,6 +119,12 @@ const CustomTable = (props: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {tbodyArr && tbodyArr?.length ? null : (
+              <div className={styles.notFound}>
+                <h2>No records found!</h2>
+              </div>
+            )}
+
             {tbodyArr.map((row: any, index: number) => {
               return (
                 <TableRow
@@ -175,6 +183,7 @@ const CustomTable = (props: IProps) => {
       </TableContainer>
       {showPagination && (
         <Pagination
+          count={totalRecords}
           onChange={(_, page) => handlePagination(page)}
           sx={{ "& .MuiPagination-ul li:nth-child(8)": { display: "none" } }}
           variant="outlined"
