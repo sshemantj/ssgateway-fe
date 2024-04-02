@@ -3,16 +3,17 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import ModalComponent from "@/modules/homeModule/modalComponent";
 import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
-import { fetchTableData, getStyleVariants } from "@/services/thunks/tableApis";
+import { getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
 import {
+  IProducts,
+  changePdType,
   resetHomeTableData,
   resetSizeAndStyleVariants,
 } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import styles from "./customtable.module.scss";
-
-type IProducts = "mappedProducts" | "aprovedProducts";
+import useTableData from "@/hooks/useTableData";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -21,11 +22,12 @@ const HomeModule = () => {
   const [currPdId, setCurrPdId] = useState<string>("");
   const [productType, setProductType] = useState<IProducts>();
   const dispatch = useAppDispatch();
+  const getTableData = useTableData();
 
   const { products: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
   );
-  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
+  const { pdType } = useAppSelector((state) => state.gateway);
 
   const keysArray =
     apiRes && apiRes?.length
@@ -40,14 +42,12 @@ const HomeModule = () => {
       : [];
 
   useEffect(() => {
-    if (productType) {
+    if (pdType) {
       setSearch("");
       dispatch(resetHomeTableData());
-      dispatch(
-        fetchTableData({ type: productType, channelid: selectedChannel })
-      );
+      getTableData({});
     }
-  }, [productType]);
+  }, [pdType]);
 
   const handleModalOpen = () => {
     setOpenModal(true);
@@ -68,24 +68,16 @@ const HomeModule = () => {
   };
 
   const handlePagination = (pageNumber: number) => {
-    dispatch(
-      fetchTableData({
-        pageNumber,
-        channelid: selectedChannel,
-        searchTerm: search,
-        type: productType as IProducts,
-      })
-    );
+    getTableData({
+      pageNumber,
+      searchTerm: search,
+    });
   };
 
   const handleSearchClick = () => {
-    dispatch(
-      fetchTableData({
-        searchTerm: search,
-        type: productType as IProducts,
-        channelid: selectedChannel,
-      })
-    );
+    getTableData({
+      searchTerm: search,
+    });
   };
 
   const handleModalClose = () => {
@@ -95,23 +87,28 @@ const HomeModule = () => {
   const showTableConditions = (): boolean => {
     if (pdType === "unAprovedProducts") {
       return true;
-    } else if (pdType === "aprovedProducts" && !!productType) {
+    } else if (!!productType) {
       return true;
     }
     return false;
   };
 
+  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+    setProductType(newValue);
+    dispatch(changePdType(newValue));
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
-        {pdType === "aprovedProducts" ? (
+        {pdType !== "unAprovedProducts" ? (
           <CustomTab
             type={1}
-            value={productType}
-            setValue={setProductType}
+            value={pdType}
+            handleChange={handleChange}
             buttonList={[
-              { label: "Mapped", value: "mappedProducts" },
               { label: "Unmapped", value: "aprovedProducts" },
+              { label: "Mapped", value: "mappedProducts" },
             ]}
           />
         ) : null}

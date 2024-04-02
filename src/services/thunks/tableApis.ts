@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
+import { IProducts } from "@/store/slices/gatewaySlice";
 
-interface IFetchTableData {
+export interface IFetchTableData {
   pageNumber?: number;
   pageSize?: number;
   searchTerm?: string;
   channelid?: string;
-  type: "aprovedProducts" | "mappedProducts" | "unAprovedProducts";
+  type: IProducts
 }
 
 interface IGetStyleVariants {

@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./navbar.module.scss";
 import { Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { allRoutes } from "@/constants/allRoutes";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import hamsvg from "@/images/ham.svg";
 import logosvg from "@/images/logo.svg";
@@ -18,21 +16,18 @@ import {
 import LogoutModal from "../LogoutModal";
 import CustomTab from "@/component/atoms/customTab";
 import {
+  IProducts,
   changePdType,
   resetHomeTableData,
   setChannelMapping,
 } from "@/store/slices/gatewaySlice";
-import {
-  fetchTableData,
-  getUserChannelMappings,
-} from "@/services/thunks/tableApis";
+import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import SelectDropdown from "../selectDropdown";
+import useTableData from "@/hooks/useTableData";
 
 interface INavbar {
   showBackBtn?: boolean;
 }
-
-type IProducts = "aprovedProducts" | "unAprovedProducts";
 
 const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -45,6 +40,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
   const { userChannelMappings, selectedChannel } = useAppSelector(
     (state) => state.gateway
   );
+  const getTableData = useTableData();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const showBack = router.query.showBack;
@@ -83,9 +79,11 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { value } = e.target;
-    setCurrValue(value);
     dispatch(setChannelMapping(value));
+    setCurrValue(value);
     setOpenSelect(false);
+    dispatch(resetHomeTableData());
+    getTableData({ channelid: value });
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
@@ -94,14 +92,16 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
       dispatch(resetHomeTableData());
       dispatch(changePdType(newValue));
       if (newValue === "unAprovedProducts") {
-        dispatch(
-          fetchTableData({ type: newValue, channelid: selectedChannel })
-        );
+        getTableData({});
       }
     } else {
       inputRef && inputRef?.current.focus();
       setOpenSelect(true);
     }
+  };
+
+  const handleLogoClick = () => {
+    router.reload();
   };
 
   return (
@@ -126,9 +126,14 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
                 <KeyboardBackspaceIcon /> <span>back</span>
               </Button>
             ) : (
-              <Link href={allRoutes.HOME}>
-                <Image width={150} height={100} src={logosvg} alt="logo" />
-              </Link>
+              <Image
+                style={{ cursor: "pointer" }}
+                onClick={() => handleLogoClick()}
+                width={150}
+                height={100}
+                src={logosvg}
+                alt="logo"
+              />
             )}
           </div>
           <CustomTab
@@ -136,8 +141,8 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
             value={productType}
             handleChange={handleChange}
             buttonList={[
-              { label: "approved products", value: "aprovedProducts" },
               { label: "unapproved products", value: "unAprovedProducts" },
+              { label: "approved products", value: "aprovedProducts" },
             ]}
           />
           {userChannelMappings?.length && (
@@ -167,6 +172,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
                 },
               }}
               selectStyles={{
+                marginLeft: "1rem",
                 minWidth: "2rem",
                 width: "10rem",
               }}

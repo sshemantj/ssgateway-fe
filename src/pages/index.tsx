@@ -5,7 +5,7 @@ import HomeModule from "@/modules/homeModule";
 import { useAppSelector } from "@/store/hooks";
 
 const Home: NextPage = () => {
-  const pdType = useAppSelector((state) => state.gateway.pdType);
+  const pdType = useAppSelector((state) => state.gateway?.pdType);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import CustomTable from "@/component/molecules/CustomeTable";
 import SelectDropdown from "@/component/molecules/selectDropdown";
+// import useTableData from "@/hooks/useTableData";
 import {
   IPostChannelMapping,
   getSizeVariants,
@@ -40,6 +41,8 @@ const ModalComponent = (props: IProps) => {
   const [currStyleId, setCurrStyleId] = useState<string>();
   const { channelMasters } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
+
+  // const getTableData = useTableData();
 
   useEffect(() => {
     setselectedChannels((prev: any) => {
@@ -82,7 +85,7 @@ const ModalComponent = (props: IProps) => {
   };
 
   const handlePagination = (pageNumber: number) => {
-    // dispatch(fetchTableData({ pageNumber, searchTerm: search, channelid:selectedChannel }));
+    // getTableData({ pageNumber, searchTerm: search })
   };
 
   const getNewSelectedChannels = () => {

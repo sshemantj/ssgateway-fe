@@ -12,7 +12,8 @@ import {
   getUserChannelMappings,
 } from "@/services/thunks/tableApis";
 
-type IProducts = "aprovedProducts" | "unAprovedProducts" | "";
+export type IProducts = "" | "mappedProducts" | "aprovedProducts" | "unAprovedProducts";
+
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
