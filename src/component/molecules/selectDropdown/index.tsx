@@ -33,7 +33,7 @@ const SelectDropdown = forwardRef(
       selectSx = {},
       selectWrapperStyle = {},
       selectStyles = {},
-      open = false,
+      open = null,
       onMenuClick,
       ...rest
     } = props;
@@ -41,9 +41,7 @@ const SelectDropdown = forwardRef(
     return (
       <div style={selectWrapperStyle} className={styles.selectWrapper}>
         <TextField
-          SelectProps={{
-            open,
-          }}
+          {...{ ...(open !== null ? { SelectProps: { open } } : {}) }}
           inputRef={inputRef}
           className={styles.selectStyles}
           style={selectStyles}

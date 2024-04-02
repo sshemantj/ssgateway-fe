@@ -75,7 +75,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     dispatch(getUserChannelMappings());
   }, []);
 
-  const handleOnChange = async (
+  const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { value } = e.target;
@@ -83,12 +83,13 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     setCurrValue(value);
     setOpenSelect(false);
     dispatch(resetHomeTableData());
-    getTableData({ channelid: value });
+    getTableData({ channelid: value, type: productType });
+    dispatch(changePdType(productType as IProducts));
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+    setProductType(newValue);
     if (selectedChannel) {
-      setProductType(newValue);
       dispatch(resetHomeTableData());
       dispatch(changePdType(newValue));
       if (newValue === "unAprovedProducts") {
@@ -138,7 +139,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
           </div>
           <CustomTab
             type={1}
-            value={productType}
+            value={selectedChannel ? productType : ""}
             handleChange={handleChange}
             buttonList={[
               { label: "unapproved products", value: "unAprovedProducts" },
@@ -177,7 +178,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
                 width: "10rem",
               }}
               selectWrapperStyle={{ padding: "0" }}
-              handleOnChange={handleOnChange}
+              handleOnChange={handleSelectChange}
               label={"Select channel..."}
               data={channelMappingsArr}
             />

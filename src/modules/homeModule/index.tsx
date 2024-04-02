@@ -101,7 +101,7 @@ const HomeModule = () => {
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
-        {pdType !== "unAprovedProducts" ? (
+        {apiRes && apiRes?.length && pdType !== "unAprovedProducts" ? (
           <CustomTab
             type={1}
             value={pdType}
@@ -122,7 +122,7 @@ const HomeModule = () => {
           </div>
         )}
       </div>
-      {showTableConditions() ? (
+      {apiRes && apiRes?.length ? (
         <CustomTable
           handlePagination={handlePagination}
           handleRowClick={handleRowClick}
@@ -134,7 +134,7 @@ const HomeModule = () => {
         />
       ) : null}
       <CustomModal
-        closeIconStyle={{ top: "1rem", right: "1rem" }}
+        closeIconStyle={{ top: "2rem", right: "3rem" }}
         open={openModal}
         setOpen={setOpenModal}
         handleModalClose={handleModalClose}

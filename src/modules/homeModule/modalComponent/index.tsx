@@ -21,7 +21,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "100%",
   height: "100%",
-  bgcolor: "background.paper",
+  // bgcolor: "background.paper",
   boxShadow: 24,
   pt: 2,
   px: 4,
@@ -150,62 +150,71 @@ const ModalComponent = (props: IProps) => {
 
   return (
     <Box sx={{ ...style }}>
-      <SelectDropdown
-        handleOnChange={handleOnChange}
-        label="Select StyleVariants"
-        data={selectDataList}
-      />
       <Box
-        style={{ position: "relative", overflowY: "scroll" }}
         sx={{
-          "-ms-overflow-style": "none",
-          "scrollbar-width": "none",
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
+          height: "100%",
+          padding: "1rem",
+          bgcolor: "background.paper",
+          borderRadius: "6px",
         }}
       >
-        {sizeVariants.length ? (
-          <>
-            <CustomTable
-              {...{
-                theadArr,
-                allCheckBox,
-                isMultiSelects: true,
-                handleRowClick,
-                tbodyArr: sizeVariants,
-                setselectedChannels,
-                selectedChannels,
-              }}
-            />
-            <div
-              style={{
-                marginTop: "1rem",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Pagination
-                onChange={(_, page) => handlePagination(page)}
-                sx={{
-                  "& .MuiPagination-ul li:nth-child(8)": { display: "none" },
+        <SelectDropdown
+          handleOnChange={handleOnChange}
+          label="Select StyleVariants"
+          data={selectDataList}
+        />
+        <Box
+          style={{ position: "relative", overflowY: "scroll" }}
+          sx={{
+            "-ms-overflow-style": "none",
+            "scrollbar-width": "none",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
+          {sizeVariants.length ? (
+            <>
+              <CustomTable
+                {...{
+                  theadArr,
+                  allCheckBox,
+                  isMultiSelects: true,
+                  handleRowClick,
+                  tbodyArr: sizeVariants,
+                  setselectedChannels,
+                  selectedChannels,
                 }}
-                variant="outlined"
               />
-              <Button
-                onClick={() => handleSubmit()}
+              <div
                 style={{
-                  padding: "0.3rem 3rem",
+                  marginTop: "1rem",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
-                variant="contained"
               >
-                Submit
-              </Button>
-            </div>
-          </>
-        ) : null}
+                <Pagination
+                  onChange={(_, page) => handlePagination(page)}
+                  sx={{
+                    "& .MuiPagination-ul li:nth-child(8)": { display: "none" },
+                  }}
+                  variant="outlined"
+                />
+                <Button
+                  onClick={() => handleSubmit()}
+                  style={{
+                    padding: "0.3rem 3rem",
+                  }}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </div>
+            </>
+          ) : null}
+        </Box>
       </Box>
     </Box>
   );
