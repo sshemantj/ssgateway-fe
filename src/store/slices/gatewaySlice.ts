@@ -27,16 +27,17 @@ type IGatewaySlice = {
 };
 
 const initialState = {
-  data: tableJson,
-  styleVariants: styleVariantsJson,
-  sizeVariants: sizeVariantsJson,
-  channelMasters: channelMastersJson,
-  userChannelMappings: userChannelMappings,
+  // data: tableJson,
+  // styleVariants: styleVariantsJson,
+  // sizeVariants: sizeVariantsJson,
+  // channelMasters: channelMastersJson,
+  // userChannelMappings: userChannelMappings,
+  data: { products: [] },
+  styleVariants: [],
+  sizeVariants: [],
+  channelMasters: [],
+  userChannelMappings: [],
   selectedChannel: "",
-  // data: { products: [] },
-  // styleVariants: [],
-  // sizeVariants: [],
-  // channelMasters: [],
   pdType: "",
   error: "",
 } as IGatewaySlice;
@@ -46,11 +47,11 @@ export const gatewaySlice = createSlice({
   initialState,
   reducers: {
     resetSizeAndStyleVariants: (state) => {
-      // state.styleVariants = [];
-      // state.sizeVariants = [];
+      state.styleVariants = [];
+      state.sizeVariants = [];
     },
     resetHomeTableData: (state) => {
-      // state.data = { products: [] };
+      state.data = { products: [] };
     },
     changePdType: (state, action: PayloadAction<IProducts>) => {
       state.pdType = action.payload;
@@ -67,7 +68,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(fetchTableData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.data = action.payload;
+        state.data = action.payload;
       })
       .addCase(fetchTableData.rejected, (state, action) => {
         state.status = "failed";
@@ -79,7 +80,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(getStyleVariants.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.styleVariants = action.payload;
+        state.styleVariants = action.payload;
       })
       .addCase(getStyleVariants.rejected, (state, action) => {
         state.status = "failed";
@@ -91,7 +92,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(getSizeVariants.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.sizeVariants = action.payload;
+        state.sizeVariants = action.payload;
       })
       .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
@@ -103,7 +104,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(getChannelMasters.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.channelMasters = action.payload;
+        state.channelMasters = action.payload;
       })
       .addCase(getChannelMasters.rejected, (state, action) => {
         state.status = "failed";
@@ -115,7 +116,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(getUserChannelMappings.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.userChannelMappings = action.payload;
+        state.userChannelMappings = action.payload;
       })
       .addCase(getUserChannelMappings.rejected, (state, action) => {
         state.status = "failed";
