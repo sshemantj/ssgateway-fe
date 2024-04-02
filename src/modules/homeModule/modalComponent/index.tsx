@@ -82,7 +82,7 @@ const ModalComponent = (props: IProps) => {
   };
 
   const handlePagination = (pageNumber: number) => {
-    // dispatch(fetchTableData({ pageNumber, searchTerm: search }));
+    // dispatch(fetchTableData({ pageNumber, searchTerm: search, channelid:selectedChannel }));
   };
 
   const getNewSelectedChannels = () => {

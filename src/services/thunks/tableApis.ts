@@ -5,7 +5,8 @@ interface IFetchTableData {
   pageNumber?: number;
   pageSize?: number;
   searchTerm?: string;
-  type: 'aprovedProducts' | 'mappedProducts' | 'unAprovedProducts';
+  channelid?: string;
+  type: "aprovedProducts" | "mappedProducts" | "unAprovedProducts";
 }
 
 interface IGetStyleVariants {
@@ -33,27 +34,29 @@ const fetchTableData = createAsyncThunk(
     pageNumber = 1,
     pageSize = 100,
     searchTerm = "",
-    type
+    type,
+    channelid,
   }: IFetchTableData) => {
     try {
-      let product = '';
+      let product = "";
       switch (type) {
         case "mappedProducts":
-          product = 'GetApprovedMappedProducts';
+          product = "GetApprovedMappedProducts";
           break;
-        case 'aprovedProducts':
-          product = 'GetApprovedProducts';
+        case "aprovedProducts":
+          product = "GetApprovedProducts";
           break;
-        case 'unAprovedProducts':
-          product = 'GetUnAprrovedProducts';
+        case "unAprovedProducts":
+          product = "GetUnAprrovedProducts";
           break;
       }
       const url = `/api/Products/${product}`;
-      console.log(url)
+
       const search = searchTerm ? { searchTerm } : {};
       const params = {
         pageNumber,
         pageSize,
+        channelid,
         ...search,
       };
 
@@ -123,6 +126,21 @@ const getChannelMasters = createAsyncThunk(
   }
 );
 
+const getUserChannelMappings = createAsyncThunk(
+  "table/getUserChannelMappings",
+  async () => {
+    try {
+      const url = "/api/channel/GetUserChannelMappings";
+
+      const response = await axiosPrivate.get(url);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const postChannelMapping = createAsyncThunk(
   "table/MapChannel",
   async (payload: IPostChannelMapping[]) => {
@@ -143,5 +161,6 @@ export {
   getStyleVariants,
   getSizeVariants,
   getChannelMasters,
+  getUserChannelMappings,
   postChannelMapping,
 };

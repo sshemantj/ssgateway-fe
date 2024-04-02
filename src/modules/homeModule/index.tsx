@@ -23,7 +23,7 @@ const HomeModule = () => {
   const dispatch = useAppDispatch();
 
   const apiRes = useAppSelector((state) => state.gateway.data.products);
-  const pdType = useAppSelector((state) => state.gateway.pdType);
+  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
   const keysArray = Object.keys(apiRes?.[0] || {})?.filter(
     (item) => item !== "styleVariants"
   );
@@ -32,7 +32,9 @@ const HomeModule = () => {
     if (productType) {
       setSearch("");
       dispatch(resetHomeTableData());
-      dispatch(fetchTableData({ type: productType }));
+      dispatch(
+        fetchTableData({ type: productType, channelid: selectedChannel })
+      );
     }
   }, [productType]);
 
@@ -58,6 +60,7 @@ const HomeModule = () => {
     dispatch(
       fetchTableData({
         pageNumber,
+        channelid: selectedChannel,
         searchTerm: search,
         type: productType as IProducts,
       })
@@ -66,7 +69,11 @@ const HomeModule = () => {
 
   const handleSearchClick = () => {
     dispatch(
-      fetchTableData({ searchTerm: search, type: productType as IProducts })
+      fetchTableData({
+        searchTerm: search,
+        type: productType as IProducts,
+        channelid: selectedChannel,
+      })
     );
   };
 

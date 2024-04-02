@@ -77,8 +77,8 @@ const CustomTable = (props: IProps) => {
     () =>
       isMultiSelects
         ? [
-            "check",
-            "channel mapping",
+            // "check",
+            // "channel mapping",
             ...theadArr.filter(
               (item) => !["channelMappings", "globalAttributes"].includes(item)
             ),
@@ -127,7 +127,7 @@ const CustomTable = (props: IProps) => {
                   onClick={() => handleRowClick(row, index)}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {isMultiSelects ? (
+                  {/* {isMultiSelects ? (
                     <>
                       <NestedTable
                         style={{ whiteSpace: "nowrap" }}
@@ -153,7 +153,7 @@ const CustomTable = (props: IProps) => {
                         />
                       </NestedTable>
                     </>
-                  ) : null}
+                  ) : null} */}
                   {customTheadArr
                     .filter((item) => !excludedFields.includes(item))
                     .map((item, index2) => {

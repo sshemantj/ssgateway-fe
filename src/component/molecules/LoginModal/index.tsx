@@ -8,12 +8,10 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { callLogin } from "@/services/thunks/loginApi";
 import { closeLoginModal, openLoginModal } from "@/store/slices/loginSlice";
 import { Cookies } from "react-cookie";
-import { fetchTableData } from "@/services/thunks/tableApis";
 
 const cookie = new Cookies();
 
 const LoginComponent = () => {
-  // const [open, setOpen] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,7 +24,7 @@ const LoginComponent = () => {
     if (!username && !password) toast.warn("username and password required!");
     dispatch(callLogin({ Username: username, Password: password }))
       .then(() => {
-        dispatch(fetchTableData({}));
+        router.reload();
         handleModalClose();
       })
       .catch((error: any) =>
@@ -38,11 +36,11 @@ const LoginComponent = () => {
     dispatch(closeLoginModal());
   };
 
-  useEffect(()=>{
-    if(!cookie.get('token')) {
-      dispatch(openLoginModal())
+  useEffect(() => {
+    if (!cookie.get("token")) {
+      dispatch(openLoginModal());
     }
-  }, [])
+  }, []);
 
   return (
     <CustomModal

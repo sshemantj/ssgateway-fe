@@ -3,11 +3,13 @@ import tableJson from "@/jsons/getProducts.json";
 import styleVariantsJson from "@/jsons/getStyleVariants.json";
 import sizeVariantsJson from "@/jsons/getSizeVariants.json";
 import channelMastersJson from "@/jsons/getChannelMaster.json";
+import userChannelMappings from "@/jsons/GetUserChannelMappings.json";
 import {
   fetchTableData,
   getChannelMasters,
   getSizeVariants,
   getStyleVariants,
+  getUserChannelMappings,
 } from "@/services/thunks/tableApis";
 
 type IProducts = "aprovedProducts" | "unAprovedProducts" | "";
@@ -18,6 +20,8 @@ type IGatewaySlice = {
   styleVariants: any;
   sizeVariants: any;
   channelMasters: any;
+  userChannelMappings: any;
+  selectedChannel: string;
   pdType: IProducts;
   error: string;
 };
@@ -27,6 +31,8 @@ const initialState = {
   styleVariants: styleVariantsJson,
   sizeVariants: sizeVariantsJson,
   channelMasters: channelMastersJson,
+  userChannelMappings: userChannelMappings,
+  selectedChannel: "",
   // data: { products: [] },
   // styleVariants: [],
   // sizeVariants: [],
@@ -48,6 +54,9 @@ export const gatewaySlice = createSlice({
     },
     changePdType: (state, action: PayloadAction<IProducts>) => {
       state.pdType = action.payload;
+    },
+    setChannelMapping: (state, action: PayloadAction<string>) => {
+      state.selectedChannel = action.payload;
     },
   },
   extraReducers(builder) {
@@ -99,10 +108,26 @@ export const gatewaySlice = createSlice({
       .addCase(getChannelMasters.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+      })
+      // fetch channel master
+      .addCase(getUserChannelMappings.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getUserChannelMappings.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // state.userChannelMappings = action.payload;
+      })
+      .addCase(getUserChannelMappings.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
       });
   },
 });
 
-export const { resetSizeAndStyleVariants, resetHomeTableData, changePdType } =
-  gatewaySlice.actions;
+export const {
+  resetSizeAndStyleVariants,
+  resetHomeTableData,
+  changePdType,
+  setChannelMapping,
+} = gatewaySlice.actions;
 export default gatewaySlice.reducer;

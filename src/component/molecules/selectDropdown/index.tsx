@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, TextField } from "@mui/material";
+import { MenuItem, SxProps, TextField, Theme } from "@mui/material";
 import styles from "./selectDropdown.module.scss";
 
 interface IProps {
@@ -7,6 +7,9 @@ interface IProps {
   handleOnChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  selectSx?: SxProps<Theme>;
+  selectWrapperStyle?: React.CSSProperties;
+  selectStyles?: React.CSSProperties;
   data: {
     label: string;
     value: string | number;
@@ -14,15 +17,24 @@ interface IProps {
 }
 
 const SelectDropdown = (props: IProps) => {
-  const { data, label, handleOnChange } = props;
+  const {
+    data,
+    label,
+    handleOnChange,
+    selectSx = {},
+    selectWrapperStyle = {},
+    selectStyles = {},
+  } = props;
   return (
-    <div className={styles.selectWrapper}>
+    <div style={selectWrapperStyle} className={styles.selectWrapper}>
       <TextField
         className={styles.selectStyles}
+        style={selectStyles}
         select
         label={label}
         size="medium"
         onChange={handleOnChange}
+        sx={selectSx}
       >
         {data.map(({ label, value }) => (
           <MenuItem key={value} value={value}>

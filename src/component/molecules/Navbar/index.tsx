@@ -17,8 +17,16 @@ import {
 } from "@/images/AllDataIcons";
 import LogoutModal from "../LogoutModal";
 import CustomTab from "@/component/atoms/customTab";
-import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
-import { fetchTableData } from "@/services/thunks/tableApis";
+import {
+  changePdType,
+  resetHomeTableData,
+  setChannelMapping,
+} from "@/store/slices/gatewaySlice";
+import {
+  fetchTableData,
+  getUserChannelMappings,
+} from "@/services/thunks/tableApis";
+import SelectDropdown from "../selectDropdown";
 
 interface INavbar {
   showBackBtn?: boolean;
@@ -30,18 +38,32 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [currValue, setCurrValue] = useState("");
   const [productType, setProductType] = useState<IProducts>();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const showBack = router.query.showBack;
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
+  const { userChannelMappings, selectedChannel } = useAppSelector(
+    (state) => state.gateway
+  );
+
+  const channelMappingsArr =
+    userChannelMappings?.map((item: any) => {
+      return {
+        label: item.channelName,
+        value: item.channelId,
+      };
+    }) || [];
 
   useEffect(() => {
     if (productType) {
       dispatch(resetHomeTableData());
       dispatch(changePdType(productType));
       if (productType === "unAprovedProducts") {
-        dispatch(fetchTableData({ type: productType }));
+        dispatch(
+          fetchTableData({ type: productType, channelid: selectedChannel })
+        );
       }
     }
   }, [productType]);
@@ -62,6 +84,18 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
     const result = handleBackBtnShow();
     setIsShowNav(result);
   }, [showBackBtn, showBack, showBackInNavbar]);
+
+  useEffect(() => {
+    dispatch(getUserChannelMappings());
+  }, []);
+
+  const handleOnChange = async (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { value } = e.target;
+    setCurrValue(value);
+    dispatch(setChannelMapping(value));
+  };
 
   return (
     <nav className={styles.navWrapper}>
@@ -99,6 +133,33 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
               { label: "unapproved products", value: "unAprovedProducts" },
             ]}
           />
+          {userChannelMappings?.length && (
+            <SelectDropdown
+              selectSx={{
+                "& .MuiInputBase-input": {
+                  padding: "5px",
+                },
+                "& fieldset legend": {
+                  display: "none",
+                },
+                "& label": {
+                  top: currValue ? 0 : "-12px",
+                  display: currValue ? "none" : "unset",
+                },
+                "& .MuiInputLabel-shrink": {
+                  top: "15px",
+                },
+              }}
+              selectStyles={{
+                minWidth: "2rem",
+                width: "10rem",
+              }}
+              selectWrapperStyle={{ padding: "0" }}
+              handleOnChange={handleOnChange}
+              label={"Select channel..."}
+              data={channelMappingsArr}
+            />
+          )}
         </div>
         <div className={styles.rhsWrapper}>
           <div className={styles.barcodeIcon}>
