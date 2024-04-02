@@ -81,6 +81,15 @@ const HomeModule = () => {
     dispatch(resetSizeAndStyleVariants());
   };
 
+  const showTableConditions = (): boolean => {
+    if (pdType === "unAprovedProducts") {
+      return true;
+    } else if (pdType === "aprovedProducts" && !!productType) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
@@ -105,7 +114,7 @@ const HomeModule = () => {
           </div>
         )}
       </div>
-      {pdType ? (
+      {showTableConditions() ? (
         <CustomTable
           handlePagination={handlePagination}
           handleRowClick={handleRowClick}
