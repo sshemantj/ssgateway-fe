@@ -14,12 +14,14 @@ import {
 import CustomTab from "@/component/atoms/customTab";
 import styles from "./customtable.module.scss";
 import useTableData from "@/hooks/useTableData";
+import UnapprovedModal from "./UnapprovedModal";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
   const [currPdId, setCurrPdId] = useState<string>("");
+  const [currSelectedRow, setCurrSelectedRow] = useState();
   const [productType, setProductType] = useState<IProducts>();
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
@@ -60,11 +62,16 @@ const HomeModule = () => {
       };
     });
     setCurrPdId(item.id);
-    dispatch(getStyleVariants({ productid: item.id }))
-      .unwrap()
-      .then(() => {
-        handleModalOpen();
-      });
+    setCurrSelectedRow(item);
+    if (pdType === "unAprovedProducts") {
+      handleModalOpen();
+    } else {
+      dispatch(getStyleVariants({ productid: item.id }))
+        .unwrap()
+        .then(() => {
+          handleModalOpen();
+        });
+    }
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -84,15 +91,9 @@ const HomeModule = () => {
     dispatch(resetSizeAndStyleVariants());
   };
 
-  const showTableConditions = (): boolean => {
-    if (pdType === "unAprovedProducts") {
-      return true;
-    } else if (!!productType) {
-      return true;
-    }
-    return false;
+  const handleUnapprovedCancel = () => {
+    setOpenModal(false);
   };
-
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     setProductType(newValue);
     dispatch(changePdType(newValue));
@@ -139,7 +140,16 @@ const HomeModule = () => {
         setOpen={setOpenModal}
         handleModalClose={handleModalClose}
       >
-        <ModalComponent {...{ currPdId }} />
+        {pdType === "unAprovedProducts" ? (
+          <UnapprovedModal
+            {...{
+              currSelectedRow,
+              handleCancel: handleUnapprovedCancel,
+            }}
+          />
+        ) : (
+          <ModalComponent {...{ currPdId }} />
+        )}
       </CustomModal>
     </div>
   );

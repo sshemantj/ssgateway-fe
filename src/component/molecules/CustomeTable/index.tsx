@@ -111,7 +111,11 @@ const CustomTable = (props: IProps) => {
             <TableRow>
               {customTheadArr.map((item, index) => {
                 return (
-                  <TableCell key={index} align="center">
+                  <TableCell
+                    style={{ fontWeight: 600, textTransform: "capitalize" }}
+                    key={index}
+                    align="center"
+                  >
                     {item}
                   </TableCell>
                 );
