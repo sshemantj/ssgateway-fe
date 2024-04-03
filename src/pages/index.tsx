@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       <Head>
         <title>SS-gateway!</title>
       </Head>
-      <Navbar />
+      <Navbar showApprovedFields />
       <main>
         <div style={{ margin: "1rem" }}>
           {pdType !== "" ? <HomeModule /> : null}

@@ -27,9 +27,13 @@ import useTableData from "@/hooks/useTableData";
 
 interface INavbar {
   showBackBtn?: boolean;
+  showApprovedFields?: boolean;
 }
 
-const Navbar = ({ showBackBtn = false }: INavbar) => {
+const Navbar = ({
+  showBackBtn = false,
+  showApprovedFields = false,
+}: INavbar) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -72,7 +76,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
   }, [showBackBtn, showBack, showBackInNavbar]);
 
   useEffect(() => {
-    dispatch(getUserChannelMappings());
+    if (showApprovedFields) dispatch(getUserChannelMappings());
   }, []);
 
   const handleSelectChange = async (
@@ -137,52 +141,56 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
               />
             )}
           </div>
-          <CustomTab
-            type={1}
-            value={selectedChannel ? productType : ""}
-            handleChange={handleChange}
-            buttonList={[
-              { label: "unapproved products", value: "unAprovedProducts" },
-              { label: "approved products", value: "aprovedProducts" },
-            ]}
-          />
-          {userChannelMappings?.length && (
-            <SelectDropdown
-              ref={inputRef}
-              open={openSelect}
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenSelect((v) => !v);
-              }}
-              onMenuClick={() => {
-                setOpenSelect((v) => !v);
-              }}
-              selectSx={{
-                "& .MuiInputBase-input": {
-                  padding: "5px",
-                },
-                "& fieldset legend": {
-                  display: "none",
-                },
-                "& label": {
-                  top: currValue ? 0 : "-12px",
-                  display: currValue ? "none" : "unset",
-                },
-                "& .MuiInputLabel-shrink": {
-                  top: "15px",
-                },
-              }}
-              selectStyles={{
-                marginLeft: "1rem",
-                minWidth: "2rem",
-                width: "10rem",
-              }}
-              selectWrapperStyle={{ padding: "0" }}
-              handleOnChange={handleSelectChange}
-              label={"Select channel..."}
-              data={channelMappingsArr}
-            />
-          )}
+          {showApprovedFields ? (
+            <>
+              <CustomTab
+                type={1}
+                value={selectedChannel ? productType : ""}
+                handleChange={handleChange}
+                buttonList={[
+                  { label: "unapproved products", value: "unAprovedProducts" },
+                  { label: "approved products", value: "aprovedProducts" },
+                ]}
+              />
+              {userChannelMappings?.length && (
+                <SelectDropdown
+                  ref={inputRef}
+                  open={openSelect}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenSelect((v) => !v);
+                  }}
+                  onMenuClick={() => {
+                    setOpenSelect((v) => !v);
+                  }}
+                  selectSx={{
+                    "& .MuiInputBase-input": {
+                      padding: "5px",
+                    },
+                    "& fieldset legend": {
+                      display: "none",
+                    },
+                    "& label": {
+                      top: currValue ? 0 : "-12px",
+                      display: currValue ? "none" : "unset",
+                    },
+                    "& .MuiInputLabel-shrink": {
+                      top: "15px",
+                    },
+                  }}
+                  selectStyles={{
+                    marginLeft: "1rem",
+                    minWidth: "2rem",
+                    width: "10rem",
+                  }}
+                  selectWrapperStyle={{ padding: "0" }}
+                  handleOnChange={handleSelectChange}
+                  label={"Select channel..."}
+                  data={channelMappingsArr}
+                />
+              )}
+            </>
+          ) : null}
         </div>
         <div className={styles.rhsWrapper}>
           <div className={styles.barcodeIcon}>
