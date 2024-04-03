@@ -79,7 +79,7 @@ const CustomTable = (props: IProps) => {
     () =>
       isMultiSelects
         ? [
-            // "check",
+            "check",
             // "channel mapping",
             ...theadArr.filter(
               (item) => !["channelMappings", "globalAttributes"].includes(item)
@@ -139,6 +139,18 @@ const CustomTable = (props: IProps) => {
                   onClick={() => handleRowClick(row, index)}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
+                  {isMultiSelects ? (
+                    <NestedTable
+                      style={{ whiteSpace: "nowrap" }}
+                      align="center"
+                    >
+                      <Checkbox
+                        checked={
+                          Boolean(allCheckBox?.[index]) || handleChannel(index)
+                        }
+                      />
+                    </NestedTable>
+                  ) : null}
                   {/* {isMultiSelects ? (
                     <>
                       <NestedTable

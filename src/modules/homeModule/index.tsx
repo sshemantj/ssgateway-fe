@@ -63,15 +63,15 @@ const HomeModule = () => {
     });
     setCurrPdId(item.id);
     setCurrSelectedRow(item);
-    if (pdType === "unAprovedProducts") {
-      handleModalOpen();
-    } else {
-      dispatch(getStyleVariants({ productid: item.id }))
-        .unwrap()
-        .then(() => {
-          handleModalOpen();
-        });
-    }
+    // if (pdType === "unAprovedProducts") {
+    //   handleModalOpen();
+    // } else {
+    dispatch(getStyleVariants({ productid: item.id }))
+      .unwrap()
+      .then(() => {
+        handleModalOpen();
+      });
+    // }
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -113,7 +113,7 @@ const HomeModule = () => {
             ]}
           />
         ) : null}
-        {productType && (
+        {pdType && (
           <div className={styles.searchContainer}>
             <SearchBar
               handleSearchClick={handleSearchClick}
@@ -123,24 +123,26 @@ const HomeModule = () => {
           </div>
         )}
       </div>
-      {apiRes && apiRes?.length ? (
-        <CustomTable
-          handlePagination={handlePagination}
-          handleRowClick={handleRowClick}
-          open={open}
-          theadArr={keysArray}
-          tbodyArr={apiRes}
-          showPagination
-          totalRecords={totalRecords}
-        />
-      ) : null}
+      <div className={styles.tableWrapper}>
+        {apiRes && apiRes?.length ? (
+          <CustomTable
+            handlePagination={handlePagination}
+            handleRowClick={handleRowClick}
+            open={open}
+            theadArr={keysArray}
+            tbodyArr={apiRes}
+            showPagination
+            totalRecords={totalRecords}
+          />
+        ) : null}
+      </div>
       <CustomModal
         closeIconStyle={{ top: "2rem", right: "3rem" }}
         open={openModal}
         setOpen={setOpenModal}
         handleModalClose={handleModalClose}
       >
-        {pdType === "unAprovedProducts" ? (
+        {/* {pdType === "unAprovedProducts" ? (
           <UnapprovedModal
             {...{
               currSelectedRow,
@@ -149,7 +151,8 @@ const HomeModule = () => {
           />
         ) : (
           <ModalComponent {...{ currPdId }} />
-        )}
+          )} */}
+        <ModalComponent {...{ currPdId }} />
       </CustomModal>
     </div>
   );
