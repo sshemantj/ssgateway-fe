@@ -96,7 +96,7 @@ const Navbar = ({ showBackBtn = false }: INavbar) => {
         getTableData({});
       }
     } else {
-      inputRef && inputRef?.current.focus();
+      inputRef && inputRef?.current?.focus?.();
       setOpenSelect(true);
     }
   };
