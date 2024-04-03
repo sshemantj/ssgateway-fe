@@ -63,15 +63,11 @@ const HomeModule = () => {
     });
     setCurrPdId(item.id);
     setCurrSelectedRow(item);
-    // if (pdType === "unAprovedProducts") {
-    //   handleModalOpen();
-    // } else {
     dispatch(getStyleVariants({ productid: item.id }))
       .unwrap()
       .then(() => {
         handleModalOpen();
       });
-    // }
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -91,9 +87,6 @@ const HomeModule = () => {
     dispatch(resetSizeAndStyleVariants());
   };
 
-  const handleUnapprovedCancel = () => {
-    setOpenModal(false);
-  };
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     setProductType(newValue);
     dispatch(changePdType(newValue));
@@ -102,7 +95,7 @@ const HomeModule = () => {
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
-        {apiRes && apiRes?.length && pdType !== "unAprovedProducts" ? (
+        {pdType !== "unAprovedProducts" ? (
           <CustomTab
             type={1}
             value={pdType}
@@ -124,17 +117,15 @@ const HomeModule = () => {
         )}
       </div>
       <div className={styles.tableWrapper}>
-        {apiRes && apiRes?.length ? (
-          <CustomTable
-            handlePagination={handlePagination}
-            handleRowClick={handleRowClick}
-            open={open}
-            theadArr={keysArray}
-            tbodyArr={apiRes}
-            showPagination
-            totalRecords={totalRecords}
-          />
-        ) : null}
+        <CustomTable
+          handlePagination={handlePagination}
+          handleRowClick={handleRowClick}
+          open={open}
+          theadArr={keysArray}
+          tbodyArr={apiRes}
+          showPagination
+          totalRecords={totalRecords}
+        />
       </div>
       <CustomModal
         closeIconStyle={{ top: "2rem", right: "3rem" }}
@@ -142,16 +133,6 @@ const HomeModule = () => {
         setOpen={setOpenModal}
         handleModalClose={handleModalClose}
       >
-        {/* {pdType === "unAprovedProducts" ? (
-          <UnapprovedModal
-            {...{
-              currSelectedRow,
-              handleCancel: handleUnapprovedCancel,
-            }}
-          />
-        ) : (
-          <ModalComponent {...{ currPdId }} />
-          )} */}
         <ModalComponent {...{ currPdId }} />
       </CustomModal>
     </div>
