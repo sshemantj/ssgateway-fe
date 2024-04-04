@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import ModalComponent from "@/modules/homeModule/modalComponent";
-import CustomModal from "@/component/molecules/CustomModal";
+// import ModalComponent from "@/modules/homeModule/modalComponent";
+// import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
@@ -14,15 +14,16 @@ import {
 import CustomTab from "@/component/atoms/customTab";
 import styles from "./customtable.module.scss";
 import useTableData from "@/hooks/useTableData";
-import UnapprovedModal from "./UnapprovedModal";
+// import UnapprovedModal from "./UnapprovedModal";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
-  const [openModal, setOpenModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
-  const [currPdId, setCurrPdId] = useState<string>("");
-  const [currSelectedRow, setCurrSelectedRow] = useState();
-  const [productType, setProductType] = useState<IProducts>();
+  // const [currPdId, setCurrPdId] = useState<string>("");
+  const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
+  // const [productType, setProductType] = useState<IProducts>();
+  const [selectedChannels, setselectedChannels] = useState<any>({});
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
 
@@ -52,17 +53,35 @@ const HomeModule = () => {
   }, [pdType]);
 
   const handleModalOpen = () => {
-    setOpenModal(true);
+    // setOpenModal(true);
   };
 
   const handleRowClick = (item: any, index: number) => {
     setOpen((prev: any) => {
       return {
+        ...prev,
         [index]: prev[index] ? false : true,
       };
     });
-    setCurrPdId(item.id);
-    setCurrSelectedRow(item);
+    // setCurrPdId(item.id);
+    setCurrSelectedRow((prev) => {
+      if (!Array.isArray(prev)) return [];
+
+      const data = prev.find((prevItem) => {
+        return prevItem.id === item.id;
+      });
+
+      if (!data) {
+        prev = [...prev, item];
+      } else {
+        prev = prev.filter((prevItem) => {
+          return prevItem.id !== item.id;
+        });
+      }
+
+      return prev;
+    });
+
     dispatch(getStyleVariants({ productid: item.id }))
       .unwrap()
       .then(() => {
@@ -83,12 +102,12 @@ const HomeModule = () => {
     });
   };
 
-  const handleModalClose = () => {
-    dispatch(resetSizeAndStyleVariants());
-  };
+  // const handleModalClose = () => {
+  //   dispatch(resetSizeAndStyleVariants());
+  // };
 
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
-    setProductType(newValue);
+    // setProductType(newValue);
     dispatch(changePdType(newValue));
   };
 
@@ -125,16 +144,20 @@ const HomeModule = () => {
           tbodyArr={apiRes}
           showPagination
           totalRecords={totalRecords}
+          isMultiSelects
+          allCheckBox={open}
+          setselectedChannels={setselectedChannels}
+          selectedChannels={selectedChannels}
         />
       </div>
-      <CustomModal
+      {/* <CustomModal
         closeIconStyle={{ top: "2rem", right: "3rem" }}
         open={openModal}
         setOpen={setOpenModal}
         handleModalClose={handleModalClose}
       >
         <ModalComponent {...{ currPdId }} />
-      </CustomModal>
+      </CustomModal> */}
     </div>
   );
 };
