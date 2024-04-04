@@ -1,0 +1,17 @@
+.downloadCsvContainer {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  .heading {
+    text-align: center;
+  }
+  .btnGroupWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
