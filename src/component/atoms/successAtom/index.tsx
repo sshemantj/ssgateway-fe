@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./paymentSuccess.module.scss";
+import styles from "./paymentAtom.module.scss";
 
-const PaymentSuccess = () => {
+const SuccessAtom = () => {
   return (
     <div className={styles.paymentSuccessWrapper}>
       <div className={styles.content}>
@@ -27,10 +27,9 @@ const PaymentSuccess = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <h3>Payment Successful</h3>
       </div>
     </div>
   );
 };
 
-export default PaymentSuccess;
+export default SuccessAtom;
