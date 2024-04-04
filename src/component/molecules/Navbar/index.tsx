@@ -87,7 +87,7 @@ const Navbar = ({
     setCurrValue(value);
     setOpenSelect(false);
     dispatch(resetHomeTableData());
-    getTableData({ channelid: value, type: productType });
+    // productType && getTableData({ channelid: value, type: productType });
     dispatch(changePdType(productType as IProducts));
   };
 

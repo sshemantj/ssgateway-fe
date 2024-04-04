@@ -35,11 +35,11 @@ const HomeModule = () => {
     apiRes && apiRes?.length
       ? [
           "code",
+          "baseproduct",
+          "sizecode",
+          "sizedesc",
           "stylecode",
-          "styledesc",
-          "brandcode",
-          "description",
-          "material",
+          "subdepartmentcode",
         ]
       : [];
 
