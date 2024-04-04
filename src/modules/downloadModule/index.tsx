@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import styles from "./downloadCsv.module.scss";
 import useDownloadFile from "@/hooks/downloadFile";
 
-const DownloadCsvModule = () => {
+const DownloadFileModule = () => {
   const { loading, downloadFile } = useDownloadFile();
 
   const handleDownloadCsv = () => {
@@ -41,4 +41,4 @@ const DownloadCsvModule = () => {
   );
 };
 
-export default DownloadCsvModule;
+export default DownloadFileModule;
