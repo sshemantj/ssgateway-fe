@@ -42,13 +42,13 @@ const fetchTableData = createAsyncThunk(
       let product = "";
       switch (type) {
         case "mappedProducts":
-          product = "GetApprovedMappedProducts";
+          product = "GetApprovedMappedSizevariants";
           break;
         case "aprovedProducts":
-          product = "GetApprovedProducts";
+          product = "GetApprovedUnMappedSizevariants";
           break;
         case "unAprovedProducts":
-          product = "GetUnAprrovedProducts";
+          product = "GetUnAprrovedsizevariants";
           break;
       }
       const url = `/api/Products/${product}`;

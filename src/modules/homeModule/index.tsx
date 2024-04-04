@@ -26,7 +26,7 @@ const HomeModule = () => {
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
 
-  const { products: apiRes, totalRecords } = useAppSelector(
+  const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
   );
   const { pdType } = useAppSelector((state) => state.gateway);

@@ -148,8 +148,8 @@ const Navbar = ({
                 value={selectedChannel ? productType : ""}
                 handleChange={handleChange}
                 buttonList={[
-                  { label: "unapproved products", value: "unAprovedProducts" },
-                  { label: "approved products", value: "aprovedProducts" },
+                  { label: "unapproved variants", value: "unAprovedProducts" },
+                  { label: "approved variants", value: "aprovedProducts" },
                 ]}
               />
               {userChannelMappings?.length && (

@@ -107,7 +107,7 @@ const ModalComponent = (props: IProps) => {
     const styleData = styleVariants.find(
       (item: any) => +item.id === Number(currStyleId)
     );
-    const pdData = productState.products.find(
+    const pdData = productState.sizevariantData.find(
       (item: any) => +item.id === +currPdId
     );
 
