@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
 import { Button, Pagination } from "@mui/material";
-import MultiSelectDropdown from "../multiSelectDropdown";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getChannelMasters } from "@/services/thunks/tableApis";
 import styles from "./customtable.module.scss";
@@ -52,36 +51,6 @@ const CustomTable = (props: IProps) => {
   } = props;
 
   const dispatch = useAppDispatch();
-  const { selectedChannel, userChannelMappings, pdType } = useAppSelector(
-    (state) => state.gateway
-  );
-  const [currChannel, setCurrChannel] = useState<string>("");
-
-  // console.log(userChannelMappings);
-
-  const showBtnText = () => {
-    switch (pdType) {
-      case "aprovedProducts":
-        break;
-
-      case "mappedProducts":
-        break;
-
-      case "unAprovedProducts":
-        break;
-
-      default:
-    }
-  };
-
-  useEffect(() => {
-    if (selectedChannel) {
-      const currChannel = userChannelMappings?.find(
-        (item) => item.channelId === selectedChannel
-      );
-      setCurrChannel(currChannel?.channelName || "");
-    }
-  }, [selectedChannel]);
 
   useEffect(() => {
     if (isMultiSelects) {
@@ -227,11 +196,6 @@ const CustomTable = (props: IProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className={styles.submitBtnWrapper}>
-        <Button className={styles.button} variant="contained">
-          {showBtnText()}
-        </Button>
-      </div>
       {showPagination && (
         <Pagination
           count={totalRecords}

@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-// import ModalComponent from "@/modules/homeModule/modalComponent";
-// import CustomModal from "@/component/molecules/CustomModal";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { getStyleVariants } from "@/services/thunks/tableApis";
 import SearchBar from "@/component/molecules/SearchBar";
-import {
-  IProducts,
-  changePdType,
-  resetHomeTableData,
-  resetSizeAndStyleVariants,
-} from "@/store/slices/gatewaySlice";
+import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
-import styles from "./customtable.module.scss";
 import useTableData from "@/hooks/useTableData";
-// import UnapprovedModal from "./UnapprovedModal";
+import { Button } from "@mui/material";
+import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
-  // const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState<string>("");
-  // const [currPdId, setCurrPdId] = useState<string>("");
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
-  // const [productType, setProductType] = useState<IProducts>();
   const [selectedChannels, setselectedChannels] = useState<any>({});
+  const [currChannel, setCurrChannel] = useState<string>("");
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
 
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
   );
-  const { pdType } = useAppSelector((state) => state.gateway);
+  const { pdType, selectedChannel, userChannelMappings } = useAppSelector(
+    (state) => state.gateway
+  );
 
   const keysArray =
     apiRes && apiRes?.length
@@ -51,10 +44,6 @@ const HomeModule = () => {
       getTableData({});
     }
   }, [pdType]);
-
-  const handleModalOpen = () => {
-    // setOpenModal(true);
-  };
 
   const handleRowClick = (item: any, index: number) => {
     setOpen((prev: any) => {
@@ -82,11 +71,7 @@ const HomeModule = () => {
       return prev;
     });
 
-    dispatch(getStyleVariants({ productid: item.id }))
-      .unwrap()
-      .then(() => {
-        handleModalOpen();
-      });
+    dispatch(getStyleVariants({ productid: item.id }));
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -102,14 +87,32 @@ const HomeModule = () => {
     });
   };
 
-  // const handleModalClose = () => {
-  //   dispatch(resetSizeAndStyleVariants());
-  // };
-
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     // setProductType(newValue);
     dispatch(changePdType(newValue));
   };
+
+  const showBtnText = () => {
+    switch (pdType) {
+      case "aprovedProducts":
+        return `Mapped with ${currChannel}`;
+
+      case "mappedProducts":
+        break;
+
+      case "unAprovedProducts":
+        return `Approve`;
+    }
+  };
+
+  useEffect(() => {
+    if (selectedChannel) {
+      const currChannel = userChannelMappings?.find(
+        (item: any) => item.channelId === selectedChannel
+      );
+      setCurrChannel(currChannel?.channelName || "");
+    }
+  }, [selectedChannel]);
 
   return (
     <div className={styles.customTableWrapper}>
@@ -149,6 +152,11 @@ const HomeModule = () => {
           setselectedChannels={setselectedChannels}
           selectedChannels={selectedChannels}
         />
+      </div>
+      <div className={styles.submitBtnWrapper}>
+        <Button className={styles.button} variant="contained">
+          {showBtnText()}
+        </Button>
       </div>
       {/* <CustomModal
         closeIconStyle={{ top: "2rem", right: "3rem" }}

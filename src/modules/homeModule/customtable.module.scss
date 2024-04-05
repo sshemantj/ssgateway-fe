@@ -18,7 +18,7 @@
     }
   }
   .tableWrapper {
-    padding-top: 3rem;
+    // padding-top: 3rem;
   }
 
   min-height: 90vh;
@@ -30,5 +30,12 @@
   }
   .open {
     background-color: lightblue !important;
+  }
+  .submitBtnWrapper {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    .button {
+    }
   }
 }
