@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
-import { Pagination } from "@mui/material";
+import { Button, Pagination } from "@mui/material";
 import MultiSelectDropdown from "../multiSelectDropdown";
 import { useAppDispatch } from "@/store/hooks";
 import { getChannelMasters } from "@/services/thunks/tableApis";
@@ -197,6 +197,11 @@ const CustomTable = (props: IProps) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div className={styles.submitBtnWrapper}>
+        <Button className={styles.button} variant="contained">
+          Submit
+        </Button>
+      </div>
       {showPagination && (
         <Pagination
           count={totalRecords}
