@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import closeIcon from "@/images/closeIcon.svg";
 import styles from "./uploadFile.module.scss";
-import { Box, LinearProgress } from "@mui/material";
 import CircularProgressWithLabel from "@/component/atoms/circularProgress";
 import SuccessAtom from "@/component/atoms/successAtom";
+import DragDrop from "@/component/atoms/dragAndDrop";
+
+type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
 const UploadFileModule = () => {
-  const [uploadStatus, setUploadStatus] = useState<
-    "select" | "uploading" | "complete"
-  >("select");
   const [progress, setProgress] = useState(10);
+  const [file, setFile] = useState<any>();
+  const [uploadStatus, setUploadStatus] = useState<IStatuses>("selecting");
 
   const handleOnClick = () => {
     setUploadStatus("uploading");
@@ -26,34 +27,59 @@ const UploadFileModule = () => {
         }
       });
     }, 800);
-
-    if (progress >= 100) {
-      clearInterval(timer);
-    }
   };
+
+  const handleChange = (file: any) => {
+    setUploadStatus("selected");
+    setFile(file);
+  };
+
+  console.log(file);
 
   return (
     <div className={styles.uploadFileWrapper}>
       <div className={styles["formbold-main-wrapper"]}>
         <div className={styles["formbold-form-wrapper"]}>
           <form>
-            {uploadStatus === "select" && (
+            {uploadStatus === "selecting" && (
               <div className={styles.dropFileWrapper}>
                 <div
                   className={`${styles["formbold-mb-5"]} ${styles["formbold-file-input"]}`}
                 >
-                  <input type="file" name="file" id="file" />
-                  <label htmlFor="file">
-                    <div>
-                      <span className={styles["formbold-drop-file"]}>
-                        Drop files here
-                      </span>
-                      <span className={styles["formbold-or"]}> Or </span>
-                      <span className={styles["formbold-browse"]}>Browse</span>
-                    </div>
+                  <label>
+                    <DragDrop {...{ handleChange }}>
+                      <div>
+                        <span className={styles["formbold-drop-file"]}>
+                          Drop files here
+                        </span>
+                        <span className={styles["formbold-or"]}> Or </span>
+                        <span className={styles["formbold-browse"]}>
+                          Browse
+                        </span>
+                      </div>
+                    </DragDrop>
                   </label>
                 </div>
               </div>
+            )}
+            {uploadStatus === "selected" && (
+              <>
+                <div className={styles.fileNameContainer}>
+                  <div
+                    className={`${styles["formbold-file-list"]} ${styles["formbold-mb-5"]}`}
+                  >
+                    <div className={`${styles["formbold-file-item"]}`}>
+                      <span className={styles["formbold-file-name"]}>
+                        banner-design.png
+                      </span>
+                      <button>
+                        <Image src={closeIcon} alt="" width={20} height={20} />
+                      </button>
+                    </div>
+                  </div>
+                  <CircularProgressWithLabel value={progress} />
+                </div>
+              </>
             )}
             {uploadStatus === "uploading" && (
               <>
@@ -70,14 +96,16 @@ const UploadFileModule = () => {
                       </button>
                     </div>
                   </div>
-
                   <CircularProgressWithLabel value={progress} />
                 </div>
               </>
             )}
           </form>
           {uploadStatus === "complete" ? (
-            <SuccessAtom />
+            <>
+              <SuccessAtom />
+              <h3>File upload success!</h3>
+            </>
           ) : (
             <div className={styles.btnWrapper}>
               <button
