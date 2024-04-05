@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import styles from "./navbar.module.scss";
 import { Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -24,6 +23,8 @@ import {
 import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import SelectDropdown from "../selectDropdown";
 import useTableData from "@/hooks/useTableData";
+import SearchBar from "../SearchBar";
+import styles from "./navbar.module.scss";
 
 interface INavbar {
   showBackBtn?: boolean;
@@ -38,10 +39,11 @@ const Navbar = ({
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openSelect, setOpenSelect] = useState(false);
+  const [search, setSearch] = useState<string>("");
   const [currValue, setCurrValue] = useState("");
   const [productType, setProductType] = useState<IProducts>();
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
-  const { userChannelMappings, selectedChannel } = useAppSelector(
+  const { userChannelMappings, selectedChannel, pdType } = useAppSelector(
     (state) => state.gateway
   );
   const getTableData = useTableData();
@@ -107,6 +109,12 @@ const Navbar = ({
 
   const handleLogoClick = () => {
     router.reload();
+  };
+
+  const handleSearchClick = () => {
+    getTableData({
+      searchTerm: search,
+    });
   };
 
   return (
@@ -188,6 +196,15 @@ const Navbar = ({
                   label={"Select channel..."}
                   data={channelMappingsArr}
                 />
+              )}
+              {pdType && (
+                <div className={styles.searchContainer}>
+                  <SearchBar
+                    handleSearchClick={handleSearchClick}
+                    value={search}
+                    setSearch={setSearch}
+                  />
+                </div>
               )}
             </>
           ) : null}

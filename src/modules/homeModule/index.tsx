@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import CustomTable from "@/component/molecules/CustomeTable";
 import { getStyleVariants } from "@/services/thunks/tableApis";
-import SearchBar from "@/component/molecules/SearchBar";
 import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import useTableData from "@/hooks/useTableData";
@@ -81,12 +80,6 @@ const HomeModule = () => {
     });
   };
 
-  const handleSearchClick = () => {
-    getTableData({
-      searchTerm: search,
-    });
-  };
-
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     // setProductType(newValue);
     dispatch(changePdType(newValue));
@@ -128,15 +121,6 @@ const HomeModule = () => {
             ]}
           />
         ) : null}
-        {pdType && (
-          <div className={styles.searchContainer}>
-            <SearchBar
-              handleSearchClick={handleSearchClick}
-              value={search}
-              setSearch={setSearch}
-            />
-          </div>
-        )}
       </div>
       <div className={styles.tableWrapper}>
         <CustomTable

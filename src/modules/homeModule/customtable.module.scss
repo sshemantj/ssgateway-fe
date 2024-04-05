@@ -1,27 +1,16 @@
 .customTableWrapper {
+  min-height: 83vh;
+  position: relative;
   .btnWrapper {
     position: relative;
     @media (max-width: 668px) {
       height: 8rem;
-    }
-    .searchContainer {
-      display: flex;
-      justify-content: center;
-      position: absolute;
-      top: 0;
-      right: 0;
-      @media (max-width: 668px) {
-        top: 3rem;
-        left: 50%;
-        transform: translateX(-50%);
-      }
     }
   }
   .tableWrapper {
     // padding-top: 3rem;
   }
 
-  min-height: 90vh;
   .tableRow {
     &:hover {
       background-color: lightcyan;
