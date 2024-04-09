@@ -4,6 +4,7 @@ import styleVariantsJson from "@/jsons/getStyleVariants.json";
 import sizeVariantsJson from "@/jsons/getSizeVariants.json";
 import channelMastersJson from "@/jsons/getChannelMaster.json";
 import userChannelMappings from "@/jsons/GetUserChannelMappings.json";
+import getApprovedUnmappedSizeVariants from "@/jsons/getApprovedUnmappedSizeVariants.json";
 import {
   fetchTableData,
   getChannelMasters,
@@ -31,7 +32,7 @@ type IGatewaySlice = {
 };
 
 const initialState = {
-  data: tableJson,
+  data: getApprovedUnmappedSizeVariants || tableJson,
   styleVariants: styleVariantsJson,
   sizeVariants: sizeVariantsJson,
   channelMasters: channelMastersJson,

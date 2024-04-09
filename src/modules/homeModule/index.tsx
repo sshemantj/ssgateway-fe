@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import CustomTable from "@/component/molecules/CustomeTable";
-import { getStyleVariants } from "@/services/thunks/tableApis";
+import {
+  IPostChannelMapping,
+  getStyleVariants,
+  postChannelMapping,
+} from "@/services/thunks/tableApis";
 import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import useTableData from "@/hooks/useTableData";
 import { Button } from "@mui/material";
 import styles from "./customtable.module.scss";
+import { useMobileCheck } from "@/hooks/useMobileCheck";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
   const [search, setSearch] = useState<string>("");
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [selectedChannels, setselectedChannels] = useState<any>({});
-  const [currChannel, setCurrChannel] = useState<string>("");
+  const [currChannel, setCurrChannel] = useState<any>("");
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
+  const isMobile = useMobileCheck();
 
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
@@ -70,7 +76,7 @@ const HomeModule = () => {
       return prev;
     });
 
-    dispatch(getStyleVariants({ productid: item.id }));
+    // dispatch(getStyleVariants({ productid: item.id }));
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -88,7 +94,7 @@ const HomeModule = () => {
   const showBtnText = () => {
     switch (pdType) {
       case "aprovedProducts":
-        return `Mapped with ${currChannel}`;
+        return `Mapped with ${currChannel?.channelName}`;
 
       case "mappedProducts":
         break;
@@ -98,12 +104,45 @@ const HomeModule = () => {
     }
   };
 
+  const handlePostChannnelMapping = () => {
+    const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
+      return {
+        channelmasterid: "number",
+        productid: "number",
+        productcode: "string",
+        sizevariantid: "number",
+        isactive: "boolean",
+        channelid: currChannel?.channelId,
+        channelname: currChannel?.channelName,
+        stylevariantid: item.stylevariantid,
+        stylecode: item.stylecode,
+        sizecode: item.sizecode,
+      };
+    });
+
+    dispatch(postChannelMapping(payload));
+  };
+
+  const handleButtonClick = () => {
+    switch (pdType) {
+      case "aprovedProducts":
+        handlePostChannnelMapping();
+        break;
+
+      case "mappedProducts":
+        break;
+
+      case "unAprovedProducts":
+        break;
+    }
+  };
+
   useEffect(() => {
     if (selectedChannel) {
       const currChannel = userChannelMappings?.find(
         (item: any) => item.channelId === selectedChannel
       );
-      setCurrChannel(currChannel?.channelName || "");
+      setCurrChannel(currChannel);
     }
   }, [selectedChannel]);
 
@@ -138,7 +177,12 @@ const HomeModule = () => {
         />
       </div>
       <div className={styles.submitBtnWrapper}>
-        <Button className={styles.button} variant="contained">
+        <Button
+          onClick={() => handleButtonClick()}
+          className={styles.button}
+          variant="contained"
+          disabled={!!!currSelectedRow.length}
+        >
           {showBtnText()}
         </Button>
       </div>
