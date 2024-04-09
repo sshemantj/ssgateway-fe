@@ -107,16 +107,12 @@ const HomeModule = () => {
   const handlePostChannnelMapping = () => {
     const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
       return {
-        channelmasterid: "number",
-        productcode: "string",
         productid: item.productid,
-        sizevariantid: item.id,
-        isactive: true,
+        stylevariantid: item.stylevariantid,
         channelid: currChannel?.channelId,
         channelname: currChannel?.channelName,
-        stylevariantid: item.stylevariantid,
-        stylecode: item.stylecode,
-        sizecode: item.sizecode,
+        sizevariantid: item.id,
+        sizevariantcode: item.code,
       };
     });
 

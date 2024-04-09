@@ -17,16 +17,12 @@ interface IGetSizeVariants {
   stylevairiantId: string;
 }
 export interface IPostChannelMapping {
-  channelmasterid: number;
-  channelid: string;
-  channelname: string;
-  productid: number;
-  productcode: string;
-  stylevariantid: string;
-  stylecode: string;
-  sizevariantid: number;
-  sizecode: string;
-  isactive: boolean;
+  productid: number,
+  stylevariantid: number,
+  channelid: string,
+  channelname: string,
+  sizevariantid: number,
+  sizevariantcode: number
 }
 
 const fetchTableData = createAsyncThunk(
