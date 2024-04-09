@@ -45,7 +45,7 @@ const NavFields = () => {
     setOpenSelect(false);
     dispatch(resetHomeTableData());
     // productType && getTableData({ channelid: value, type: productType });
-    dispatch(changePdType(productType as IProducts));
+    productType && dispatch(changePdType(productType as IProducts));
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {

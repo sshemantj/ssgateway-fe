@@ -78,8 +78,7 @@ const CustomTable = (props: IProps) => {
     () =>
       isMultiSelects
         ? [
-            "check",
-            // "channel mapping",
+            ...(theadArr.length ? ["check"] : []),
             ...theadArr.filter(
               (item) => !["channelMappings", "globalAttributes"].includes(item)
             ),
