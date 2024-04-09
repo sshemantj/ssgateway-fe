@@ -12,7 +12,7 @@ const useTableData = () => {
 
     return (props: IUseTableData) => {
         const { type, ...rest } = props;
-        dispatch(fetchTableData({ channelid, type: type || pdType, ...rest }))
+        type || pdType && dispatch(fetchTableData({ channelid, type: type || pdType, ...rest }))
     }
 }
 
