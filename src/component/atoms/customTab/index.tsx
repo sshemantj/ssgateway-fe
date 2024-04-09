@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
+import { SxProps, Theme } from "@mui/material";
 
 interface IProps {
   buttonList: { label: string; value: string }[];
@@ -10,10 +11,18 @@ interface IProps {
   setValue?: React.Dispatch<React.SetStateAction<any>>;
   type: 1 | 2;
   handleChange?: (event: React.SyntheticEvent, newValue: string) => void;
+  containerSx?: SxProps<Theme>;
 }
 
 const CustomTab = (props: IProps) => {
-  const { buttonList, value, setValue, type, handleChange } = props;
+  const {
+    buttonList,
+    value,
+    setValue,
+    type,
+    handleChange,
+    containerSx = {},
+  } = props;
 
   const handleChangeCustom = (
     event: React.SyntheticEvent,
@@ -23,7 +32,7 @@ const CustomTab = (props: IProps) => {
   };
 
   return (
-    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", ...containerSx }}>
       {type === 1 ? (
         <Tabs
           value={value}

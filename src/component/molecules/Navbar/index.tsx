@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Button } from "@mui/material";
@@ -13,18 +13,10 @@ import {
   searchIcon,
 } from "@/images/AllDataIcons";
 import LogoutModal from "../LogoutModal";
-import CustomTab from "@/component/atoms/customTab";
-import {
-  IProducts,
-  changePdType,
-  resetHomeTableData,
-  setChannelMapping,
-} from "@/store/slices/gatewaySlice";
+
 import { getUserChannelMappings } from "@/services/thunks/tableApis";
-import SelectDropdown from "../selectDropdown";
-import useTableData from "@/hooks/useTableData";
-import SearchBar from "../SearchBar";
 import styles from "./navbar.module.scss";
+import NavFields from "./NavFields";
 
 interface INavbar {
   showBackBtn?: boolean;
@@ -38,27 +30,11 @@ const Navbar = ({
   const [showNavbar, setShowNavbar] = useState(false);
   const [isShowNav, setIsShowNav] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [openSelect, setOpenSelect] = useState(false);
-  const [search, setSearch] = useState<string>("");
-  const [currValue, setCurrValue] = useState("");
-  const [productType, setProductType] = useState<IProducts>();
   const { showBackInNavbar } = useAppSelector((state) => state.menu);
-  const { userChannelMappings, selectedChannel, pdType } = useAppSelector(
-    (state) => state.gateway
-  );
-  const getTableData = useTableData();
+
   const router = useRouter();
   const dispatch = useAppDispatch();
   const showBack = router.query.showBack;
-  const inputRef = useRef<any>(null);
-
-  const channelMappingsArr =
-    userChannelMappings?.map((item: any) => {
-      return {
-        label: item.channelName,
-        value: item.channelId,
-      };
-    }) || [];
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -81,40 +57,8 @@ const Navbar = ({
     if (showApprovedFields) dispatch(getUserChannelMappings());
   }, []);
 
-  const handleSelectChange = async (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { value } = e.target;
-    dispatch(setChannelMapping(value));
-    setCurrValue(value);
-    setOpenSelect(false);
-    dispatch(resetHomeTableData());
-    // productType && getTableData({ channelid: value, type: productType });
-    dispatch(changePdType(productType as IProducts));
-  };
-
-  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
-    setProductType(newValue);
-    if (selectedChannel) {
-      dispatch(resetHomeTableData());
-      dispatch(changePdType(newValue));
-      if (newValue === "unAprovedProducts") {
-        getTableData({});
-      }
-    } else {
-      inputRef && inputRef?.current?.focus?.();
-      setOpenSelect(true);
-    }
-  };
-
   const handleLogoClick = () => {
     router.reload();
-  };
-
-  const handleSearchClick = () => {
-    getTableData({
-      searchTerm: search,
-    });
   };
 
   return (
@@ -149,65 +93,7 @@ const Navbar = ({
               />
             )}
           </div>
-          {showApprovedFields ? (
-            <>
-              <CustomTab
-                type={1}
-                value={selectedChannel ? productType : ""}
-                handleChange={handleChange}
-                buttonList={[
-                  { label: "unapproved variants", value: "unAprovedProducts" },
-                  { label: "approved variants", value: "aprovedProducts" },
-                ]}
-              />
-              {userChannelMappings?.length && (
-                <SelectDropdown
-                  ref={inputRef}
-                  open={openSelect}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenSelect((v) => !v);
-                  }}
-                  onMenuClick={() => {
-                    setOpenSelect((v) => !v);
-                  }}
-                  selectSx={{
-                    "& .MuiInputBase-input": {
-                      padding: "5px",
-                    },
-                    "& fieldset legend": {
-                      display: "none",
-                    },
-                    "& label": {
-                      top: currValue ? 0 : "-12px",
-                      display: currValue ? "none" : "unset",
-                    },
-                    "& .MuiInputLabel-shrink": {
-                      top: "15px",
-                    },
-                  }}
-                  selectStyles={{
-                    marginLeft: "1rem",
-                    minWidth: "2rem",
-                    width: "10rem",
-                  }}
-                  selectWrapperStyle={{ padding: "0" }}
-                  handleOnChange={handleSelectChange}
-                  label={"Select channel..."}
-                  data={channelMappingsArr}
-                />
-              )}
-              {pdType && (
-                <div className={styles.searchContainer}>
-                  <SearchBar
-                    handleSearchClick={handleSearchClick}
-                    value={search}
-                    setSearch={setSearch}
-                  />
-                </div>
-              )}
-            </>
-          ) : null}
+          {showApprovedFields ? <NavFields /> : null}
         </div>
         <div className={styles.rhsWrapper}>
           <div className={styles.barcodeIcon}>

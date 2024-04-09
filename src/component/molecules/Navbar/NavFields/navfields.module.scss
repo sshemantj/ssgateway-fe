@@ -1,0 +1,11 @@
+.searchContainer {
+  margin-left: 2rem;
+  width: 25rem;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 600px) {
+    // width: 10rem;
+    margin-left: 0;
+    width: 100%;
+  }
+}
