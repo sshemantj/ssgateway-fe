@@ -24,7 +24,17 @@
     position: absolute;
     bottom: 0;
     right: 1rem;
+    @media (max-width: 600px) {
+      right: unset;
+      bottom: -4rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .button {
+      @media (max-width: 600px) {
+        width: max-content;
+        margin-bottom: 1rem;
+      }
     }
   }
 }
