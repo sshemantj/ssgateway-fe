@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,8 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import NestedTable from "../nestedTable";
 import Checkbox from "@mui/material/Checkbox";
-import { Button, Pagination } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Pagination } from "@mui/material";
+import { useAppDispatch } from "@/store/hooks";
 import { getChannelMasters } from "@/services/thunks/tableApis";
 import styles from "./customtable.module.scss";
 
@@ -18,10 +18,8 @@ interface IProps {
   handleRowClick?: (row: any, index: number) => void;
   open?: any;
   isMultiSelects?: boolean;
-  allCheckBox?: any;
   handlePagination?: (pageNumber: number) => void;
   showPagination?: boolean;
-  setselectedChannels?: React.Dispatch<any>;
   totalRecords?: number;
   selectedChannels?: {
     value: string[];
@@ -45,8 +43,6 @@ const CustomTable = (props: IProps) => {
     handlePagination = () => {},
     showPagination = false,
     totalRecords = 1,
-    allCheckBox = {},
-    setselectedChannels,
     selectedChannels,
   } = props;
 
@@ -132,50 +128,28 @@ const CustomTable = (props: IProps) => {
                 <TableRow
                   key={`${row.name}${index}`}
                   className={`${styles.tableRow} ${
-                    open?.[index] && styles.open
+                    open?.[row.id] && styles.open
                   }`}
                   onClick={() => handleRowClick(row, index)}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   {isMultiSelects ? (
                     <NestedTable
-                      style={{ whiteSpace: "nowrap" }}
                       align="center"
+                      sx={{
+                        whiteSpace: "nowrap",
+                        span: {
+                          padding: "0",
+                        },
+                      }}
                     >
                       <Checkbox
                         checked={
-                          Boolean(allCheckBox?.[index]) || handleChannel(index)
+                          Boolean(open?.[row.id]) || handleChannel(row.id)
                         }
                       />
                     </NestedTable>
                   ) : null}
-                  {/* {isMultiSelects ? (
-                    <>
-                      <NestedTable
-                        style={{ whiteSpace: "nowrap" }}
-                        align="center"
-                      >
-                        <Checkbox
-                          checked={
-                            Boolean(allCheckBox?.[index]) ||
-                            handleChannel(index)
-                          }
-                        />
-                      </NestedTable>
-                      <NestedTable
-                        style={{ whiteSpace: "nowrap" }}
-                        align="center"
-                      >
-                        <MultiSelectDropdown
-                          {...{
-                            selectedChannels,
-                            setselectedChannels,
-                            index,
-                          }}
-                        />
-                      </NestedTable>
-                    </>
-                  ) : null} */}
                   {customTheadArr
                     .filter((item) => !excludedFields.includes(item))
                     .map((item, index2) => {

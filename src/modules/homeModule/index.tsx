@@ -19,6 +19,7 @@ const HomeModule = () => {
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [selectedChannels, setselectedChannels] = useState<any>({});
   const [currChannel, setCurrChannel] = useState<any>("");
+  const [productType, setProductType] = useState<string>("");
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
   const isMobile = useMobileCheck();
@@ -54,29 +55,32 @@ const HomeModule = () => {
     setOpen((prev: any) => {
       return {
         ...prev,
-        [index]: prev[index] ? false : true,
+        [productType]: {
+          ...prev?.[productType],
+          [item.id]: prev?.[productType]?.[item.id] ? false : true,
+        },
       };
     });
-    // setCurrPdId(item.id);
-    setCurrSelectedRow((prev) => {
-      if (!Array.isArray(prev)) return [];
 
-      const data = prev.find((prevItem) => {
-        return prevItem.id === item.id;
-      });
+    if (pdType !== "mappedProducts") {
+      setCurrSelectedRow((prev) => {
+        if (!Array.isArray(prev)) return [];
 
-      if (!data) {
-        prev = [...prev, item];
-      } else {
-        prev = prev.filter((prevItem) => {
-          return prevItem.id !== item.id;
+        const data = prev.find((prevItem) => {
+          return prevItem.id === item.id;
         });
-      }
 
-      return prev;
-    });
+        if (!data) {
+          prev = [...prev, item];
+        } else {
+          prev = prev.filter((prevItem) => {
+            return prevItem.id !== item.id;
+          });
+        }
 
-    // dispatch(getStyleVariants({ productid: item.id }));
+        return prev;
+      });
+    }
   };
 
   const handlePagination = (pageNumber: number) => {
@@ -87,7 +91,7 @@ const HomeModule = () => {
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
-    // setProductType(newValue);
+    setProductType(newValue);
     dispatch(changePdType(newValue));
   };
 
@@ -124,10 +128,6 @@ const HomeModule = () => {
       case "aprovedProducts":
         handlePostChannnelMapping();
         break;
-
-      case "mappedProducts":
-        break;
-
       case "unAprovedProducts":
         break;
     }
@@ -161,35 +161,27 @@ const HomeModule = () => {
         <CustomTable
           handlePagination={handlePagination}
           handleRowClick={handleRowClick}
-          open={open}
+          open={open?.[productType]}
           theadArr={keysArray}
           tbodyArr={apiRes}
           showPagination
           totalRecords={totalRecords}
-          isMultiSelects
-          allCheckBox={open}
-          setselectedChannels={setselectedChannels}
+          isMultiSelects={pdType !== "mappedProducts"}
           selectedChannels={selectedChannels}
         />
       </div>
-      <div className={styles.submitBtnWrapper}>
-        <Button
-          onClick={() => handleButtonClick()}
-          className={styles.button}
-          variant="contained"
-          disabled={!!!currSelectedRow.length}
-        >
-          {showBtnText()}
-        </Button>
-      </div>
-      {/* <CustomModal
-        closeIconStyle={{ top: "2rem", right: "3rem" }}
-        open={openModal}
-        setOpen={setOpenModal}
-        handleModalClose={handleModalClose}
-      >
-        <ModalComponent {...{ currPdId }} />
-      </CustomModal> */}
+      {pdType !== "mappedProducts" && (
+        <div className={styles.submitBtnWrapper}>
+          <Button
+            onClick={() => handleButtonClick()}
+            className={styles.button}
+            variant="contained"
+            disabled={!!!currSelectedRow.length}
+          >
+            {showBtnText()}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
