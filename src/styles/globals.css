@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@font-face {
+  font-family: Poppins;
+  src: url(../../public/Poppins-Medium.ttf);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
