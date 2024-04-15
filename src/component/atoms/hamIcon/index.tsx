@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./hamIcon.module.scss";
 
-const HamIcon = () => {
+const HamIcon = ({ checked }: { checked: boolean }) => {
   return (
     <div className={styles.container}>
       <input
+        checked={checked}
         type="checkbox"
         id="checkbox1"
         className={`${styles.checkbox1} ${styles.visuallyHidden}`}
