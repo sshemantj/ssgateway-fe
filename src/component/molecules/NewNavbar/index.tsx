@@ -1,11 +1,12 @@
-import React from "react";
-import styles from "./newNavbar.module.scss";
+import React, { useState } from "react";
 import HamIcon from "@/component/atoms/hamIcon";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
+import SearchComponent from "@/component/atoms/searchComponent";
+import styles from "./newNavbar.module.scss";
 
 interface IProps {
   children: JSX.Element;
@@ -13,10 +14,12 @@ interface IProps {
 
 const NewNavBar = (props: IProps) => {
   const { children } = props;
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const isMobile = useMobileCheck();
 
   return (
     <div className={styles.newNavWrapper}>
+      <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
           <div className={styles.logoText}>
@@ -28,7 +31,10 @@ const NewNavBar = (props: IProps) => {
           </div>
           {!isMobile ? (
             <div className={styles.searchIcon}>
-              <SearchIcon color="inherit" />
+              <SearchIcon
+                onClick={() => setIsSearchActive((prev) => !prev)}
+                color="inherit"
+              />
             </div>
           ) : null}
         </div>
