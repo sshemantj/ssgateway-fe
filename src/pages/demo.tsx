@@ -1,13 +1,12 @@
 import NewNavBar from "@/component/molecules/NewNavbar";
+import DemoModule from "@/modules/demoModule";
 import { NextPage } from "next";
 
 const DemoPage: NextPage = () => {
   return (
-    <>
-      <NewNavBar>
-        <div>main content</div>
-      </NewNavBar>
-    </>
+    <NewNavBar>
+      <DemoModule />
+    </NewNavBar>
   );
 };
 
