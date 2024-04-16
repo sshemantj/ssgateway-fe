@@ -6,6 +6,7 @@ import { useMobileCheck } from "@/hooks/useMobileCheck";
 import SearchComponent from "@/component/atoms/searchComponent";
 import RhsWrapper from "./RhsWrapper";
 import NavList from "./navlist";
+import Breadcrumbs from "@/component/atoms/breadcrumb";
 import styles from "./newNavbar.module.scss";
 
 interface IProps {
@@ -15,7 +16,7 @@ interface IProps {
 const NewNavBar = (props: IProps) => {
   const { children } = props;
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
-  const [isNavOpen, setisNavOpen] = useState<boolean>(false);
+  const [isNavOpen, setisNavOpen] = useState<boolean>(window.innerWidth > 768);
   const isMobile = useMobileCheck();
 
   const handleHamClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -60,7 +61,12 @@ const NewNavBar = (props: IProps) => {
       </nav>
       <div className={styles.navListWrapper}>
         <NavList isNavOpen={isNavOpen} />
-        <main className={styles.mainWrapper}>{children}</main>
+        <main className={styles.mainWrapper}>
+          <div className={styles.breadcrumbWrapper}>
+            <Breadcrumbs />
+          </div>
+          {children}
+        </main>
       </div>
     </div>
   );

@@ -4,6 +4,11 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Profile, ProfileList } from "./profile";
 import Image from "next/image";
 import HouseIcon from "@mui/icons-material/House";
+import WalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+import ServiceIcon from "@mui/icons-material/HomeRepairService";
+import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
+import QueueIcon from "@mui/icons-material/Queue";
 import styles from "./navlist.module.scss";
 
 interface IProps {
@@ -29,29 +34,37 @@ const navListArr: INavListArr[] = [
       {
         title: "Page Layout",
         icon: "",
-        iconJsx: <HouseIcon color="inherit" />,
+        iconJsx: <WalletIcon color="inherit" />,
       },
     ],
   },
   {
     topHeading: "UI Elements",
     subHeaderList: [
-      { title: "Basics", icon: "", iconJsx: <HouseIcon color="inherit" /> },
+      {
+        title: "Basics",
+        icon: "",
+        iconJsx: <FolderCopyIcon color="inherit" />,
+      },
       {
         title: "Page Layout",
         icon: "",
-        iconJsx: <HouseIcon color="inherit" />,
+        iconJsx: <ServiceIcon color="inherit" />,
       },
     ],
   },
   {
     topHeading: "Forms & Tables",
     subHeaderList: [
-      { title: "Charts", icon: "", iconJsx: <HouseIcon color="inherit" /> },
+      {
+        title: "Charts",
+        icon: "",
+        iconJsx: <OfflineBoltIcon color="inherit" />,
+      },
       {
         title: "Page Layout",
         icon: "",
-        iconJsx: <HouseIcon color="inherit" />,
+        iconJsx: <QueueIcon color="inherit" />,
       },
     ],
   },

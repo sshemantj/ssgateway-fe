@@ -5,7 +5,7 @@ const DemoPage: NextPage = () => {
   return (
     <>
       <NewNavBar>
-        <div>hemant</div>
+        <div>main content</div>
       </NewNavBar>
     </>
   );
