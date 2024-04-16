@@ -1,16 +1,55 @@
+@import "@/styles/variables.scss";
+
 .navlist_wrapper {
-  background-color: skyblue;
+  background-color: $color_white;
   width: 50px;
   height: calc(100vh - 45px);
   border-radius: 0 8px 0 0;
   transition: all 0.3s ease-in-out;
+  white-space: nowrap;
+
   @media (max-width: 768px) {
     width: 0;
     visibility: hidden;
   }
-}
-.navlist_container {
-  list-style: none;
+  .navlist_container {
+    transition: all 0.3s ease-in-out;
+    .listWrapper {
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .hide {
+        transition: all 0.3s ease-in-out;
+        transform: translateX(-10rem);
+      }
+      .topHeading {
+        font-size: 13px;
+        font-weight: 600;
+        color: #4680ff;
+        padding: 18px 15px 5px;
+        text-transform: capitalize;
+      }
+      .subHeaderWrapper {
+        cursor: pointer;
+        margin-left: 2rem;
+        color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        gap: 0.5rem;
+        transition: all 0.3s ease-in-out;
+        &.navClosed {
+          transition: all 0.3s ease-in-out;
+          transform: translateX(-1.2rem);
+          @media (max-width: 768px) {
+            display: none;
+          }
+        }
+        .subTitle {
+          color: #535763;
+        }
+      }
+    }
+  }
 }
 .open {
   width: 270px;

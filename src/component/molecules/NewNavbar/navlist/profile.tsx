@@ -2,7 +2,7 @@ import Image from "next/image";
 import profileImg from "@/images/profile.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 interface IProfile {
   isNavOpen: boolean;
@@ -25,18 +25,28 @@ const Profile = (props: IProfile) => {
       }}
     >
       <Image src={profileImg} alt="profile" width={30} height={30} />
-      <h4 style={{ display: isNavOpen ? "flex" : "none" }}>Joseph Sr.</h4>
+      <h4 style={{ display: isNavOpen ? "flex" : "none", fontWeight: 500 }}>
+        Joseph Sr.
+      </h4>
     </div>
   );
 };
 
 const ProfileList = (props: IProfile) => {
   const { isNavOpen } = props;
+
   const commonStyle: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
     gap: "6px",
+    color: "gray",
+  };
+
+  const fontStyles: React.CSSProperties = {
+    fontWeight: 500,
+    fontSize: 14,
+    color: "#000",
   };
 
   return (
@@ -48,16 +58,16 @@ const ProfileList = (props: IProfile) => {
       }}
     >
       <div style={commonStyle}>
-        <PersonIcon />
-        <h6 style={{ fontWeight: 500, fontSize: 16 }}>View profile</h6>
+        <PermIdentityIcon color="inherit" />
+        <h6 style={fontStyles}>View profile</h6>
       </div>
       <div style={commonStyle}>
-        <SettingsIcon />
-        <h6 style={{ fontWeight: 500, fontSize: 16 }}>Setting</h6>
+        <SettingsIcon color="inherit" />
+        <h6 style={fontStyles}>Setting</h6>
       </div>
       <div style={commonStyle}>
-        <LogoutIcon />
-        <h6 style={{ fontWeight: 500, fontSize: 16 }}>Logout</h6>
+        <LogoutIcon color="inherit" />
+        <h6 style={fontStyles}>Logout</h6>
       </div>
     </div>
   );
