@@ -31,9 +31,9 @@ const AccordionCustom = (props: IProps) => {
           <ExpandMoreIcon
             sx={{
               position: "absolute",
-              top: "1.5rem",
-              right: "1.5rem",
-              transform: `rotate(${open ? "0deg" : "180deg"})`,
+              top: "1.8rem",
+              right: "2.5rem",
+              transform: `rotate(${open ? "180deg" : "0deg"})`,
             }}
           />
           {summaryJsx}
