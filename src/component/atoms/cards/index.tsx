@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./cards.module.scss";
 import Linechart from "@/charts/linechart";
+import styles from "./cards.module.scss";
 
 interface IProps {
-  variant?: "base";
+  variant?: "base" | "success" | "primary" | "warning";
 }
 
 const Cards = (props: IProps) => {
@@ -19,7 +19,7 @@ const Cards = (props: IProps) => {
       </div>
       <div className={styles.bottomContainer}>
         <Linechart />
-        <div className={styles.pannel_wrapper}>
+        <div className={`${styles.pannel_wrapper} ${styles[variant]}`}>
           <div className={styles.b_panel_parent}>
             <p className={styles.b_panel_number}>10</p>
             <p className={styles.b_panel_text}>Open</p>

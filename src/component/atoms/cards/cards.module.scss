@@ -1,6 +1,7 @@
 .card_wrapper {
   margin-bottom: 30px;
-  height: 350px;
+  min-height: 350px;
+  max-height: 400px;
   width: 300px;
   border-radius: 6px;
   background: #fff;
@@ -14,6 +15,7 @@
     height: 40%;
     .count {
       font-size: 28px;
+      color: lightsalmon;
     }
     .subtitle {
       margin-top: 0.5rem;
@@ -37,7 +39,6 @@
     .pannel_wrapper {
       width: 100%;
       height: 5rem;
-      background-color: #4680ff;
       display: flex;
       align-items: center;
       border-radius: 0 0 6px 6px;
@@ -56,6 +57,15 @@
           color: #fff;
         }
       }
+    }
+    .primary {
+      background-color: #4680ff;
+    }
+    .success {
+      background-color: #9ccc65;
+    }
+    .warning {
+      background-color: #ffba57;
     }
   }
 }
