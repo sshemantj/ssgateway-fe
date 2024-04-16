@@ -69,5 +69,5 @@ const SelectDropdown = forwardRef(
     );
   }
 );
-
+SelectDropdown.displayName = "SelectDropdown";
 export default SelectDropdown;
