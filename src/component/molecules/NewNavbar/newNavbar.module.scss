@@ -45,7 +45,7 @@
           display: none !important;
         }
         .first {
-          color: khaki;
+          color: $khaki;
           font-size: 1.2rem;
           font-weight: 900;
           line-height: 4px;
@@ -88,7 +88,7 @@
         font-weight: 900;
         line-height: 4px;
         font-style: italic;
-        color: khaki;
+        color: $khaki;
       }
       .second {
         font-weight: 500;
@@ -101,7 +101,7 @@
       color: $color_white;
     }
     .searchIcon {
-      color: #fff;
+      color: $color_white;
     }
   }
   .navListWrapper {

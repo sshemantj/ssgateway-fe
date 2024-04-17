@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .customTableWrapper {
   display: flex;
   flex-direction: column;
@@ -5,12 +7,12 @@
   align-items: center;
   .tableRow {
     &:hover {
-      background-color: lightcyan;
+      background-color: $lightcyan;
       cursor: pointer;
     }
   }
   .open {
-    background-color: lightblue !important;
+    background-color: $lightblue !important;
   }
   .notFound {
     height: 70vh;

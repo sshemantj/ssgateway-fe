@@ -1,6 +1,8 @@
+@import "@/styles/variables.scss";
+
 .dark {
-  background-color: #000 !important;
-  color: #fff !important;
+  background-color: $color_black !important;
+  color: $color_white !important;
   font-weight: 500;
 }
 

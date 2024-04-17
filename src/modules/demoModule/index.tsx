@@ -12,9 +12,11 @@ const DemoModule = () => {
         </Grid>
         <Grid item xs={12} md={8} spacing={2}>
           <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <Cards color="primary" variant="double" />
+            </Grid>
             {(
               [
-                "primary",
                 "success",
                 "warning",
                 "red",

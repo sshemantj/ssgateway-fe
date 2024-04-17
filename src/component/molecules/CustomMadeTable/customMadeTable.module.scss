@@ -1,10 +1,11 @@
+@import "@/styles/variables.scss";
+
 .customMadeTable {
   table {
     border-collapse: collapse;
     height: 100%;
     width: 100%;
-    border: 1.5px solid #dbdbdb;
-    // background-color: #fff;
+    border: 1.5px solid $color_2;
     color: rgba(0, 0, 0, 0.87);
     -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -15,7 +16,7 @@
     overflow-x: auto;
     text-transform: capitalize;
     td {
-      border: 1.5px solid #dbdbdb;
+      border: 1.5px solid $color_2;
       padding: 0.5rem;
     }
     thead {

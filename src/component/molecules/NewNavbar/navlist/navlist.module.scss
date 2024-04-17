@@ -41,14 +41,14 @@
       .topHeading {
         font-size: 13px;
         font-weight: 600;
-        color: #4680ff;
+        color: $color_1;
         padding: 18px 15px 5px;
         text-transform: capitalize;
       }
       .subHeaderWrapper {
         cursor: pointer;
         margin-left: 2rem;
-        color: cadetblue;
+        color: $cadetblue;
         display: flex;
         gap: 0.5rem;
         transition: all 0.3s ease-in-out;
@@ -60,7 +60,7 @@
           }
         }
         .subTitle {
-          color: #535763;
+          color: $color_11;
         }
       }
     }

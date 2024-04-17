@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .uploadFileWrapper {
   height: 90vh;
   display: flex;
@@ -45,11 +47,11 @@
           padding: 14px 32px;
           border: none;
           font-weight: 600;
-          background-color: #6a64f1;
-          color: white;
+          background-color: $color_12;
+          color: $color_white;
           cursor: pointer;
           &:disabled {
-            background-color: gray;
+            background-color: $gray;
           }
         }
         .formbold-btn:hover {
@@ -60,16 +62,16 @@
         width: 100%;
         padding: 12px 24px;
         border-radius: 6px;
-        border: 1px solid #e0e0e0;
-        background: white;
+        border: 1px solid $color_2;
+        background: $color_white;
         font-weight: 500;
         font-size: 16px;
-        color: #6b7280;
+        color: $color_11;
         outline: none;
         resize: none;
       }
       .formbold-form-input:focus {
-        border-color: #6a64f1;
+        border-color: $color_12;
         box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
       }
 
@@ -99,7 +101,7 @@
 
       .formbold-file-input label {
         position: relative;
-        border: 1px dashed #e0e0e0;
+        border: 1px dashed $color_2;
         border-radius: 6px;
         min-height: 200px;
         display: flex;
@@ -112,7 +114,7 @@
       .formbold-drop-file {
         display: block;
         font-weight: 600;
-        color: #07074d;
+        color: $color_13;
         font-size: 20px;
         margin-bottom: 8px;
       }
@@ -120,23 +122,23 @@
       .formbold-or {
         font-weight: 500;
         font-size: 16px;
-        color: #6b7280;
+        color: $color_11;
         display: block;
         margin-bottom: 8px;
       }
       .formbold-browse {
         font-weight: 500;
         font-size: 16px;
-        color: #07074d;
+        color: $color_13;
         display: inline-block;
         padding: 8px 28px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid $color_2;
         border-radius: 4px;
       }
 
       .formbold-file-list {
         border-radius: 6px;
-        background: #f5f7fb;
+        background: $color_2;
         padding: 16px 32px;
       }
 
@@ -147,7 +149,7 @@
       }
 
       .formbold-file-item button {
-        color: #07074d;
+        color: $color_13;
         border: none;
         background: transparent;
         cursor: pointer;
@@ -156,7 +158,7 @@
       .formbold-file-name {
         font-weight: 500;
         font-size: 16px;
-        color: #07074d;
+        color: $color_13;
         padding-right: 12px;
       }
       .formbold-progress-bar {
@@ -165,7 +167,7 @@
         width: 100%;
         height: 6px;
         border-radius: 8px;
-        background: #e2e5ef;
+        background: $color_2;
       }
 
       .formbold-progress {
@@ -174,7 +176,7 @@
         height: 100%;
         left: 0;
         top: 0;
-        background: #6a64f1;
+        background: $color_12;
         border-radius: 8px;
       }
 

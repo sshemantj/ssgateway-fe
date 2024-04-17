@@ -1,12 +1,13 @@
+@import "@/styles/variables.scss";
+
 .selectWrapper {
   padding: 1rem 0 0 0;
-  background: rgba(255, 255, 255, 1);
-  // height: 100vh;
+  background: $color_white;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   .selectStyles {
     min-width: 400px;
-    background-color: #fff;
+    background-color: $color_white;
   }
 }
