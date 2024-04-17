@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>SS-gateway!</title>
+        <title>Configuration Panel</title>
       </Head>
       <Navbar showApprovedFields={!isMobile} />
       <main>
