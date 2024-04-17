@@ -101,9 +101,8 @@
   .navListWrapper {
     height: 100%;
     display: flex;
-    align-items: center;
     .mainWrapper {
-      height: calc(100vh - 45px);
+      min-height: calc(100vh - 45px);
       width: 100%;
       padding: 1rem;
       .breadcrumbWrapper {

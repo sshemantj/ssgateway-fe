@@ -8,6 +8,7 @@ const DemoModule = () => {
       <Cards variant="primary" />
       <Cards variant="success" />
       <Cards variant="warning" />
+      <Cards variant="red" />
     </div>
   );
 };

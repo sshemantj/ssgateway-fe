@@ -3,7 +3,7 @@ import Linechart from "@/charts/linechart";
 import styles from "./cards.module.scss";
 
 interface IProps {
-  variant?: "base" | "success" | "primary" | "warning";
+  variant?: "base" | "success" | "primary" | "warning" | "red";
 }
 
 const Cards = (props: IProps) => {

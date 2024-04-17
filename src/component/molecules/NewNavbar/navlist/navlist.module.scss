@@ -8,6 +8,19 @@
   transition: all 0.3s ease-in-out;
   white-space: nowrap;
 
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    border-radius: 0 8px 0 0;
+    height: calc(100% - 45px);
+    top: 45px;
+    left: 0;
+    z-index: -1;
+    background-color: $color_white;
+    transition: all 0.3s ease-in-out;
+  }
+
   @media (max-width: 768px) {
     width: 0;
     visibility: hidden;
@@ -54,6 +67,17 @@
 .open {
   width: 270px;
   visibility: visible;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 226.5px;
+    height: calc(100% - 45px);
+    top: 45px;
+    left: 0;
+    z-index: -1;
+    background-color: $color_white;
+    transition: all 0.3s ease-in-out;
+  }
   @media (max-width: 768px) {
     width: 270px;
     position: absolute;
