@@ -72,8 +72,7 @@ const navListArr: INavListArr[] = [
 
 const NavList = (props: IProps) => {
   const { isNavOpen } = props;
-  // onMouseOver={() => console.log("over")}
-  // onMouseDown={() => console.log("down")}
+
   return (
     <div
       className={`${styles.navlist_wrapper} ${isNavOpen ? styles.open : null}`}
