@@ -5,10 +5,8 @@ import styles from "./demoModule.module.scss";
 const DemoModule = () => {
   return (
     <div className={styles.demo_wrapper}>
-      <Cards variant="primary" />
-      <Cards variant="success" />
-      <Cards variant="warning" />
-      <Cards variant="red" />
+      <Cards color="primary" />
+      <Cards color="success" />
     </div>
   );
 };

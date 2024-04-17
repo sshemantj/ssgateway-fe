@@ -3,13 +3,23 @@ import Linechart from "@/charts/linechart";
 import styles from "./cards.module.scss";
 
 interface IProps {
-  variant?: "base" | "success" | "primary" | "warning" | "red";
+  color?: "success" | "primary" | "warning" | "red";
+  variant?: "base" | "sm" | "md" | "lg";
 }
 
 const Cards = (props: IProps) => {
-  const { variant = "base" } = props;
+  const { variant = "md", ...rest } = props;
   return (
     <div className={styles.card_wrapper}>
+      {variant === "md" ? <MediumVariant {...rest} /> : null}
+    </div>
+  );
+};
+
+function MediumVariant(props: Omit<IProps, "variant">) {
+  const { color = "primary" } = props;
+  return (
+    <>
       <div className={styles.topContainer}>
         <h2 className={styles.count}>350</h2>
         <p className={styles.subtitle}>Support Requests</p>
@@ -19,7 +29,7 @@ const Cards = (props: IProps) => {
       </div>
       <div className={styles.bottomContainer}>
         <Linechart />
-        <div className={`${styles.pannel_wrapper} ${styles[variant]}`}>
+        <div className={`${styles.pannel_wrapper} ${styles[color]}`}>
           <div className={styles.b_panel_parent}>
             <p className={styles.b_panel_number}>10</p>
             <p className={styles.b_panel_text}>Open</p>
@@ -34,8 +44,8 @@ const Cards = (props: IProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default Cards;

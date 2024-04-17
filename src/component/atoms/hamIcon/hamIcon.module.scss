@@ -53,12 +53,10 @@
 
   .checkbox1:checked + label > .hamburger1 > .bar2 {
     transform: translateX(-40px);
-    background-color: transparent;
   }
 
   .checkbox1:checked + label > .hamburger1 > .bar3 {
     transform: translateX(40px);
-    background-color: transparent;
   }
 
   .checkbox1:checked + label > .hamburger1 > .bar4 {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./searchNav.module.scss";
-import zIndex from "@mui/material/styles/zIndex";
 
 interface ISearchProps {
   isSearchActive: boolean;

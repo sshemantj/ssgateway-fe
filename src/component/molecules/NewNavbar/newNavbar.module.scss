@@ -60,6 +60,9 @@
       .hamBurger {
         margin: 0 1rem;
         transform: scale(0.6);
+        @media (max-width: 768px) {
+          transform: translateX(1rem) scale(0.6);
+        }
       }
       .searchIcon {
         margin: 0 1rem;
