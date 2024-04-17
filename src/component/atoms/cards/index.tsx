@@ -1,5 +1,7 @@
 import React from "react";
 import Linechart from "@/charts/linechart";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import StackedBarChartIcon from "@mui/icons-material/StackedBarChart";
 import styles from "./cards.module.scss";
 
 interface IProps {
@@ -11,15 +13,37 @@ const Cards = (props: IProps) => {
   const { variant = "md", ...rest } = props;
   return (
     <div className={styles.card_wrapper}>
-      {variant === "md" ? <MediumVariant {...rest} /> : null}
+      {variant === "sm" ? <SmallCardVariant {...rest} /> : null}
+      {variant === "md" ? <MediumCardVariant {...rest} /> : null}
     </div>
   );
 };
 
-function MediumVariant(props: Omit<IProps, "variant">) {
+function SmallCardVariant(props: Omit<IProps, "variant">) {
   const { color = "primary" } = props;
   return (
-    <>
+    <div className={styles.small_variant_card}>
+      <div className={styles.topContainer}>
+        <div className={styles.text_section}>
+          <h2 className={styles.count}>$30200</h2>
+          <p className={styles.subtitle}>All earnings.</p>
+        </div>
+        <div className={styles.icon_wrapper}>
+          <StackedBarChartIcon color="inherit" style={{ fontSize: "3rem" }} />
+        </div>
+      </div>
+      <div className={`${styles.bottomContainer} ${styles[color]}`}>
+        <p>% change</p>
+        <TrendingUpIcon />
+      </div>
+    </div>
+  );
+}
+
+function MediumCardVariant(props: Omit<IProps, "variant">) {
+  const { color = "primary" } = props;
+  return (
+    <div className={styles.medium_variant_card}>
       <div className={styles.topContainer}>
         <h2 className={styles.count}>350</h2>
         <p className={styles.subtitle}>Support Requests</p>
@@ -44,7 +68,7 @@ function MediumVariant(props: Omit<IProps, "variant">) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
