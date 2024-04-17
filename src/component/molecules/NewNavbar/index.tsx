@@ -53,8 +53,14 @@ const NewNavBar = (props: IProps) => {
               <p className={styles.first}>Configuration</p>
               <p className={styles.second}>Panel</p>
             </div>
-            <div className={styles.moreIcon}>
+            {/* <div className={styles.moreIcon}>
               <MoreVertIcon color="inherit" />
+            </div> */}
+            <div className={styles.searchIcon}>
+              <SearchIcon
+                onClick={() => setIsSearchActive((prev) => !prev)}
+                color="inherit"
+              />
             </div>
           </>
         )}
