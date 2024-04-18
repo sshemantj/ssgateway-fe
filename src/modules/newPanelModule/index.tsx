@@ -6,9 +6,7 @@ const NewPanelModule = () => {
   return (
     <Grid container spacing={2}>
       <Grid sm={12} md={12} item>
-        <div>
-          <HomeModule />
-        </div>
+        <HomeModule />
       </Grid>
     </Grid>
   );
