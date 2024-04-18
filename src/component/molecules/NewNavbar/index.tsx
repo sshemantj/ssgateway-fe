@@ -16,8 +16,10 @@ interface IProps {
 
 const NewNavBar = (props: IProps) => {
   const { children, shouldNavOpen } = props;
-  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const isMobile = useMobileCheck();
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(
+    window.innerWidth > 768
+  );
   const [isNavOpen, setisNavOpen] = useState<boolean>(
     typeof shouldNavOpen === "undefined" ? !isMobile : shouldNavOpen
   );

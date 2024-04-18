@@ -1,7 +1,8 @@
 @import "@/styles/variables.scss";
 
 .searchValueContainer {
-  width: 100%;
+  border-radius: 6px;
+  width: 50%;
   background-color: $color_white;
   position: absolute;
   top: -57px;
@@ -10,12 +11,13 @@
   display: flex;
   align-items: center;
   box-shadow: $shadow_1;
+  transform: translateX(50%);
   &::after {
     content: "";
     width: 96%;
     height: 1px;
     position: absolute;
-    bottom: 15px;
+    bottom: 8px;
     left: 1%;
     background-color: $color_1;
     z-index: 100;
@@ -23,9 +25,13 @@
   .searchInput {
     background-color: $color_white;
     width: 100%;
+    border-radius: 6px;
+    input {
+      padding: 10px;
+    }
   }
   &.isActive {
-    top: 0;
+    top: 2px;
     z-index: 3;
   }
 }
