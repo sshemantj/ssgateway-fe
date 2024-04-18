@@ -10,8 +10,8 @@ import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import useTableData from "@/hooks/useTableData";
 import { Button } from "@mui/material";
-import styles from "./customtable.module.scss";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
+import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
