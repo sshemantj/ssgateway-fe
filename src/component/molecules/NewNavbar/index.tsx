@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HamIcon from "@/component/atoms/hamIcon";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -11,13 +11,16 @@ import styles from "./newNavbar.module.scss";
 
 interface IProps {
   children: JSX.Element;
+  shouldNavOpen?: boolean;
 }
 
 const NewNavBar = (props: IProps) => {
-  const { children } = props;
+  const { children, shouldNavOpen } = props;
   const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
-  const [isNavOpen, setisNavOpen] = useState<boolean>(window.innerWidth > 768);
   const isMobile = useMobileCheck();
+  const [isNavOpen, setisNavOpen] = useState<boolean>(
+    typeof shouldNavOpen === "undefined" ? !isMobile : shouldNavOpen
+  );
 
   const handleHamClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();

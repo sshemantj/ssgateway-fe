@@ -1,13 +1,12 @@
 import React from "react";
 import UploadFileModule from "@/modules/uploadModule";
-import Navbar from "@/component/molecules/Navbar";
+import NewNavBar from "@/component/molecules/NewNavbar";
 
 const UploadFile = () => {
   return (
-    <div>
-      <Navbar />
+    <NewNavBar shouldNavOpen={false}>
       <UploadFileModule />
-    </div>
+    </NewNavBar>
   );
 };
 

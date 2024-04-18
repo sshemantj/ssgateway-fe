@@ -1,10 +1,13 @@
 @import "@/styles/variables.scss";
 
 .uploadFileWrapper {
-  height: 90vh;
+  min-height: 75vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: $color_white;
+  box-shadow: $shadow_1;
+  border-radius: 6px;
   .formbold-mb-5 {
     margin-bottom: 20px;
   }
@@ -110,6 +113,7 @@
         padding: 48px;
         text-align: center;
         cursor: pointer;
+        box-shadow: $shadow_1;
       }
       .formbold-drop-file {
         display: block;

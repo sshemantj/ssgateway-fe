@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import closeIcon from "@/images/closeIcon.svg";
-import styles from "./uploadFile.module.scss";
 import CircularProgressWithLabel from "@/component/atoms/circularProgress";
 import SuccessAtom from "@/component/atoms/successAtom";
 import DragDrop from "@/component/atoms/dragAndDrop";
+import styles from "./uploadFile.module.scss";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
