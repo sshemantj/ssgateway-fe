@@ -102,7 +102,7 @@ const CustomTable = (props: IProps) => {
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow className={styles.tableHeader_wappper}>
               {customTheadArr.map((item, index) => {
                 return (
                   <TableCell

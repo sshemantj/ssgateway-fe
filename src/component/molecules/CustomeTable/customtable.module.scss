@@ -5,9 +5,15 @@
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
+  .tableHeader_wappper {
+    background-color: $color_12;
+    th {
+      color: $color_white;
+    }
+  }
   .tableRow {
     &:hover {
-      background-color: $lightcyan;
+      background-color: $color_2;
       cursor: pointer;
     }
   }
