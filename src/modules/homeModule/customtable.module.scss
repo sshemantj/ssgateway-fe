@@ -3,6 +3,9 @@
 .customTableWrapper {
   min-height: 83vh;
   position: relative;
+  box-shadow: $shadow_1;
+  background-color: $color_white;
+  border-radius: 6px;
   .btnWrapper {
     position: relative;
     @media (max-width: 668px) {

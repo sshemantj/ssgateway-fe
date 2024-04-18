@@ -9,9 +9,20 @@ interface IProps extends TableCellProps {
 
 const NestedTable = (props: IProps) => {
   const { children, primary = false, ...rest } = props;
+
+  const handleStrChildren = (str: string) => {
+    if (str.length > 30) {
+      return str.slice(0, 27) + "...";
+    }
+    return str;
+  };
+
+  const renderedChildren =
+    typeof children === "string" ? handleStrChildren(children) : children;
+
   return (
     <TableCell className={`${styles.tableCellMain}`} {...rest}>
-      <span>{children}</span>
+      <span>{renderedChildren}</span>
     </TableCell>
   );
 };

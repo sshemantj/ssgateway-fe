@@ -2,6 +2,7 @@ import React from "react";
 import Cards from "@/component/atoms/cards";
 import styles from "./demoModule.module.scss";
 import { Grid } from "@mui/material";
+import HomeModule from "../homeModule";
 
 const DemoModule = () => {
   return (
@@ -34,6 +35,9 @@ const DemoModule = () => {
               );
             })}
           </Grid>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <HomeModule />
         </Grid>
       </Grid>
     </div>
