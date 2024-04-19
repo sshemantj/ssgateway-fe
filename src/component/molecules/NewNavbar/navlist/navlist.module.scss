@@ -52,6 +52,8 @@
         display: flex;
         gap: 0.5rem;
         transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
         &.navClosed {
           transition: all 0.3s ease-in-out;
           transform: translateX(-1.2rem);
@@ -63,6 +65,7 @@
           padding: 0 4px 0 0;
           color: $color_11;
           font-size: 14px;
+          white-space: wrap;
         }
       }
     }
@@ -74,7 +77,7 @@
   &::after {
     content: "";
     position: absolute;
-    width: 235.906px;
+    width: 226.562px;
     height: calc(100% - 45px);
     top: 45px;
     left: 0;

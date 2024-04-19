@@ -18,7 +18,7 @@ const NewNavBar = (props: IProps) => {
   const { children, shouldNavOpen } = props;
   const isMobile = useMobileCheck();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
-    window.innerWidth > 768
+    window.innerWidth < 768
   );
   const [isNavOpen, setisNavOpen] = useState<boolean>(
     typeof shouldNavOpen === "undefined" ? !isMobile : shouldNavOpen
@@ -31,7 +31,7 @@ const NewNavBar = (props: IProps) => {
 
   return (
     <div className={styles.newNavWrapper}>
-      <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
+      {/* <SearchComponent {...{ isSearchActive, setIsSearchActive }} /> */}
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
           <div className={styles.logoText}>
@@ -75,6 +75,7 @@ const NewNavBar = (props: IProps) => {
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />
+            <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
           </div>
           {children}
         </main>

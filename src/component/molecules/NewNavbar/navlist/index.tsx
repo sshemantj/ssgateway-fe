@@ -44,6 +44,21 @@ const navListArr: INavListArr[] = [
     ],
   },
   {
+    topHeading: "File management",
+    subHeaderList: [
+      {
+        title: "Upload pending data",
+        icon: "",
+        iconJsx: <WalletIcon color="inherit" />,
+      },
+      {
+        title: "View pending approval data",
+        icon: "",
+        iconJsx: <WalletIcon color="inherit" />,
+      },
+    ],
+  },
+  {
     topHeading: "User profile",
     subHeaderList: [
       {
