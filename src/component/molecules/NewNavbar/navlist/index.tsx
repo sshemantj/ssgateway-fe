@@ -36,11 +36,6 @@ const navListArr: INavListArr[] = [
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
       },
-      {
-        title: "View All Channels",
-        icon: "",
-        iconJsx: <WalletIcon color="inherit" />,
-      },
     ],
   },
   {
@@ -85,6 +80,11 @@ const navListArr: INavListArr[] = [
         title: "Update",
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
+      },
+      {
+        title: "View All Channels",
+        icon: "",
+        iconJsx: <WalletIcon color="inherit" />,
       },
     ],
   },

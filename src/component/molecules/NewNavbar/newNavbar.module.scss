@@ -24,6 +24,11 @@
     background-color: $color_2;
     z-index: -2;
   }
+  .channel_select_wrapper {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+  }
   .navContainer {
     padding: 0.3rem 2rem 0 1rem;
     display: flex;
