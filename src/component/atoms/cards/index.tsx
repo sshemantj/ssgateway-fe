@@ -15,7 +15,7 @@ const Cards = (props: IBaseCardProps) => {
     <div className={styles.card_wrapper}>
       {variant === "sm" ? <SmallCardVariant {...rest} /> : null}
       {variant === "md" ? <MediumCardVariant {...rest} /> : null}
-      {variant === "double" ? <DoubleVariantCard {...rest} /> : null}
+      {/* {variant === "double" ? <DoubleVariantCard {...rest} /> : null} */}
     </div>
   );
 };
