@@ -27,7 +27,13 @@
   .channel_select_wrapper {
     position: absolute;
     top: 6px;
-    left: 50%;
+    left: 45%;
+    @media (max-width: 768px) {
+      top: 65px;
+      left: 55%;
+      min-width: 9rem;
+      z-index: 1;
+    }
   }
   .navContainer {
     padding: 0.3rem 2rem 0 1rem;

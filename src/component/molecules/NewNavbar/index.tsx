@@ -16,6 +16,7 @@ import {
   setChannelMapping,
 } from "@/store/slices/gatewaySlice";
 import styles from "./newNavbar.module.scss";
+import useTableData from "@/hooks/useTableData";
 
 interface IProps {
   children: JSX.Element;
@@ -25,8 +26,9 @@ interface IProps {
 const NewNavBar = (props: IProps) => {
   const { children, shouldNavOpen } = props;
   const isMobile = useMobileCheck();
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
   const dispatch = useAppDispatch();
+  const getTableData = useTableData();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
     window.innerWidth < 768
   );
@@ -64,6 +66,20 @@ const NewNavBar = (props: IProps) => {
   const handleHamClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setisNavOpen((prev) => !prev);
+  };
+
+  const handleTypeClick = (type: any) => {
+    setProductType(type);
+    if (selectedChannel) {
+      dispatch(resetHomeTableData());
+      dispatch(changePdType(type));
+      if (type === "unAprovedProducts") {
+        getTableData({});
+      }
+    } else {
+      inputRef && inputRef?.current?.focus?.();
+      setOpenSelect(true);
+    }
   };
 
   return (
@@ -146,7 +162,7 @@ const NewNavBar = (props: IProps) => {
         )}
       </nav>
       <div className={styles.navListWrapper}>
-        <NavList isNavOpen={isNavOpen} />
+        <NavList {...{ handleTypeClick, isNavOpen }} />
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />

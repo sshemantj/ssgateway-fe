@@ -13,14 +13,18 @@ import styles from "./navlist.module.scss";
 
 interface IProps {
   isNavOpen: boolean;
+  handleTypeClick: (_: any) => void;
+}
+
+interface ISubHeaderList {
+  title: string;
+  icon?: string | StaticImport;
+  iconJsx?: JSX.Element;
+  value?: string;
 }
 interface INavListArr {
   topHeading: string;
-  subHeaderList: {
-    title: string;
-    icon?: string | StaticImport;
-    iconJsx?: JSX.Element;
-  }[];
+  subHeaderList: ISubHeaderList[];
 }
 const navListArr: INavListArr[] = [
   {
@@ -30,11 +34,13 @@ const navListArr: INavListArr[] = [
         title: "Unapproved",
         icon: "",
         iconJsx: <HouseIcon color="inherit" />,
+        value: "unAprovedProducts",
       },
       {
         title: "Approved",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
+        value: "aprovedProducts",
       },
     ],
   },
@@ -106,7 +112,13 @@ const navListArr: INavListArr[] = [
 ];
 
 const NavList = (props: IProps) => {
-  const { isNavOpen } = props;
+  const { isNavOpen, handleTypeClick } = props;
+
+  const handleRouteClick = (route: ISubHeaderList) => {
+    if (route.value) {
+      handleTypeClick(route.value);
+    }
+  };
 
   return (
     <div
@@ -139,6 +151,7 @@ const NavList = (props: IProps) => {
               {subHeaderList.map((item, ind) => {
                 return (
                   <div
+                    onClick={() => handleRouteClick(item)}
                     className={`${styles.subHeaderWrapper} ${
                       isNavOpen || styles.navClosed
                     }`}
