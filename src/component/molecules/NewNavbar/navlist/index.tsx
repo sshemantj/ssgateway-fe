@@ -24,45 +24,65 @@ interface INavListArr {
 }
 const navListArr: INavListArr[] = [
   {
-    topHeading: "Navigation",
+    topHeading: "Listing",
     subHeaderList: [
       {
-        title: "Dashboard",
+        title: "Unapproved",
         icon: "",
         iconJsx: <HouseIcon color="inherit" />,
       },
       {
-        title: "Page Layout",
+        title: "Approved",
+        icon: "",
+        iconJsx: <WalletIcon color="inherit" />,
+      },
+      {
+        title: "View All Channels",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
       },
     ],
   },
   {
-    topHeading: "UI Elements",
+    topHeading: "User profile",
     subHeaderList: [
       {
-        title: "Basics",
+        title: "Update password",
         icon: "",
         iconJsx: <FolderCopyIcon color="inherit" />,
       },
       {
-        title: "Page Layout",
+        title: "Update Profile",
         icon: "",
         iconJsx: <ServiceIcon color="inherit" />,
       },
     ],
   },
   {
-    topHeading: "Forms & Tables",
+    topHeading: "Manage Channels",
     subHeaderList: [
       {
-        title: "Charts",
+        title: "Add",
         icon: "",
         iconJsx: <OfflineBoltIcon color="inherit" />,
       },
       {
-        title: "Page Layout",
+        title: "Update",
+        icon: "",
+        iconJsx: <QueueIcon color="inherit" />,
+      },
+    ],
+  },
+  {
+    topHeading: "Channel Mapping",
+    subHeaderList: [
+      {
+        title: "View User channel",
+        icon: "",
+        iconJsx: <OfflineBoltIcon color="inherit" />,
+      },
+      {
+        title: "Map User with channels",
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
       },
