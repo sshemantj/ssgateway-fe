@@ -166,7 +166,9 @@ const NewNavBar = (props: IProps) => {
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />
-            <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
+            {pdType && (
+              <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
+            )}
           </div>
           {children}
         </main>

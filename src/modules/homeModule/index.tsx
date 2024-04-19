@@ -9,8 +9,9 @@ import {
 import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
 import CustomTab from "@/component/atoms/customTab";
 import useTableData from "@/hooks/useTableData";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
+import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
@@ -90,7 +91,7 @@ const HomeModule = () => {
     });
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: any) => {
+  const handleChange = (newValue: any) => {
     setProductType(newValue);
     dispatch(changePdType(newValue));
   };
@@ -146,15 +147,16 @@ const HomeModule = () => {
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
         {pdType !== "unAprovedProducts" ? (
-          <CustomTab
-            type={1}
-            value={pdType}
-            handleChange={handleChange}
-            buttonList={[
-              { label: "Unmapped", value: "aprovedProducts" },
-              { label: "Mapped", value: "mappedProducts" },
-            ]}
-          />
+          <Grid container>
+            <Grid sm={12} md={4} item margin={"auto"}>
+              <DoubleVariantCard
+                handleChange={handleChange}
+                mappedCount={221}
+                unMappedCount={544}
+                color="primary"
+              />
+            </Grid>
+          </Grid>
         ) : null}
       </div>
       <div className={styles.tableWrapper}>
