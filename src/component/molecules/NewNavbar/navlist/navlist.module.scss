@@ -36,7 +36,7 @@
       gap: 0.5rem;
       .hide {
         transition: all 0.3s ease-in-out;
-        transform: translateX(-10rem);
+        transform: translateX(-15rem);
       }
       .topHeading {
         font-size: 13px;
@@ -60,7 +60,9 @@
           }
         }
         .subTitle {
+          padding: 0 4px 0 0;
           color: $color_11;
+          font-size: 14px;
         }
       }
     }
@@ -72,7 +74,7 @@
   &::after {
     content: "";
     position: absolute;
-    width: 226.5px;
+    width: 235.906px;
     height: calc(100% - 45px);
     top: 45px;
     left: 0;
