@@ -146,8 +146,8 @@ const HomeModule = () => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <div className={styles.btnWrapper}>
-        {pdType !== "unAprovedProducts" ? (
+      {pdType !== "unAprovedProducts" ? (
+        <div className={styles.btnWrapper}>
           <Grid container>
             <Grid sm={12} md={4} item margin={"auto"}>
               <DoubleVariantCard
@@ -158,8 +158,8 @@ const HomeModule = () => {
               />
             </Grid>
           </Grid>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
       <div className={styles.tableWrapper}>
         <CustomTable
           handlePagination={handlePagination}
