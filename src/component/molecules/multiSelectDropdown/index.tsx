@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   OutlinedInput,
@@ -19,6 +19,7 @@ interface IProps {
   }[];
   setselectedChannels: React.Dispatch<any> | undefined;
   index: number;
+  currChannel: string;
 }
 
 const style: React.CSSProperties = {
@@ -31,12 +32,17 @@ const style: React.CSSProperties = {
 };
 
 const MultiSelectDropdown = (props: IProps) => {
-  const { index, selectedChannels, setselectedChannels } = props;
+  const { index, selectedChannels, setselectedChannels, currChannel } = props;
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
   const { channelMasters } = useAppSelector((state) => state.gateway);
 
+  useEffect(() => {
+    currChannel && setSelectedNames((prev) => [...prev, currChannel]);
+  }, [currChannel]);
+
   const handleChange = (e: SelectChangeEvent<string[]>) => {
     const value = e.target.value as string[];
+    if (!value.includes(currChannel)) value.push(currChannel);
     setSelectedNames(value);
     setselectedChannels?.((prev: any) => {
       const newPrev = { ...prev };

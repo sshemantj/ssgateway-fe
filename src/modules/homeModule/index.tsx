@@ -184,7 +184,12 @@ const HomeModule = () => {
             Mapp channels
           </Button>
           <MultiSelectDropdown
-            {...{ setselectedChannels, selectedChannels, index: 0 }}
+            {...{
+              setselectedChannels,
+              selectedChannels,
+              index: 0,
+              currChannel: currChannel?.channelId || "",
+            }}
           />
         </div>
       )}
