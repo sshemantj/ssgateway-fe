@@ -112,12 +112,23 @@ const CustomTable = (props: IProps) => {
                       fontWeight: 600,
                       textTransform: "capitalize",
                       cursor: "pointer",
+                      ...(item === "check"
+                        ? { display: "flex", alignItems: "center" }
+                        : {}),
                     }}
                     key={index}
                     align="center"
                     onClick={() => handleHeaderClick?.(item)}
                   >
-                    {item}
+                    {item === "check" ? (
+                      <Checkbox
+                        sx={{
+                          "& svg": { color: "white !important" },
+                        }}
+                      />
+                    ) : (
+                      item
+                    )}
                   </TableCell>
                 );
               })}
