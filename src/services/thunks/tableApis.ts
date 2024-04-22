@@ -177,6 +177,21 @@ const postChannelMapping = createAsyncThunk(
   }
 );
 
+const approveSizevariants = createAsyncThunk(
+  "table/approveSizevariants",
+  async (payload: string[]) => {
+    try {
+      const url = "/api/Products/ApproveSizevariants";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export {
   fetchTableData,
   getStyleVariants,
@@ -185,4 +200,5 @@ export {
   getUserChannelMappings,
   postChannelMapping,
   createChannelMaster,
+  approveSizevariants,
 };

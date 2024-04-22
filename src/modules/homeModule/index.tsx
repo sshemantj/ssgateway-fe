@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import CustomTable from "@/component/molecules/CustomeTable";
 import {
   IPostChannelMapping,
+  approveSizevariants,
   getStyleVariants,
   postChannelMapping,
 } from "@/services/thunks/tableApis";
@@ -99,18 +100,18 @@ const HomeModule = () => {
     dispatch(changePdType(newValue));
   };
 
-  // const showBtnText = () => {
-  //   switch (pdType) {
-  //     case "aprovedProducts":
-  //       return `Mapped with ${currChannel?.channelName}`;
+  const showBtnText = () => {
+    switch (pdType) {
+      case "aprovedProducts":
+        return `Mapp channels`;
 
-  //     case "mappedProducts":
-  //       break;
+      case "mappedProducts":
+        break;
 
-  //     case "unAprovedProducts":
-  //       return `Approve`;
-  //   }
-  // };
+      case "unAprovedProducts":
+        return `Approve`;
+    }
+  };
 
   const handlePostChannnelMapping = () => {
     if (!selectedChannels?.[0]) {
@@ -163,12 +164,20 @@ const HomeModule = () => {
     }
   };
 
+  const handleApprovedProduct = () => {
+    const idList = currSelectedRow.map((item) => item.id);
+    dispatch(approveSizevariants(idList)).then(() => {
+      toast.success("Product successfully aproved!");
+    });
+  };
+
   const handleButtonClick = () => {
     switch (pdType) {
       case "aprovedProducts":
         handlePostChannnelMapping();
         break;
       case "unAprovedProducts":
+        handleApprovedProduct();
         break;
     }
   };
@@ -240,7 +249,7 @@ const HomeModule = () => {
             variant="contained"
             disabled={!!!currSelectedRow.length}
           >
-            Mapp channels
+            {showBtnText()}
           </Button>
           <MultiSelectDropdown
             {...{
