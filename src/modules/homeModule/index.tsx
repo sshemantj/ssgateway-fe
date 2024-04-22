@@ -21,6 +21,7 @@ const HomeModule = () => {
   const [search, setSearch] = useState<string>("");
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [selectedChannels, setselectedChannels] = useState<any>({});
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
   const [currChannel, setCurrChannel] = useState<any>("");
   const [productType, setProductType] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -181,6 +182,26 @@ const HomeModule = () => {
     }
   }, [selectedChannel]);
 
+  const handleHeaderClick = (name: string) => {
+    if (name === "check") {
+      const allIds = apiRes?.reduce((acc: any, curr: any) => {
+        acc[curr.id] = true;
+        return acc;
+      }, {});
+
+      setCurrSelectedRow(apiRes);
+
+      setOpen((prev: any) => {
+        return {
+          ...prev,
+          [productType]: isAllChecked ? allIds : {},
+        };
+      });
+
+      setIsAllChecked((prev) => !prev);
+    }
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       {pdType !== "unAprovedProducts" ? (
@@ -200,6 +221,7 @@ const HomeModule = () => {
       <div className={styles.tableWrapper}>
         <CustomTable
           handlePagination={handlePagination}
+          handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}
           open={open?.[productType]}
           theadArr={keysArray}

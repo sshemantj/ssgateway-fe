@@ -21,6 +21,7 @@ interface IProps {
   handlePagination?: (pageNumber: number) => void;
   showPagination?: boolean;
   totalRecords?: number;
+  handleHeaderClick?: (_: string) => void;
   selectedChannels?: {
     value: string[];
   }[];
@@ -44,6 +45,7 @@ const CustomTable = (props: IProps) => {
     showPagination = false,
     totalRecords = 1,
     selectedChannels,
+    handleHeaderClick,
   } = props;
 
   const dispatch = useAppDispatch();
@@ -106,9 +108,14 @@ const CustomTable = (props: IProps) => {
               {customTheadArr.map((item, index) => {
                 return (
                   <TableCell
-                    style={{ fontWeight: 600, textTransform: "capitalize" }}
+                    style={{
+                      fontWeight: 600,
+                      textTransform: "capitalize",
+                      cursor: "pointer",
+                    }}
                     key={index}
                     align="center"
+                    onClick={() => handleHeaderClick?.(item)}
                   >
                     {item}
                   </TableCell>
