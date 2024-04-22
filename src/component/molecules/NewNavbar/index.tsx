@@ -19,6 +19,7 @@ import useTableData from "@/hooks/useTableData";
 import CreateChannelModal from "./createChannelModal";
 import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import styles from "./newNavbar.module.scss";
+import { useRouter } from "next/router";
 
 interface IProps {
   children: JSX.Element;
@@ -30,6 +31,7 @@ const NewNavBar = (props: IProps) => {
   const isMobile = useMobileCheck();
   const inputRef = useRef<any>(null);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const getTableData = useTableData();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
     window.innerWidth < 768
@@ -80,6 +82,9 @@ const NewNavBar = (props: IProps) => {
     switch (type) {
       case "create_channel":
         setOpenCreateChannel(true);
+        return;
+      case "upload_pending_data":
+        router.push("upload-file");
         return;
     }
     if (selectedChannel) {

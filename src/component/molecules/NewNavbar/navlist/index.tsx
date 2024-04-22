@@ -51,6 +51,7 @@ const navListArr: INavListArr[] = [
         title: "Upload pending data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
+        value: "upload_pending_data",
       },
       {
         title: "View pending approval data",
