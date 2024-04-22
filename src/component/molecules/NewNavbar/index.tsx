@@ -17,6 +17,7 @@ import {
 } from "@/store/slices/gatewaySlice";
 import styles from "./newNavbar.module.scss";
 import useTableData from "@/hooks/useTableData";
+import CreateChannelModal from "./createChannelModal";
 
 interface IProps {
   children: JSX.Element;
@@ -35,7 +36,8 @@ const NewNavBar = (props: IProps) => {
   const [isNavOpen, setisNavOpen] = useState<boolean>(
     typeof shouldNavOpen === "undefined" ? !isMobile : shouldNavOpen
   );
-  const [openSelect, setOpenSelect] = useState(false);
+  const [openSelect, setOpenSelect] = useState<boolean>(false);
+  const [openCreateChannel, setOpenCreateChannel] = useState<boolean>(false);
   const [currValue, setCurrValue] = useState("");
   const [productType, setProductType] = useState<IProducts>();
 
@@ -70,6 +72,11 @@ const NewNavBar = (props: IProps) => {
 
   const handleTypeClick = (type: any) => {
     setProductType(type);
+    switch (type) {
+      case "create_channel":
+        setOpenCreateChannel(true);
+        return;
+    }
     if (selectedChannel) {
       dispatch(resetHomeTableData());
       dispatch(changePdType(type));
@@ -173,6 +180,7 @@ const NewNavBar = (props: IProps) => {
           {children}
         </main>
       </div>
+      <CreateChannelModal {...{ openCreateChannel, setOpenCreateChannel }} />
     </div>
   );
 };

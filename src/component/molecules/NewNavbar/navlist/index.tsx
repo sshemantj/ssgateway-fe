@@ -81,6 +81,7 @@ const navListArr: INavListArr[] = [
         title: "Add",
         icon: "",
         iconJsx: <OfflineBoltIcon color="inherit" />,
+        value: "create_channel",
       },
       {
         title: "Update",
