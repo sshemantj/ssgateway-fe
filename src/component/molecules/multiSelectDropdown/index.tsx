@@ -62,7 +62,7 @@ const MultiSelectDropdown = (props: IProps) => {
           value={selectedChannels?.[index]?.value || []}
           onClick={(e) => e.stopPropagation()}
           onChange={handleChange}
-          input={<OutlinedInput label="Multiple Select" />}
+          input={<OutlinedInput label="Select multiple channels" />}
           renderValue={(selected) => (
             <Stack gap={1} direction="row" flexWrap="wrap">
               <p>{selected.length} channels selected</p>
