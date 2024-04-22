@@ -7,7 +7,7 @@ export interface IFetchTableData {
   pageSize?: number;
   searchTerm?: string;
   channelid?: string;
-  type: IProducts
+  type: IProducts;
 }
 
 interface IGetStyleVariants {
@@ -17,12 +17,21 @@ interface IGetSizeVariants {
   stylevairiantId: string;
 }
 export interface IPostChannelMapping {
-  productid: number,
-  stylevariantid: number,
-  channelid: string,
-  channelname: string,
-  sizevariantid: number,
-  sizevariantcode: number
+  productid: number;
+  stylevariantid: number;
+  channelid: string;
+  channelname: string;
+  sizevariantid: number;
+  sizevariantcode: number;
+}
+
+export interface ICreateChannelPayload {
+  payload: {
+    channelid: string;
+    channelname: string;
+    description: string;
+    isactive: boolean;
+  };
 }
 
 const fetchTableData = createAsyncThunk(
@@ -108,6 +117,21 @@ const getSizeVariants = createAsyncThunk(
   }
 );
 
+const createChannelMaster = createAsyncThunk(
+  "table/createChannelMaster",
+  async ({ payload }: ICreateChannelPayload) => {
+    try {
+      const url = "/api/Channel/CreateChannelMaster";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const getChannelMasters = createAsyncThunk(
   "table/getChannelMasters",
   async () => {
@@ -160,4 +184,5 @@ export {
   getChannelMasters,
   getUserChannelMappings,
   postChannelMapping,
+  createChannelMaster,
 };
