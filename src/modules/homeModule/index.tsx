@@ -14,6 +14,7 @@ import { useMobileCheck } from "@/hooks/useMobileCheck";
 import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
 import styles from "./customtable.module.scss";
+import { ToastContainer, toast } from "react-toastify";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -111,18 +112,54 @@ const HomeModule = () => {
   // };
 
   const handlePostChannnelMapping = () => {
-    const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
-      return {
-        productid: item.productid,
-        stylevariantid: item.stylevariantid,
-        channelid: currChannel?.channelId,
-        channelname: currChannel?.channelName,
-        sizevariantid: item.id,
-        sizevariantcode: item.code,
-      };
-    });
+    if (!selectedChannels?.[0]) {
+      //handle single channel mappings
+      const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
+        return {
+          productid: item.productid,
+          stylevariantid: item.stylevariantid,
+          channelid: currChannel?.channelId,
+          channelname: currChannel?.channelName,
+          sizevariantid: item.id,
+          sizevariantcode: item.code,
+        };
+      });
+      dispatch(postChannelMapping(payload)).then(() => {
+        toast.success("Channel mapping successful!");
+      });
+    } else {
+      //handle multiple channel mappings
+      const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
+        return {
+          productid: item.productid,
+          stylevariantid: item.stylevariantid,
+          channelid: "",
+          channelname: "",
+          sizevariantid: item.id,
+          sizevariantcode: item.code,
+        };
+      });
 
-    dispatch(postChannelMapping(payload));
+      const allSelectedChannels =
+        userChannelMappings
+          ?.filter((item: any) =>
+            selectedChannels?.[0].value?.includes(item.channelId)
+          )
+          ?.map((item: any) => ({
+            channelid: item?.channelId,
+            channelname: item?.channelName,
+          })) || [];
+
+      const combinedData = payload.flatMap((item2) =>
+        allSelectedChannels.map((item1: any) => {
+          return { ...item2, ...item1 };
+        })
+      );
+
+      dispatch(postChannelMapping(combinedData)).then(() => {
+        toast.success("Channel mapping successful!");
+      });
+    }
   };
 
   const handleButtonClick = () => {
@@ -193,6 +230,7 @@ const HomeModule = () => {
           />
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };
