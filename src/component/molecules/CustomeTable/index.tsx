@@ -173,7 +173,14 @@ const CustomTable = (props: IProps) => {
         <Pagination
           count={totalRecords}
           onChange={(_, page) => handlePagination(page)}
-          sx={{ "& .MuiPagination-ul li:nth-child(8)": { display: "none" } }}
+          sx={{
+            "& .MuiPagination-ul li:nth-child(8)": { display: "none" },
+            transform: "translateX(-5rem)",
+            padding: "1rem 0 0 0",
+            "@media (max-width: 768px)": {
+              transform: "translateX(0rem)",
+            },
+          }}
           variant="outlined"
         />
       )}

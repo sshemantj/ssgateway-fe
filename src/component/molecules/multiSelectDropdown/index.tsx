@@ -22,7 +22,6 @@ interface IProps {
 }
 
 const style: React.CSSProperties = {
-  paddingTop: "2rem",
   background: "#fff",
   height: "100%",
   width: "100%",
@@ -50,8 +49,8 @@ const MultiSelectDropdown = (props: IProps) => {
 
   return (
     <div style={style}>
-      <FormControl sx={{ m: 1 }}>
-        <InputLabel>Multiple Select</InputLabel>
+      <FormControl sx={{ m: 1, width: "100%" }}>
+        <InputLabel>Select multiple channels</InputLabel>
         <Select
           multiple
           value={selectedChannels?.[index]?.value || []}
@@ -60,7 +59,8 @@ const MultiSelectDropdown = (props: IProps) => {
           input={<OutlinedInput label="Multiple Select" />}
           renderValue={(selected) => (
             <Stack gap={1} direction="row" flexWrap="wrap">
-              {selected.map((value) => (
+              <p>{selected.length} channels selected</p>
+              {/* {selected.map((value) => (
                 <Chip
                   key={value}
                   label={value}
@@ -86,7 +86,7 @@ const MultiSelectDropdown = (props: IProps) => {
                     />
                   }
                 />
-              ))}
+              ))} */}
             </Stack>
           )}
         >

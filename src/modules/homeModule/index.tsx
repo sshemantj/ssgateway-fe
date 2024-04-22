@@ -12,6 +12,7 @@ import useTableData from "@/hooks/useTableData";
 import { Button, Grid } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
+import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
 import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
@@ -96,18 +97,18 @@ const HomeModule = () => {
     dispatch(changePdType(newValue));
   };
 
-  const showBtnText = () => {
-    switch (pdType) {
-      case "aprovedProducts":
-        return `Mapped with ${currChannel?.channelName}`;
+  // const showBtnText = () => {
+  //   switch (pdType) {
+  //     case "aprovedProducts":
+  //       return `Mapped with ${currChannel?.channelName}`;
 
-      case "mappedProducts":
-        break;
+  //     case "mappedProducts":
+  //       break;
 
-      case "unAprovedProducts":
-        return `Approve`;
-    }
-  };
+  //     case "unAprovedProducts":
+  //       return `Approve`;
+  //   }
+  // };
 
   const handlePostChannnelMapping = () => {
     const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
@@ -180,8 +181,11 @@ const HomeModule = () => {
             variant="contained"
             disabled={!!!currSelectedRow.length}
           >
-            {showBtnText()}
+            Mapp channels
           </Button>
+          <MultiSelectDropdown
+            {...{ setselectedChannels, selectedChannels, index: 0 }}
+          />
         </div>
       )}
     </div>
