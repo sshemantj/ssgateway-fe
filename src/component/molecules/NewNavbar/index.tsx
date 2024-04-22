@@ -15,9 +15,10 @@ import {
   resetHomeTableData,
   setChannelMapping,
 } from "@/store/slices/gatewaySlice";
-import styles from "./newNavbar.module.scss";
 import useTableData from "@/hooks/useTableData";
 import CreateChannelModal from "./createChannelModal";
+import { getUserChannelMappings } from "@/services/thunks/tableApis";
+import styles from "./newNavbar.module.scss";
 
 interface IProps {
   children: JSX.Element;
@@ -52,6 +53,10 @@ const NewNavBar = (props: IProps) => {
         value: item.channelId,
       };
     }) || [];
+
+  useEffect(() => {
+    dispatch(getUserChannelMappings());
+  }, []);
 
   const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -92,43 +97,40 @@ const NewNavBar = (props: IProps) => {
   return (
     <div className={styles.newNavWrapper}>
       <div className={styles.channel_select_wrapper}>
-        {userChannelMappings?.length && (
-          <SelectDropdown
-            ref={inputRef}
-            open={openSelect}
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenSelect((v) => !v);
-            }}
-            onMenuClick={() => {
-              setOpenSelect((v) => !v);
-            }}
-            selectSx={{
-              "& .MuiInputBase-input": {
-                padding: "5px",
-              },
-              "& fieldset legend": {
-                display: "none",
-              },
-              "& label": {
-                top: currValue ? 0 : "-12px",
-                display: currValue ? "none" : "unset",
-              },
-              "& .MuiInputLabel-shrink": {
-                top: "15px",
-              },
-            }}
-            selectStyles={{
-              // marginLeft: isMobile ? "unset" : "1rem",
-              minWidth: "2rem",
-              width: isMobile ? "100%" : "10rem",
-            }}
-            selectWrapperStyle={{ padding: "0" }}
-            handleOnChange={handleSelectChange}
-            label={"Select channel..."}
-            data={channelMappingsArr}
-          />
-        )}
+        <SelectDropdown
+          ref={inputRef}
+          open={openSelect}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenSelect((v) => !v);
+          }}
+          onMenuClick={() => {
+            setOpenSelect((v) => !v);
+          }}
+          selectSx={{
+            "& .MuiInputBase-input": {
+              padding: "5px",
+            },
+            "& fieldset legend": {
+              display: "none",
+            },
+            "& label": {
+              top: currValue ? 0 : "-12px",
+              display: currValue ? "none" : "unset",
+            },
+            "& .MuiInputLabel-shrink": {
+              top: "15px",
+            },
+          }}
+          selectStyles={{
+            minWidth: "2rem",
+            width: isMobile ? "100%" : "10rem",
+          }}
+          selectWrapperStyle={{ padding: "0" }}
+          handleOnChange={handleSelectChange}
+          label={"Select channel..."}
+          data={channelMappingsArr}
+        />
       </div>
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
