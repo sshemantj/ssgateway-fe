@@ -3,6 +3,8 @@ import profileImg from "@/images/profile.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import LogoutModal from "../../LogoutModal";
+import { useState } from "react";
 
 interface IProfile {
   isNavOpen: boolean;
@@ -34,6 +36,7 @@ const Profile = (props: IProfile) => {
 
 const ProfileList = (props: IProfile) => {
   const { isNavOpen } = props;
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const commonStyle: React.CSSProperties = {
     display: "flex",
@@ -50,26 +53,29 @@ const ProfileList = (props: IProfile) => {
   };
 
   return (
-    <div
-      style={{
-        display: isNavOpen ? "flex" : "none",
-        flexDirection: "column",
-        gap: "1rem",
-      }}
-    >
-      <div style={commonStyle}>
-        <PermIdentityIcon color="inherit" />
-        <h6 style={fontStyles}>View profile</h6>
+    <>
+      <div
+        style={{
+          display: isNavOpen ? "flex" : "none",
+          flexDirection: "column",
+          gap: "1rem",
+        }}
+      >
+        <div style={commonStyle}>
+          <PermIdentityIcon color="inherit" />
+          <h6 style={fontStyles}>View profile</h6>
+        </div>
+        <div style={commonStyle}>
+          <SettingsIcon color="inherit" />
+          <h6 style={fontStyles}>Setting</h6>
+        </div>
+        <div style={commonStyle} onClick={() => setOpenModal(true)}>
+          <LogoutIcon color="inherit" />
+          <h6 style={fontStyles}>Logout</h6>
+        </div>
       </div>
-      <div style={commonStyle}>
-        <SettingsIcon color="inherit" />
-        <h6 style={fontStyles}>Setting</h6>
-      </div>
-      <div style={commonStyle}>
-        <LogoutIcon color="inherit" />
-        <h6 style={fontStyles}>Logout</h6>
-      </div>
-    </div>
+      <LogoutModal {...{ openModal, setOpenModal }} />
+    </>
   );
 };
 

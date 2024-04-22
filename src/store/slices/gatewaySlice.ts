@@ -32,16 +32,16 @@ type IGatewaySlice = {
 };
 
 const initialState = {
+  // channelMasters: channelMastersJson,
+  // channelMasters: [],
   // data: getApprovedUnmappedSizeVariants || tableJson,
   // styleVariants: styleVariantsJson,
   // sizeVariants: sizeVariantsJson,
-  // channelMasters: channelMastersJson,
-  // userChannelMappings: userChannelMappings,
+  userChannelMappings: userChannelMappings,
   data: { sizevariantData: [] },
   styleVariants: [],
   sizeVariants: [],
-  channelMasters: [],
-  userChannelMappings: [],
+  // userChannelMappings: [],
   selectedChannel: "",
   pdType: "",
   error: "",

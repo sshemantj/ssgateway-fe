@@ -34,7 +34,7 @@ const style: React.CSSProperties = {
 const MultiSelectDropdown = (props: IProps) => {
   const { index, selectedChannels, setselectedChannels, currChannel } = props;
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
-  const { channelMasters } = useAppSelector((state) => state.gateway);
+  const { userChannelMappings } = useAppSelector((state) => state.gateway);
 
   useEffect(() => {
     currChannel && setSelectedNames((prev) => [...prev, currChannel]);
@@ -96,14 +96,14 @@ const MultiSelectDropdown = (props: IProps) => {
             </Stack>
           )}
         >
-          {channelMasters.map((item: any) => (
+          {userChannelMappings.map((item: any) => (
             <MenuItem
               key={item.id}
-              value={item.channelid}
+              value={item.channelId}
               sx={{ justifyContent: "space-between" }}
             >
-              {item.channelname}
-              {selectedNames.includes(item.channelid) ? (
+              {item.channelName}
+              {selectedNames.includes(item.channelId) ? (
                 <CheckIcon color="info" />
               ) : null}
             </MenuItem>
