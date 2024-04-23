@@ -12,6 +12,7 @@ import SelectDropdown from "../../selectDropdown";
 import SearchBar from "../../SearchBar";
 import styles from "./navfields.module.scss";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
+import { IProductsTypes } from "@/interfaces/product";
 
 const NavFields = () => {
   const [productType, setProductType] = useState<IProducts>();
@@ -53,7 +54,7 @@ const NavFields = () => {
     if (selectedChannel) {
       dispatch(resetHomeTableData());
       dispatch(changePdType(newValue));
-      if (newValue === "unAprovedProducts") {
+      if (newValue === IProductsTypes.UNAPPROVED) {
         getTableData({});
       }
     } else {
@@ -115,8 +116,8 @@ const NavFields = () => {
           margin: isMobile ? "unset" : "0 0 0 1.5rem",
         }}
         buttonList={[
-          { label: "unapproved variants", value: "unAprovedProducts" },
-          { label: "approved variants", value: "aprovedProducts" },
+          { label: "unapproved variants", value: IProductsTypes.UNAPPROVED },
+          { label: "approved variants", value: IProductsTypes.APPROVED },
         ]}
       />
       {pdType && (

@@ -2,22 +2,38 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import BreadcrumbsMui from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./breadcrumb.module.scss";
+import { useRouter } from "next/router";
 
 const Breadcrumbs = () => {
   const paths = usePathname();
-  const pathNames = paths.split("/").filter((path) => path);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const screen = searchParams.get("screen");
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
-    console.info("You clicked a breadcrumb.");
+    router.push("/");
   };
+
+  const handlePathNames = () => {
+    const path = paths.split("/").filter((path) => path) as unknown as string;
+    if (router.pathname === "/") {
+      return screen;
+    }
+    return path;
+  };
+
+  const pathNames = handlePathNames();
 
   return (
     <div className={styles.breadCrumbWrapper}>
       <p className={styles.breadcrumbTitle}>Dashboard Analytics</p>
-      <div role="presentation" onClick={(e) => handleClick(e)}>
+      <div role="presentation">
         <BreadcrumbsMui
           aria-label="breadcrumb"
           sx={{
@@ -26,10 +42,15 @@ const Breadcrumbs = () => {
             },
           }}
         >
-          <Link underline="hover" color="whitesmoke" href="/">
+          <Link
+            onClick={(e) => handleClick(e)}
+            underline="hover"
+            color="whitesmoke"
+            href="/"
+          >
             Home
           </Link>
-          <Typography color="whitesmoke">Panel</Typography>
+          <Typography color="whitesmoke">{pathNames}</Typography>
         </BreadcrumbsMui>
       </div>
     </div>

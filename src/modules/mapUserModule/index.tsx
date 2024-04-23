@@ -9,6 +9,7 @@ import MapUserTable from "./mapUserTable";
 import { getUserDetails } from "@/services/thunks/loginApi";
 import styles from "./mapUserChannelModule.module.scss";
 import { ToastContainer, toast } from "react-toastify";
+import { IApprovedPdTypes } from "@/interfaces/product";
 
 const MapUserChannelModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -55,7 +56,7 @@ const MapUserChannelModule = () => {
       };
     });
 
-    if (pdType !== "mappedProducts") {
+    if (pdType !== IApprovedPdTypes.MAPPED) {
       setCurrSelectedRow((prev) => {
         if (!Array.isArray(prev)) return [];
 

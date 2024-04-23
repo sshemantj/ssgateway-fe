@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
 import { IProducts } from "@/store/slices/gatewaySlice";
+import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 
 export interface IFetchTableData {
   pageNumber?: number;
@@ -52,13 +53,13 @@ const fetchTableData = createAsyncThunk(
     try {
       let product = "";
       switch (type) {
-        case "mappedProducts":
+        case IApprovedPdTypes.MAPPED:
           product = "GetApprovedMappedSizevariants";
           break;
-        case "aprovedProducts":
+        case IProductsTypes.APPROVED:
           product = "GetApprovedUnMappedSizevariants";
           break;
-        case "unAprovedProducts":
+        case IProductsTypes.UNAPPROVED:
           product = "GetUnAprrovedsizevariants";
           break;
       }

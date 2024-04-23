@@ -4,7 +4,7 @@ import MainLayout from "@/layout/MainLayout";
 
 const UploadFile = () => {
   return (
-    <MainLayout shouldNavOpen={false}>
+    <MainLayout>
       <UploadFileModule />
     </MainLayout>
   );

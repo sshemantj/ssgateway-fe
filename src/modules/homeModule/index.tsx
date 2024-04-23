@@ -16,6 +16,7 @@ import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
 import styles from "./customtable.module.scss";
 import { ToastContainer, toast } from "react-toastify";
+import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -67,7 +68,7 @@ const HomeModule = () => {
       };
     });
 
-    if (pdType !== "mappedProducts") {
+    if (pdType !== IApprovedPdTypes.MAPPED) {
       setCurrSelectedRow((prev) => {
         if (!Array.isArray(prev)) return [];
 
@@ -102,13 +103,13 @@ const HomeModule = () => {
 
   const showBtnText = () => {
     switch (pdType) {
-      case "aprovedProducts":
+      case IApprovedPdTypes.UN_MAPPED:
         return `Mapp channels`;
 
-      case "mappedProducts":
+      case IApprovedPdTypes.MAPPED:
         break;
 
-      case "unAprovedProducts":
+      case IProductsTypes.UNAPPROVED:
         return `Approve`;
     }
   };
@@ -173,10 +174,10 @@ const HomeModule = () => {
 
   const handleButtonClick = () => {
     switch (pdType) {
-      case "aprovedProducts":
+      case IApprovedPdTypes.UN_MAPPED:
         handlePostChannnelMapping();
         break;
-      case "unAprovedProducts":
+      case IProductsTypes.UNAPPROVED:
         handleApprovedProduct();
         break;
     }
@@ -213,7 +214,7 @@ const HomeModule = () => {
 
   return (
     <div className={styles.customTableWrapper}>
-      {pdType !== "unAprovedProducts" ? (
+      {pdType !== IProductsTypes.UNAPPROVED ? (
         <div className={styles.btnWrapper}>
           <Grid container>
             <Grid sm={12} md={4} item margin={"auto"}>
@@ -237,11 +238,11 @@ const HomeModule = () => {
           tbodyArr={apiRes}
           showPagination
           totalRecords={totalRecords}
-          isMultiSelects={pdType !== "mappedProducts"}
+          isMultiSelects={pdType !== IApprovedPdTypes.MAPPED}
           selectedChannels={selectedChannels}
         />
       </div>
-      {pdType !== "mappedProducts" && (
+      {pdType !== IApprovedPdTypes.MAPPED && (
         <div className={styles.submitBtnWrapper}>
           <Button
             onClick={() => handleButtonClick()}

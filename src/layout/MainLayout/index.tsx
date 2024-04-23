@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import HamIcon from "@/component/atoms/hamIcon";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -20,6 +20,7 @@ import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import styles from "./newNavbar.module.scss";
 import { useRouter } from "next/router";
 import SelectDropdown from "@/component/molecules/selectDropdown";
+import { IProductsTypes } from "@/interfaces/product";
 
 interface IProps {
   children: JSX.Element;
@@ -32,7 +33,6 @@ const MainLayout = (props: IProps) => {
   const inputRef = useRef<any>(null);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const isHomePage = router.pathname === "/";
   const getTableData = useTableData();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
     window.innerWidth < 768
@@ -49,6 +49,8 @@ const MainLayout = (props: IProps) => {
     (state) => state.gateway
   );
 
+  const isHomePage = useMemo(() => router.pathname === "/", [router.pathname]);
+
   const channelMappingsArr =
     (Array.isArray(userChannelMappings) &&
       userChannelMappings?.map((item: any) => {
@@ -61,7 +63,7 @@ const MainLayout = (props: IProps) => {
 
   useEffect(() => {
     isHomePage && dispatch(getUserChannelMappings());
-  }, []);
+  }, [router]);
 
   const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -82,12 +84,13 @@ const MainLayout = (props: IProps) => {
 
   const handleProductState = (type: any) => {
     if (!isHomePage) {
-      router.push("/");
+      router.push(`/?screen=${type}`);
     } else {
+      router.push(`/?screen=${type}`);
       if (selectedChannel) {
         dispatch(resetHomeTableData());
         dispatch(changePdType(type));
-        if (type === "unAprovedProducts") {
+        if (type === IProductsTypes.UNAPPROVED) {
           getTableData({});
         }
       } else {
@@ -106,8 +109,8 @@ const MainLayout = (props: IProps) => {
       case "upload_pending_data":
         router.push("upload-file");
         return;
-      case "unAprovedProducts":
-      case "aprovedProducts":
+      case IProductsTypes.UNAPPROVED:
+      case IProductsTypes.APPROVED:
         handleProductState(type);
         return;
       case "map_user_with_channels":
@@ -198,7 +201,7 @@ const MainLayout = (props: IProps) => {
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />
-            {pdType && (
+            {pdType && isHomePage && (
               <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
             )}
           </div>

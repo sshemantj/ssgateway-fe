@@ -10,6 +10,8 @@ import ServiceIcon from "@mui/icons-material/HomeRepairService";
 import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
 import QueueIcon from "@mui/icons-material/Queue";
 import styles from "./navlist.module.scss";
+import { useSearchParams } from "next/navigation";
+import { IProductsTypes } from "@/interfaces/product";
 
 interface IProps {
   isNavOpen: boolean;
@@ -34,13 +36,13 @@ const navListArr: INavListArr[] = [
         title: "Unapproved",
         icon: "",
         iconJsx: <HouseIcon color="inherit" />,
-        value: "unAprovedProducts",
+        value: IProductsTypes.UNAPPROVED,
       },
       {
         title: "Approved",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
-        value: "aprovedProducts",
+        value: IProductsTypes.APPROVED,
       },
     ],
   },
@@ -117,6 +119,10 @@ const navListArr: INavListArr[] = [
 const NavList = (props: IProps) => {
   const { isNavOpen, handleTypeClick } = props;
 
+  const searchParams = useSearchParams();
+
+  const screen = searchParams.get("screen");
+
   const handleRouteClick = (route: ISubHeaderList) => {
     if (route.value) {
       handleTypeClick(route.value);
@@ -157,7 +163,9 @@ const NavList = (props: IProps) => {
                     onClick={() => handleRouteClick(item)}
                     className={`${styles.subHeaderWrapper} ${
                       isNavOpen || styles.navClosed
-                    }`}
+                    }
+                    ${item?.value === screen && styles.active}
+                    `}
                     key={ind}
                   >
                     {item.iconJsx || (

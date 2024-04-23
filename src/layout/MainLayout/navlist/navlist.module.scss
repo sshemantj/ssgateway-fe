@@ -47,7 +47,7 @@
       }
       .subHeaderWrapper {
         cursor: pointer;
-        margin-left: 2rem;
+        padding-left: 2rem;
         color: $cadetblue;
         display: flex;
         gap: 0.5rem;
@@ -66,6 +66,14 @@
           color: $color_11;
           font-size: 14px;
           white-space: wrap;
+        }
+        &.active {
+          background-color: $color_1;
+          padding: 1rem 0 1rem 2rem;
+          color: $color_white;
+          .subTitle {
+            color: $color_white;
+          }
         }
       }
     }

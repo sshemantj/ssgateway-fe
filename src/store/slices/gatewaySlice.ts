@@ -12,12 +12,9 @@ import {
   getStyleVariants,
   getUserChannelMappings,
 } from "@/services/thunks/tableApis";
+import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 
-export type IProducts =
-  | ""
-  | "mappedProducts"
-  | "aprovedProducts"
-  | "unAprovedProducts";
+export type IProducts = "" | IApprovedPdTypes | IProductsTypes;
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";
