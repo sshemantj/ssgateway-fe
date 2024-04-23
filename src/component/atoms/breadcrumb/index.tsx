@@ -17,7 +17,7 @@ const Breadcrumbs = () => {
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    router.push("/");
+    router.replace("/", undefined, { shallow: true });
   };
 
   const handlePathNames = () => {

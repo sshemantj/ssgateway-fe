@@ -46,6 +46,9 @@
     .button {
       white-space: nowrap;
       width: 12rem;
+      &.position {
+        bottom: 1.5rem;
+      }
       @media (max-width: 600px) {
         width: max-content;
         margin-bottom: 1rem;

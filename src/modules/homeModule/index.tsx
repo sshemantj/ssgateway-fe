@@ -246,20 +246,24 @@ const HomeModule = () => {
         <div className={styles.submitBtnWrapper}>
           <Button
             onClick={() => handleButtonClick()}
-            className={styles.button}
+            className={`${styles.button} ${
+              pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
+            }`}
             variant="contained"
             disabled={!!!currSelectedRow.length}
           >
             {showBtnText()}
           </Button>
-          <MultiSelectDropdown
-            {...{
-              setselectedChannels,
-              selectedChannels,
-              index: 0,
-              currChannel: currChannel?.channelId || "",
-            }}
-          />
+          {pdType === IApprovedPdTypes.UN_MAPPED && (
+            <MultiSelectDropdown
+              {...{
+                setselectedChannels,
+                selectedChannels,
+                index: 0,
+                currChannel: currChannel?.channelId || "",
+              }}
+            />
+          )}
         </div>
       )}
       <ToastContainer />
