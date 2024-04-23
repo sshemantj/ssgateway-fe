@@ -7,9 +7,9 @@ import {
 } from "@/services/thunks/tableApis";
 import MapUserTable from "./mapUserTable";
 import { getUserDetails } from "@/services/thunks/loginApi";
-import styles from "./mapUserChannelModule.module.scss";
 import { ToastContainer, toast } from "react-toastify";
 import { IApprovedPdTypes } from "@/interfaces/product";
+import styles from "./mapUserChannelModule.module.scss";
 
 const MapUserChannelModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -94,26 +94,34 @@ const MapUserChannelModule = () => {
     <div className={styles.mapUserChannelWrapper}>
       <Grid container>
         <Grid className={styles.mapUserChannel_inner} item sm={12} md={12}>
-          <div className={styles.tableWrapper}>
+          <div
+            className={`${styles.tableWrapper} ${
+              channelMasters?.length || styles.alignCenter
+            }`}
+          >
             {channelMasters?.length ? (
-              <MapUserTable
-                handleHeaderClick={handleHeaderClick}
-                handleRowClick={handleRowClick}
-                open={open}
-                theadArr={keysArray}
-                tbodyArr={channelMasters}
-              />
-            ) : null}
-            <div className={styles.submitBtnWrapper}>
-              <Button
-                onClick={() => handleMappClick()}
-                className={styles.button}
-                variant="contained"
-                disabled={!!!currSelectedRow.length}
-              >
-                Map channels with users
-              </Button>
-            </div>
+              <>
+                <MapUserTable
+                  handleHeaderClick={handleHeaderClick}
+                  handleRowClick={handleRowClick}
+                  open={open}
+                  theadArr={keysArray}
+                  tbodyArr={channelMasters}
+                />
+                <div className={styles.submitBtnWrapper}>
+                  <Button
+                    onClick={() => handleMappClick()}
+                    className={styles.button}
+                    variant="contained"
+                    disabled={!!!currSelectedRow.length}
+                  >
+                    Map channels with users
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <h2>No channels found</h2>
+            )}
           </div>
         </Grid>
       </Grid>
