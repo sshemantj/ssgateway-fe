@@ -1,4 +1,4 @@
-import NewNavBar from "@/layout/MainLayout";
+import MainLayout from "@/layout/MainLayout";
 import NewPanelModule from "@/modules/newPanelModule";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -9,9 +9,9 @@ const NewPanel: NextPage = () => {
       <Head>
         <title>Configuration Panel</title>
       </Head>
-      <NewNavBar>
+      <MainLayout>
         <NewPanelModule />
-      </NewNavBar>
+      </MainLayout>
     </>
   );
 };

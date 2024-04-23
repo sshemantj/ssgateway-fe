@@ -16,10 +16,7 @@ import {
 } from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
 import CreateChannelModal from "./createChannelModal";
-import {
-  getChannelMasters,
-  getUserChannelMappings,
-} from "@/services/thunks/tableApis";
+import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import styles from "./newNavbar.module.scss";
 import { useRouter } from "next/router";
 import SelectDropdown from "@/component/molecules/selectDropdown";
@@ -29,12 +26,13 @@ interface IProps {
   shouldNavOpen?: boolean;
 }
 
-const NewNavBar = (props: IProps) => {
+const MainLayout = (props: IProps) => {
   const { children, shouldNavOpen } = props;
   const isMobile = useMobileCheck();
   const inputRef = useRef<any>(null);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const isHomePage = router.pathname === "/";
   const getTableData = useTableData();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
     window.innerWidth < 768
@@ -52,15 +50,17 @@ const NewNavBar = (props: IProps) => {
   );
 
   const channelMappingsArr =
-    userChannelMappings?.map((item: any) => {
-      return {
-        label: item.channelName,
-        value: item.channelId,
-      };
-    }) || [];
+    (Array.isArray(userChannelMappings) &&
+      userChannelMappings?.map((item: any) => {
+        return {
+          label: item.channelName,
+          value: item.channelId,
+        };
+      })) ||
+    [];
 
   useEffect(() => {
-    dispatch(getUserChannelMappings());
+    isHomePage && dispatch(getUserChannelMappings());
   }, []);
 
   const handleSelectChange = async (
@@ -80,6 +80,23 @@ const NewNavBar = (props: IProps) => {
     setisNavOpen((prev) => !prev);
   };
 
+  const handleProductState = (type: any) => {
+    if (!isHomePage) {
+      router.push("/");
+    } else {
+      if (selectedChannel) {
+        dispatch(resetHomeTableData());
+        dispatch(changePdType(type));
+        if (type === "unAprovedProducts") {
+          getTableData({});
+        }
+      } else {
+        inputRef && inputRef?.current?.focus?.();
+        setOpenSelect(true);
+      }
+    }
+  };
+
   const handleTypeClick = (type: any) => {
     setProductType(type);
     switch (type) {
@@ -89,57 +106,55 @@ const NewNavBar = (props: IProps) => {
       case "upload_pending_data":
         router.push("upload-file");
         return;
-    }
-    if (selectedChannel) {
-      dispatch(resetHomeTableData());
-      dispatch(changePdType(type));
-      if (type === "unAprovedProducts") {
-        getTableData({});
-      }
-    } else {
-      inputRef && inputRef?.current?.focus?.();
-      setOpenSelect(true);
+      case "unAprovedProducts":
+      case "aprovedProducts":
+        handleProductState(type);
+        return;
+      case "map_user_with_channels":
+        router.push("/map-user-channels");
     }
   };
 
   return (
     <div className={styles.newNavWrapper}>
-      <div className={styles.channel_select_wrapper}>
-        <SelectDropdown
-          ref={inputRef}
-          open={openSelect}
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenSelect((v) => !v);
-          }}
-          onMenuClick={() => {
-            setOpenSelect((v) => !v);
-          }}
-          selectSx={{
-            "& .MuiInputBase-input": {
-              padding: "5px",
-            },
-            "& fieldset legend": {
-              display: "none",
-            },
-            "& label": {
-              top: currValue ? 0 : "-12px",
-              display: currValue ? "none" : "unset",
-            },
-            "& .MuiInputLabel-shrink": {
-              top: "15px",
-            },
-          }}
-          selectStyles={{
-            minWidth: "2rem",
-            width: isMobile ? "100%" : "10rem",
-          }}
-          selectWrapperStyle={{ padding: "0" }}
-          handleOnChange={handleSelectChange}
-          label={"Select channel..."}
-          data={channelMappingsArr}
-        />
-      </div>
+      {isHomePage ? (
+        <div className={styles.channel_select_wrapper}>
+          <SelectDropdown
+            ref={inputRef}
+            open={openSelect}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenSelect((v) => !v);
+            }}
+            onMenuClick={() => {
+              setOpenSelect((v) => !v);
+            }}
+            selectSx={{
+              "& .MuiInputBase-input": {
+                padding: "5px",
+              },
+              "& fieldset legend": {
+                display: "none",
+              },
+              "& label": {
+                top: currValue ? 0 : "-12px",
+                display: currValue ? "none" : "unset",
+              },
+              "& .MuiInputLabel-shrink": {
+                top: "15px",
+              },
+            }}
+            selectStyles={{
+              minWidth: "2rem",
+              width: isMobile ? "100%" : "10rem",
+            }}
+            selectWrapperStyle={{ padding: "0" }}
+            handleOnChange={handleSelectChange}
+            label={"Select channel..."}
+            data={channelMappingsArr}
+          />
+        </div>
+      ) : null}
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
           <div className={styles.logoText}>
@@ -195,4 +210,4 @@ const NewNavBar = (props: IProps) => {
   );
 };
 
-export default NewNavBar;
+export default MainLayout;

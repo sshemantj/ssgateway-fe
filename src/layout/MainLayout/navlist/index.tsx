@@ -108,6 +108,7 @@ const navListArr: INavListArr[] = [
         title: "Map User with channels",
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
+        value: "map_user_with_channels",
       },
     ],
   },

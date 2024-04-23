@@ -198,7 +198,7 @@ const HomeModule = () => {
         return acc;
       }, {});
 
-      setCurrSelectedRow(apiRes);
+      setCurrSelectedRow(isAllChecked ? apiRes : []);
 
       setOpen((prev: any) => {
         return {

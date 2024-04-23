@@ -6,7 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { callLogin } from "@/services/thunks/loginApi";
-import { closeLoginModal, openLoginModal } from "@/store/slices/loginSlice";
+import {
+  closeLoginModal,
+  openLoginModal,
+  persistUsername,
+} from "@/store/slices/loginSlice";
 import { Cookies } from "react-cookie";
 
 const cookie = new Cookies();
@@ -24,6 +28,7 @@ const LoginComponent = () => {
     if (!username && !password) toast.warn("username and password required!");
     dispatch(callLogin({ Username: username, Password: password }))
       .then(() => {
+        dispatch(persistUsername(username));
         router.reload();
         handleModalClose();
       })

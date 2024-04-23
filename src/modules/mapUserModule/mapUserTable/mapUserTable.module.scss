@@ -1,0 +1,16 @@
+@import "@/styles/variables.scss";
+
+.tableHeader_wappper {
+  background-color: $color_12;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  th {
+    color: $color_white;
+  }
+}
+
+.tableRow {
+  cursor: pointer;
+}

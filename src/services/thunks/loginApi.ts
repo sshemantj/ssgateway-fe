@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosPublic } from "../client";
+import { axiosPrivate, axiosPublic } from "../client";
 import { Cookies } from "react-cookie";
 
 const cookie = new Cookies();
@@ -32,4 +32,19 @@ const callLogin = createAsyncThunk(
   }
 );
 
-export { callLogin };
+const getUserDetails = createAsyncThunk(
+  "table/getUserChannelMappings",
+  async (username: string) => {
+    try {
+      const url = `api/Authentication/get/${username}`;
+
+      const response = await axiosPrivate.get(url);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export { callLogin, getUserDetails };

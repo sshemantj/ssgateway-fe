@@ -1,16 +1,20 @@
-import { callLogin } from "@/services/thunks/loginApi";
-import { createSlice } from "@reduxjs/toolkit";
+import { callLogin, getUserDetails } from "@/services/thunks/loginApi";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface IloginSlice {
   showLoginModal: boolean;
   status: "loading" | "succeeded" | "failed" | null;
   error: string | null;
+  username: string;
+  userDetails: any;
 }
 
 const initialState = {
   showLoginModal: false,
   status: null,
   error: null,
+  username: "",
+  userDetails: {},
 } as IloginSlice;
 
 export const login = createSlice({
@@ -22,6 +26,9 @@ export const login = createSlice({
     },
     closeLoginModal: (state) => {
       state.showLoginModal = false;
+    },
+    persistUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
     },
   },
   extraReducers(builder) {
@@ -36,9 +43,14 @@ export const login = createSlice({
       .addCase(callLogin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+      })
+      //getUserDetails
+      .addCase(getUserDetails.fulfilled, (state, action) => {
+        state.userDetails = action.payload;
       });
   },
 });
 
-export const { openLoginModal, closeLoginModal } = login.actions;
+export const { openLoginModal, closeLoginModal, persistUsername } =
+  login.actions;
 export default login.reducer;

@@ -1,0 +1,24 @@
+@import "@/styles/variables.scss";
+
+.mapUserChannelWrapper {
+  width: 100%;
+  background-color: $color_white;
+  border-radius: 6px;
+  box-shadow: $shadow_1;
+  .mapUserChannel_inner {
+    min-height: 80vh;
+    height: 100%;
+    .tableWrapper {
+      height: 80vh;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      justify-content: space-between;
+      .submitBtnWrapper {
+        margin: 1rem 0.5rem 1rem 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

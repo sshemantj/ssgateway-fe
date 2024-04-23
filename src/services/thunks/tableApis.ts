@@ -16,6 +16,12 @@ interface IGetStyleVariants {
 interface IGetSizeVariants {
   stylevairiantId: string;
 }
+
+interface IAddUserChannelMappings {
+  userid: number;
+  channelmasterid: number;
+}
+
 export interface IPostChannelMapping {
   productid: number;
   stylevariantid: number;
@@ -179,7 +185,7 @@ const postChannelMapping = createAsyncThunk(
 
 const addUserChannelMappings = createAsyncThunk(
   "table/addUserChannelMappings",
-  async (payload: {}) => {
+  async (payload: IAddUserChannelMappings[]) => {
     try {
       const url = "/api/Channel/AddUserChannelMappings";
 

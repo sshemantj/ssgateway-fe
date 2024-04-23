@@ -1,12 +1,12 @@
 import React from "react";
 import UploadFileModule from "@/modules/uploadModule";
-import NewNavBar from "@/layout/MainLayout";
+import MainLayout from "@/layout/MainLayout";
 
 const UploadFile = () => {
   return (
-    <NewNavBar shouldNavOpen={false}>
+    <MainLayout shouldNavOpen={false}>
       <UploadFileModule />
-    </NewNavBar>
+    </MainLayout>
   );
 };
 
