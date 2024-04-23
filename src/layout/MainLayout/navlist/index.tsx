@@ -12,6 +12,7 @@ import QueueIcon from "@mui/icons-material/Queue";
 import styles from "./navlist.module.scss";
 import { useSearchParams } from "next/navigation";
 import { IProductsTypes } from "@/interfaces/product";
+import { useRouter } from "next/router";
 
 interface IProps {
   isNavOpen: boolean;
@@ -23,6 +24,7 @@ interface ISubHeaderList {
   icon?: string | StaticImport;
   iconJsx?: JSX.Element;
   value?: string;
+  path?: string;
 }
 interface INavListArr {
   topHeading: string;
@@ -37,12 +39,14 @@ const navListArr: INavListArr[] = [
         icon: "",
         iconJsx: <HouseIcon color="inherit" />,
         value: IProductsTypes.UNAPPROVED,
+        path: "/",
       },
       {
         title: "Approved",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
         value: IProductsTypes.APPROVED,
+        path: "/",
       },
     ],
   },
@@ -54,11 +58,13 @@ const navListArr: INavListArr[] = [
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
         value: "upload_pending_data",
+        path: "/upload-file",
       },
       {
         title: "View pending approval data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
+        path: "/view-pending-approval",
       },
     ],
   },
@@ -111,6 +117,7 @@ const navListArr: INavListArr[] = [
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
         value: "map_user_with_channels",
+        path: "/map-user-channels",
       },
     ],
   },
@@ -120,6 +127,7 @@ const NavList = (props: IProps) => {
   const { isNavOpen, handleTypeClick } = props;
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const screen = searchParams.get("screen");
 
@@ -127,6 +135,16 @@ const NavList = (props: IProps) => {
     if (route.value) {
       handleTypeClick(route.value);
     }
+  };
+
+  const activeCondition = (
+    path: string | undefined,
+    value: string | undefined
+  ) => {
+    const currPath = router.pathname === "/" ? value : path;
+    const isActive = [router.pathname, screen].includes(currPath || "");
+
+    return isActive;
   };
 
   return (
@@ -164,7 +182,7 @@ const NavList = (props: IProps) => {
                     className={`${styles.subHeaderWrapper} ${
                       isNavOpen || styles.navClosed
                     }
-                    ${item?.value === screen && styles.active}
+                    ${activeCondition(item?.path, item?.value) && styles.active}
                     `}
                     key={ind}
                   >
