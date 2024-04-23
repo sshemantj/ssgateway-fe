@@ -3,8 +3,8 @@ import profileImg from "@/images/profile.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import LogoutModal from "../../LogoutModal";
 import { useState } from "react";
+import LogoutModal from "@/component/molecules/LogoutModal";
 
 interface IProfile {
   isNavOpen: boolean;

@@ -1,6 +1,6 @@
 import React from "react";
 import UploadFileModule from "@/modules/uploadModule";
-import NewNavBar from "@/component/molecules/NewNavbar";
+import NewNavBar from "@/layout/MainLayout";
 
 const UploadFile = () => {
   return (

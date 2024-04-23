@@ -7,7 +7,6 @@ import SearchComponent from "@/component/atoms/searchComponent";
 import RhsWrapper from "./RhsWrapper";
 import NavList from "./navlist";
 import Breadcrumbs from "@/component/atoms/breadcrumb";
-import SelectDropdown from "../selectDropdown";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   IProducts,
@@ -20,6 +19,7 @@ import CreateChannelModal from "./createChannelModal";
 import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import styles from "./newNavbar.module.scss";
 import { useRouter } from "next/router";
+import SelectDropdown from "@/component/molecules/selectDropdown";
 
 interface IProps {
   children: JSX.Element;

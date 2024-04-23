@@ -1,4 +1,4 @@
-import NewNavBar from "@/component/molecules/NewNavbar";
+import NewNavBar from "@/layout/MainLayout";
 import NewPanelModule from "@/modules/newPanelModule";
 import { NextPage } from "next";
 import Head from "next/head";

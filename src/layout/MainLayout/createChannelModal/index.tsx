@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CustomModal from "../../CustomModal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -14,6 +13,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./createChannel.module.scss";
+import CustomModal from "@/component/molecules/CustomModal";
 
 interface IProps {
   openCreateChannel: boolean;
