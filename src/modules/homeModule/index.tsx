@@ -33,9 +33,11 @@ const HomeModule = () => {
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
   );
-  const { pdType, selectedChannel, userChannelMappings } = useAppSelector(
-    (state) => state.gateway
+  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
+  const userChannel = useAppSelector(
+    (state) => state.gateway.userChannelMappings
   );
+  const userChannelMappings = Array.isArray(userChannel) ? userChannel : [];
 
   const keysArray =
     apiRes && apiRes?.length

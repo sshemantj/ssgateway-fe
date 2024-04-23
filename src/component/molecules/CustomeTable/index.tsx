@@ -144,7 +144,7 @@ const CustomTable = (props: IProps) => {
               </div>
             )}
 
-            {tbodyArr.map((row: any, index: number) => {
+            {tbodyArr?.map((row: any, index: number) => {
               return (
                 <TableRow
                   key={`${row.name}${index}`}

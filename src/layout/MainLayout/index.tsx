@@ -83,13 +83,13 @@ const MainLayout = (props: IProps) => {
   };
 
   const handleProductState = (type: any) => {
+    dispatch(resetHomeTableData());
+    dispatch(changePdType(type));
     if (!isHomePage) {
       router.push(`/?screen=${type}`);
     } else {
       router.push(`/?screen=${type}`);
       if (selectedChannel) {
-        dispatch(resetHomeTableData());
-        dispatch(changePdType(type));
         if (type === IProductsTypes.UNAPPROVED) {
           getTableData({});
         }

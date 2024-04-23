@@ -96,18 +96,19 @@ const MultiSelectDropdown = (props: IProps) => {
             </Stack>
           )}
         >
-          {userChannelMappings.map((item: any) => (
-            <MenuItem
-              key={item.id}
-              value={item.channelId}
-              sx={{ justifyContent: "space-between" }}
-            >
-              {item.channelName}
-              {selectedNames.includes(item.channelId) ? (
-                <CheckIcon color="info" />
-              ) : null}
-            </MenuItem>
-          ))}
+          {Array.isArray(userChannelMappings) &&
+            userChannelMappings?.map((item: any) => (
+              <MenuItem
+                key={item.id}
+                value={item.channelId}
+                sx={{ justifyContent: "space-between" }}
+              >
+                {item.channelName}
+                {selectedNames.includes(item.channelId) ? (
+                  <CheckIcon color="info" />
+                ) : null}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>
