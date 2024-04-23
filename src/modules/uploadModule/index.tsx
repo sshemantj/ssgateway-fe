@@ -5,31 +5,42 @@ import CircularProgressWithLabel from "@/component/atoms/circularProgress";
 import SuccessAtom from "@/component/atoms/successAtom";
 import DragDrop from "@/component/atoms/dragAndDrop";
 import styles from "./uploadFile.module.scss";
+import { useAppDispatch } from "@/store/hooks";
+import { uploadDataforPendingApproval } from "@/services/thunks/tableApis";
+import { ToastContainer, toast } from "react-toastify";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
 const UploadFileModule = () => {
-  const [progress, setProgress] = useState(10);
-  const [file, setFile] = useState<any>();
+  const [progress, setProgress] = useState(0);
+  const [file, setFile] = useState<File>();
   const [uploadStatus, setUploadStatus] = useState<IStatuses>("selecting");
 
-  const handleOnClick = () => {
-    setUploadStatus("uploading");
+  const dispatch = useAppDispatch();
 
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          clearInterval(timer);
-          setUploadStatus("complete");
-          return 100;
-        } else {
-          return prevProgress + 10;
-        }
+  const handleUploadFile = () => {
+    if (file) {
+      setUploadStatus("uploading");
+      dispatch(uploadDataforPendingApproval(file)).then(() => {
+        toast.success("File successfully uploaded!");
       });
-    }, 800);
+    } else {
+      toast.warn("select file first!");
+    }
+    // const timer = setInterval(() => {
+    //   setProgress((prevProgress) => {
+    //     if (prevProgress >= 100) {
+    //       clearInterval(timer);
+    //       setUploadStatus("complete");
+    //       return 100;
+    //     } else {
+    //       return prevProgress + 10;
+    //     }
+    //   });
+    // }, 800);
   };
 
-  const handleChange = (file: any) => {
+  const handleChange = (file: File) => {
     setUploadStatus("selected");
     setFile(file);
   };
@@ -70,7 +81,7 @@ const UploadFileModule = () => {
                   >
                     <div className={`${styles["formbold-file-item"]}`}>
                       <span className={styles["formbold-file-name"]}>
-                        banner-design.png
+                        {file?.name || ""}
                       </span>
                       <button>
                         <Image src={closeIcon} alt="" width={20} height={20} />
@@ -109,7 +120,7 @@ const UploadFileModule = () => {
           ) : (
             <div className={styles.btnWrapper}>
               <button
-                onClick={() => handleOnClick()}
+                onClick={() => handleUploadFile()}
                 disabled={uploadStatus === "uploading"}
                 className={`${styles["formbold-btn"]} ${styles["w-full"]}`}
               >
@@ -119,6 +130,7 @@ const UploadFileModule = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

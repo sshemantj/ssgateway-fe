@@ -177,6 +177,28 @@ const postChannelMapping = createAsyncThunk(
   }
 );
 
+const uploadDataforPendingApproval = createAsyncThunk(
+  "table/uploadDataforPendingApproval",
+  async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const url = "/api/Products/UploadDataforPendingApproval";
+
+      const response = await axiosPrivate.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const approveSizevariants = createAsyncThunk(
   "table/approveSizevariants",
   async (payload: string[]) => {
@@ -201,4 +223,5 @@ export {
   postChannelMapping,
   createChannelMaster,
   approveSizevariants,
+  uploadDataforPendingApproval,
 };

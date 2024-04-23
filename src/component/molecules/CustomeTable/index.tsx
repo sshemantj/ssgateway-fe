@@ -118,10 +118,13 @@ const CustomTable = (props: IProps) => {
                     }}
                     key={index}
                     align="center"
-                    onClick={() => handleHeaderClick?.(item)}
+                    onClick={() =>
+                      item !== "check" && handleHeaderClick?.(item)
+                    }
                   >
                     {item === "check" ? (
                       <Checkbox
+                        onClick={() => handleHeaderClick?.(item)}
                         sx={{
                           "& svg": { color: "white !important" },
                         }}
