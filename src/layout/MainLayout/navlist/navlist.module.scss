@@ -71,6 +71,17 @@
           background-color: $color_1;
           padding: 1rem 0 1rem 2rem;
           color: $color_white;
+          position: relative;
+          &::before {
+            content: "";
+            width: 2rem;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: -35%;
+            background-color: $color_1;
+            z-index: -1;
+          }
           .subTitle {
             color: $color_white;
           }
