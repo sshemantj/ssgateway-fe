@@ -16,7 +16,10 @@ import {
 } from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
 import CreateChannelModal from "./createChannelModal";
-import { getUserChannelMappings } from "@/services/thunks/tableApis";
+import {
+  getChannelMasters,
+  getUserChannelMappings,
+} from "@/services/thunks/tableApis";
 import styles from "./newNavbar.module.scss";
 import { useRouter } from "next/router";
 import SelectDropdown from "@/component/molecules/selectDropdown";

@@ -177,6 +177,21 @@ const postChannelMapping = createAsyncThunk(
   }
 );
 
+const addUserChannelMappings = createAsyncThunk(
+  "table/addUserChannelMappings",
+  async (payload: {}) => {
+    try {
+      const url = "/api/Channel/AddUserChannelMappings";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const uploadDataforPendingApproval = createAsyncThunk(
   "table/uploadDataforPendingApproval",
   async (file: File) => {
@@ -224,4 +239,5 @@ export {
   createChannelMaster,
   approveSizevariants,
   uploadDataforPendingApproval,
+  addUserChannelMappings,
 };
