@@ -100,7 +100,7 @@ const UploadFileModule = () => {
                   >
                     <div className={`${styles["formbold-file-item"]}`}>
                       <span className={styles["formbold-file-name"]}>
-                        banner-design.png
+                        {file?.name || ""}
                       </span>
                       <button>
                         <Image src={closeIcon} alt="" width={20} height={20} />
