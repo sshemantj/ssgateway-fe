@@ -22,9 +22,8 @@ const Breadcrumbs = () => {
 
   const handlePathNames = () => {
     const path = paths.split("/").filter((path) => path) as unknown as string;
-    if (router.pathname === "/") {
-      return screen;
-    }
+    if (router.pathname === "/") return screen;
+    if (screen) return `${path} / ${screen}`;
     return path;
   };
 

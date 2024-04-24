@@ -1,22 +1,21 @@
-export enum allRoutes {
+import { IProductsTypes } from "@/interfaces/product";
+
+export enum IAllRoutes {
   HOME = "/",
   LOGIN = "/login",
-  PROCESS = "/process",
+  MANAGE_CHANNELS = "/manage-channels",
 }
 
-export enum screenRoutes {
-  SCANNER_SCREEN = "/scanner",
-  SCANNED_ITEM_SCREEN = "/scanned-item",
-  SUMMARY_SCREEN = "/summary",
-  PAYMENT_SCREEN = "/payment",
-  SHOW_QR_SCREEN = "/show-qr",
+export enum IAllSubRoutes {
+  ADD_CHANNEL = "addChannel",
+  UPDATE_CHANNEL = "updateChannel",
+  VIEW_ALL_CHANNEL = "viewAllChannel",
 }
 
-export enum processScreenRoutes {
-  PROCESS_SCANNER_SCREEN = allRoutes.PROCESS + screenRoutes.SCANNER_SCREEN,
-  PROCESS_SCANNED_ITEM_SCREEN = allRoutes.PROCESS +
-    screenRoutes.SCANNED_ITEM_SCREEN,
-  PROCESS_SUMMARY_SCREEN = allRoutes.PROCESS + screenRoutes.SUMMARY_SCREEN,
-  PROCESS_PAYMENT_SCREEN = allRoutes.PROCESS + screenRoutes.PAYMENT_SCREEN,
-  PROCESS_SHOW_QR_SCREEN = allRoutes.PROCESS + screenRoutes.SHOW_QR_SCREEN,
+export interface ISubRoutes {
+  [IAllRoutes.MANAGE_CHANNELS]:
+    | "addChannel"
+    | "updateChannel"
+    | "viewAllChannel";
+  [IAllRoutes.HOME]: IProductsTypes.APPROVED | IProductsTypes.UNAPPROVED;
 }

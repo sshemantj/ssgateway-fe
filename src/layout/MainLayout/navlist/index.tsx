@@ -13,10 +13,11 @@ import styles from "./navlist.module.scss";
 import { useSearchParams } from "next/navigation";
 import { IProductsTypes } from "@/interfaces/product";
 import { useRouter } from "next/router";
+import { IAllRoutes, IAllSubRoutes } from "@/constants/allRoutes";
 
 interface IProps {
   isNavOpen: boolean;
-  handleTypeClick: (_: any) => void;
+  handleTypeClick: (value: any, path?: any) => void;
 }
 
 interface ISubHeaderList {
@@ -90,17 +91,22 @@ const navListArr: INavListArr[] = [
         title: "Add",
         icon: "",
         iconJsx: <OfflineBoltIcon color="inherit" />,
-        value: "create_channel",
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.ADD_CHANNEL,
       },
       {
         title: "Update",
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.UPDATE_CHANNEL,
       },
       {
         title: "View All Channels",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.VIEW_ALL_CHANNEL,
       },
     ],
   },
@@ -132,8 +138,8 @@ const NavList = (props: IProps) => {
   const screen = searchParams.get("screen");
 
   const handleRouteClick = (route: ISubHeaderList) => {
-    if (route.value) {
-      handleTypeClick(route.value);
+    if (route.value || route.path) {
+      handleTypeClick(route.value, route.path);
     }
   };
 
@@ -141,7 +147,11 @@ const NavList = (props: IProps) => {
     path: string | undefined,
     value: string | undefined
   ) => {
-    const currPath = router.pathname === "/" ? value : path;
+    const currPath = [IAllRoutes.HOME, IAllRoutes.MANAGE_CHANNELS].includes(
+      router.pathname as IAllRoutes
+    )
+      ? value
+      : path;
     const isActive = [router.pathname, screen].includes(currPath || "");
 
     return isActive;
