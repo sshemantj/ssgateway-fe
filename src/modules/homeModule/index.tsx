@@ -4,6 +4,7 @@ import CustomTable from "@/component/molecules/CustomeTable";
 import {
   IPostChannelMapping,
   approveSizevariants,
+  getCountApi,
   getStyleVariants,
   postChannelMapping,
 } from "@/services/thunks/tableApis";
@@ -26,6 +27,13 @@ const HomeModule = () => {
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
   const [currChannel, setCurrChannel] = useState<any>("");
   const [productType, setProductType] = useState<string>("");
+  const [totalCount, setTotalCount] = useState<{
+    mapped: number | null;
+    unmapped: number | null;
+  }>({
+    mapped: null,
+    unmapped: null,
+  });
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
   const isMobile = useMobileCheck();
@@ -56,6 +64,28 @@ const HomeModule = () => {
       setSearch("");
       dispatch(resetHomeTableData());
       getTableData({});
+    }
+  }, [pdType]);
+
+  useEffect(() => {
+    if (pdType === IProductsTypes.APPROVED) {
+      dispatch(getCountApi({ type: "unmapped" }))
+        .unwrap()
+        .then((res) => {
+          setTotalCount((prev) => ({
+            ...prev,
+            unmapped: res.totalCount,
+          }));
+        });
+
+      dispatch(getCountApi({ type: "mapped" }))
+        .unwrap()
+        .then((res) => {
+          setTotalCount((prev) => ({
+            ...prev,
+            mapped: res.totalCount,
+          }));
+        });
     }
   }, [pdType]);
 
@@ -222,8 +252,8 @@ const HomeModule = () => {
             <Grid sm={12} md={4} item margin={"auto"}>
               <DoubleVariantCard
                 handleChange={handleChange}
-                mappedCount={221}
-                unMappedCount={544}
+                mappedCount={totalCount?.mapped as number}
+                unMappedCount={totalCount?.unmapped as number}
                 color="primary"
               />
             </Grid>

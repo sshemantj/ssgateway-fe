@@ -33,7 +33,7 @@ const callLogin = createAsyncThunk(
 );
 
 const getUserDetails = createAsyncThunk(
-  "table/getUserChannelMappings",
+  "table/getUserDetails",
   async (username: string) => {
     try {
       const url = `api/Authentication/get/${username}`;

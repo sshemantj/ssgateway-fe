@@ -9,9 +9,8 @@ import { useRouter } from "next/router";
 const Breadcrumbs = () => {
   const paths = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
-
   const screen = searchParams.get("screen");
+  const router = useRouter();
 
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>

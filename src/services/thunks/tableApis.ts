@@ -169,6 +169,40 @@ const getUserChannelMappings = createAsyncThunk(
   }
 );
 
+type ICountApis =
+  | "GetUnapprovedSizeVariantsCount"
+  | "GetApprovedSizeVariantsCount"
+  | "GetSizeVariantsCount";
+
+interface ICountApiType {
+  type: "mapped" | "unmapped";
+}
+
+const getCountApi = createAsyncThunk(
+  "table/getCountApi",
+  async ({ type }: ICountApiType) => {
+    try {
+      let api: ICountApis;
+      switch (type) {
+        case "mapped":
+          api = "GetUnapprovedSizeVariantsCount";
+          break;
+        case "unmapped":
+          api = "GetApprovedSizeVariantsCount";
+          break;
+      }
+
+      const url = `/api/products/${api}`;
+
+      const response = await axiosPrivate.get(url);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const postChannelMapping = createAsyncThunk(
   "table/MapChannel",
   async (payload: IPostChannelMapping[]) => {
@@ -247,4 +281,5 @@ export {
   approveSizevariants,
   uploadDataforPendingApproval,
   addUserChannelMappings,
+  getCountApi,
 };
