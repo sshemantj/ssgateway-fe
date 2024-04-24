@@ -26,6 +26,7 @@ type IGatewaySlice = {
   selectedChannel: string;
   pdType: IProducts;
   error: string;
+  isLoading: boolean;
 };
 
 // channelMasters: channelMastersJson,
@@ -44,6 +45,7 @@ const initialState = {
   selectedChannel: "",
   pdType: "",
   error: "",
+  isLoading: false,
 } as IGatewaySlice;
 
 export const gatewaySlice = createSlice({
@@ -63,20 +65,26 @@ export const gatewaySlice = createSlice({
     setChannelMapping: (state, action: PayloadAction<string>) => {
       state.selectedChannel = action.payload;
     },
+    setLoader: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
       // fetchTableData
       .addCase(fetchTableData.pending, (state) => {
+        state.isLoading = true;
         state.status = "loading";
       })
       .addCase(fetchTableData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
+        state.isLoading = false;
       })
       .addCase(fetchTableData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        state.isLoading = false;
       })
       // fetch style variants
       .addCase(getStyleVariants.pending, (state) => {
@@ -134,5 +142,6 @@ export const {
   resetHomeTableData,
   changePdType,
   setChannelMapping,
+  setLoader,
 } = gatewaySlice.actions;
 export default gatewaySlice.reducer;
