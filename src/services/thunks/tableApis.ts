@@ -51,6 +51,7 @@ const fetchTableData = createAsyncThunk(
     channelid,
   }: IFetchTableData) => {
     try {
+      if (!channelid) throw new Error("channel not selected!");
       let product = "";
       switch (type) {
         case IApprovedPdTypes.MAPPED:

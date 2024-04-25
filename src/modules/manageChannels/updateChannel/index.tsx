@@ -60,6 +60,7 @@ const UpdateChannel = () => {
   const { channelMasters } = useAppSelector((state) => state.gateway);
   const [tableColumns, setTableColumns] = useState<GridColDef[]>();
   const [tableRows, setTableRows] = useState<GridRowsProp>();
+  const [updatedRowsList, setUpdatedRowsList] = useState<any[]>([]);
   const [formValues, setFormValues] = useState<GridRowsProp>();
 
   const dispatch = useAppDispatch();
@@ -105,10 +106,27 @@ const UpdateChannel = () => {
     setFormValues(finalTableColumns);
   }, [channelMasters]);
 
+  const processRowUpdate = (updatedRow: any, originalRow: any) => {
+    setUpdatedRowsList((prev) => {
+      const filteredItem = prev.filter((item) => item.id !== updatedRow.id);
+      const isAlreadyExist = filteredItem.length !== prev.length;
+      if (isAlreadyExist) {
+        filteredItem.push(updatedRow);
+        return filteredItem;
+      } else {
+        return [...prev, updatedRow];
+      }
+    });
+  };
+
   return (
     <div className={styles.updateChannel_wrapper}>
       {tableRows && tableColumns ? (
-        <EditableTable columns={tableColumns} rows={tableRows} />
+        <EditableTable
+          processRowUpdate={processRowUpdate}
+          columns={tableColumns}
+          rows={tableRows}
+        />
       ) : null}
     </div>
   );

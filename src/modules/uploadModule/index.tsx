@@ -21,6 +21,8 @@ const UploadFileModule = () => {
   const handleUploadFile = () => {
     if (file) {
       setUploadStatus("uploading");
+      setProgress(100);
+      setUploadStatus("complete");
       dispatch(uploadDataforPendingApproval(file)).then(() => {
         toast.success("File successfully uploaded!");
       });
@@ -61,7 +63,7 @@ const UploadFileModule = () => {
                     <DragDrop {...{ handleChange }}>
                       <div>
                         <span className={styles["formbold-drop-file"]}>
-                          Drop files here
+                          Drop CSV files here
                         </span>
                         <span className={styles["formbold-or"]}> Or </span>
                         <span className={styles["formbold-browse"]}>
@@ -121,7 +123,7 @@ const UploadFileModule = () => {
             <div className={styles.btnWrapper}>
               <button
                 onClick={() => handleUploadFile()}
-                disabled={uploadStatus === "uploading"}
+                disabled={!file || uploadStatus === "uploading"}
                 className={`${styles["formbold-btn"]} ${styles["w-full"]}`}
               >
                 Upload File
