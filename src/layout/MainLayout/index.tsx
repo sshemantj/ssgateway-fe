@@ -20,6 +20,7 @@ import { IProductsTypes } from "@/interfaces/product";
 import { IAllRoutes } from "@/constants/allRoutes";
 import ChannelSelectDropDown from "./channelSelectDropdown";
 import styles from "./newNavbar.module.scss";
+import { useSearchParams } from "next/navigation";
 
 interface IProps {
   children: JSX.Element;
@@ -32,6 +33,8 @@ const MainLayout = (props: IProps) => {
   const inputRef = useRef<any>(null);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const screen = searchParams.get("screen");
   const getTableData = useTableData();
   const [isSearchActive, setIsSearchActive] = useState<boolean>(
     window.innerWidth < 768
@@ -60,8 +63,17 @@ const MainLayout = (props: IProps) => {
     [];
 
   useEffect(() => {
-    isHomePage && dispatch(getUserChannelMappings());
-  }, [router]);
+    if (isHomePage) {
+      dispatch(getUserChannelMappings());
+      screen && setProductType(screen as IProducts);
+    }
+  }, [router, screen]);
+
+  useEffect(() => {
+    if (!currValue && inputRef) {
+      openChannelDropdown();
+    }
+  }, [inputRef, currValue]);
 
   const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -79,6 +91,11 @@ const MainLayout = (props: IProps) => {
     setisNavOpen((prev) => !prev);
   };
 
+  const openChannelDropdown = () => {
+    inputRef && inputRef?.current?.focus?.();
+    setOpenSelect(true);
+  };
+
   const handleProductState = (value: any, path?: any) => {
     dispatch(resetHomeTableData());
     dispatch(changePdType(value));
@@ -91,8 +108,7 @@ const MainLayout = (props: IProps) => {
           getTableData({});
         }
       } else {
-        inputRef && inputRef?.current?.focus?.();
-        setOpenSelect(true);
+        openChannelDropdown();
       }
     }
   };
