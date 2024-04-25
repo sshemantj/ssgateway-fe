@@ -3,9 +3,12 @@ import { TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import SearchIcon from "@mui/icons-material/Search";
-import useTableData from "@/hooks/useTableData";
 import styles from "./searchNav.module.scss";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useSearchParams } from "next/navigation";
+import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
+import { IProducts } from "@/store/slices/gatewaySlice";
+import { fetchTableData } from "@/services/thunks/tableApis";
 
 interface ISearchProps {
   isSearchActive: boolean;
@@ -15,9 +18,13 @@ interface ISearchProps {
 const SearchComponent = (props: ISearchProps) => {
   const { isSearchActive, setIsSearchActive } = props;
   const [searchValue, setSearchValue] = useState<string>("");
-  const { pdType, subPdType } = useAppSelector((state) => state.gateway);
+  const { pdType, subPdType, selectedChannel } = useAppSelector(
+    (state) => state.gateway
+  );
   const isMobile = useMobileCheck();
-  const getTableData = useTableData();
+  const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+  const screen = searchParams.get("screen");
 
   useEffect(() => {
     setSearchValue("");
@@ -30,10 +37,20 @@ const SearchComponent = (props: ISearchProps) => {
     setSearchValue(value);
   };
 
-  const handleSearchClick = (value: string) => {
-    getTableData({
-      searchTerm: value,
-    });
+  const handleSearchClick = (
+    value: string,
+    sPdType: IApprovedPdTypes | "",
+    pType: IProducts
+  ) => {
+    const type = screen === IProductsTypes.APPROVED ? sPdType : pType;
+
+    dispatch(
+      fetchTableData({
+        channelid: selectedChannel,
+        type: type,
+        searchTerm: value,
+      })
+    );
   };
 
   const handleOnKeyDown = useCallback(
@@ -41,11 +58,11 @@ const SearchComponent = (props: ISearchProps) => {
       const pressedKey = e.key;
       switch (pressedKey) {
         case "Enter":
-          handleSearchClick(searchValue);
+          handleSearchClick(searchValue, subPdType, pdType);
           break;
       }
     },
-    [searchValue]
+    [searchValue, subPdType, pdType]
   );
 
   return (
@@ -72,7 +89,7 @@ const SearchComponent = (props: ISearchProps) => {
         />
       ) : (
         <div
-          onClick={() => handleSearchClick(searchValue)}
+          onClick={() => handleSearchClick(searchValue, subPdType, pdType)}
           className={styles.searchIcon}
         >
           <SearchIcon color="inherit" />
