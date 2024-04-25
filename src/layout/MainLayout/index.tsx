@@ -21,6 +21,9 @@ import { IAllRoutes } from "@/constants/allRoutes";
 import ChannelSelectDropDown from "./channelSelectDropdown";
 import styles from "./newNavbar.module.scss";
 import { useSearchParams } from "next/navigation";
+import { Cookies } from "react-cookie";
+
+const cookie = new Cookies();
 
 interface IProps {
   children: JSX.Element;
@@ -70,7 +73,7 @@ const MainLayout = (props: IProps) => {
   }, [router, screen]);
 
   useEffect(() => {
-    if (!currValue && inputRef) {
+    if (cookie.get("token") && !currValue && inputRef) {
       openChannelDropdown();
     }
   }, [inputRef, currValue]);
