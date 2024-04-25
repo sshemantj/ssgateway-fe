@@ -5,7 +5,7 @@ import CustomModal from "../CustomModal";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./login.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { callLogin } from "@/services/thunks/loginApi";
+import { callLogin, getUserDetails } from "@/services/thunks/loginApi";
 import {
   closeLoginModal,
   openLoginModal,
@@ -29,8 +29,10 @@ const LoginComponent = () => {
     dispatch(callLogin({ Username: username, Password: password }))
       .then(() => {
         dispatch(persistUsername(username));
-        router.reload();
-        handleModalClose();
+        dispatch(getUserDetails(username)).then(() => {
+          router.reload();
+          handleModalClose();
+        });
       })
       .catch((error: any) =>
         toast.error(error.message || "Error while trying to login!")

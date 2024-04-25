@@ -30,7 +30,6 @@ const MapUserChannelModule = () => {
 
   useEffect(() => {
     dispatch(getChannelMasters());
-    dispatch(getUserDetails(persistedUsername));
   }, []);
 
   const handleHeaderClick = (name: string) => {

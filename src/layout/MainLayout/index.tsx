@@ -73,10 +73,21 @@ const MainLayout = (props: IProps) => {
   }, [router, screen]);
 
   useEffect(() => {
-    if (cookie.get("token") && inputRef && !currValue && !selectedChannel) {
+    const isUnapprovedScreen = screen !== IProductsTypes.UNAPPROVED;
+    if (
+      cookie.get("token") &&
+      // isUnapprovedScreen &&
+      inputRef &&
+      !currValue &&
+      !selectedChannel
+    ) {
       openChannelDropdown();
     }
-  }, [inputRef, currValue]);
+  }, [inputRef, currValue, screen]);
+
+  useEffect(() => {
+    setCurrValue(selectedChannel);
+  }, [selectedChannel]);
 
   const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

@@ -41,6 +41,7 @@ const ChannelSelectDropDown = forwardRef((props: IProps, inputRef) => {
         handleOnChange={handleSelectChange}
         label={"Select channel..."}
         data={channelMappingsArr}
+        value={currValue}
         selectSx={{
           "& .MuiInputBase-input": {
             padding: "5px",

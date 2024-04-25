@@ -5,6 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useState } from "react";
 import LogoutModal from "@/component/molecules/LogoutModal";
+import { useAppSelector } from "@/store/hooks";
 
 interface IProfile {
   isNavOpen: boolean;
@@ -12,6 +13,8 @@ interface IProfile {
 
 const Profile = (props: IProfile) => {
   const { isNavOpen } = props;
+  const { userName = "" } = useAppSelector((state) => state.login.userDetails);
+
   const navClosedStyle: React.CSSProperties = {
     margin: "1rem",
   };
@@ -28,7 +31,7 @@ const Profile = (props: IProfile) => {
     >
       <Image src={profileImg} alt="profile" width={30} height={30} />
       <h4 style={{ display: isNavOpen ? "flex" : "none", fontWeight: 500 }}>
-        Joseph Sr.
+        {userName}
       </h4>
     </div>
   );
