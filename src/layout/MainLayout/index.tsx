@@ -15,11 +15,11 @@ import {
 } from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
 import { getUserChannelMappings } from "@/services/thunks/tableApis";
-import styles from "./newNavbar.module.scss";
 import { useRouter } from "next/router";
-import SelectDropdown from "@/component/molecules/selectDropdown";
 import { IProductsTypes } from "@/interfaces/product";
 import { IAllRoutes } from "@/constants/allRoutes";
+import ChannelSelectDropDown from "./channelSelectDropdown";
+import styles from "./newNavbar.module.scss";
 
 interface IProps {
   children: JSX.Element;
@@ -71,7 +71,6 @@ const MainLayout = (props: IProps) => {
     setCurrValue(value);
     setOpenSelect(false);
     dispatch(resetHomeTableData());
-    // productType && getTableData({ channelid: value, type: productType });
     productType && dispatch(changePdType(productType as IProducts));
   };
 
@@ -123,42 +122,15 @@ const MainLayout = (props: IProps) => {
   return (
     <div className={styles.newNavWrapper}>
       {isHomePage ? (
-        <div className={styles.channel_select_wrapper}>
-          <SelectDropdown
-            ref={inputRef}
-            open={openSelect}
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenSelect((v) => !v);
-            }}
-            onMenuClick={() => {
-              setOpenSelect((v) => !v);
-            }}
-            selectSx={{
-              "& .MuiInputBase-input": {
-                padding: "5px",
-              },
-              "& fieldset legend": {
-                display: "none",
-              },
-              "& label": {
-                top: currValue ? 0 : "-12px",
-                display: currValue ? "none" : "unset",
-              },
-              "& .MuiInputLabel-shrink": {
-                top: "15px",
-              },
-            }}
-            selectStyles={{
-              minWidth: "2rem",
-              width: isMobile ? "100%" : "10rem",
-            }}
-            selectWrapperStyle={{ padding: "0" }}
-            handleOnChange={handleSelectChange}
-            label={"Select channel..."}
-            data={channelMappingsArr}
-          />
-        </div>
+        <ChannelSelectDropDown
+          {...{
+            channelMappingsArr,
+            currValue,
+            handleSelectChange,
+            openSelect,
+            setOpenSelect,
+          }}
+        />
       ) : null}
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
@@ -186,9 +158,6 @@ const MainLayout = (props: IProps) => {
               <p className={styles.first}>Configuration</p>
               <p className={styles.second}>Panel</p>
             </div>
-            {/* <div className={styles.moreIcon}>
-              <MoreVertIcon color="inherit" />
-            </div> */}
             <div className={styles.searchIcon}>
               <SearchIcon
                 onClick={() => setIsSearchActive((prev) => !prev)}
