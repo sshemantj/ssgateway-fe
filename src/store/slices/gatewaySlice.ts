@@ -25,6 +25,7 @@ type IGatewaySlice = {
   userChannelMappings: any;
   selectedChannel: string;
   pdType: IProducts;
+  subPdType: IApprovedPdTypes | "";
   error: string;
   isLoading: boolean;
 };
@@ -44,6 +45,7 @@ const initialState = {
   //
   selectedChannel: "",
   pdType: "",
+  subPdType: IApprovedPdTypes.UN_MAPPED,
   error: "",
   isLoading: false,
 } as IGatewaySlice;
@@ -61,6 +63,9 @@ export const gatewaySlice = createSlice({
     },
     changePdType: (state, action: PayloadAction<IProducts>) => {
       state.pdType = action.payload;
+    },
+    changeSubPdType: (state, action: PayloadAction<IApprovedPdTypes>) => {
+      state.subPdType = action.payload;
     },
     setChannelMapping: (state, action: PayloadAction<string>) => {
       state.selectedChannel = action.payload;
@@ -143,5 +148,6 @@ export const {
   changePdType,
   setChannelMapping,
   setLoader,
+  changeSubPdType,
 } = gatewaySlice.actions;
 export default gatewaySlice.reducer;

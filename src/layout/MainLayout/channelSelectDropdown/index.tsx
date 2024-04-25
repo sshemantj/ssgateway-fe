@@ -66,4 +66,6 @@ const ChannelSelectDropDown = forwardRef((props: IProps, inputRef) => {
   );
 });
 
+ChannelSelectDropDown.displayName = "ChannelSelectDropDown";
+
 export default ChannelSelectDropDown;

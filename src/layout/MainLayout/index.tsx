@@ -73,7 +73,7 @@ const MainLayout = (props: IProps) => {
   }, [router, screen]);
 
   useEffect(() => {
-    if (cookie.get("token") && !currValue && inputRef) {
+    if (cookie.get("token") && inputRef && !currValue && !selectedChannel) {
       openChannelDropdown();
     }
   }, [inputRef, currValue]);

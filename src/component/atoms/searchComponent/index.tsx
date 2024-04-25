@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import SearchIcon from "@mui/icons-material/Search";
 import useTableData from "@/hooks/useTableData";
 import styles from "./searchNav.module.scss";
+import { useAppSelector } from "@/store/hooks";
 
 interface ISearchProps {
   isSearchActive: boolean;
@@ -14,8 +15,13 @@ interface ISearchProps {
 const SearchComponent = (props: ISearchProps) => {
   const { isSearchActive, setIsSearchActive } = props;
   const [searchValue, setSearchValue] = useState<string>("");
+  const { pdType, subPdType } = useAppSelector((state) => state.gateway);
   const isMobile = useMobileCheck();
   const getTableData = useTableData();
+
+  useEffect(() => {
+    setSearchValue("");
+  }, [pdType, subPdType]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,9 +30,9 @@ const SearchComponent = (props: ISearchProps) => {
     setSearchValue(value);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchClick = (value: string) => {
     getTableData({
-      searchTerm: searchValue,
+      searchTerm: value,
     });
   };
 
@@ -35,11 +41,11 @@ const SearchComponent = (props: ISearchProps) => {
       const pressedKey = e.key;
       switch (pressedKey) {
         case "Enter":
-          handleSearchClick();
+          handleSearchClick(searchValue);
           break;
       }
     },
-    []
+    [searchValue]
   );
 
   return (
@@ -65,7 +71,10 @@ const SearchComponent = (props: ISearchProps) => {
           style={{ margin: "0 1rem 0 0", cursor: "pointer" }}
         />
       ) : (
-        <div onClick={() => handleSearchClick()} className={styles.searchIcon}>
+        <div
+          onClick={() => handleSearchClick(searchValue)}
+          className={styles.searchIcon}
+        >
           <SearchIcon color="inherit" />
         </div>
       )}

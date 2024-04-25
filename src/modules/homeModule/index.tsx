@@ -4,10 +4,15 @@ import CustomTable from "@/component/molecules/CustomeTable";
 import {
   IPostChannelMapping,
   approveSizevariants,
+  fetchTableData,
   getCountApi,
   postChannelMapping,
 } from "@/services/thunks/tableApis";
-import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
+import {
+  changePdType,
+  changeSubPdType,
+  resetHomeTableData,
+} from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
 import { Button, Grid } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
@@ -137,7 +142,9 @@ const HomeModule = () => {
 
   const handleChange = (newValue: any) => {
     setProductType(newValue);
-    dispatch(changePdType(newValue));
+    dispatch(changeSubPdType(newValue));
+    dispatch(fetchTableData({ channelid: selectedChannel, type: newValue }));
+    // dispatch(changePdType(newValue));
   };
 
   const showBtnText = () => {

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { IBaseCardProps } from "..";
 import styles from "./doubleVariant.module.scss";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
+import { useAppSelector } from "@/store/hooks";
 
 type IState = IApprovedPdTypes.MAPPED | IApprovedPdTypes.UN_MAPPED;
 interface IProps extends Omit<IBaseCardProps, "variant"> {
@@ -11,19 +12,18 @@ interface IProps extends Omit<IBaseCardProps, "variant"> {
 }
 
 const DoubleVariantCard = (props: IProps) => {
-  const { color = "primary", mappedCount, unMappedCount, handleChange } = props;
-  const [selected, setSelected] = useState<IState>(IApprovedPdTypes.UN_MAPPED);
+  const { mappedCount, unMappedCount, handleChange } = props;
+  const { subPdType } = useAppSelector((state) => state.gateway);
 
   const handleClick = (type: any) => {
     handleChange(type);
-    setSelected(type);
   };
 
   return (
     <div className={styles.doubleVariant}>
       <div
         className={`${styles.lhs_wrapper} ${
-          selected === IApprovedPdTypes.UN_MAPPED && styles.selected
+          subPdType === IApprovedPdTypes.UN_MAPPED && styles.selected
         }`}
       >
         <div className={styles.title_wrapper}>
@@ -38,7 +38,7 @@ const DoubleVariantCard = (props: IProps) => {
       </div>
       <div
         className={`${styles.rhs_wrapper}
-      ${selected === IApprovedPdTypes.MAPPED && styles.selected}
+      ${subPdType === IApprovedPdTypes.MAPPED && styles.selected}
       `}
       >
         <div className={styles.title_wrapper}>
