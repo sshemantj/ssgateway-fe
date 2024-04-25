@@ -5,11 +5,9 @@ import {
   IPostChannelMapping,
   approveSizevariants,
   getCountApi,
-  getStyleVariants,
   postChannelMapping,
 } from "@/services/thunks/tableApis";
 import { changePdType, resetHomeTableData } from "@/store/slices/gatewaySlice";
-import CustomTab from "@/component/atoms/customTab";
 import useTableData from "@/hooks/useTableData";
 import { Button, Grid } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
@@ -18,6 +16,7 @@ import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
 import styles from "./customtable.module.scss";
 import { ToastContainer, toast } from "react-toastify";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
+import { useSearchParams } from "next/navigation";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -36,6 +35,8 @@ const HomeModule = () => {
   });
   const dispatch = useAppDispatch();
   const getTableData = useTableData();
+  const searchParams = useSearchParams();
+  const screen = searchParams.get("screen");
   const isMobile = useMobileCheck();
 
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
@@ -58,6 +59,12 @@ const HomeModule = () => {
           "subdepartmentcode",
         ]
       : [];
+
+  useEffect(() => {
+    if (screen) {
+      setProductType(screen);
+    }
+  }, [screen]);
 
   useEffect(() => {
     if (pdType) {
