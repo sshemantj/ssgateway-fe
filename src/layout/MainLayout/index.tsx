@@ -164,7 +164,10 @@ const MainLayout = (props: IProps) => {
       ) : null}
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
-          <div className={styles.logoText}>
+          <div
+            onClick={() => router.replace("/", undefined, { shallow: true })}
+            className={styles.logoText}
+          >
             <p className={styles.first}>Configuration</p>
             <p className={styles.second}>Panel</p>
           </div>
