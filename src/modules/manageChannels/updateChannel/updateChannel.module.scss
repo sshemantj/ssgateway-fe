@@ -1,7 +1,14 @@
 .updateChannel_wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 2rem;
+  max-width: 60rem;
   // background-color: red;
+  .submitBtnWrapper {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    button {
+      width: 10rem;
+    }
+  }
 }

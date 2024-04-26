@@ -5,9 +5,10 @@ import {
   GridPreProcessEditCellProps,
   GridRowsProp,
 } from "@mui/x-data-grid";
-import styles from "./updateChannel.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getChannelMasters } from "@/services/thunks/tableApis";
+import { Button } from "@mui/material";
+import styles from "./updateChannel.module.scss";
 
 const columns: GridColDef[] = [
   {
@@ -45,15 +46,15 @@ const columns: GridColDef[] = [
     align: "center",
     headerAlign: "center",
   },
-  {
-    field: "isactive",
-    headerName: "is Active",
-    type: "string",
-    width: 180,
-    editable: true,
-    align: "center",
-    headerAlign: "center",
-  },
+  // {
+  //   field: "isactive",
+  //   headerName: "is Active",
+  //   type: "string",
+  //   width: 180,
+  //   editable: true,
+  //   align: "center",
+  //   headerAlign: "center",
+  // },
 ];
 
 const UpdateChannel = () => {
@@ -97,7 +98,7 @@ const UpdateChannel = () => {
               channelid,
               channelname,
               description,
-              isactive,
+              // isactive,
             };
           }
         )
@@ -111,7 +112,19 @@ const UpdateChannel = () => {
       const filteredItem = prev.filter((item) => item.id !== updatedRow.id);
       const isAlreadyExist = filteredItem.length !== prev.length;
       if (isAlreadyExist) {
-        filteredItem.push(updatedRow);
+        const currObj = prev.find((item) => item.id === updatedRow.id);
+        Object.keys(currObj).forEach((key) => {
+          const currKeysValue = currObj[key];
+          const changedKeysValue = updatedRow[key];
+          const originalKeyValue = originalRow[key];
+          if (
+            currKeysValue !== changedKeysValue &&
+            originalKeyValue !== changedKeysValue
+          ) {
+            currObj[key] = changedKeysValue;
+          }
+        });
+        filteredItem.push(currObj);
         return filteredItem;
       } else {
         return [...prev, updatedRow];
@@ -119,14 +132,26 @@ const UpdateChannel = () => {
     });
   };
 
+  const handleSubmit = () => {
+    console.log("updatedRowsList", updatedRowsList);
+  };
+
   return (
     <div className={styles.updateChannel_wrapper}>
       {tableRows && tableColumns ? (
-        <EditableTable
-          processRowUpdate={processRowUpdate}
-          columns={tableColumns}
-          rows={tableRows}
-        />
+        <>
+          <EditableTable
+            style={{ maxHeight: 250 }}
+            processRowUpdate={processRowUpdate}
+            columns={tableColumns}
+            rows={tableRows}
+          />
+          <div className={styles.submitBtnWrapper}>
+            <Button onClick={() => handleSubmit()} variant="contained">
+              Submit
+            </Button>
+          </div>
+        </>
       ) : null}
     </div>
   );
