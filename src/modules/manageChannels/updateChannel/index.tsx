@@ -6,7 +6,10 @@ import {
   GridRowsProp,
 } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getChannelMasters } from "@/services/thunks/tableApis";
+import {
+  getChannelMasters,
+  updateChannelMaster,
+} from "@/services/thunks/tableApis";
 import { Button } from "@mui/material";
 import styles from "./updateChannel.module.scss";
 
@@ -134,6 +137,9 @@ const UpdateChannel = () => {
 
   const handleSubmit = () => {
     console.log("updatedRowsList", updatedRowsList);
+    updatedRowsList.forEach((item) => {
+      dispatch(updateChannelMaster({ payload: item }));
+    });
   };
 
   return (

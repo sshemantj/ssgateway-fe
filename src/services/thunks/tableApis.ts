@@ -271,6 +271,21 @@ const approveSizevariants = createAsyncThunk(
   }
 );
 
+const updateChannelMaster = createAsyncThunk(
+  "table/updateChannelMaster",
+  async ({ payload }: ICreateChannelPayload) => {
+    try {
+      const url = "/api/Channel/UpdateChannelMaster";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export {
   fetchTableData,
   getStyleVariants,
@@ -283,4 +298,5 @@ export {
   uploadDataforPendingApproval,
   addUserChannelMappings,
   getCountApi,
+  updateChannelMaster,
 };
