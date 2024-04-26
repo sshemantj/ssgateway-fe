@@ -89,6 +89,13 @@ const MainLayout = (props: IProps) => {
     setCurrValue(selectedChannel);
   }, [selectedChannel]);
 
+  useEffect(() => {
+    if (pdType) {
+      dispatch(resetHomeTableData());
+      getTableData({});
+    }
+  }, [pdType, selectedChannel]);
+
   const handleSelectChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -154,6 +161,7 @@ const MainLayout = (props: IProps) => {
       {isHomePage ? (
         <ChannelSelectDropDown
           {...{
+            ref: inputRef,
             channelMappingsArr,
             currValue,
             handleSelectChange,

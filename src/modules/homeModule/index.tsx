@@ -74,8 +74,8 @@ const HomeModule = () => {
   useEffect(() => {
     if (pdType) {
       setSearch("");
-      dispatch(resetHomeTableData());
-      getTableData({});
+      // dispatch(resetHomeTableData());
+      // getTableData({});
     }
   }, [pdType]);
 
