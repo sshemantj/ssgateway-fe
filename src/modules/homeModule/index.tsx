@@ -47,7 +47,9 @@ const HomeModule = () => {
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
   );
-  const { pdType, selectedChannel } = useAppSelector((state) => state.gateway);
+  const { pdType, selectedChannel, subPdType } = useAppSelector(
+    (state) => state.gateway
+  );
   const userChannel = useAppSelector(
     (state) => state.gateway.userChannelMappings
   );
@@ -74,10 +76,11 @@ const HomeModule = () => {
   useEffect(() => {
     if (pdType) {
       setSearch("");
+      setCurrSelectedRow([]);
       // dispatch(resetHomeTableData());
       // getTableData({});
     }
-  }, [pdType]);
+  }, [pdType, subPdType]);
 
   useEffect(() => {
     if (pdType === IProductsTypes.APPROVED) {
@@ -150,7 +153,7 @@ const HomeModule = () => {
   const showBtnText = () => {
     switch (pdType) {
       case IApprovedPdTypes.UN_MAPPED:
-        return `Mapp channels`;
+        return `Map channels`;
 
       case IApprovedPdTypes.MAPPED:
         break;
@@ -175,6 +178,9 @@ const HomeModule = () => {
       });
       dispatch(postChannelMapping(payload)).then(() => {
         toast.success("Channel mapping successful!");
+        dispatch(
+          fetchTableData({ channelid: selectedChannel, type: subPdType })
+        );
       });
     } else {
       //handle multiple channel mappings
@@ -207,6 +213,9 @@ const HomeModule = () => {
 
       dispatch(postChannelMapping(combinedData)).then(() => {
         toast.success("Channel mapping successful!");
+        dispatch(
+          fetchTableData({ channelid: selectedChannel, type: subPdType })
+        );
       });
     }
   };
@@ -215,6 +224,7 @@ const HomeModule = () => {
     const idList = currSelectedRow.map((item) => item.id);
     dispatch(approveSizevariants(idList)).then(() => {
       toast.success("Product successfully aproved!");
+      getTableData({});
     });
   };
 
