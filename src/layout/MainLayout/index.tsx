@@ -72,18 +72,18 @@ const MainLayout = (props: IProps) => {
     }
   }, [router, screen]);
 
+  const isUnapprovedScreen = screen === IProductsTypes.UNAPPROVED;
+
   useEffect(() => {
-    const isUnapprovedScreen = screen !== IProductsTypes.UNAPPROVED;
-    if (
-      cookie.get("token") &&
-      // isUnapprovedScreen &&
-      inputRef &&
-      !currValue &&
-      !selectedChannel
-    ) {
-      openChannelDropdown();
+    if (screen && !isUnapprovedScreen) {
+      if (cookie.get("token") && inputRef && !currValue && !selectedChannel) {
+        openChannelDropdown();
+      }
+    } else if (isUnapprovedScreen) {
+      getTableData({ type: IProductsTypes.UNAPPROVED });
+      dispatch(changePdType(IProductsTypes.UNAPPROVED));
     }
-  }, [inputRef, currValue, screen]);
+  }, [inputRef, currValue, isUnapprovedScreen, screen]);
 
   useEffect(() => {
     setCurrValue(selectedChannel);
@@ -117,11 +117,11 @@ const MainLayout = (props: IProps) => {
       router.push(`/?screen=${value}`);
     } else {
       router.push(`/?screen=${value}`);
-      if (selectedChannel) {
-        if (value === IProductsTypes.UNAPPROVED) {
-          getTableData({});
-        }
-      } else {
+      if (value === IProductsTypes.UNAPPROVED) {
+        getTableData({});
+        return;
+      }
+      if (!selectedChannel) {
         openChannelDropdown();
       }
     }
