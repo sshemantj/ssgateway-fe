@@ -195,6 +195,7 @@ const NavList = (props: IProps) => {
                       className={`${styles.subHeaderWrapper} ${
                         isNavOpen || styles.navClosed
                       }
+                      ${item?.value || styles.disabled}
                     ${activeCondition(item?.path, item?.value) && styles.active}
                     `}
                       key={ind}

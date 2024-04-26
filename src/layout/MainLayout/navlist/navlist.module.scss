@@ -95,6 +95,10 @@
             }
           }
         }
+        .disabled {
+          background-color: lightgray;
+          cursor: no-drop;
+        }
       }
     }
   }
