@@ -7,7 +7,6 @@
   border-radius: 0 8px 0 0;
   transition: all 0.3s ease-in-out;
   white-space: nowrap;
-
   @media (max-width: 768px) {
     width: 0;
     z-index: 12;
@@ -26,66 +25,74 @@
     background-color: $color_white;
     transition: all 0.3s ease-in-out;
   }
-
-  .navlist_container {
-    transition: all 0.3s ease-in-out;
-    .listWrapper {
+  .navlist_inner {
+    height: 90vh;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .navlist_container {
       transition: all 0.3s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      .hide {
+      .listWrapper {
         transition: all 0.3s ease-in-out;
-        transform: translateX(-15rem);
-      }
-      .topHeading {
-        font-size: 13px;
-        font-weight: 600;
-        color: $color_1;
-        padding: 18px 15px 5px;
-        text-transform: capitalize;
-      }
-      .subHeaderWrapper {
-        cursor: pointer;
-        padding-left: 2rem;
-        color: $cadetblue;
         display: flex;
+        flex-direction: column;
         gap: 0.5rem;
-        transition: all 0.3s ease-in-out;
-        display: flex;
-        align-items: center;
-        .subTitle {
-          padding: 0 4px 0 0;
-          color: $color_11;
-          font-size: 14px;
-          white-space: wrap;
-        }
-        &.active {
-          background-color: $color_1;
-          padding: 1rem 0 1rem 2rem;
-          color: $color_white;
-          .subTitle {
-            color: $color_white;
-          }
-        }
-        &.navClosed {
+        .hide {
           transition: all 0.3s ease-in-out;
-          transform: translateX(-1.2rem);
-          position: relative;
+          transform: translateX(-15rem);
+        }
+        .topHeading {
+          font-size: 13px;
+          font-weight: 600;
+          color: $color_1;
+          padding: 18px 15px 5px;
+          text-transform: capitalize;
+        }
+        .subHeaderWrapper {
+          cursor: pointer;
+          padding-left: 2rem;
+          color: $cadetblue;
+          display: flex;
+          gap: 0.5rem;
+          transition: all 0.3s ease-in-out;
+          display: flex;
+          align-items: center;
+          .subTitle {
+            padding: 0 4px 0 0;
+            color: $color_11;
+            font-size: 14px;
+            white-space: wrap;
+          }
           &.active {
-            &::before {
-              content: "";
-              width: 2rem;
-              height: 100%;
-              position: absolute;
-              top: 0;
-              right: -35%;
-              background-color: $color_1;
-              z-index: -1;
+            background-color: $color_1;
+            padding: 1rem 0 1rem 2rem;
+            color: $color_white;
+            .subTitle {
+              color: $color_white;
             }
           }
-          @media (max-width: 768px) {
-            display: none;
+          &.navClosed {
+            transition: all 0.3s ease-in-out;
+            transform: translateX(-1.2rem);
+            position: relative;
+            &.active {
+              &::before {
+                content: "";
+                width: 2rem;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: -35%;
+                background-color: $color_1;
+                z-index: -1;
+              }
+            }
+            @media (max-width: 768px) {
+              display: none;
+            }
           }
         }
       }

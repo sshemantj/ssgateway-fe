@@ -14,7 +14,7 @@ const initialState = {
   status: null,
   error: null,
   username: "",
-  userDetails: {},
+  userDetails: { userName: "" },
 } as IloginSlice;
 
 export const login = createSlice({

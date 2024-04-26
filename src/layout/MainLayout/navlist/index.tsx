@@ -9,11 +9,11 @@ import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import ServiceIcon from "@mui/icons-material/HomeRepairService";
 import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
 import QueueIcon from "@mui/icons-material/Queue";
-import styles from "./navlist.module.scss";
 import { useSearchParams } from "next/navigation";
 import { IProductsTypes } from "@/interfaces/product";
 import { useRouter } from "next/router";
 import { IAllRoutes, IAllSubRoutes } from "@/constants/allRoutes";
+import styles from "./navlist.module.scss";
 
 interface IProps {
   isNavOpen: boolean;
@@ -161,62 +161,66 @@ const NavList = (props: IProps) => {
     <div
       className={`${styles.navlist_wrapper} ${isNavOpen ? styles.open : null}`}
     >
-      {isNavOpen ? (
-        <AccordionCustom
-          summarySx={{
-            marginTop: "1rem",
-            display: "flex",
-            justifyContent: "center",
-            ".Mui-expanded": {
-              margin: 0,
-            },
-          }}
-          summaryJsx={<Profile isNavOpen={isNavOpen} />}
-          detailsJsx={<ProfileList isNavOpen={isNavOpen} />}
-        />
-      ) : (
-        <Profile isNavOpen={isNavOpen} />
-      )}
-      <div className={styles.navlist_container}>
-        {navListArr.map((listItem: INavListArr, index: number) => {
-          const { topHeading, subHeaderList } = listItem;
-          return (
-            <div className={`${styles.listWrapper}`} key={index}>
-              <p className={`${styles.topHeading} ${isNavOpen || styles.hide}`}>
-                {topHeading}
-              </p>
-              {subHeaderList.map((item, ind) => {
-                return (
-                  <div
-                    onClick={() => handleRouteClick(item)}
-                    className={`${styles.subHeaderWrapper} ${
-                      isNavOpen || styles.navClosed
-                    }
+      <div className={styles.navlist_inner}>
+        {isNavOpen ? (
+          <AccordionCustom
+            summarySx={{
+              marginTop: "1rem",
+              display: "flex",
+              justifyContent: "center",
+              ".Mui-expanded": {
+                margin: 0,
+              },
+            }}
+            summaryJsx={<Profile isNavOpen={isNavOpen} />}
+            detailsJsx={<ProfileList isNavOpen={isNavOpen} />}
+          />
+        ) : (
+          <Profile isNavOpen={isNavOpen} />
+        )}
+        <div className={styles.navlist_container}>
+          {navListArr.map((listItem: INavListArr, index: number) => {
+            const { topHeading, subHeaderList } = listItem;
+            return (
+              <div className={`${styles.listWrapper}`} key={index}>
+                <p
+                  className={`${styles.topHeading} ${isNavOpen || styles.hide}`}
+                >
+                  {topHeading}
+                </p>
+                {subHeaderList.map((item, ind) => {
+                  return (
+                    <div
+                      onClick={() => handleRouteClick(item)}
+                      className={`${styles.subHeaderWrapper} ${
+                        isNavOpen || styles.navClosed
+                      }
                     ${activeCondition(item?.path, item?.value) && styles.active}
                     `}
-                    key={ind}
-                  >
-                    {item.iconJsx || (
-                      <Image
-                        src={item.icon || ""}
-                        alt="icon"
-                        width={50}
-                        height={50}
-                      />
-                    )}
-                    <p
-                      className={`${styles.subTitle} ${
-                        isNavOpen || styles.hide
-                      }`}
+                      key={ind}
                     >
-                      {item.title}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                      {item.iconJsx || (
+                        <Image
+                          src={item.icon || ""}
+                          alt="icon"
+                          width={50}
+                          height={50}
+                        />
+                      )}
+                      <p
+                        className={`${styles.subTitle} ${
+                          isNavOpen || styles.hide
+                        }`}
+                      >
+                        {item.title}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
