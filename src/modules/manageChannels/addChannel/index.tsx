@@ -129,7 +129,7 @@ const AddChannels = (props: IProps) => {
             label="Description"
             onChange={handleChange}
           />
-          <FormControl
+          {/* <FormControl
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -160,7 +160,7 @@ const AddChannels = (props: IProps) => {
                 label="False"
               />
             </RadioGroup>
-          </FormControl>
+          </FormControl> */}
         </Grid>
         <Grid item xs={4} width={"310px"}>
           <Button
