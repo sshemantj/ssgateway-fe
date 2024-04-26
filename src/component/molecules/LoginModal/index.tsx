@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid, TextField, Paper, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import CustomModal from "../CustomModal";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import styles from "./login.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { callLogin, getUserDetails } from "@/services/thunks/loginApi";
@@ -25,7 +25,7 @@ const LoginComponent = () => {
   const dispatch = useAppDispatch();
 
   const handleLogin = () => {
-    if (!username && !password) toast.warn("username and password required!");
+    if (!username && !password) toast.error("username and password required!");
     dispatch(callLogin({ Username: username, Password: password }))
       .then(() => {
         dispatch(persistUsername(username));
@@ -118,7 +118,7 @@ const LoginComponent = () => {
             </Grid>
           </Paper>
         </div>
-        <ToastContainer />
+        <Toaster />
       </div>
     </CustomModal>
   );

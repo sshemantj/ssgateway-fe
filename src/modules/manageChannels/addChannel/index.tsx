@@ -10,7 +10,7 @@ import {
   createChannelMaster,
 } from "@/services/thunks/tableApis";
 import { useAppDispatch } from "@/store/hooks";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import styles from "./addChannel.module.scss";
 
 interface IProps {}
@@ -63,7 +63,7 @@ const AddChannels = (props: IProps) => {
         toast.success("Channel created successfully!");
       });
     } else {
-      toast.warn("Please fill all values!");
+      toast.error("Please fill all values!");
     }
   };
 
@@ -173,7 +173,7 @@ const AddChannels = (props: IProps) => {
           </Button>
         </Grid>
       </Grid>
-      <ToastContainer />
+      <Toaster />
     </Box>
   );
 };

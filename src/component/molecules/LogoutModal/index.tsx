@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import CustomModal from "../CustomModal";
 import { Cookies } from "react-cookie";
 import { useRouter } from "next/router";
@@ -78,7 +78,7 @@ const LogoutModal = (props: IProps) => {
           </div>
         </div>
       </CustomModal>
-      <ToastContainer />
+      <Toaster />
     </>
   );
 };

@@ -19,7 +19,7 @@ import { useMobileCheck } from "@/hooks/useMobileCheck";
 import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
 import styles from "./customtable.module.scss";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { useSearchParams } from "next/navigation";
 
@@ -322,7 +322,7 @@ const HomeModule = () => {
           )}
         </div>
       )}
-      <ToastContainer />
+      <Toaster />
     </div>
   );
 };

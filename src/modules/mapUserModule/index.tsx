@@ -7,7 +7,7 @@ import {
 } from "@/services/thunks/tableApis";
 import MapUserTable from "./mapUserTable";
 import { getUserDetails } from "@/services/thunks/loginApi";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { IApprovedPdTypes } from "@/interfaces/product";
 import styles from "./mapUserChannelModule.module.scss";
 
@@ -124,7 +124,7 @@ const MapUserChannelModule = () => {
           </div>
         </Grid>
       </Grid>
-      <ToastContainer />
+      <Toaster />
     </div>
   );
 };

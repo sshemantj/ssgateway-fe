@@ -7,7 +7,7 @@ import DragDrop from "@/component/atoms/dragAndDrop";
 import styles from "./uploadFile.module.scss";
 import { useAppDispatch } from "@/store/hooks";
 import { uploadDataforPendingApproval } from "@/services/thunks/tableApis";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
@@ -27,7 +27,7 @@ const UploadFileModule = () => {
         toast.success("File successfully uploaded!");
       });
     } else {
-      toast.warn("select file first!");
+      toast.error("select file first!");
     }
     // const timer = setInterval(() => {
     //   setProgress((prevProgress) => {
@@ -132,7 +132,7 @@ const UploadFileModule = () => {
           )}
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </div>
   );
 };

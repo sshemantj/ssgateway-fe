@@ -1,6 +1,5 @@
 import { Providers } from "@/store/provider";
 import "@/styles/globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
 import LoginComponent from "@/component/molecules/LoginModal";
 import Loader from "@/component/atoms/loader";
