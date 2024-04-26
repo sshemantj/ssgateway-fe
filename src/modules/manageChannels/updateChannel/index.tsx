@@ -10,7 +10,7 @@ import {
   getChannelMasters,
   updateChannelMaster,
 } from "@/services/thunks/tableApis";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import styles from "./updateChannel.module.scss";
 
 const columns: GridColDef[] = [
@@ -146,6 +146,9 @@ const UpdateChannel = () => {
     <div className={styles.updateChannel_wrapper}>
       {tableRows && tableColumns ? (
         <>
+          <Box display={"flex"} justifyContent={"center"} mb={2}>
+            <Typography variant="h4">Start editing table cells</Typography>
+          </Box>
           <EditableTable
             style={{ maxHeight: 250 }}
             processRowUpdate={processRowUpdate}

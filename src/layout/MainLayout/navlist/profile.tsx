@@ -13,7 +13,8 @@ interface IProfile {
 
 const Profile = (props: IProfile) => {
   const { isNavOpen } = props;
-  const { userName = "" } = useAppSelector((state) => state.login.userDetails);
+  const userName =
+    useAppSelector((state) => state.login.userDetails?.userName) || "";
 
   const navClosedStyle: React.CSSProperties = {
     margin: "1rem",
