@@ -53,7 +53,26 @@ const ProfileList = (props: IProfile) => {
   const fontStyles: React.CSSProperties = {
     fontWeight: 500,
     fontSize: 14,
-    color: "#000",
+    color: "#535763",
+  };
+
+  const profileList = [
+    {
+      title: "Setting",
+      icon: <SettingsIcon color="inherit" />,
+    },
+    {
+      title: "Logout",
+      icon: <LogoutIcon color="inherit" />,
+    },
+  ];
+
+  const handleClick = (title: string) => {
+    switch (title) {
+      case "Logout":
+        setOpenModal(true);
+        break;
+    }
   };
 
   return (
@@ -65,18 +84,14 @@ const ProfileList = (props: IProfile) => {
           gap: "1rem",
         }}
       >
-        <div style={commonStyle}>
-          <PermIdentityIcon color="inherit" />
-          <h6 style={fontStyles}>View profile</h6>
-        </div>
-        <div style={commonStyle}>
-          <SettingsIcon color="inherit" />
-          <h6 style={fontStyles}>Setting</h6>
-        </div>
-        <div style={commonStyle} onClick={() => setOpenModal(true)}>
-          <LogoutIcon color="inherit" />
-          <h6 style={fontStyles}>Logout</h6>
-        </div>
+        {profileList.map((item) => {
+          return (
+            <div style={commonStyle} onClick={() => handleClick(item.title)}>
+              {item.icon}
+              <h6 style={fontStyles}>{item.title}</h6>
+            </div>
+          );
+        })}
       </div>
       <LogoutModal {...{ openModal, setOpenModal }} />
     </>
