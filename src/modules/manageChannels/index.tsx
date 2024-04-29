@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IAllSubRoutes } from "@/constants/allRoutes";
+import { IChannelSubRoutes } from "@/constants/allRoutes";
 import AddChannels from "./addChannel";
 import { useSearchParams } from "next/navigation";
 import UpdateChannel from "./updateChannel";
@@ -12,9 +12,11 @@ const ManageChannelsModules = () => {
 
   return (
     <div className={styles.manageChannels_wrapper}>
-      {screen === IAllSubRoutes.ADD_CHANNEL ? <AddChannels /> : null}
-      {screen === IAllSubRoutes.UPDATE_CHANNEL ? <UpdateChannel /> : null}
-      {screen === IAllSubRoutes.VIEW_ALL_CHANNEL ? <ViewAllChannel /> : null}
+      {screen === IChannelSubRoutes.ADD_CHANNEL ? <AddChannels /> : null}
+      {screen === IChannelSubRoutes.UPDATE_CHANNEL ? <UpdateChannel /> : null}
+      {screen === IChannelSubRoutes.VIEW_ALL_CHANNEL ? (
+        <ViewAllChannel />
+      ) : null}
     </div>
   );
 };

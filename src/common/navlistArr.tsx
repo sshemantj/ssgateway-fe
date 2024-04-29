@@ -1,4 +1,4 @@
-import { IAllRoutes, IAllSubRoutes } from "@/constants/allRoutes";
+import { IAllRoutes, IChannelSubRoutes } from "@/constants/allRoutes";
 import { IProductsTypes } from "@/interfaces/product";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import HouseIcon from "@mui/icons-material/House";
@@ -30,14 +30,14 @@ export const navListArr: INavListArr[] = [
         icon: "",
         // iconJsx: <HouseIcon color="inherit" />,
         value: IProductsTypes.UNAPPROVED,
-        path: "/",
+        path: IAllRoutes.HOME,
       },
       {
         title: "Approved",
         icon: "",
         // iconJsx: <WalletIcon color="inherit" />,
         value: IProductsTypes.APPROVED,
-        path: "/",
+        path: IAllRoutes.HOME,
       },
     ],
   },
@@ -82,21 +82,21 @@ export const navListArr: INavListArr[] = [
         icon: "",
         // iconJsx: <OfflineBoltIcon color="inherit" />,
         path: IAllRoutes.MANAGE_CHANNELS,
-        value: IAllSubRoutes.ADD_CHANNEL,
+        value: IChannelSubRoutes.ADD_CHANNEL,
       },
       {
         title: "Update",
         icon: "",
         // iconJsx: <QueueIcon color="inherit" />,
         path: IAllRoutes.MANAGE_CHANNELS,
-        value: IAllSubRoutes.UPDATE_CHANNEL,
+        value: IChannelSubRoutes.UPDATE_CHANNEL,
       },
       {
         title: "View All Channels",
         icon: "",
         // iconJsx: <WalletIcon color="inherit" />,
         path: IAllRoutes.MANAGE_CHANNELS,
-        value: IAllSubRoutes.VIEW_ALL_CHANNEL,
+        value: IChannelSubRoutes.VIEW_ALL_CHANNEL,
       },
     ],
   },
