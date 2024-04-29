@@ -35,12 +35,7 @@ const NavList = (props: IProps) => {
     path: string | undefined,
     value: string | undefined
   ) => {
-    const currPath = [IAllRoutes.HOME, IAllRoutes.MANAGE_CHANNELS].includes(
-      router.pathname as IAllRoutes
-    )
-      ? value
-      : path;
-    const isActive = [router.pathname, screen].includes(currPath || "");
+    const isActive = screen === value;
 
     return isActive;
   };
@@ -88,14 +83,14 @@ const NavList = (props: IProps) => {
                     `}
                       key={ind}
                     >
-                      {/* {item.iconJsx || (
+                      {item.iconJsx || (
                         <Image
                           src={item.icon || ""}
                           alt="icon"
                           width={50}
                           height={50}
                         />
-                      )} */}
+                      )}
                       <p
                         className={`${styles.subTitle} ${
                           isNavOpen || styles.hide

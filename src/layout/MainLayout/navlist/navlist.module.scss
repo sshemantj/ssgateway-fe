@@ -40,10 +40,6 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        .hide {
-          transition: all 0.3s ease-in-out;
-          transform: translateX(-15rem);
-        }
         .topHeading {
           font-size: 13px;
           font-weight: 600;
@@ -98,6 +94,11 @@
         .disabled {
           background-color: lightgray;
           cursor: no-drop;
+        }
+        .hide {
+          transition: all 0.3s ease-in-out;
+          transform: translateX(-18rem);
+          white-space: nowrap !important;
         }
       }
     }
