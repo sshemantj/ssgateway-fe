@@ -172,9 +172,7 @@ const getUserChannelMappings = createAsyncThunk(
 );
 
 type ICountApis =
-  | "GetUnapprovedSizeVariantsCount"
-  | "GetApprovedSizeVariantsCount"
-  | "GetSizeVariantsCount"
+  | "GetApprovedMappedSizevariantsCount"
   | "GetApprovedUnMappedSizevariantsCount";
 
 interface ICountApiType {
@@ -189,7 +187,7 @@ const getCountApi = createAsyncThunk(
       let api: ICountApis;
       switch (type) {
         case "mapped":
-          api = "GetUnapprovedSizeVariantsCount";
+          api = "GetApprovedMappedSizevariantsCount";
           break;
         case "unmapped":
           api = "GetApprovedUnMappedSizevariantsCount";
