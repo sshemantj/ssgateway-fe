@@ -11,6 +11,7 @@ import {
 } from "@/services/thunks/tableApis";
 import { useAppDispatch } from "@/store/hooks";
 import toast, { Toaster } from "react-hot-toast";
+import { checkEmtyObj } from "@/utils";
 import styles from "./addChannel.module.scss";
 
 interface IProps {}
@@ -40,24 +41,8 @@ const AddChannels = (props: IProps) => {
     }));
   };
 
-  const checkEmpty = (obj: ICreateChannelPayload["payload"]) => {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        // @ts-ignore
-        if (typeof obj[key] === "boolean") {
-          continue;
-        }
-        // @ts-ignore
-        if (!obj[key]) {
-          return true;
-        }
-      }
-    }
-    return false;
-  };
-
   const handleProceed = () => {
-    const isEmtyFieldAvailable = checkEmpty(allinputState);
+    const isEmtyFieldAvailable = checkEmtyObj(allinputState);
     if (!isEmtyFieldAvailable) {
       dispatch(createChannelMaster({ payload: allinputState })).then(() => {
         toast.success("Channel created successfully!", {

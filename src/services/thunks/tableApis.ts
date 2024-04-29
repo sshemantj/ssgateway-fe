@@ -293,6 +293,27 @@ const updateChannelMaster = createAsyncThunk(
   }
 );
 
+export interface IUpdatePassword {
+  userId: string;
+  oldPassword: string;
+  newPassword: string;
+}
+
+const updatePassword = createAsyncThunk(
+  "table/updatePassword",
+  async (payload: IUpdatePassword) => {
+    try {
+      const url = "/api/Authentication/resetpassword";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export {
   fetchTableData,
   getStyleVariants,
@@ -306,4 +327,5 @@ export {
   addUserChannelMappings,
   getCountApi,
   updateChannelMaster,
+  updatePassword,
 };
