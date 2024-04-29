@@ -24,12 +24,11 @@ interface IAddUserChannelMappings {
 }
 
 export interface IPostChannelMapping {
-  productid: number;
-  stylevariantid: number;
   channelid: string;
   channelname: string;
-  sizevariantid: number;
   sizevariantcode: number;
+  stylecode: string;
+  stylevariantcode: string;
 }
 
 export interface ICreateChannelPayload {

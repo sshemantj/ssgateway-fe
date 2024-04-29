@@ -168,11 +168,10 @@ const HomeModule = () => {
       //handle single channel mappings
       const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
         return {
-          productid: item.productid,
-          stylevariantid: item.stylevariantid,
           channelid: currChannel?.channelId,
           channelname: currChannel?.channelName,
-          sizevariantid: item.id,
+          stylecode: item.stylecode,
+          stylevariantcode: item.baseproduct,
           sizevariantcode: item.code,
         };
       });
@@ -189,11 +188,10 @@ const HomeModule = () => {
       //handle multiple channel mappings
       const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
         return {
-          productid: item.productid,
-          stylevariantid: item.stylevariantid,
           channelid: "",
           channelname: "",
-          sizevariantid: item.id,
+          stylecode: item.stylecode,
+          stylevariantcode: item.baseproduct,
           sizevariantcode: item.code,
         };
       });

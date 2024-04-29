@@ -153,6 +153,9 @@ const MainLayout = (props: IProps) => {
       case IAllRoutes.MANAGE_CHANNELS:
         router.push(`${path}?screen=${value}`);
         return;
+      case IAllRoutes.USER_PROFILE:
+        router.push(`${path}?screen=${value}`);
+        return;
     }
   };
 
@@ -195,7 +198,10 @@ const MainLayout = (props: IProps) => {
           <RhsWrapper />
         ) : (
           <>
-            <div className={styles.m_logoText}>
+            <div
+              className={styles.m_logoText}
+              onClick={() => router.replace("/", undefined, { shallow: true })}
+            >
               <p className={styles.first}>Configuration</p>
               <p className={styles.second}>Panel</p>
             </div>
