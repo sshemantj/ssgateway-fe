@@ -1,4 +1,8 @@
-import { IAllRoutes, IChannelSubRoutes } from "@/constants/allRoutes";
+import {
+  IAllRoutes,
+  IChannelSubRoutes,
+  IProfileSubRoutes,
+} from "@/constants/allRoutes";
 import { IProductsTypes } from "@/interfaces/product";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import HouseIcon from "@mui/icons-material/House";
@@ -65,11 +69,15 @@ export const navListArr: INavListArr[] = [
       {
         title: "Update password",
         icon: "",
+        path: IAllRoutes.USER_PROFILE,
+        value: IProfileSubRoutes.UPDATE_PASSWORD,
         // iconJsx: <FolderCopyIcon color="inherit" />,
       },
       {
         title: "Update Profile",
         icon: "",
+        path: IAllRoutes.USER_PROFILE,
+        value: IProfileSubRoutes.UPDATE_PROFILE,
         // iconJsx: <ServiceIcon color="inherit" />,
       },
     ],
