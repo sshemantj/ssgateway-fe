@@ -44,23 +44,23 @@ const NavList = (props: IProps) => {
     <div
       className={`${styles.navlist_wrapper} ${isNavOpen ? styles.open : null}`}
     >
+      {isNavOpen ? (
+        <AccordionCustom
+          summarySx={{
+            marginTop: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            ".Mui-expanded": {
+              margin: 0,
+            },
+          }}
+          summaryJsx={<Profile isNavOpen={isNavOpen} />}
+          detailsJsx={<ProfileList isNavOpen={isNavOpen} />}
+        />
+      ) : (
+        <Profile isNavOpen={isNavOpen} />
+      )}
       <div className={styles.navlist_inner}>
-        {isNavOpen ? (
-          <AccordionCustom
-            summarySx={{
-              marginTop: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              ".Mui-expanded": {
-                margin: 0,
-              },
-            }}
-            summaryJsx={<Profile isNavOpen={isNavOpen} />}
-            detailsJsx={<ProfileList isNavOpen={isNavOpen} />}
-          />
-        ) : (
-          <Profile isNavOpen={isNavOpen} />
-        )}
         <div className={styles.navlist_container}>
           {navListArr.map((listItem: INavListArr, index: number) => {
             const { topHeading, subHeaderList } = listItem;
