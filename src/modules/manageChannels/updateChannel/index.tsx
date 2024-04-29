@@ -12,7 +12,7 @@ import {
 } from "@/services/thunks/tableApis";
 import { Box, Button, Typography } from "@mui/material";
 import styles from "./updateChannel.module.scss";
-import { channelColumns } from "@/common/channelCommon";
+import { channelColumns } from "@/constants/channelCommon";
 
 const UpdateChannel = () => {
   const { channelMasters } = useAppSelector((state) => state.gateway);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { channelColumns } from "@/common/channelCommon";
+import { channelColumns } from "@/constants/channelCommon";
 import { useAppSelector } from "@/store/hooks";
 import styles from "./viewAllChannel.module.scss";
 

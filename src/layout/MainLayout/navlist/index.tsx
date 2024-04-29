@@ -6,7 +6,11 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { IAllRoutes } from "@/constants/allRoutes";
 import styles from "./navlist.module.scss";
-import { INavListArr, ISubHeaderList, navListArr } from "@/common/navlistArr";
+import {
+  INavListArr,
+  ISubHeaderList,
+  navListArr,
+} from "@/constants/navlistArr";
 
 interface IProps {
   isNavOpen: boolean;
