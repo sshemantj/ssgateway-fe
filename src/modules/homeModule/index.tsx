@@ -84,21 +84,21 @@ const HomeModule = () => {
 
   useEffect(() => {
     if (pdType === IProductsTypes.APPROVED) {
-      dispatch(getCountApi({ type: "unmapped" }))
+      dispatch(getCountApi({ type: "unmapped", channelid: selectedChannel }))
         .unwrap()
         .then((res) => {
           setTotalCount((prev) => ({
             ...prev,
-            unmapped: res.totalCount,
+            unmapped: res?.totalCount,
           }));
         });
 
-      dispatch(getCountApi({ type: "mapped" }))
+      dispatch(getCountApi({ type: "mapped", channelid: selectedChannel }))
         .unwrap()
         .then((res) => {
           setTotalCount((prev) => ({
             ...prev,
-            mapped: res.totalCount,
+            mapped: res?.totalCount,
           }));
         });
     }

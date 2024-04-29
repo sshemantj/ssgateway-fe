@@ -1,7 +1,8 @@
-import MainLayout from "@/layout/MainLayout";
-import { NextPage } from "next";
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
+import { NextPage } from "next";
+import MainLayout from "@/layout/MainLayout";
+import UserProfileModule from "@/modules/userProfileModule";
 
 const UserProfile: NextPage = () => {
   return (
@@ -10,7 +11,7 @@ const UserProfile: NextPage = () => {
         <title>Configuration Panel</title>
       </Head>
       <MainLayout>
-        <div>UserProfile</div>
+        <UserProfileModule />
       </MainLayout>
     </>
   );

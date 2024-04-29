@@ -174,15 +174,17 @@ const getUserChannelMappings = createAsyncThunk(
 type ICountApis =
   | "GetUnapprovedSizeVariantsCount"
   | "GetApprovedSizeVariantsCount"
-  | "GetSizeVariantsCount";
+  | "GetSizeVariantsCount"
+  | "GetApprovedUnMappedSizevariantsCount";
 
 interface ICountApiType {
   type: "mapped" | "unmapped";
+  channelid: string;
 }
 
 const getCountApi = createAsyncThunk(
   "table/getCountApi",
-  async ({ type }: ICountApiType) => {
+  async ({ type, channelid }: ICountApiType) => {
     try {
       let api: ICountApis;
       switch (type) {
@@ -190,13 +192,19 @@ const getCountApi = createAsyncThunk(
           api = "GetUnapprovedSizeVariantsCount";
           break;
         case "unmapped":
-          api = "GetApprovedSizeVariantsCount";
+          api = "GetApprovedUnMappedSizevariantsCount";
           break;
       }
 
       const url = `/api/products/${api}`;
 
-      const response = await axiosPrivate.get(url);
+      const params = {
+        channelid,
+      };
+
+      const response = await axiosPrivate.get(url, {
+        params,
+      });
 
       return response.data;
     } catch (error) {
