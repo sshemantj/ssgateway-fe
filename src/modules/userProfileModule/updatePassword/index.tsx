@@ -58,7 +58,7 @@ const UpdatePassword = () => {
       };
 
       dispatch(updatePassword(payload)).then(() => {
-        toast.success("Channel created successfully!", {
+        toast.success("Password update successfully!", {
           position: "top-right",
           duration: 2000,
         });

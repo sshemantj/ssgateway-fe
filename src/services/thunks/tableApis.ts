@@ -314,6 +314,27 @@ const updatePassword = createAsyncThunk(
   }
 );
 
+export interface IUpdateProfile {
+  id: string;
+  email: string;
+  isactive: boolean;
+}
+
+const updateProfile = createAsyncThunk(
+  "table/updateProfile",
+  async (payload: IUpdateProfile) => {
+    try {
+      const url = "/api/Authentication/UpdateUser";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export {
   fetchTableData,
   getStyleVariants,
@@ -328,4 +349,5 @@ export {
   getCountApi,
   updateChannelMaster,
   updatePassword,
+  updateProfile,
 };
