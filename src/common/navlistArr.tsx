@@ -1,0 +1,120 @@
+import { IAllRoutes, IAllSubRoutes } from "@/constants/allRoutes";
+import { IProductsTypes } from "@/interfaces/product";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import HouseIcon from "@mui/icons-material/House";
+import WalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+import ServiceIcon from "@mui/icons-material/HomeRepairService";
+import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
+import QueueIcon from "@mui/icons-material/Queue";
+
+export interface ISubHeaderList {
+  title: string;
+  icon?: string | StaticImport;
+  iconJsx?: JSX.Element;
+  value?: string;
+  path?: string;
+}
+
+export interface INavListArr {
+  topHeading: string;
+  subHeaderList: ISubHeaderList[];
+}
+
+export const navListArr: INavListArr[] = [
+  {
+    topHeading: "Listing",
+    subHeaderList: [
+      {
+        title: "Unapproved",
+        icon: "",
+        // iconJsx: <HouseIcon color="inherit" />,
+        value: IProductsTypes.UNAPPROVED,
+        path: "/",
+      },
+      {
+        title: "Approved",
+        icon: "",
+        // iconJsx: <WalletIcon color="inherit" />,
+        value: IProductsTypes.APPROVED,
+        path: "/",
+      },
+    ],
+  },
+  {
+    topHeading: "File management",
+    subHeaderList: [
+      {
+        title: "Upload pending data",
+        icon: "",
+        // iconJsx: <WalletIcon color="inherit" />,
+        value: "upload_pending_data",
+        path: "/upload-file",
+      },
+      {
+        title: "View pending approval data",
+        icon: "",
+        // iconJsx: <WalletIcon color="inherit" />,
+        path: "/view-pending-approval",
+      },
+    ],
+  },
+  {
+    topHeading: "User profile",
+    subHeaderList: [
+      {
+        title: "Update password",
+        icon: "",
+        // iconJsx: <FolderCopyIcon color="inherit" />,
+      },
+      {
+        title: "Update Profile",
+        icon: "",
+        // iconJsx: <ServiceIcon color="inherit" />,
+      },
+    ],
+  },
+  {
+    topHeading: "Manage Channels",
+    subHeaderList: [
+      {
+        title: "Add",
+        icon: "",
+        // iconJsx: <OfflineBoltIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.ADD_CHANNEL,
+      },
+      {
+        title: "Update",
+        icon: "",
+        // iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.UPDATE_CHANNEL,
+      },
+      {
+        title: "View All Channels",
+        icon: "",
+        // iconJsx: <WalletIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IAllSubRoutes.VIEW_ALL_CHANNEL,
+      },
+    ],
+  },
+  {
+    topHeading: "Channel Mapping",
+    subHeaderList: [
+      {
+        title: "View User channel",
+        icon: "",
+        // iconJsx: <OfflineBoltIcon color="inherit" />,
+      },
+      {
+        title: "Map User with channels",
+        icon: "",
+        // iconJsx: <QueueIcon color="inherit" />,
+        value: "map_user_with_channels",
+        path: "/map-user-channels",
+      },
+    ],
+  },
+];
