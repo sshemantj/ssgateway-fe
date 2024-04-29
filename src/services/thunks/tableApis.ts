@@ -28,7 +28,7 @@ export interface IPostChannelMapping {
   channelname: string;
   sizevariantcode: number;
   stylecode: string;
-  stylevariantcode: string;
+  StyleVariantCode: string;
 }
 
 export interface ICreateChannelPayload {

@@ -171,7 +171,7 @@ const HomeModule = () => {
           channelid: currChannel?.channelId,
           channelname: currChannel?.channelName,
           stylecode: item.stylecode,
-          stylevariantcode: item.baseproduct,
+          StyleVariantCode: item.baseproduct,
           sizevariantcode: item.code,
         };
       });
@@ -191,7 +191,7 @@ const HomeModule = () => {
           channelid: "",
           channelname: "",
           stylecode: item.stylecode,
-          stylevariantcode: item.baseproduct,
+          StyleVariantCode: item.baseproduct,
           sizevariantcode: item.code,
         };
       });
