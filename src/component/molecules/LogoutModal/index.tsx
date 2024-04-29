@@ -17,7 +17,10 @@ const LogoutModal = (props: IProps) => {
 
   const handleLogin = () => {
     cookie.remove("token");
-    toast.success("Logout success!");
+    toast.success("Logout success!", {
+      position: "top-right",
+      duration: 2000,
+    });
     setOpenModal(false);
     setTimeout(() => router.reload(), 2000);
   };

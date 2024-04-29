@@ -177,7 +177,10 @@ const HomeModule = () => {
         };
       });
       dispatch(postChannelMapping(payload)).then(() => {
-        toast.success("Channel mapping successful!");
+        toast.success("Channel mapping successful!", {
+          position: "top-right",
+          duration: 2000,
+        });
         dispatch(
           fetchTableData({ channelid: selectedChannel, type: subPdType })
         );
@@ -212,7 +215,10 @@ const HomeModule = () => {
       );
 
       dispatch(postChannelMapping(combinedData)).then(() => {
-        toast.success("Channel mapping successful!");
+        toast.success("Channel mapping successful!", {
+          position: "top-right",
+          duration: 2000,
+        });
         dispatch(
           fetchTableData({ channelid: selectedChannel, type: subPdType })
         );
@@ -223,7 +229,10 @@ const HomeModule = () => {
   const handleApprovedProduct = () => {
     const idList = currSelectedRow.map((item) => item.id);
     dispatch(approveSizevariants(idList)).then(() => {
-      toast.success("Product successfully aproved!");
+      toast.success("Product successfully aproved!", {
+        position: "top-right",
+        duration: 2000,
+      });
       getTableData({});
     });
   };

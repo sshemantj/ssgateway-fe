@@ -60,10 +60,16 @@ const AddChannels = (props: IProps) => {
     const isEmtyFieldAvailable = checkEmpty(allinputState);
     if (!isEmtyFieldAvailable) {
       dispatch(createChannelMaster({ payload: allinputState })).then(() => {
-        toast.success("Channel created successfully!");
+        toast.success("Channel created successfully!", {
+          position: "top-right",
+          duration: 2000,
+        });
       });
     } else {
-      toast.error("Please fill all values!");
+      toast.error("Please fill all values!", {
+        position: "top-right",
+        duration: 2000,
+      });
     }
   };
 

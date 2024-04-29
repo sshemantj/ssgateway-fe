@@ -27,7 +27,10 @@ const UploadFileModule = () => {
         toast.success("File successfully uploaded!");
       });
     } else {
-      toast.error("select file first!");
+      toast.error("select file first!", {
+        position: "top-right",
+        duration: 2000,
+      });
     }
     // const timer = setInterval(() => {
     //   setProgress((prevProgress) => {

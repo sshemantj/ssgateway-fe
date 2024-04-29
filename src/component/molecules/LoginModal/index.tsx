@@ -35,7 +35,10 @@ const LoginComponent = () => {
         });
       })
       .catch((error: any) =>
-        toast.error(error.message || "Error while trying to login!")
+        toast.error(error.message || "Error while trying to login!", {
+          position: "top-right",
+          duration: 2000,
+        })
       );
   };
 

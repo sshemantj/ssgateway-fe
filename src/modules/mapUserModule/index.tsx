@@ -85,7 +85,10 @@ const MapUserChannelModule = () => {
     });
 
     dispatch(addUserChannelMappings(payload)).then(() => {
-      toast.success("User channel mappings added successfully.");
+      toast.success("User channel mappings added successfully.", {
+        position: "top-right",
+        duration: 2000,
+      });
     });
   };
 
