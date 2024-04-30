@@ -72,6 +72,24 @@ const UpdateProfile = () => {
             size="small"
             type="text"
             name="email"
+            label="User Id"
+            value={userId}
+            fullWidth
+            disabled
+          />
+          <TextField
+            size="small"
+            type="text"
+            name="email"
+            label="Username"
+            value={userName}
+            fullWidth
+            disabled
+          />
+          <TextField
+            size="small"
+            type="text"
+            name="email"
             label="Enter email..."
             value={allinputState.email}
             onChange={handleChange}
