@@ -161,7 +161,7 @@ const MainLayout = (props: IProps) => {
 
   return (
     <div className={styles.newNavWrapper}>
-      {isHomePage ? (
+      {isHomePage && !isUnapprovedScreen ? (
         <ChannelSelectDropDown
           {...{
             ref: inputRef,

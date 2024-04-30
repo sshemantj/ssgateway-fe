@@ -102,7 +102,7 @@ const HomeModule = () => {
           }));
         });
     }
-  }, [pdType]);
+  }, [pdType, selectedChannel]);
 
   const handleRowClick = (item: any, index: number) => {
     setOpen((prev: any) => {
