@@ -30,18 +30,18 @@ type IGatewaySlice = {
   isLoading: boolean;
 };
 
-// channelMasters: channelMastersJson,
 const initialState = {
-  // data: getApprovedUnmappedSizeVariants || tableJson,
-  // styleVariants: styleVariantsJson,
-  // sizeVariants: sizeVariantsJson,
-  // userChannelMappings: userChannelMappings,
+  data: getApprovedUnmappedSizeVariants || tableJson,
+  styleVariants: styleVariantsJson,
+  sizeVariants: sizeVariantsJson,
+  userChannelMappings: userChannelMappings,
+  channelMasters: channelMastersJson,
   //
-  data: { sizevariantData: [] },
-  styleVariants: [],
-  sizeVariants: [],
-  userChannelMappings: [],
-  channelMasters: [],
+  // data: { sizevariantData: [] },
+  // styleVariants: [],
+  // sizeVariants: [],
+  // userChannelMappings: [],
+  // channelMasters: [],
   //
   selectedChannel: "",
   pdType: "",
@@ -55,11 +55,11 @@ export const gatewaySlice = createSlice({
   initialState,
   reducers: {
     resetSizeAndStyleVariants: (state) => {
-      state.styleVariants = [];
-      state.sizeVariants = [];
+      // state.styleVariants = [];
+      // state.sizeVariants = [];
     },
     resetHomeTableData: (state) => {
-      state.data = { sizevariantData: [] };
+      // state.data = { sizevariantData: [] };
     },
     changePdType: (state, action: PayloadAction<IProducts>) => {
       state.pdType = action.payload;
