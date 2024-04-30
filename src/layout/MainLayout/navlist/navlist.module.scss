@@ -33,6 +33,15 @@
     // &::-webkit-scrollbar {
     //   display: none;
     // }
+    &::-webkit-scrollbar:horizontal {
+      height: 0;
+      width: 0;
+      display: none;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      display: none;
+    }
     &::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
       // border-radius: 10px;
@@ -52,6 +61,7 @@
     .navlist_container {
       transition: all 0.3s ease-in-out;
       .listWrapper {
+        padding: 0 16px 16px 16px;
         transition: all 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
@@ -60,7 +70,6 @@
           font-size: 13px;
           font-weight: 600;
           color: $color_1;
-          padding: 18px 15px 5px;
           text-transform: capitalize;
         }
         .subHeaderWrapper {

@@ -74,72 +74,72 @@ export const gatewaySlice = createSlice({
       state.isLoading = action.payload;
     },
   },
-  extraReducers(builder) {
-    builder
-      // fetchTableData
-      .addCase(fetchTableData.pending, (state) => {
-        state.isLoading = true;
-        state.status = "loading";
-      })
-      .addCase(fetchTableData.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.data = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(fetchTableData.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "";
-        state.isLoading = false;
-      })
-      // fetch style variants
-      .addCase(getStyleVariants.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getStyleVariants.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.styleVariants = action.payload;
-      })
-      .addCase(getStyleVariants.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "";
-      })
-      // fetch size variants
-      .addCase(getSizeVariants.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getSizeVariants.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.sizeVariants = action.payload;
-      })
-      .addCase(getSizeVariants.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "";
-      })
-      // fetch channel master
-      .addCase(getChannelMasters.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getChannelMasters.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.channelMasters = action.payload;
-      })
-      .addCase(getChannelMasters.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "";
-      })
-      // fetch channel master
-      .addCase(getUserChannelMappings.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getUserChannelMappings.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.userChannelMappings = action.payload;
-      })
-      .addCase(getUserChannelMappings.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "";
-      });
-  },
+  // extraReducers(builder) {
+  //   builder
+  //     // fetchTableData
+  //     .addCase(fetchTableData.pending, (state) => {
+  //       state.isLoading = true;
+  //       state.status = "loading";
+  //     })
+  //     .addCase(fetchTableData.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.data = action.payload;
+  //       state.isLoading = false;
+  //     })
+  //     .addCase(fetchTableData.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message || "";
+  //       state.isLoading = false;
+  //     })
+  //     // fetch style variants
+  //     .addCase(getStyleVariants.pending, (state) => {
+  //       state.status = "loading";
+  //     })
+  //     .addCase(getStyleVariants.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.styleVariants = action.payload;
+  //     })
+  //     .addCase(getStyleVariants.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message || "";
+  //     })
+  //     // fetch size variants
+  //     .addCase(getSizeVariants.pending, (state) => {
+  //       state.status = "loading";
+  //     })
+  //     .addCase(getSizeVariants.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.sizeVariants = action.payload;
+  //     })
+  //     .addCase(getSizeVariants.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message || "";
+  //     })
+  //     // fetch channel master
+  //     .addCase(getChannelMasters.pending, (state) => {
+  //       state.status = "loading";
+  //     })
+  //     .addCase(getChannelMasters.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.channelMasters = action.payload;
+  //     })
+  //     .addCase(getChannelMasters.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message || "";
+  //     })
+  //     // fetch channel master
+  //     .addCase(getUserChannelMappings.pending, (state) => {
+  //       state.status = "loading";
+  //     })
+  //     .addCase(getUserChannelMappings.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.userChannelMappings = action.payload;
+  //     })
+  //     .addCase(getUserChannelMappings.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message || "";
+  //     });
+  // },
 });
 
 export const {

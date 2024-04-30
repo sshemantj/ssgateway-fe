@@ -22,7 +22,7 @@ export const login = createSlice({
   initialState,
   reducers: {
     openLoginModal: (state) => {
-      state.showLoginModal = true;
+      // state.showLoginModal = true;
     },
     closeLoginModal: (state) => {
       state.showLoginModal = false;
