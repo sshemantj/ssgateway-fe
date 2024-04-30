@@ -4,10 +4,11 @@ import closeIcon from "@/images/closeIcon.svg";
 import CircularProgressWithLabel from "@/component/atoms/circularProgress";
 import SuccessAtom from "@/component/atoms/successAtom";
 import DragDrop from "@/component/atoms/dragAndDrop";
-import styles from "./uploadFile.module.scss";
 import { useAppDispatch } from "@/store/hooks";
 import { uploadDataforPendingApproval } from "@/services/thunks/tableApis";
 import toast, { Toaster } from "react-hot-toast";
+import { Button } from "@mui/material";
+import styles from "./uploadFile.module.scss";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
@@ -124,6 +125,14 @@ const UploadFileModule = () => {
             </>
           ) : (
             <div className={styles.btnWrapper}>
+              <Button style={{ margin: "0 0 1rem 0" }}>
+                <a
+                  download="UploadDataforPendingAprroval.csv"
+                  href="/UploadDataforPendingAprroval.csv"
+                >
+                  Download template
+                </a>
+              </Button>
               <button
                 onClick={() => handleUploadFile()}
                 disabled={!file || uploadStatus === "uploading"}
