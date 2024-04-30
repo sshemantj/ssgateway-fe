@@ -143,7 +143,7 @@ const HomeModule = () => {
     });
   };
 
-  const handleChange = (newValue: any) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: any) => {
     setProductType(newValue);
     dispatch(changeSubPdType(newValue));
     dispatch(fetchTableData({ channelid: selectedChannel, type: newValue }));
@@ -280,7 +280,7 @@ const HomeModule = () => {
       {pdType !== IProductsTypes.UNAPPROVED ? (
         <div className={styles.btnWrapper}>
           <Grid container>
-            <Grid sm={12} md={4} item margin={"auto"}>
+            <Grid item sm={12} md={4} margin={"auto"}>
               <DoubleVariantCard
                 handleChange={handleChange}
                 mappedCount={totalCount?.mapped as number}
