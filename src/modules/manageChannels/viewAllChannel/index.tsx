@@ -26,7 +26,9 @@ const ViewAllChannel = () => {
       : [];
     setTableRows(finalTableColumns);
 
-    const updatedColumns = channelColumns.map((item) => {
+    const deepCopiedColumns = JSON.parse(JSON.stringify(channelColumns));
+
+    const updatedColumns = deepCopiedColumns.map((item: any) => {
       item.editable = false;
       return item;
     });

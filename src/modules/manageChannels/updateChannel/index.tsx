@@ -109,7 +109,11 @@ const UpdateChannel = () => {
             rows={tableRows}
           />
           <div className={styles.submitBtnWrapper}>
-            <Button onClick={() => handleSubmit()} variant="contained">
+            <Button
+              disabled={!updatedRowsList.length}
+              onClick={() => handleSubmit()}
+              variant="contained"
+            >
               Submit
             </Button>
           </div>
