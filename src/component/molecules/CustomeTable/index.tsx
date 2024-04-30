@@ -92,17 +92,8 @@ const CustomTable = (props: IProps) => {
 
   return (
     <div className={styles.customTableWrapper}>
-      <TableContainer
-        sx={{
-          height: "70vh",
-          "-ms-overflow-style": "none",
-          "scrollbar-width": "none",
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer className={styles.tableContainer}>
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow className={styles.tableHeader_wappper}>
               {customTheadArr.map((item, index) => {
