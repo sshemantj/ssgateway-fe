@@ -60,7 +60,11 @@ const NavList = (props: IProps) => {
       ) : (
         <Profile isNavOpen={isNavOpen} />
       )}
-      <div className={styles.navlist_inner}>
+      <div
+        className={`${styles.navlist_inner} ${
+          isNavOpen || styles.navClosedInner
+        }`}
+      >
         <div className={styles.navlist_container}>
           {navListArr.map((listItem: INavListArr, index: number) => {
             const { topHeading, subHeaderList } = listItem;
