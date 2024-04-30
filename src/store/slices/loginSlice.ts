@@ -22,6 +22,7 @@ export const login = createSlice({
   initialState,
   reducers: {
     openLoginModal: (state) => {
+      localStorage.clear();
       state.showLoginModal = true;
     },
     closeLoginModal: (state) => {
