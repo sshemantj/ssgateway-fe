@@ -61,14 +61,14 @@ const MultiSelectDropdown = (props: IProps) => {
             top: selectedChannels?.[index]?.value ? 0 : "-10px",
           }}
         >
-          Select multiple channels
+          Map multiple channels
         </InputLabel>
         <Select
           multiple
           value={selectedChannels?.[index]?.value || []}
           onClick={(e) => e.stopPropagation()}
           onChange={handleChange}
-          input={<OutlinedInput label="Select multiple channels" />}
+          input={<OutlinedInput label="Map multiple channels" />}
           renderValue={(selected) => (
             <Stack gap={1} direction="row" flexWrap="wrap">
               <p>{selected.length} channels selected</p>
