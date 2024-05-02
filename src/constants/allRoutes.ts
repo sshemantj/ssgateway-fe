@@ -2,6 +2,7 @@ import { IProductsTypes } from "@/interfaces/product";
 
 export enum IAllRoutes {
   HOME = "/",
+  DASHBOARD = "dashboard",
   LOGIN = "/login",
   MANAGE_CHANNELS = "/manage-channels",
   USER_PROFILE = "user-profile",

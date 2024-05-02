@@ -53,7 +53,10 @@ const MainLayout = (props: IProps) => {
     (state) => state.gateway
   );
 
-  const isHomePage = useMemo(() => router.pathname === "/", [router.pathname]);
+  const isDashboard = useMemo(
+    () => router.pathname === IAllRoutes.DASHBOARD,
+    [router.pathname]
+  );
 
   const channelMappingsArr =
     (Array.isArray(userChannelMappings) &&
@@ -66,7 +69,7 @@ const MainLayout = (props: IProps) => {
     [];
 
   useEffect(() => {
-    if (isHomePage) {
+    if (isDashboard) {
       dispatch(getUserChannelMappings());
       screen && setProductType(screen as IProducts);
     }
@@ -120,10 +123,11 @@ const MainLayout = (props: IProps) => {
   const handleProductState = (value: any, path?: any) => {
     dispatch(resetHomeTableData());
     dispatch(changePdType(value));
-    if (!isHomePage) {
-      router.push(`/?screen=${value}`);
+    const url = `${IAllRoutes.DASHBOARD}?screen=${value}`;
+    if (!isDashboard) {
+      router.push(url);
     } else {
-      router.push(`/?screen=${value}`);
+      router.push(url);
       if (value === IProductsTypes.UNAPPROVED) {
         getTableData({});
         return;
@@ -140,16 +144,19 @@ const MainLayout = (props: IProps) => {
       case "upload_pending_data":
         router.push("upload-file");
         return;
-      case IProductsTypes.UNAPPROVED:
-      case IProductsTypes.APPROVED:
-        handleProductState(value);
-        return;
+      // case IProductsTypes.UNAPPROVED:
+      // case IProductsTypes.APPROVED:
+      //   handleProductState(value);
+      //   return;
       case "map_user_with_channels":
         router.push("/map-user-channels");
         return;
     }
 
     switch (path) {
+      case IAllRoutes.DASHBOARD:
+        handleProductState(value);
+        return;
       case IAllRoutes.MANAGE_CHANNELS:
         router.push(`${path}?screen=${value}`);
         return;
@@ -161,7 +168,7 @@ const MainLayout = (props: IProps) => {
 
   return (
     <div className={styles.newNavWrapper}>
-      {isHomePage && !isUnapprovedScreen ? (
+      {isDashboard && !isUnapprovedScreen ? (
         <ChannelSelectDropDown
           {...{
             ref: inputRef,
@@ -219,7 +226,7 @@ const MainLayout = (props: IProps) => {
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />
-            {pdType && isHomePage && (
+            {pdType && isDashboard && (
               <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
             )}
           </div>
