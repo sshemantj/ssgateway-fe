@@ -30,7 +30,7 @@ const Breadcrumbs = () => {
 
   return (
     <div className={styles.breadCrumbWrapper}>
-      <p className={styles.breadcrumbTitle}>Dashboard Analytics</p>
+      {/* <p className={styles.breadcrumbTitle}>Dashboard Analytics</p> */}
       <div role="presentation">
         <BreadcrumbsMui
           aria-label="breadcrumb"

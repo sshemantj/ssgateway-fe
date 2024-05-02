@@ -110,10 +110,10 @@
     .mainWrapper {
       min-height: calc(100vh - 45px);
       width: 100%;
-      padding: 1rem;
+      padding: 0 1rem;
       .breadcrumbWrapper {
+        margin-bottom: 4px;
         position: relative;
-        height: 5rem;
       }
     }
   }

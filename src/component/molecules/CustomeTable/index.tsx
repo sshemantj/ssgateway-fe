@@ -95,6 +95,7 @@ const CustomTable = (props: IProps) => {
                   <TableCell
                     style={{
                       fontWeight: 600,
+                      padding: "4px 1rem",
                       textTransform: "capitalize",
                       cursor: "pointer",
                       ...(item === "check"
@@ -147,9 +148,11 @@ const CustomTable = (props: IProps) => {
                         span: {
                           padding: "0",
                         },
+                        padding: 0,
                       }}
                     >
                       <Checkbox
+                        sx={{ padding: 0 }}
                         checked={
                           Boolean(open?.[row.id]) || handleChannel(row.id)
                         }
@@ -162,7 +165,10 @@ const CustomTable = (props: IProps) => {
                       return (
                         <NestedTable
                           key={index2}
-                          style={{ whiteSpace: "nowrap" }}
+                          style={{
+                            whiteSpace: "nowrap",
+                            padding: "12px 16px",
+                          }}
                           align="center"
                         >
                           {handleRowValue(row[item])}

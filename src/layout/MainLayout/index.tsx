@@ -226,9 +226,9 @@ const MainLayout = (props: IProps) => {
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
             <Breadcrumbs />
-            {pdType && isDashboard && (
+            {/* {pdType && isDashboard && (
               <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
-            )}
+            )} */}
           </div>
           {children}
         </main>
