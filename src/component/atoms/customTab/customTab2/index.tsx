@@ -21,7 +21,7 @@ const CustomTab2 = (props: IProps) => {
         indicatorColor="secondary"
       >
         {tabList.map((item) => (
-          <Tab value={item.value} label={item.label} />
+          <Tab key={item.label} value={item.value} label={item.label} />
         ))}
       </Tabs>
     </Box>

@@ -86,7 +86,11 @@ const ProfileList = (props: IProfile) => {
       >
         {profileList.map((item) => {
           return (
-            <div style={commonStyle} onClick={() => handleClick(item.title)}>
+            <div
+              key={item.title}
+              style={commonStyle}
+              onClick={() => handleClick(item.title)}
+            >
               {item.icon}
               <h6 style={fontStyles}>{item.title}</h6>
             </div>
