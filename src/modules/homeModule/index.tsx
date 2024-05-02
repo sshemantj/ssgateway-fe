@@ -81,7 +81,7 @@ const HomeModule = () => {
       setSearch("");
       setCurrSelectedRow([]);
       setPageSize(100);
-
+      setselectedChannels({});
       // dispatch(resetHomeTableData());
       // getTableData({});
     }
