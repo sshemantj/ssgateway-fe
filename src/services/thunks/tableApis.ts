@@ -263,11 +263,16 @@ const uploadDataforPendingApproval = createAsyncThunk(
   }
 );
 
+interface IApproveSizeVariants {
+  payload: string[];
+  source: "UI" | "FILEUPLOAD";
+}
+
 const approveSizevariants = createAsyncThunk(
   "table/approveSizevariants",
-  async (payload: string[]) => {
+  async ({ payload, source }: IApproveSizeVariants) => {
     try {
-      const url = "/api/Products/ApproveSizevariants";
+      const url = `/api/Products/ApproveSizevariants?source=${source}`;
 
       const response = await axiosPrivate.post(url, payload);
 

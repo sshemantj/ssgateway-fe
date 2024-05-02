@@ -236,15 +236,17 @@ const HomeModule = () => {
 
   const handleApprovedProduct = () => {
     const idList = currSelectedRow.map((item) => item.id);
-    dispatch(approveSizevariants(idList)).then(() => {
-      toast.success("Product successfully aproved!", {
-        position: "top-right",
-        duration: 2000,
-      });
-      getTableData({
-        pageSize,
-      });
-    });
+    dispatch(approveSizevariants({ payload: idList, source: "UI" })).then(
+      () => {
+        toast.success("Product successfully aproved!", {
+          position: "top-right",
+          duration: 2000,
+        });
+        getTableData({
+          pageSize,
+        });
+      }
+    );
   };
 
   const handleButtonClick = () => {
