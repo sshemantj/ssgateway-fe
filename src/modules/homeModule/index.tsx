@@ -322,7 +322,7 @@ const HomeModule = () => {
           selectedChannels={selectedChannels}
         />
       </div>
-      {subPdType !== IApprovedPdTypes.MAPPED && (
+      {subPdType !== IApprovedPdTypes.MAPPED && apiRes.length ? (
         <div className={styles.submitBtnWrapper}>
           <div className={styles.rhs_wrapper}>
             <div className={styles.totalRecordWrapper}>
@@ -377,7 +377,7 @@ const HomeModule = () => {
             </Button>
           </div>
         </div>
-      )}
+      ) : null}
       <Toaster />
     </div>
   );
