@@ -28,31 +28,46 @@
     background-color: $lightblue !important;
   }
   .submitBtnWrapper {
-    min-width: 400px;
-    position: absolute;
-    bottom: 0rem;
-    right: 0.5rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
+    justify-content: space-between;
+    gap: 0.5rem;
     background-color: $color_white;
-    // flex-direction: column-reverse;
-    @media (max-width: 600px) {
-      right: unset;
-      bottom: -4rem;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .button {
-      white-space: nowrap;
-      width: 12rem;
-      &.position {
-        bottom: 1.5rem;
+    .lhs_wrapper {
+      display: flex;
+      align-items: center;
+      .button {
+        white-space: nowrap;
+        width: 12rem;
+        height: 2.2rem;
+        @media (max-width: 600px) {
+          width: max-content;
+          margin-bottom: 1rem;
+        }
       }
-      @media (max-width: 600px) {
-        width: max-content;
-        margin-bottom: 1rem;
+      .paginationWrapper {
+        width: 360px;
+        display: flex;
+        justify-content: center;
       }
     }
+    .rhs_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .totalRecordWrapper {
+        p {
+          color: $color_10;
+        }
+      }
+    }
+    // @media (max-width: 600px) {
+    //   right: unset;
+    //   bottom: -4rem;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    // }
   }
 }

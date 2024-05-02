@@ -18,9 +18,6 @@ interface IProps {
   handleRowClick?: (row: any, index: number) => void;
   open?: any;
   isMultiSelects?: boolean;
-  handlePagination?: (pageNumber: number) => void;
-  showPagination?: boolean;
-  totalRecords?: number;
   handleHeaderClick?: (_: string) => void;
   selectedChannels?: {
     value: string[];
@@ -41,9 +38,6 @@ const CustomTable = (props: IProps) => {
     handleRowClick = () => {},
     open = {},
     isMultiSelects = false,
-    handlePagination = () => {},
-    showPagination = false,
-    totalRecords = 1,
     selectedChannels,
     handleHeaderClick,
   } = props;
@@ -181,21 +175,6 @@ const CustomTable = (props: IProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {showPagination && (
-        <Pagination
-          count={totalRecords}
-          onChange={(_, page) => handlePagination(page)}
-          sx={{
-            "& .MuiPagination-ul li:nth-child(8)": { display: "none" },
-            transform: "translateX(-5rem)",
-            padding: "1rem 0 0 0",
-            "@media (max-width: 768px)": {
-              transform: "translateX(0rem)",
-            },
-          }}
-          variant="outlined"
-        />
-      )}
     </div>
   );
 };

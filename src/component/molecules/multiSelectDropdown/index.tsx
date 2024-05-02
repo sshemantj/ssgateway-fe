@@ -25,7 +25,7 @@ interface IProps {
 const style: React.CSSProperties = {
   background: "#fff",
   height: "100%",
-  width: "100%",
+  width: "14rem",
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "center",
@@ -56,7 +56,13 @@ const MultiSelectDropdown = (props: IProps) => {
   return (
     <div style={style}>
       <FormControl sx={{ m: 1, width: "100%" }}>
-        <InputLabel>Select multiple channels</InputLabel>
+        <InputLabel
+          sx={{
+            top: selectedChannels?.[index]?.value ? 0 : "-10px",
+          }}
+        >
+          Select multiple channels
+        </InputLabel>
         <Select
           multiple
           value={selectedChannels?.[index]?.value || []}
@@ -66,35 +72,13 @@ const MultiSelectDropdown = (props: IProps) => {
           renderValue={(selected) => (
             <Stack gap={1} direction="row" flexWrap="wrap">
               <p>{selected.length} channels selected</p>
-              {/* {selected.map((value) => (
-                <Chip
-                  key={value}
-                  label={value}
-                  onDelete={() => {
-                    setSelectedNames(() => {
-                      const newValue = (
-                        selectedChannels?.[index]?.value || []
-                      ).filter((item) => item !== value);
-                      // console.log({ selectedNames, value, newValue });
-                      setselectedChannels?.((prev: any) => {
-                        const newPrev = { ...prev };
-                        newPrev[index] = {
-                          value: newValue,
-                        };
-                        return newPrev;
-                      });
-                      return newValue;
-                    });
-                  }}
-                  deleteIcon={
-                    <CancelIcon
-                      onMouseDown={(event) => event.stopPropagation()}
-                    />
-                  }
-                />
-              ))} */}
             </Stack>
           )}
+          inputProps={{
+            sx: {
+              padding: "6px",
+            },
+          }}
         >
           {Array.isArray(userChannelMappings) &&
             userChannelMappings?.map((item: any) => (

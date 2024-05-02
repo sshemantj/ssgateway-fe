@@ -9,25 +9,28 @@ import {
   postChannelMapping,
 } from "@/services/thunks/tableApis";
 import {
+  IProducts,
   changePdType,
   changeSubPdType,
   resetHomeTableData,
 } from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Pagination } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
-import styles from "./customtable.module.scss";
 import toast, { Toaster } from "react-hot-toast";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { useSearchParams } from "next/navigation";
+import SelectDropdown from "@/component/molecules/selectDropdown";
+import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
   const [search, setSearch] = useState<string>("");
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [selectedChannels, setselectedChannels] = useState<any>({});
+  const [pageSize, setPageSize] = useState<number>(100);
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
   const [currChannel, setCurrChannel] = useState<any>("");
   const [productType, setProductType] = useState<string>("");
@@ -77,6 +80,8 @@ const HomeModule = () => {
     if (pdType) {
       setSearch("");
       setCurrSelectedRow([]);
+      setPageSize(100);
+
       // dispatch(resetHomeTableData());
       // getTableData({});
     }
@@ -103,6 +108,10 @@ const HomeModule = () => {
         });
     }
   }, [pdType, selectedChannel]);
+
+  useEffect(() => {
+    getTableData({ pageSize, type: productType as IProducts });
+  }, [pageSize]);
 
   const handleRowClick = (item: any, index: number) => {
     setOpen((prev: any) => {
@@ -140,6 +149,7 @@ const HomeModule = () => {
     getTableData({
       pageNumber,
       searchTerm: search,
+      pageSize,
     });
   };
 
@@ -231,7 +241,9 @@ const HomeModule = () => {
         position: "top-right",
         duration: 2000,
       });
-      getTableData({});
+      getTableData({
+        pageSize,
+      });
     });
   };
 
@@ -275,6 +287,12 @@ const HomeModule = () => {
     }
   };
 
+  const handlePageSizeSelection = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPageSize(+e.target.value);
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       {pdType !== IProductsTypes.UNAPPROVED ? (
@@ -293,40 +311,69 @@ const HomeModule = () => {
       ) : null}
       <div className={styles.tableWrapper}>
         <CustomTable
-          handlePagination={handlePagination}
           handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}
           open={open?.[productType]}
           theadArr={keysArray}
           tbodyArr={apiRes}
-          showPagination
-          totalRecords={totalRecords}
           isMultiSelects={pdType !== IApprovedPdTypes.MAPPED}
           selectedChannels={selectedChannels}
         />
       </div>
-      {pdType !== IApprovedPdTypes.MAPPED && (
+      {subPdType !== IApprovedPdTypes.MAPPED && (
         <div className={styles.submitBtnWrapper}>
-          <Button
-            onClick={() => handleButtonClick()}
-            className={`${styles.button} ${
-              pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
-            }`}
-            variant="contained"
-            disabled={!!!currSelectedRow.length}
-          >
-            {showBtnText()}
-          </Button>
-          {pdType === IApprovedPdTypes.UN_MAPPED && (
-            <MultiSelectDropdown
-              {...{
-                setselectedChannels,
-                selectedChannels,
-                index: 0,
-                currChannel: currChannel?.channelId || "",
+          <div className={styles.rhs_wrapper}>
+            <div className={styles.totalRecordWrapper}>
+              <p>Total records: {totalRecords}</p>
+            </div>
+            <SelectDropdown
+              handleOnChange={handlePageSizeSelection}
+              label="Rows per page"
+              value={pageSize}
+              inputProps={{
+                sx: {
+                  padding: "6px 0 6px 2.6rem",
+                  textAlign: "start",
+                },
               }}
+              selectSx={{ width: "6rem" }}
+              data={[
+                { label: "100", value: 100 },
+                { label: "50", value: 50 },
+                { label: "30", value: 30 },
+                { label: "10", value: 10 },
+              ]}
             />
-          )}
+          </div>
+          <div className={styles.lhs_wrapper}>
+            {pdType === IApprovedPdTypes.UN_MAPPED && (
+              <MultiSelectDropdown
+                {...{
+                  setselectedChannels,
+                  selectedChannels,
+                  index: 0,
+                  currChannel: currChannel?.channelId || "",
+                }}
+              />
+            )}
+            <div className={styles.paginationWrapper}>
+              <Pagination
+                count={Math.ceil(totalRecords / pageSize)}
+                onChange={(_, page) => handlePagination(page)}
+                variant="outlined"
+              />
+            </div>
+            <Button
+              onClick={() => handleButtonClick()}
+              className={`${styles.button} ${
+                pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
+              }`}
+              variant="contained"
+              disabled={!!!currSelectedRow.length}
+            >
+              {showBtnText()}
+            </Button>
+          </div>
         </div>
       )}
       <Toaster />

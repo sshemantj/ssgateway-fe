@@ -1,13 +1,10 @@
 @import "@/styles/variables.scss";
 
 .selectWrapper {
-  padding: 1rem 0 0 0;
   background: $color_white;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+
   .selectStyles {
-    min-width: 400px;
+    min-width: 120px;
     background-color: $color_white;
   }
 }
