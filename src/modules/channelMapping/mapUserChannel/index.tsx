@@ -5,13 +5,13 @@ import {
   addUserChannelMappings,
   getChannelMasters,
 } from "@/services/thunks/tableApis";
-import MapUserTable from "./mapUserTable";
+import MapUserTable from "../mapUserTable";
 import { getUserDetails } from "@/services/thunks/loginApi";
 import toast, { Toaster } from "react-hot-toast";
 import { IApprovedPdTypes } from "@/interfaces/product";
 import styles from "./mapUserChannelModule.module.scss";
 
-const MapUserChannelModule = () => {
+const MapUserChannel = () => {
   const [open, setOpen] = useState<any>({});
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
@@ -132,4 +132,4 @@ const MapUserChannelModule = () => {
   );
 };
 
-export default MapUserChannelModule;
+export default MapUserChannel;

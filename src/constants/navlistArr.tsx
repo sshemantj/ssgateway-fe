@@ -1,5 +1,6 @@
 import {
   IAllRoutes,
+  IChannelMappingSubRoutes,
   IChannelSubRoutes,
   IFileManagementSubRoutes,
   IProfileSubRoutes,
@@ -114,17 +115,19 @@ export const navListArr: INavListArr[] = [
   {
     topHeading: "Channel Mapping",
     subHeaderList: [
-      {
-        title: "View User channel",
-        icon: "",
-        iconJsx: <OfflineBoltIcon color="inherit" />,
-      },
+      // {
+      //   title: "View User channel",
+      //   icon: "",
+      //   iconJsx: <OfflineBoltIcon color="inherit" />,
+      //   path: IAllRoutes.CHANNEL_MAPPINGS,
+      //   value: IChannelMappingSubRoutes.VIEW_CHANNEL,
+      // },
       {
         title: "Map User with channels",
         icon: "",
         iconJsx: <QueueIcon color="inherit" />,
-        value: "map_user_with_channels",
-        path: "/map-user-channels",
+        path: IAllRoutes.CHANNEL_MAPPINGS,
+        value: IChannelMappingSubRoutes.MAP_CHANNEL,
       },
     ],
   },

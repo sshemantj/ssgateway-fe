@@ -153,6 +153,7 @@ const MainLayout = (props: IProps) => {
       case IAllRoutes.MANAGE_CHANNELS:
       case IAllRoutes.USER_PROFILE:
       case IAllRoutes.FILE_MANAGEMENT:
+      case IAllRoutes.CHANNEL_MAPPINGS:
         router.push(`${path}?screen=${value}`);
         return;
     }

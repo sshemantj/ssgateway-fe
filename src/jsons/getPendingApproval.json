@@ -1,0 +1,37 @@
+{
+  "sizevariantData": [
+    {
+      "id": 37227,
+      "action": "M",
+      "baseProduct": "A22W80212135_RED",
+      "code": "A22W80212135003",
+      "sizeCode": "LARGE",
+      "sizeDesc": "LARGE",
+      "hsnCode": "61159990",
+      "ean": "8907819835743",
+      "taxCategoryCode": "61159990",
+      "vendorPartNumber": "22NOW62080-212135",
+      "departmentCode": "NB17",
+      "styleCode": "A22W80212135",
+      "subDepartmentCode": "NB17C020",
+      "classCode": "NB17C020D0759",
+      "subClassCode": "NB17C020D0759E110",
+      "productWeight": "0.000",
+      "productLength": "12.100",
+      "productHeight": "10.900",
+      "productWidth": "0.400",
+      "merchandiseGroup": "LEGGINGS",
+      "buyingUOM": "EA",
+      "sellingUnitWeight": "0.000",
+      "seasonCode": "A22",
+      "merchandiseCategory": 1565,
+      "sizeNew": "LARGE",
+      "length": "",
+      "isapproved": false,
+      "approvedby": null,
+      "approvedon": null,
+      "channelMappings": null
+    }
+  ],
+  "totalRecords": 1
+}

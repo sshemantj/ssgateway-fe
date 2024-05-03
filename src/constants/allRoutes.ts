@@ -7,6 +7,7 @@ export enum IAllRoutes {
   MANAGE_CHANNELS = "/manage-channels",
   USER_PROFILE = "/user-profile",
   FILE_MANAGEMENT = "/file-management",
+  CHANNEL_MAPPINGS = "/channel-mappings",
 }
 
 export enum IChannelSubRoutes {
@@ -23,6 +24,11 @@ export enum IProfileSubRoutes {
 export enum IFileManagementSubRoutes {
   UPLOAD_FILE = "upload-file",
   VIEW_PENDING_APROVAL = "view-pending-approval",
+}
+
+export enum IChannelMappingSubRoutes {
+  VIEW_CHANNEL = "view-channels",
+  MAP_CHANNEL = "map-channels",
 }
 
 export interface ISubRoutes {

@@ -4,7 +4,6 @@ import { Profile, ProfileList } from "./profile";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { IAllRoutes } from "@/constants/allRoutes";
 import styles from "./navlist.module.scss";
 import {
   INavListArr,
