@@ -298,23 +298,23 @@ const HomeModule = () => {
 
   return (
     <div className={styles.customTableWrapper}>
-      {pdType !== IProductsTypes.UNAPPROVED ? (
-        <div className={styles.btnWrapper}>
-          <Grid container>
-            <Grid item sm={12} md={4} marginLeft={"auto"}>
+      <div className={styles.btnWrapper}>
+        <Grid container>
+          <Grid item sm={12} md={4} marginLeft={"auto"}>
+            {pdType !== IProductsTypes.UNAPPROVED ? (
               <DoubleVariantCard
                 handleChange={handleChange}
                 mappedCount={totalCount?.mapped as number}
                 unMappedCount={totalCount?.unmapped as number}
                 color="primary"
               />
-            </Grid>
-            <Grid item sm={12} md={4}>
-              {pdType && <SearchComponent />}
-            </Grid>
+            ) : null}
           </Grid>
-        </div>
-      ) : null}
+          <Grid item sm={12} md={4}>
+            {pdType && <SearchComponent />}
+          </Grid>
+        </Grid>
+      </div>
       <div className={styles.tableWrapper}>
         <CustomTable
           handleHeaderClick={handleHeaderClick}
