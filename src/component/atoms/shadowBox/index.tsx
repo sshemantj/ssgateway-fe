@@ -3,7 +3,7 @@ import styles from "./shadowBox.module.scss";
 
 interface IProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  children?: JSX.Element | string;
+  children?: any;
 }
 
 const ShadowBox = (props: IProps) => {

@@ -2,13 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
 import { IProducts } from "@/store/slices/gatewaySlice";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
+import { IFileManagementSubRoutes } from "@/constants/allRoutes";
 
 export interface IFetchTableData {
   pageNumber?: number;
   pageSize?: number;
   searchTerm?: string;
   channelid?: string;
-  type: IProducts;
+  type: IProducts | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
 }
 
 interface IGetStyleVariants {
@@ -50,7 +51,12 @@ const fetchTableData = createAsyncThunk(
     channelid,
   }: IFetchTableData) => {
     try {
-      if (!channelid && type !== IProductsTypes.UNAPPROVED) {
+      if (
+        !channelid &&
+        [IApprovedPdTypes.MAPPED, IApprovedPdTypes.UN_MAPPED].includes(
+          type as any
+        )
+      ) {
         throw new Error("channel not selected!");
       }
       let product = "";
@@ -63,6 +69,9 @@ const fetchTableData = createAsyncThunk(
           break;
         case IProductsTypes.UNAPPROVED:
           product = "GetUnAprrovedsizevariants";
+          break;
+        case IFileManagementSubRoutes.VIEW_PENDING_APROVAL:
+          product = "GetPendingUploadedData";
           break;
       }
       const url = `/api/Products/${product}`;

@@ -13,8 +13,13 @@ import {
   getUserChannelMappings,
 } from "@/services/thunks/tableApis";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
+import { IFileManagementSubRoutes } from "@/constants/allRoutes";
 
-export type IProducts = "" | IApprovedPdTypes | IProductsTypes;
+export type IProducts =
+  | ""
+  | IApprovedPdTypes
+  | IProductsTypes
+  | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
 
 type IGatewaySlice = {
   status: "loading" | "succeeded" | "failed";

@@ -23,8 +23,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { useSearchParams } from "next/navigation";
 import SelectDropdown from "@/component/molecules/selectDropdown";
-import styles from "./customtable.module.scss";
 import SearchComponent from "@/component/atoms/searchComponent";
+import styles from "./customtable.module.scss";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
