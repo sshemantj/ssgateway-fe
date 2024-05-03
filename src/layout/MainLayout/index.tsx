@@ -141,13 +141,6 @@ const MainLayout = (props: IProps) => {
   const handleTypeClick = (value: any, path: IAllRoutes) => {
     setProductType(value);
     switch (value) {
-      case "upload_pending_data":
-        router.push("upload-file");
-        return;
-      // case IProductsTypes.UNAPPROVED:
-      // case IProductsTypes.APPROVED:
-      //   handleProductState(value);
-      //   return;
       case "map_user_with_channels":
         router.push("/map-user-channels");
         return;
@@ -158,9 +151,8 @@ const MainLayout = (props: IProps) => {
         handleProductState(value);
         return;
       case IAllRoutes.MANAGE_CHANNELS:
-        router.push(`${path}?screen=${value}`);
-        return;
       case IAllRoutes.USER_PROFILE:
+      case IAllRoutes.FILE_MANAGEMENT:
         router.push(`${path}?screen=${value}`);
         return;
     }

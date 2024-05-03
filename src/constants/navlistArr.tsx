@@ -1,6 +1,7 @@
 import {
   IAllRoutes,
   IChannelSubRoutes,
+  IFileManagementSubRoutes,
   IProfileSubRoutes,
 } from "@/constants/allRoutes";
 import { IProductsTypes } from "@/interfaces/product";
@@ -52,14 +53,16 @@ export const navListArr: INavListArr[] = [
         title: "Upload pending data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
-        value: "upload_pending_data",
-        path: "/upload-file",
+        // value: "upload_pending_data",
+        path: IAllRoutes.FILE_MANAGEMENT,
+        value: IFileManagementSubRoutes.UPLOAD_FILE,
       },
       {
         title: "View pending approval data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
-        path: "/view-pending-approval",
+        path: IAllRoutes.FILE_MANAGEMENT,
+        value: IFileManagementSubRoutes.VIEW_PENDING_APROVAL,
       },
     ],
   },

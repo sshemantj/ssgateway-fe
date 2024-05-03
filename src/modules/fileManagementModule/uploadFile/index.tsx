@@ -12,7 +12,7 @@ import styles from "./uploadFile.module.scss";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
-const UploadFileModule = () => {
+const UploadFile = () => {
   const [progress, setProgress] = useState(0);
   const [file, setFile] = useState<File>();
   const [uploadStatus, setUploadStatus] = useState<IStatuses>("selecting");
@@ -149,4 +149,4 @@ const UploadFileModule = () => {
   );
 };
 
-export default UploadFileModule;
+export default UploadFile;

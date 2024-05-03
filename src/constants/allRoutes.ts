@@ -6,6 +6,7 @@ export enum IAllRoutes {
   LOGIN = "/login",
   MANAGE_CHANNELS = "/manage-channels",
   USER_PROFILE = "/user-profile",
+  FILE_MANAGEMENT = "/file-management",
 }
 
 export enum IChannelSubRoutes {
@@ -17,6 +18,11 @@ export enum IChannelSubRoutes {
 export enum IProfileSubRoutes {
   UPDATE_PASSWORD = "update-password",
   UPDATE_PROFILE = "update-profile",
+}
+
+export enum IFileManagementSubRoutes {
+  UPLOAD_FILE = "upload-file",
+  VIEW_PENDING_APROVAL = "view-pending-approval",
 }
 
 export interface ISubRoutes {
