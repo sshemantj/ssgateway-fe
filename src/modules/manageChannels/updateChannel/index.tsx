@@ -41,6 +41,7 @@ const UpdateChannel = () => {
         setFormValues(updatedRows);
         return { ...params.props };
       };
+      if (item.field === "channelid") item.editable = false;
       return item;
     });
     setTableColumns(tableColumnList);
