@@ -1,0 +1,9 @@
+@import "@/styles/variables.scss";
+
+.shadowBox {
+  padding: 0 1rem;
+  min-height: 87vh;
+  box-shadow: $shadow_1;
+  background-color: $color_white;
+  border-radius: 6px;
+}
