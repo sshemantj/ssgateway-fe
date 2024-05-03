@@ -1,16 +1,16 @@
 @import "@/styles/variables.scss";
 
 .searchValueContainer {
-  border-radius: 6px;
-  width: 100%;
+  // border-radius: 6px;
+  // width: 100%;
   background-color: $color_white;
-  position: absolute;
+  // position: absolute;
   top: -60px;
   left: 0;
   transition: top 0.3s ease-out;
   display: flex;
   align-items: center;
-  box-shadow: $shadow_1;
+  // box-shadow: $shadow_1;
   @media (min-width: 768px) {
     top: 0;
     width: 50%;
@@ -30,7 +30,7 @@
     padding: 0 0.5rem;
     cursor: pointer;
     color: $color_black;
-    transform: translateY(5px);
+    transform: scale(0.8) translateY(10px);
   }
   .searchInput {
     background-color: $color_white;

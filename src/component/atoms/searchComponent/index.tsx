@@ -3,16 +3,16 @@ import { TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import SearchIcon from "@mui/icons-material/Search";
-import styles from "./searchNav.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useSearchParams } from "next/navigation";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { IProducts } from "@/store/slices/gatewaySlice";
 import { fetchTableData } from "@/services/thunks/tableApis";
+import styles from "./searchNav.module.scss";
 
 interface ISearchProps {
-  isSearchActive: boolean;
-  setIsSearchActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isSearchActive?: boolean;
+  setIsSearchActive?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchComponent = (props: ISearchProps) => {
@@ -43,14 +43,15 @@ const SearchComponent = (props: ISearchProps) => {
     pType: IProducts
   ) => {
     const type = screen === IProductsTypes.APPROVED ? sPdType : pType;
-
-    dispatch(
-      fetchTableData({
-        channelid: selectedChannel,
-        type: type,
-        searchTerm: value,
-      })
-    );
+    if (searchValue) {
+      dispatch(
+        fetchTableData({
+          channelid: selectedChannel,
+          type: type,
+          searchTerm: value,
+        })
+      );
+    }
   };
 
   const handleOnKeyDown = useCallback(
@@ -72,7 +73,7 @@ const SearchComponent = (props: ISearchProps) => {
       }`}
     >
       <TextField
-        style={{ width: "100%" }}
+        style={{ width: "unset" }}
         placeholder="search..."
         className={styles.searchInput}
         value={searchValue}
@@ -81,10 +82,16 @@ const SearchComponent = (props: ISearchProps) => {
         sx={{
           "& fieldset": { border: "none" },
         }}
+        inputProps={{
+          sx: {
+            padding: "6px",
+            marginTop: "12px",
+          },
+        }}
       />
       {isMobile ? (
         <CloseIcon
-          onClick={() => setIsSearchActive((prev) => !prev)}
+          // onClick={() => setIsSearchActive((prev) => !prev)}
           style={{ margin: "0 1rem 0 0", cursor: "pointer" }}
         />
       ) : (

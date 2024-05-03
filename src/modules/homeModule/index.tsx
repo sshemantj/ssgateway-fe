@@ -24,6 +24,7 @@ import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { useSearchParams } from "next/navigation";
 import SelectDropdown from "@/component/molecules/selectDropdown";
 import styles from "./customtable.module.scss";
+import SearchComponent from "@/component/atoms/searchComponent";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -300,13 +301,16 @@ const HomeModule = () => {
       {pdType !== IProductsTypes.UNAPPROVED ? (
         <div className={styles.btnWrapper}>
           <Grid container>
-            <Grid item sm={12} md={4} margin={"auto"}>
+            <Grid item sm={12} md={4} marginLeft={"auto"}>
               <DoubleVariantCard
                 handleChange={handleChange}
                 mappedCount={totalCount?.mapped as number}
                 unMappedCount={totalCount?.unmapped as number}
                 color="primary"
               />
+            </Grid>
+            <Grid item sm={12} md={4}>
+              {pdType && <SearchComponent />}
             </Grid>
           </Grid>
         </div>
