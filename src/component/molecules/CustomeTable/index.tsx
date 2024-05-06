@@ -98,9 +98,6 @@ const CustomTable = (props: IProps) => {
                       padding: "4px 1rem",
                       textTransform: "capitalize",
                       cursor: "pointer",
-                      ...(item === "check"
-                        ? { display: "flex", alignItems: "center" }
-                        : {}),
                     }}
                     key={index}
                     align="center"

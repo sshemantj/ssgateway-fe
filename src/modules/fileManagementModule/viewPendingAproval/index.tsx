@@ -49,11 +49,11 @@ const VeiwPendingApproval = () => {
     apiRes && apiRes?.length
       ? [
           "code",
-          "baseproduct",
-          "sizecode",
-          "sizedesc",
-          "stylecode",
-          "subdepartmentcode",
+          "baseProduct",
+          "sizeCode",
+          "sizeDesc",
+          "styleCode",
+          "subDepartmentCode",
         ]
       : [];
 
