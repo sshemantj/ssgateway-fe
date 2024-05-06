@@ -18,8 +18,11 @@ const DoubleVariantCard = (props: IProps) => {
     <CustomTab2
       {...{
         tabList: [
-          { label: "Unmapped", value: IApprovedPdTypes.UN_MAPPED },
-          { label: "mapped", value: IApprovedPdTypes.MAPPED },
+          {
+            label: `${unMappedCount} Unmapped`,
+            value: IApprovedPdTypes.UN_MAPPED,
+          },
+          { label: `${mappedCount} mapped`, value: IApprovedPdTypes.MAPPED },
         ],
         handleChange,
         value: subPdType,

@@ -53,5 +53,16 @@
     "createdon": "2024-03-19T16:36:15.298615",
     "lastmodifiedby": "user1",
     "lastmodifiedon": "2024-03-19T16:36:15.298619"
+  },
+  {
+    "id": 8,
+    "channelid": "cannel 8",
+    "channelname": "channel eight",
+    "description": "channel description2 ",
+    "isactive": true,
+    "createdby": "user1",
+    "createdon": "2024-03-19T16:36:15.298615",
+    "lastmodifiedby": "user1",
+    "lastmodifiedon": "2024-03-19T16:36:15.298619"
   }
 ]

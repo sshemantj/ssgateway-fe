@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { channelColumns } from "@/constants/channelCommon";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import styles from "./viewAllChannel.module.scss";
+import { getChannelMasters } from "@/services/thunks/tableApis";
 
 const ViewAllChannel = () => {
   const [tableRows, setTableRows] = useState<GridRowsProp>();
   const [tableColumns, setTableColumns] = useState<GridColDef[]>();
   const { channelMasters } = useAppSelector((state) => state.gateway);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getChannelMasters());
+  }, []);
 
   useEffect(() => {
     const finalTableColumns = Array.isArray(channelMasters)

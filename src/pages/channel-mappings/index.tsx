@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import MainLayout from "@/layout/MainLayout";
-import ChannelMappings from "@/modules/channelMapping/mapUserChannel";
+import ChannelMappings from "@/modules/channelMapping";
 
 const MapUserWithChannels: NextPage = () => {
   return (

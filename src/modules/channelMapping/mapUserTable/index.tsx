@@ -95,9 +95,9 @@ const MapUserTable = (props: IProps) => {
             return (
               <TableRow
                 key={`${row.name}${index}`}
-                className={`${styles.tableRow} ${
-                  open?.[row.id] && styles.open
-                }`}
+                className={`${styles.tableRow} ${open?.[row.id] && styles.open}
+                ${row.disabled && styles.disabled}
+                `}
                 onClick={() => handleRowClick(row, index)}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
@@ -110,7 +110,10 @@ const MapUserTable = (props: IProps) => {
                     },
                   }}
                 >
-                  <Checkbox checked={Boolean(open?.[row.id])} />
+                  <Checkbox
+                    disabled={row.disabled}
+                    checked={row.disabled || Boolean(open?.[row.id])}
+                  />
                 </NestedTable>
                 {customTheadArr
                   .filter((item) => !excludedFields.includes(item))

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   addUserChannelMappings,
   getChannelMasters,
+  getUserChannelMappings,
 } from "@/services/thunks/tableApis";
 import MapUserTable from "../mapUserTable";
 import { getUserDetails } from "@/services/thunks/loginApi";
@@ -15,31 +16,61 @@ const MapUserChannel = () => {
   const [open, setOpen] = useState<any>({});
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
+  const [filteredChannelMasterList, setFilteredChannelMasterList] = useState<
+    any[]
+  >([]);
 
   const dispatch = useAppDispatch();
 
-  const { channelMasters, pdType } = useAppSelector((state) => state.gateway);
+  const { channelMasters, userChannelMappings, pdType } = useAppSelector(
+    (state) => state.gateway
+  );
   const { username: persistedUsername, userDetails } = useAppSelector(
     (state) => state.login
   );
 
   const keysArray =
-    channelMasters && channelMasters?.length
+    filteredChannelMasterList && filteredChannelMasterList?.length
       ? ["id", "channelid", "channelname", "description"]
       : [];
 
   useEffect(() => {
     dispatch(getChannelMasters());
+    dispatch(getUserChannelMappings());
   }, []);
+
+  useEffect(() => {
+    try {
+      const arr1 = JSON.parse(JSON.stringify(userChannelMappings));
+      const arr2 = JSON.parse(JSON.stringify(channelMasters));
+      for (const item1 of arr1) {
+        for (const item2 of arr2) {
+          if (item2.channelid === item1.channelId) {
+            item2.disabled = true;
+            break;
+          }
+        }
+      }
+
+      setFilteredChannelMasterList(arr2);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [userChannelMappings, channelMasters]);
 
   const handleHeaderClick = (name: string) => {
     if (name === "check") {
-      const allIds = channelMasters?.reduce((acc: any, curr: any) => {
-        acc[curr.id] = true;
-        return acc;
-      }, {});
+      const allIds = filteredChannelMasterList?.reduce(
+        (acc: any, curr: any) => {
+          if (!curr.disabled) {
+            acc[curr.id] = true;
+          }
+          return acc;
+        },
+        {}
+      );
 
-      setCurrSelectedRow(isAllChecked ? channelMasters : []);
+      setCurrSelectedRow(isAllChecked ? filteredChannelMasterList : []);
 
       setOpen(isAllChecked ? allIds : {});
 
@@ -98,17 +129,17 @@ const MapUserChannel = () => {
         <Grid className={styles.mapUserChannel_inner} item sm={12} md={12}>
           <div
             className={`${styles.tableWrapper} ${
-              channelMasters?.length || styles.alignCenter
+              filteredChannelMasterList?.length || styles.alignCenter
             }`}
           >
-            {channelMasters?.length ? (
+            {filteredChannelMasterList?.length ? (
               <>
                 <MapUserTable
                   handleHeaderClick={handleHeaderClick}
                   handleRowClick={handleRowClick}
                   open={open}
                   theadArr={keysArray}
-                  tbodyArr={channelMasters}
+                  tbodyArr={filteredChannelMasterList}
                 />
                 <div className={styles.submitBtnWrapper}>
                   <Button
