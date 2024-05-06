@@ -12,6 +12,7 @@ import {
   persistUsername,
 } from "@/store/slices/loginSlice";
 import { Cookies } from "react-cookie";
+import { setLoader } from "@/store/slices/gatewaySlice";
 
 const cookie = new Cookies();
 
@@ -26,10 +27,12 @@ const LoginComponent = () => {
 
   const handleLogin = () => {
     if (!username && !password) toast.error("username and password required!");
+    dispatch(setLoader(true));
     dispatch(callLogin({ Username: username, Password: password }))
       .then(() => {
         dispatch(persistUsername(username));
         dispatch(getUserDetails(username)).then(() => {
+          dispatch(setLoader(false));
           router.reload();
           handleModalClose();
         });
