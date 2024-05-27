@@ -25,6 +25,7 @@ import { useSearchParams } from "next/navigation";
 import SelectDropdown from "@/component/molecules/selectDropdown";
 import SearchComponent from "@/component/atoms/searchComponent";
 import styles from "./customtable.module.scss";
+import UnapprovedModule from "./unapprovedModule";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -364,7 +365,8 @@ const HomeModule = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        <CustomTable
+        <UnapprovedModule />
+        {/* <CustomTable
           handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}
           open={open?.[productType]}
@@ -372,10 +374,10 @@ const HomeModule = () => {
           tbodyArr={apiRes}
           isMultiSelects={pdType !== IApprovedPdTypes.MAPPED}
           selectedChannels={selectedChannels}
-        />
+        /> */}
       </div>
       {/* {subPdType !== IApprovedPdTypes.MAPPED && apiRes?.length ? ( */}
-      <div className={styles.submitBtnWrapper}>
+      {/* <div className={styles.submitBtnWrapper}>
         <div className={styles.rhs_wrapper}>
           <div className={styles.totalRecordWrapper}>
             <p>Total records: {totalRecords}</p>
@@ -428,7 +430,7 @@ const HomeModule = () => {
             {showBtnText()}
           </Button>
         </div>
-      </div>
+      </div> */}
       {/* ) : null} */}
       <Toaster />
     </div>
