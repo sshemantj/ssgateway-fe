@@ -29,7 +29,7 @@ import UnMappedModule from "./unMappedModule";
 import styles from "./customtable.module.scss";
 import MappedModule from "./mappedModule";
 
-const HomeModule = () => {
+const DashboardModule = () => {
   const [open, setOpen] = useState<any>({});
   const [search, setSearch] = useState<string>("");
   const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
@@ -441,4 +441,4 @@ const HomeModule = () => {
   );
 };
 
-export default HomeModule;
+export default DashboardModule;

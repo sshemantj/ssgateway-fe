@@ -3,7 +3,7 @@ import DashboardModule from "@/modules/dashboardModule";
 import { NextPage } from "next";
 import Head from "next/head";
 
-const Dashboard: NextPage = () => {
+const PdTypes: NextPage = () => {
   return (
     <>
       <Head>
@@ -16,4 +16,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default PdTypes;

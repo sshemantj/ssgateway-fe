@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import Navbar from "@/component/molecules/Navbar";
-import HomeModule from "@/modules/homeModule";
+import DashboardModule from "@/modules/dashboardModule";
 import { useAppSelector } from "@/store/hooks";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import NavFields from "@/component/molecules/Navbar/NavFields";
@@ -27,7 +27,7 @@ const Old: NextPage = () => {
       <main>
         <div style={style}>
           {isMobile ? <NavFields /> : null}
-          {pdType !== "" ? <HomeModule /> : null}
+          {pdType !== "" ? <DashboardModule /> : null}
         </div>
       </main>
     </>
