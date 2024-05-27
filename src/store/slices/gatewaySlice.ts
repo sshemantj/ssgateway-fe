@@ -88,7 +88,7 @@ export const gatewaySlice = createSlice({
       })
       .addCase(fetchTableData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.data = action.payload || initialState.data;
         state.isLoading = false;
       })
       .addCase(fetchTableData.rejected, (state, action) => {
