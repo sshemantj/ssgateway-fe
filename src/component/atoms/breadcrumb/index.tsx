@@ -12,9 +12,15 @@ const Breadcrumbs = () => {
   const screen = searchParams.get("screen");
   const router = useRouter();
 
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    router.replace("/", undefined, { shallow: true });
+  };
+
   const handlePathNames = () => {
-    const path = paths?.split("/")?.filter((path) => path) as unknown as string;
-    console.log(paths, path, screen);
+    const path = paths.split("/").filter((path) => path) as unknown as string;
     if (router.pathname === "/") return screen;
     if (screen) return `${path} / ${screen}`;
     return path;
@@ -22,55 +28,27 @@ const Breadcrumbs = () => {
 
   const pathNames = handlePathNames();
 
-  const handleRouteClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    pathStr: string,
-    index?: number,
-    isLastPath?: boolean
-  ) => {
-    event.preventDefault();
-    if (pathStr === "/") {
-      return router.replace("/", undefined, { shallow: true });
-    }
-    if (!isLastPath) {
-      router.replace("/" + pathStr, undefined, { shallow: true });
-    }
-  };
-
   return (
     <div className={styles.breadCrumbWrapper}>
+      {/* <p className={styles.breadcrumbTitle}>Dashboard Analytics</p> */}
       <div role="presentation">
         <BreadcrumbsMui
+          aria-label="breadcrumb"
           sx={{
             "& .MuiBreadcrumbs-separator": {
               color: "#fff",
             },
           }}
-          aria-label="breadcrumb"
         >
           <Link
-            onClick={(e) => handleRouteClick(e, "/")}
-            style={{ color: "#fff" }}
-            underline="always"
+            onClick={(e) => handleClick(e)}
+            underline="hover"
+            color="whitesmoke"
             href="/"
           >
             Home
           </Link>
-          {Array.isArray(pathNames) &&
-            pathNames.map((pathStr, index) => {
-              // const isLastPath = index === pathNames?.length - 1;
-
-              return (
-                <Link
-                  onClick={(e) => handleRouteClick(e, pathStr, index)}
-                  style={{ color: "#fff" }}
-                  underline="always"
-                  href="/"
-                >
-                  {pathStr}
-                </Link>
-              );
-            })}
+          <Typography color="whitesmoke">{pathNames}</Typography>
         </BreadcrumbsMui>
       </div>
     </div>
