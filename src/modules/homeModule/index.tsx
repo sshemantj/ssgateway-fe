@@ -15,7 +15,7 @@ import {
   resetHomeTableData,
 } from "@/store/slices/gatewaySlice";
 import useTableData from "@/hooks/useTableData";
-import { Button, Grid, Pagination } from "@mui/material";
+import { Box, Button, Grid, Pagination } from "@mui/material";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
 import DoubleVariantCard from "@/component/atoms/cards/doubleVariantCard";
 import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
@@ -33,6 +33,7 @@ const HomeModule = () => {
   const [selectedChannels, setselectedChannels] = useState<any>({});
   const [pageSize, setPageSize] = useState<number>(100);
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
+  const [selectedCatlog, setselectedCatlog] = useState<string>("");
   const [currChannel, setCurrChannel] = useState<any>("");
   const [productType, setProductType] = useState<string>("");
   const [totalCount, setTotalCount] = useState<{
@@ -297,10 +298,56 @@ const HomeModule = () => {
     setPageSize(+e.target.value);
   };
 
+  const handleCatlogSelect = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setselectedCatlog(e.target.value);
+  };
+
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
         <Grid container>
+          <Grid item sm={12} md={4}>
+            {subPdType === IApprovedPdTypes.MAPPED ? (
+              <Box className={styles.catlogSelect}>
+                <SelectDropdown
+                  handleOnChange={handleCatlogSelect}
+                  label="Select Catlog"
+                  value={selectedCatlog}
+                  inputProps={{
+                    sx: {
+                      padding: "6px 0 6px 2.6rem",
+                      textAlign: "start",
+                    },
+                  }}
+                  selectSx={{
+                    width: "12rem",
+                    "& .MuiInputBase-input": {
+                      padding: "5px",
+                    },
+                    "& fieldset legend": {
+                      display: "none",
+                    },
+                    "& label": {
+                      top: "-10px",
+                      fontSize: "14px",
+                    },
+                    "& .MuiInputLabel-shrink": {
+                      top: "-4px",
+                      background: "#fff",
+                    },
+                  }}
+                  data={[
+                    { label: "Catlog", value: "catlog" },
+                    { label: "Not catlogs", value: "notcatlogs" },
+                    { label: "Live", value: "live" },
+                    { label: "Not live", value: "notlive" },
+                  ]}
+                />
+              </Box>
+            ) : null}
+          </Grid>
           <Grid item sm={12} md={4} marginLeft={"auto"}>
             {pdType !== IProductsTypes.UNAPPROVED ? (
               <DoubleVariantCard

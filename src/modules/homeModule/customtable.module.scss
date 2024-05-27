@@ -10,6 +10,13 @@
   .btnWrapper {
     margin-bottom: 6px;
     position: relative;
+    .catlogSelect {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
     @media (max-width: 668px) {
       // height: 8rem;
     }
