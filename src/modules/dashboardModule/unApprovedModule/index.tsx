@@ -6,6 +6,7 @@ import {
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
+import UnApprovedFooter from "./unApprovedFooter";
 
 const UnapprovedModule = () => {
   const [tableState, setTableState] = useState({
@@ -24,6 +25,9 @@ const UnapprovedModule = () => {
     <Box width="100%">
       <FeaturedTable
         {...{
+          slots: {
+            footer: UnApprovedFooter,
+          },
           rows: tableState.rows,
           columns: tableState.columns,
           checkboxSelection: true,

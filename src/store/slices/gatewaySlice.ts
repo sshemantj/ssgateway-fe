@@ -103,6 +103,7 @@ export const gatewaySlice = createSlice({
       .addCase(getStyleVariants.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.styleVariants = action.payload;
+        state.isLoading = false;
       })
       .addCase(getStyleVariants.rejected, (state, action) => {
         state.status = "failed";
@@ -116,6 +117,7 @@ export const gatewaySlice = createSlice({
       .addCase(getSizeVariants.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.sizeVariants = action.payload;
+        state.isLoading = false;
       })
       .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
@@ -129,6 +131,7 @@ export const gatewaySlice = createSlice({
       .addCase(getChannelMasters.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.channelMasters = action.payload;
+        state.isLoading = false;
       })
       .addCase(getChannelMasters.rejected, (state, action) => {
         state.status = "failed";
@@ -142,6 +145,7 @@ export const gatewaySlice = createSlice({
       .addCase(getUserChannelMappings.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.userChannelMappings = action.payload;
+        state.isLoading = false;
       })
       .addCase(getUserChannelMappings.rejected, (state, action) => {
         state.status = "failed";

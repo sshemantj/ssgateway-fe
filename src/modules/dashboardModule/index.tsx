@@ -93,7 +93,7 @@ const DashboardModule = () => {
   }, [pdType, subPdType]);
 
   useEffect(() => {
-    if (pdType === IProductsTypes.APPROVED) {
+    if (pdType === IProductsTypes.APPROVED && selectedChannel) {
       dispatch(getCountApi({ type: "unmapped", channelid: selectedChannel }))
         .unwrap()
         .then((res) => {
