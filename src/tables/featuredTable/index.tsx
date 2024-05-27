@@ -37,20 +37,25 @@ const FeaturedTable = (props: IFeaturedTableProps) => {
             {
               outline: "none",
             },
-          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar": {
-            width: "10px",
-            backgroundColor: "#f5f5f5",
-          },
-          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-track": {
-            background: "#f1f1f1",
-          },
-          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-thumb": {
-            backgroundColor: "#888",
-          },
-          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-thumb:hover": {
-            background: "#555",
-            cursor: "grab",
-          },
+          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar, & .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar":
+            {
+              width: "10px",
+              height: "10px",
+              backgroundColor: "#f5f5f5",
+            },
+          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-track, & .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar-track":
+            {
+              background: "#f1f1f1",
+            },
+          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-thumb, & .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar-thumb":
+            {
+              backgroundColor: "#888",
+            },
+          "& .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar-thumb:hover, & .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar-thumb:hover":
+            {
+              background: "#555",
+              cursor: "grab",
+            },
           "& .MuiDataGrid-columnHeaders > div": {
             background: "#6a64f1 !important",
             color: "#fff",
