@@ -51,6 +51,13 @@ const FeaturedTable = (props: IFeaturedTableProps) => {
             background: "#555",
             cursor: "grab",
           },
+          "& .MuiDataGrid-columnHeaders > div": {
+            background: "#6a64f1 !important",
+            color: "#fff",
+            "& svg": {
+              color: "#fff",
+            },
+          },
         }}
         rows={rows}
         columns={columns}

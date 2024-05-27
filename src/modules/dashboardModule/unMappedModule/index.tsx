@@ -18,7 +18,7 @@ const UnMappedModule = () => {
   };
 
   return (
-    <Box width="100%" maxWidth="80vw">
+    <Box width="100%">
       <FeaturedTable
         {...{
           rows: tableState.rows,

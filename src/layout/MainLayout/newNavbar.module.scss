@@ -111,6 +111,7 @@
       min-height: calc(100vh - 45px);
       width: 100%;
       padding: 0 1rem;
+      overflow: scroll;
       .breadcrumbWrapper {
         margin-bottom: 4px;
         position: relative;
