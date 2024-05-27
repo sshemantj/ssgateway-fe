@@ -374,62 +374,62 @@ const HomeModule = () => {
           selectedChannels={selectedChannels}
         />
       </div>
-      {subPdType !== IApprovedPdTypes.MAPPED && apiRes?.length ? (
-        <div className={styles.submitBtnWrapper}>
-          <div className={styles.rhs_wrapper}>
-            <div className={styles.totalRecordWrapper}>
-              <p>Total records: {totalRecords}</p>
-            </div>
-            <SelectDropdown
-              handleOnChange={handlePageSizeSelection}
-              label="Rows per page"
-              value={pageSize}
-              inputProps={{
-                sx: {
-                  padding: "6px 0 6px 2.6rem",
-                  textAlign: "start",
-                },
+      {/* {subPdType !== IApprovedPdTypes.MAPPED && apiRes?.length ? ( */}
+      <div className={styles.submitBtnWrapper}>
+        <div className={styles.rhs_wrapper}>
+          <div className={styles.totalRecordWrapper}>
+            <p>Total records: {totalRecords}</p>
+          </div>
+          <SelectDropdown
+            handleOnChange={handlePageSizeSelection}
+            label="Rows per page"
+            value={pageSize}
+            inputProps={{
+              sx: {
+                padding: "6px 0 6px 2.6rem",
+                textAlign: "start",
+              },
+            }}
+            selectSx={{ width: "6rem" }}
+            data={[
+              { label: "100", value: 100 },
+              { label: "50", value: 50 },
+              { label: "30", value: 30 },
+              { label: "10", value: 10 },
+            ]}
+          />
+        </div>
+        <div className={styles.lhs_wrapper}>
+          {pdType === IApprovedPdTypes.UN_MAPPED && (
+            <MultiSelectDropdown
+              {...{
+                setselectedChannels,
+                selectedChannels,
+                index: 0,
+                currChannel: currChannel?.channelId || "",
               }}
-              selectSx={{ width: "6rem" }}
-              data={[
-                { label: "100", value: 100 },
-                { label: "50", value: 50 },
-                { label: "30", value: 30 },
-                { label: "10", value: 10 },
-              ]}
+            />
+          )}
+          <div className={styles.paginationWrapper}>
+            <Pagination
+              count={Math.ceil(totalRecords / pageSize)}
+              onChange={(_, page) => handlePagination(page)}
+              variant="outlined"
             />
           </div>
-          <div className={styles.lhs_wrapper}>
-            {pdType === IApprovedPdTypes.UN_MAPPED && (
-              <MultiSelectDropdown
-                {...{
-                  setselectedChannels,
-                  selectedChannels,
-                  index: 0,
-                  currChannel: currChannel?.channelId || "",
-                }}
-              />
-            )}
-            <div className={styles.paginationWrapper}>
-              <Pagination
-                count={Math.ceil(totalRecords / pageSize)}
-                onChange={(_, page) => handlePagination(page)}
-                variant="outlined"
-              />
-            </div>
-            <Button
-              onClick={() => handleButtonClick()}
-              className={`${styles.button} ${
-                pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
-              }`}
-              variant="contained"
-              disabled={!!!currSelectedRow.length}
-            >
-              {showBtnText()}
-            </Button>
-          </div>
+          <Button
+            onClick={() => handleButtonClick()}
+            className={`${styles.button} ${
+              pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
+            }`}
+            variant="contained"
+            disabled={!!!currSelectedRow.length}
+          >
+            {showBtnText()}
+          </Button>
         </div>
-      ) : null}
+      </div>
+      {/* ) : null} */}
       <Toaster />
     </div>
   );
