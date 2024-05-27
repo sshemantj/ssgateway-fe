@@ -307,6 +307,13 @@ const DashboardModule = () => {
     setselectedCatlog(e.target.value);
   };
 
+  const isUnapprovedScreen = pdType === IProductsTypes.UNAPPROVED;
+  const isUnmappedScreen =
+    pdType === IProductsTypes.APPROVED &&
+    subPdType === IApprovedPdTypes.UN_MAPPED;
+  const isMappedScreen =
+    pdType === IProductsTypes.APPROVED && subPdType === IApprovedPdTypes.MAPPED;
+
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
@@ -367,9 +374,9 @@ const DashboardModule = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        {pdType === IProductsTypes.UNAPPROVED ? <UnapprovedModule /> : null}
-        {pdType === IApprovedPdTypes.UN_MAPPED ? <UnMappedModule /> : null}
-        {pdType === IApprovedPdTypes.MAPPED ? <MappedModule /> : null}
+        {isUnapprovedScreen ? <UnapprovedModule /> : null}
+        {isUnmappedScreen ? <UnMappedModule /> : null}
+        {isMappedScreen ? <MappedModule /> : null}
         {/* <CustomTable
           handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}

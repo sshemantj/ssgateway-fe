@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
-import { inProgressColumns, inProgressRows } from "@/constants/tableConstant";
+import { orderRefColumns, orderRefRows } from "@/constants/tableConstant";
 
 const MappedModule = () => {
   const [tableState, setTableState] = useState({
-    columns: inProgressColumns,
-    rows: inProgressRows,
+    columns: orderRefColumns,
+    rows: orderRefRows,
   });
 
   const [selectedTableRows, setSelectedTableRows] =
