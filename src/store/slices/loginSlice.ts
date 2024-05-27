@@ -44,10 +44,16 @@ export const login = createSlice({
       .addCase(callLogin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        throw new Error(action.error.message);
       })
       //getUserDetails
       .addCase(getUserDetails.fulfilled, (state, action) => {
         state.userDetails = action.payload;
+      })
+      .addCase(getUserDetails.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
+        throw new Error(action.error.message);
       });
   },
 });

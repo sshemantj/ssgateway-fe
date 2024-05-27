@@ -16,7 +16,9 @@ const useTableData = () => {
     const { type, ...rest } = props;
     const finalType = type || pdType;
     finalType &&
-      dispatch(fetchTableData({ channelid, type: finalType, ...rest }));
+      dispatch(fetchTableData({ channelid, type: finalType, ...rest })).catch(
+        (error) => console.log(error)
+      );
   };
 };
 

@@ -94,7 +94,7 @@ export const gatewaySlice = createSlice({
       .addCase(fetchTableData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
-        state.isLoading = false;
+        // throw new Error(action.error.message);
       })
       // fetch style variants
       .addCase(getStyleVariants.pending, (state) => {
@@ -107,6 +107,7 @@ export const gatewaySlice = createSlice({
       .addCase(getStyleVariants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        // throw new Error(action.error.message);
       })
       // fetch size variants
       .addCase(getSizeVariants.pending, (state) => {
@@ -119,6 +120,7 @@ export const gatewaySlice = createSlice({
       .addCase(getSizeVariants.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        // throw new Error(action.error.message);
       })
       // fetch channel master
       .addCase(getChannelMasters.pending, (state) => {
@@ -131,6 +133,7 @@ export const gatewaySlice = createSlice({
       .addCase(getChannelMasters.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        // throw new Error(action.error.message);
       })
       // fetch channel master
       .addCase(getUserChannelMappings.pending, (state) => {
@@ -143,6 +146,7 @@ export const gatewaySlice = createSlice({
       .addCase(getUserChannelMappings.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
+        // throw new Error(action.error.message);
       });
   },
 });

@@ -37,12 +37,13 @@ const LoginComponent = () => {
           handleModalClose();
         });
       })
-      .catch((error: any) =>
+      .catch((error: any) => {
         toast.error(error.message || "Error while trying to login!", {
           position: "top-right",
           duration: 2000,
-        })
-      );
+        });
+        dispatch(setLoader(false));
+      });
   };
 
   const handleModalClose = () => {

@@ -157,8 +157,9 @@ const HomeModule = () => {
   const handleChange = (_: React.SyntheticEvent, newValue: any) => {
     setProductType(newValue);
     dispatch(changeSubPdType(newValue));
-    dispatch(fetchTableData({ channelid: selectedChannel, type: newValue }));
-    // dispatch(changePdType(newValue));
+    dispatch(
+      fetchTableData({ channelid: selectedChannel, type: newValue })
+    ).catch((error) => console.log(error));
   };
 
   const showBtnText = () => {

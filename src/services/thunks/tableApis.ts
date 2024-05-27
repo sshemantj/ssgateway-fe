@@ -90,7 +90,7 @@ const fetchTableData = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
-      return { products: [] };
+      throw new Error(error.message);
     }
   }
 );
@@ -109,8 +109,8 @@ const getStyleVariants = createAsyncThunk(
       });
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -129,8 +129,8 @@ const getSizeVariants = createAsyncThunk(
       });
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -144,8 +144,8 @@ const createChannelMaster = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -159,8 +159,8 @@ const getChannelMasters = createAsyncThunk(
       const response = await axiosPrivate.get(url);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -174,8 +174,8 @@ const getUserChannelMappings = createAsyncThunk(
       const response = await axiosPrivate.get(url);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -214,8 +214,8 @@ const getCountApi = createAsyncThunk(
       });
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -229,8 +229,8 @@ const postChannelMapping = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -244,8 +244,8 @@ const addUserChannelMappings = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -266,8 +266,8 @@ const uploadDataforPendingApproval = createAsyncThunk(
       });
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -286,8 +286,8 @@ const approveSizevariants = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -301,8 +301,8 @@ const updateChannelMaster = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -322,8 +322,8 @@ const updatePassword = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
@@ -343,8 +343,8 @@ const updateProfile = createAsyncThunk(
       const response = await axiosPrivate.post(url, payload);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 );
