@@ -24,8 +24,10 @@ import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { useSearchParams } from "next/navigation";
 import SelectDropdown from "@/component/molecules/selectDropdown";
 import SearchComponent from "@/component/atoms/searchComponent";
+import UnapprovedModule from "./unApprovedModule";
+import UnMappedModule from "./unMappedModule";
 import styles from "./customtable.module.scss";
-import UnapprovedModule from "./unapprovedModule";
+import MappedModule from "./mappedModule";
 
 const HomeModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -365,7 +367,9 @@ const HomeModule = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        <UnapprovedModule />
+        {pdType === IProductsTypes.UNAPPROVED ? <UnapprovedModule /> : null}
+        {pdType === IApprovedPdTypes.UN_MAPPED ? <UnMappedModule /> : null}
+        {pdType === IApprovedPdTypes.MAPPED ? <MappedModule /> : null}
         {/* <CustomTable
           handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}

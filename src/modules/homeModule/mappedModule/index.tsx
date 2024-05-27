@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import {
-  carrierCollectionsColumns,
-  carrierCollectionsRows,
-} from "@/constants/tableConstant";
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
+import { inProgressColumns, inProgressRows } from "@/constants/tableConstant";
 
-const UnapprovedModule = () => {
+const MappedModule = () => {
   const [tableState, setTableState] = useState({
-    columns: carrierCollectionsColumns,
-    rows: carrierCollectionsRows,
+    columns: inProgressColumns,
+    rows: inProgressRows,
   });
 
   const [selectedTableRows, setSelectedTableRows] =
@@ -34,4 +31,4 @@ const UnapprovedModule = () => {
   );
 };
 
-export default UnapprovedModule;
+export default MappedModule;

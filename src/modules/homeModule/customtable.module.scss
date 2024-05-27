@@ -2,6 +2,7 @@
 
 .customTableWrapper {
   padding-bottom: 1rem;
+  width: 100%;
   min-height: 83vh;
   position: relative;
   box-shadow: $shadow_1;
@@ -24,6 +25,7 @@
     }
   }
   .tableWrapper {
+    width: 100%;
     // padding-top: 3rem;
   }
 
