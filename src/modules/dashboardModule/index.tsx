@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import CustomTable from "@/component/molecules/CustomeTable";
 import {
+  IFetchTableData,
   IPostChannelMapping,
   approveSizevariants,
   fetchTableData,
@@ -83,10 +84,10 @@ const DashboardModule = () => {
 
   useEffect(() => {
     if (pdType) {
-      setSearch("");
-      setCurrSelectedRow([]);
-      setPageSize(100);
-      setselectedChannels({});
+      // setSearch("");
+      // setCurrSelectedRow([]);
+      // setPageSize(100);
+      // setselectedChannels({});
       // dispatch(resetHomeTableData());
       // getTableData({});
     }
@@ -114,9 +115,9 @@ const DashboardModule = () => {
     }
   }, [pdType, selectedChannel]);
 
-  useEffect(() => {
-    getTableData({ pageSize, type: productType as IProducts });
-  }, [pageSize]);
+  // useEffect(() => {
+  //   getTableData({ pageSize, type: productType as IProducts });
+  // }, [pageSize]);
 
   const handleRowClick = (item: any, index: number) => {
     setOpen((prev: any) => {
@@ -293,7 +294,35 @@ const DashboardModule = () => {
   const handleCatlogSelect = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setselectedCatlog(e.target.value);
+    const value = e.target.value;
+    setselectedCatlog(value);
+    const params: IFetchTableData = {
+      type: IApprovedPdTypes.MAPPED,
+      channelid: selectedChannel,
+    };
+
+    console.log(value);
+    switch (value) {
+      case "all":
+        break;
+      case "pendingLive":
+        params.isLive = false;
+        break;
+      case "live":
+        params.isLive = true;
+        break;
+      case "pendingCatalog":
+        params.iscatalog = false;
+        break;
+      case "cataLogCreated":
+        params.iscatalog = true;
+        break;
+    }
+    dispatch(
+      fetchTableData({
+        ...params,
+      })
+    ).catch((error) => console.log(error));
   };
 
   const isUnapprovedScreen = pdType === IProductsTypes.UNAPPROVED;
@@ -340,8 +369,8 @@ const DashboardModule = () => {
                   data={[
                     { label: "All", value: "all" },
                     { label: "Pending Live", value: "pendingLive" },
-                    { label: "Pending Catlog", value: "catlog" },
-                    { label: "Catlog Created", value: "catLogCreated" },
+                    { label: "Pending Catalog", value: "pendingCatalog" },
+                    { label: "Catlog Created", value: "cataLogCreated" },
                     { label: "Live", value: "live" },
                   ]}
                 />

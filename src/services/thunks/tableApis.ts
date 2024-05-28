@@ -9,6 +9,8 @@ export interface IFetchTableData {
   pageSize?: number;
   searchTerm?: string;
   channelid?: string;
+  isLive?: boolean;
+  iscatalog?: boolean;
   type: IProducts | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
 }
 
@@ -48,6 +50,15 @@ export interface ICreateChannelPayload {
   };
 }
 
+interface IParams {
+  pageNumber: number;
+  pageSize: number;
+  channelid?: string;
+  search?: string;
+  isLive?: boolean;
+  iscatalog?: boolean;
+}
+
 const fetchTableData = createAsyncThunk(
   "table/fetchProducts",
   async ({
@@ -56,6 +67,8 @@ const fetchTableData = createAsyncThunk(
     searchTerm = "",
     type,
     channelid,
+    isLive,
+    iscatalog,
   }: IFetchTableData) => {
     try {
       if (
@@ -66,10 +79,21 @@ const fetchTableData = createAsyncThunk(
       ) {
         throw new Error("channel not selected!");
       }
+
+      const search = searchTerm ? { searchTerm } : {};
+      const params: IParams = {
+        pageNumber,
+        pageSize,
+        channelid,
+        ...search,
+      };
+
       let product = "";
       switch (type) {
         case IApprovedPdTypes.MAPPED:
           product = "GetApprovedMappedSizevariants";
+          if (typeof isLive !== "undefined") params.isLive = isLive;
+          if (typeof iscatalog !== "undefined") params.iscatalog = iscatalog;
           break;
         case IProductsTypes.APPROVED:
           product = "GetApprovedUnMappedSizevariants";
@@ -82,14 +106,6 @@ const fetchTableData = createAsyncThunk(
           break;
       }
       const url = `/api/Products/${product}`;
-
-      const search = searchTerm ? { searchTerm } : {};
-      const params = {
-        pageNumber,
-        pageSize,
-        channelid,
-        ...search,
-      };
 
       const response = await axiosPrivate.get(url, {
         params,
