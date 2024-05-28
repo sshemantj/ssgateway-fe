@@ -3,6 +3,7 @@ import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { orderRefColumns, orderRefRows } from "@/constants/tableConstant";
+import MappedFooter from "./mappedModule";
 
 const MappedModule = () => {
   const [tableState, setTableState] = useState({
@@ -21,6 +22,9 @@ const MappedModule = () => {
     <Box width="100%">
       <FeaturedTable
         {...{
+          slots: {
+            footer: MappedFooter,
+          },
           rows: tableState.rows,
           columns: tableState.columns,
           checkboxSelection: true,
