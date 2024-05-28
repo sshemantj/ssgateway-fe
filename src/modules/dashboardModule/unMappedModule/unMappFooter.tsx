@@ -2,12 +2,12 @@ import { Button } from "@mui/material";
 import { GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import React from "react";
 
-const UnMappedFooter = () => {
-  return (
+const UnMappedFooter = (handlePostChannnelMapping: () => void) => {
+  return () => (
     <GridFooterContainer>
       <GridFooter />
       <Button
-        // onClick={() => handleButtonClick()}
+        onClick={() => handlePostChannnelMapping()}
         // disabled={!!!currSelectedRow.length}
         sx={{ padding: "4px 32px" }}
         variant="contained"

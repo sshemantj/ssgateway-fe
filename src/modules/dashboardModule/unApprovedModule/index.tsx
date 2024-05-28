@@ -8,7 +8,12 @@ import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import UnApprovedFooter from "./unApprovedFooter";
 
-const UnapprovedModule = () => {
+interface IProps {
+  handleApprovedProduct: () => void;
+}
+
+const UnapprovedModule = (props: IProps) => {
+  const { handleApprovedProduct } = props;
   const [tableState, setTableState] = useState({
     columns: carrierCollectionsColumns,
     rows: carrierCollectionsRows,
@@ -26,7 +31,7 @@ const UnapprovedModule = () => {
       <FeaturedTable
         {...{
           slots: {
-            footer: UnApprovedFooter,
+            footer: UnApprovedFooter(handleApprovedProduct),
           },
           rows: tableState.rows,
           columns: tableState.columns,

@@ -5,7 +5,12 @@ import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { inProgressColumns, inProgressRows } from "@/constants/tableConstant";
 import UnMappedFooter from "./unMappFooter";
 
-const UnMappedModule = () => {
+interface IProps {
+  handlePostChannnelMapping: () => void;
+}
+
+const UnMappedModule = (props: IProps) => {
+  const { handlePostChannnelMapping } = props;
   const [tableState, setTableState] = useState({
     columns: inProgressColumns,
     rows: inProgressRows,
@@ -22,7 +27,7 @@ const UnMappedModule = () => {
     <Box width="100%">
       <FeaturedTable
         {...{
-          slots: { footer: UnMappedFooter },
+          slots: { footer: UnMappedFooter(handlePostChannnelMapping) },
           rows: tableState.rows,
           columns: tableState.columns,
           checkboxSelection: true,

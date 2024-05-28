@@ -374,8 +374,14 @@ const DashboardModule = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        {isUnapprovedScreen ? <UnapprovedModule /> : null}
-        {isUnmappedScreen ? <UnMappedModule /> : null}
+        {isUnapprovedScreen ? (
+          <UnapprovedModule handleApprovedProduct={handleApprovedProduct} />
+        ) : null}
+        {isUnmappedScreen ? (
+          <UnMappedModule
+            handlePostChannnelMapping={handlePostChannnelMapping}
+          />
+        ) : null}
         {isMappedScreen ? <MappedModule /> : null}
         {/* <CustomTable
           handleHeaderClick={handleHeaderClick}
