@@ -33,10 +33,10 @@ type IGatewaySlice = {
   subPdType: IApprovedPdTypes | "";
   error: string;
   isLoading: boolean;
-  mappedProducts: any[];
-  aprovedProducts: any[];
-  unAprovedProducts: any[];
-  "view-pending-approval": any[];
+  mappedProducts: any;
+  aprovedProducts: any;
+  unAprovedProducts: any;
+  "view-pending-approval": any;
 };
 
 const initialState = {
