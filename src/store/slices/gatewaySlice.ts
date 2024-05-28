@@ -22,7 +22,7 @@ export type IProducts =
   | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
 
 type IGatewaySlice = {
-  status: "loading" | "succeeded" | "failed";
+  status?: "loading" | "succeeded" | "failed";
   data: any;
   styleVariants: any;
   sizeVariants: any;
@@ -33,6 +33,10 @@ type IGatewaySlice = {
   subPdType: IApprovedPdTypes | "";
   error: string;
   isLoading: boolean;
+  mappedProducts: any[];
+  aprovedProducts: any[];
+  unAprovedProducts: any[];
+  "view-pending-approval": any[];
 };
 
 const initialState = {
@@ -53,6 +57,10 @@ const initialState = {
   subPdType: IApprovedPdTypes.UN_MAPPED,
   error: "",
   isLoading: false,
+  unAprovedProducts: [],
+  mappedProducts: [],
+  aprovedProducts: [],
+  "view-pending-approval": [],
 } as IGatewaySlice;
 
 export const gatewaySlice = createSlice({
@@ -88,7 +96,8 @@ export const gatewaySlice = createSlice({
       })
       .addCase(fetchTableData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload || initialState.data;
+        /* @ts-ignore */
+        state[action.payload.type] = action.payload.data || initialState.data;
         state.isLoading = false;
       })
       .addCase(fetchTableData.rejected, (state, action) => {

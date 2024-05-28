@@ -88,7 +88,7 @@ const fetchTableData = createAsyncThunk(
         params,
       });
 
-      return response?.data;
+      return { data: response?.data, type };
     } catch (error: any) {
       throw new Error(error.message);
     }
