@@ -337,7 +337,7 @@ const DashboardModule = () => {
       <div className={styles.btnWrapper}>
         <Grid container>
           <Grid item sm={12} md={4}>
-            {subPdType === IApprovedPdTypes.MAPPED ? (
+            {!isUnapprovedScreen && subPdType === IApprovedPdTypes.MAPPED ? (
               <Box className={styles.catlogSelect}>
                 <SelectDropdown
                   handleOnChange={handleCatlogSelect}
