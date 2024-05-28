@@ -255,17 +255,6 @@ const DashboardModule = () => {
     );
   };
 
-  const handleButtonClick = () => {
-    switch (pdType) {
-      case IApprovedPdTypes.UN_MAPPED:
-        handlePostChannnelMapping();
-        break;
-      case IProductsTypes.UNAPPROVED:
-        handleApprovedProduct();
-        break;
-    }
-  };
-
   useEffect(() => {
     if (selectedChannel) {
       const currChannel = userChannelMappings?.find(
@@ -374,9 +363,7 @@ const DashboardModule = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        {isUnapprovedScreen ? (
-          <UnapprovedModule handleApprovedProduct={handleApprovedProduct} />
-        ) : null}
+        {isUnapprovedScreen ? <UnapprovedModule /> : null}
         {isUnmappedScreen ? (
           <UnMappedModule
             handlePostChannnelMapping={handlePostChannnelMapping}

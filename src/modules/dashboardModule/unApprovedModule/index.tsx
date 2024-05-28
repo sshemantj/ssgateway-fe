@@ -4,19 +4,21 @@ import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import UnApprovedFooter from "./unApprovedFooter";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { approveSizevariants } from "@/services/thunks/tableApis";
+import toast, { Toaster } from "react-hot-toast";
+import useTableData from "@/hooks/useTableData";
 
-interface IProps {
-  handleApprovedProduct: () => void;
-}
+interface IProps {}
 
 const UnapprovedModule = (props: IProps) => {
-  const { handleApprovedProduct } = props;
+  const {} = props;
 
   const unAprovedProducts = useAppSelector(
     (state) => state.gateway.unAprovedProducts
   );
-
+  const dispatch = useAppDispatch();
+  const getTableData = useTableData();
   const [tableState, setTableState] = useState({
     columns: unApprovedColumns,
     rows: [],
@@ -47,6 +49,25 @@ const UnapprovedModule = (props: IProps) => {
   const [selectedTableRows, setSelectedTableRows] =
     useState<GridRowSelectionModel>([]);
 
+  const handleApprovedProduct = () => {
+    if (selectedTableRows?.length) {
+      dispatch(
+        approveSizevariants({
+          payload: selectedTableRows as string[],
+          source: "UI",
+        })
+      ).then(() => {
+        toast.success("Product successfully aproved!", {
+          position: "top-right",
+          duration: 2000,
+        });
+        getTableData({
+          pageSize: 100,
+        });
+      });
+    }
+  };
+
   const onRowSelectionModelChange = (selectedIds: GridRowSelectionModel) => {
     setSelectedTableRows(selectedIds);
   };
@@ -64,6 +85,7 @@ const UnapprovedModule = (props: IProps) => {
           onRowSelectionModelChange,
         }}
       />
+      <Toaster />
     </Box>
   );
 };
