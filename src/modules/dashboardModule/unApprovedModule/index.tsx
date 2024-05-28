@@ -77,7 +77,10 @@ const UnapprovedModule = (props: IProps) => {
       <FeaturedTable
         {...{
           slots: {
-            footer: UnApprovedFooter(handleApprovedProduct),
+            footer: UnApprovedFooter(
+              handleApprovedProduct,
+              !!!selectedTableRows?.length
+            ),
           },
           rows: tableState.rows,
           columns: tableState.columns,
