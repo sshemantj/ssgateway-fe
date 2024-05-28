@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
-import { inProgressColumns, inProgressRows } from "@/constants/tableConstant";
+import { unMappedColumns, unMappedRows } from "@/constants/tableConstant";
 import UnMappedFooter from "./unMappFooter";
 import {
   IPostChannelMapping,
@@ -17,12 +17,13 @@ interface IProps {}
 const UnMappedModule = (props: IProps) => {
   const {} = props;
   const [tableState, setTableState] = useState({
-    columns: inProgressColumns,
-    rows: inProgressRows,
+    columns: unMappedColumns,
+    rows: [],
   });
   const {
     selectedChannel,
     subPdType,
+    aprovedProducts: unMappedProducts,
     userChannelMappings: userChannel,
   } = useAppSelector((state) => state.gateway);
   const dispatch = useAppDispatch();
@@ -31,21 +32,57 @@ const UnMappedModule = (props: IProps) => {
   const [selectedTableRows, setSelectedTableRows] =
     useState<GridRowSelectionModel>([]);
   const [selectedChannels, setselectedChannels] = useState<any>({});
-  const [currSelectedRow, setCurrSelectedRow] = useState<any[]>([]);
   const [currChannel, setCurrChannel] = useState<any>("");
 
-  const handlePostChannnelMapping = () => {
-    if (!selectedChannels?.[0]) {
-      //handle single channel mappings
-      const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
+  useEffect(() => {
+    if (unMappedProducts?.sizevariantData?.length) {
+      const data = unMappedProducts?.sizevariantData;
+      const newRows = data?.map((item: (typeof unMappedRows)[0]) => ({
+        id: item.id,
+        code: item.code,
+        baseproduct: item.baseproduct,
+        sizecode: item.sizecode,
+        sizedesc: item.sizedesc,
+        stylecode: item.stylecode,
+        subdepartmentcode: item.subdepartmentcode,
+      }));
+
+      setTableState((prev) => {
         return {
-          channelid: currChannel?.channelId,
-          channelname: currChannel?.channelName,
-          stylecode: item.stylecode,
-          StyleVariantCode: item.baseproduct,
-          sizevariantcode: item.code,
+          ...prev,
+          rows: newRows,
         };
       });
+    }
+  }, [unMappedProducts]);
+
+  useEffect(() => {
+    if (selectedChannel) {
+      const currChannel = userChannelMappings?.find(
+        (item: any) => item.channelId === selectedChannel
+      );
+      setCurrChannel(currChannel);
+    }
+  }, [selectedChannel]);
+
+  const handlePostChannnelMapping = () => {
+    const currSelectedRows = unMappedProducts?.sizevariantData?.filter(
+      (item: any) => selectedTableRows.includes(item.id)
+    );
+
+    if (!selectedChannels?.[0]) {
+      //handle single channel mappings
+      const payload: IPostChannelMapping[] = currSelectedRows.map(
+        (item: any) => {
+          return {
+            channelid: currChannel?.channelId,
+            channelname: currChannel?.channelName,
+            stylecode: item.stylecode,
+            StyleVariantCode: item.baseproduct,
+            sizevariantcode: item.code,
+          };
+        }
+      );
       dispatch(postChannelMapping(payload)).then(() => {
         toast.success("Channel mapping successful!", {
           position: "top-right",
@@ -57,15 +94,17 @@ const UnMappedModule = (props: IProps) => {
       });
     } else {
       //handle multiple channel mappings
-      const payload: IPostChannelMapping[] = currSelectedRow.map((item) => {
-        return {
-          channelid: "",
-          channelname: "",
-          stylecode: item.stylecode,
-          StyleVariantCode: item.baseproduct,
-          sizevariantcode: item.code,
-        };
-      });
+      const payload: IPostChannelMapping[] = currSelectedRows.map(
+        (item: any) => {
+          return {
+            channelid: "",
+            channelname: "",
+            stylecode: item.stylecode,
+            StyleVariantCode: item.baseproduct,
+            sizevariantcode: item.code,
+          };
+        }
+      );
 
       const allSelectedChannels =
         userChannelMappings
