@@ -11,6 +11,7 @@ import { useSearchParams } from "next/navigation";
 import styles from "./viewPendingAproval.module.scss";
 import { approveSizevariants } from "@/services/thunks/tableApis";
 import { IFileManagementSubRoutes } from "@/constants/allRoutes";
+import ViewPendingTable from "./viewPendingTable";
 
 const VeiwPendingApproval = () => {
   const [open, setOpen] = useState<any>({});
@@ -146,16 +147,17 @@ const VeiwPendingApproval = () => {
         </Grid>
       </div>
       <div className={styles.tableWrapper}>
-        <CustomTable
+        <ViewPendingTable />
+        {/* <CustomTable
           handleHeaderClick={handleHeaderClick}
           handleRowClick={handleRowClick}
           open={open}
           theadArr={keysArray}
           tbodyArr={apiRes}
           isMultiSelects
-        />
+        /> */}
       </div>
-      {apiRes?.length ? (
+      {/* {apiRes?.length ? (
         <div className={styles.submitBtnWrapper}>
           <div className={styles.rhs_wrapper}>
             <div className={styles.totalRecordWrapper}>
@@ -198,7 +200,7 @@ const VeiwPendingApproval = () => {
             </Button>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
       <Toaster />
     </ShadowBox>
   );

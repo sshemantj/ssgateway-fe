@@ -139,6 +139,51 @@ export const mappedRows = [
     subdepartmentcode: "",
   },
 ];
+export const pendingApprovalColumns: GridColDef[] = [
+  { field: "code", headerName: "Code", width: 130, align: "left" },
+  {
+    field: "baseProduct",
+    headerName: "Baseproduct",
+    width: 220,
+    align: "left",
+  },
+  {
+    field: "sizeCode",
+    headerName: "Sizecode",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "sizeDesc",
+    headerName: "Sizedesc",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "styleCode",
+    headerName: "Stylecode",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "subDepartmentCode",
+    headerName: "Subdepartmentcode",
+    width: 160,
+    align: "left",
+  },
+];
+
+export const pendingApprovalRows = [
+  {
+    id: 1,
+    code: "",
+    baseProduct: "",
+    sizeCode: "",
+    sizeDesc: "",
+    styleCode: "",
+    subDepartmentCode: "",
+  },
+];
 
 function createData(
   name: string,
