@@ -1,10 +1,8 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import Navbar from "@/component/molecules/Navbar";
 import DashboardModule from "@/modules/dashboardModule";
 import { useAppSelector } from "@/store/hooks";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
-import NavFields from "@/component/molecules/Navbar/NavFields";
 import { CSSProperties } from "react";
 
 const style: CSSProperties = {
@@ -23,12 +21,8 @@ const Old: NextPage = () => {
       <Head>
         <title>Configuration Panel</title>
       </Head>
-      <Navbar showApprovedFields={!isMobile} />
       <main>
-        <div style={style}>
-          {isMobile ? <NavFields /> : null}
-          {pdType !== "" ? <DashboardModule /> : null}
-        </div>
+        <div style={style}>{pdType !== "" ? <DashboardModule /> : null}</div>
       </main>
     </>
   );
