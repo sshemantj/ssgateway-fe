@@ -364,11 +364,7 @@ const DashboardModule = () => {
       </div>
       <div className={styles.tableWrapper}>
         {isUnapprovedScreen ? <UnapprovedModule /> : null}
-        {isUnmappedScreen ? (
-          <UnMappedModule
-            handlePostChannnelMapping={handlePostChannnelMapping}
-          />
-        ) : null}
+        {isUnmappedScreen ? <UnMappedModule /> : null}
         {isMappedScreen ? <MappedModule /> : null}
         {/* <CustomTable
           handleHeaderClick={handleHeaderClick}

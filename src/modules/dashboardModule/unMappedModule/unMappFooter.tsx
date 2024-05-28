@@ -1,14 +1,45 @@
-import { Button } from "@mui/material";
+import MultiSelectDropdown from "@/component/molecules/multiSelectDropdown";
+import { Box, Button } from "@mui/material";
 import { GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import React from "react";
 
-const UnMappedFooter = (handlePostChannnelMapping: () => void) => {
+interface IFooter {
+  handlePostChannnelMapping: () => void;
+  setselectedChannels: any;
+  selectedChannels: React.Dispatch<any>;
+  currChannel: any;
+  isDisabled: boolean;
+}
+
+const UnMappedFooter = (props: IFooter) => {
+  const {
+    handlePostChannnelMapping,
+    currChannel,
+    isDisabled,
+    selectedChannels,
+    setselectedChannels,
+  } = props;
   return () => (
     <GridFooterContainer>
-      <GridFooter />
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <GridFooter />
+        {/* @ts-ignore */}
+        <MultiSelectDropdown
+          {...{
+            setselectedChannels,
+            selectedChannels,
+            index: 0,
+            currChannel: currChannel?.channelId || "",
+          }}
+        />
+      </Box>
       <Button
         onClick={() => handlePostChannnelMapping()}
-        // disabled={!!!currSelectedRow.length}
+        disabled={isDisabled}
         sx={{ padding: "4px 32px" }}
         variant="contained"
       >
