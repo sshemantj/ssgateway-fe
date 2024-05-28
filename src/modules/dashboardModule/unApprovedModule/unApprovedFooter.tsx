@@ -6,7 +6,7 @@ const UnApprovedFooter = (
   handleApprovedProduct: () => void,
   isDisabled: boolean
 ) => {
-  return () => (
+  const UnApprovedFooter = () => (
     <GridFooterContainer>
       <GridFooter />
       <Button
@@ -19,6 +19,7 @@ const UnApprovedFooter = (
       </Button>
     </GridFooterContainer>
   );
+  return UnApprovedFooter;
 };
 
 export default UnApprovedFooter;

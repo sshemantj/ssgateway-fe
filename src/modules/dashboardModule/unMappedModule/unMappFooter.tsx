@@ -19,7 +19,7 @@ const UnMappedFooter = (props: IFooter) => {
     selectedChannels,
     setselectedChannels,
   } = props;
-  return () => (
+  const UNMappedFooter = () => (
     <GridFooterContainer>
       <Box
         sx={{
@@ -47,6 +47,7 @@ const UnMappedFooter = (props: IFooter) => {
       </Button>
     </GridFooterContainer>
   );
+  return UNMappedFooter;
 };
 
 export default UnMappedFooter;

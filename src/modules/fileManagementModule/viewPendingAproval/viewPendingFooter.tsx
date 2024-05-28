@@ -6,7 +6,7 @@ const ViewPendingFooter = (
   handleApprovedProduct: () => void,
   isDisabled: boolean
 ) => {
-  return () => (
+  const ViewPendingInner = () => (
     <GridFooterContainer>
       <GridFooter />
       <Button
@@ -19,6 +19,7 @@ const ViewPendingFooter = (
       </Button>
     </GridFooterContainer>
   );
+  return ViewPendingInner;
 };
 
 export default ViewPendingFooter;
