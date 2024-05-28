@@ -86,6 +86,7 @@ const UnapprovedModule = (props: IProps) => {
           columns: tableState.columns,
           checkboxSelection: true,
           onRowSelectionModelChange,
+          rowCount: unAprovedProducts?.totalRecords,
         }}
       />
       <Toaster />

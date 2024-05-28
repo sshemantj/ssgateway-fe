@@ -77,20 +77,23 @@ const ViewPendingTable = (props: IProps) => {
 
   return (
     <Box width="100%">
-      <FeaturedTable
-        {...{
-          slots: {
-            footer: ViewPendingFooter(
-              handleApprovedProduct,
-              !!!selectedTableRows?.length
-            ),
-          },
-          rows: tableState.rows,
-          columns: tableState.columns,
-          checkboxSelection: true,
-          onRowSelectionModelChange,
-        }}
-      />
+      {viewPendingApproval?.sizevariantData ? (
+        <FeaturedTable
+          {...{
+            slots: {
+              footer: ViewPendingFooter(
+                handleApprovedProduct,
+                !!!selectedTableRows?.length
+              ),
+            },
+            rows: tableState.rows,
+            columns: tableState.columns,
+            checkboxSelection: true,
+            onRowSelectionModelChange,
+            rowCount: viewPendingApproval?.totalRecords,
+          }}
+        />
+      ) : null}
       <Toaster />
     </Box>
   );

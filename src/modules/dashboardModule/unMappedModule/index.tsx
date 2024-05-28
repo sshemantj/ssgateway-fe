@@ -148,15 +148,18 @@ const UnMappedModule = (props: IProps) => {
 
   return (
     <Box width="100%">
-      <FeaturedTable
-        {...{
-          slots: { footer: UnMappedFooter(footerParameters) },
-          rows: tableState.rows,
-          columns: tableState.columns,
-          checkboxSelection: true,
-          onRowSelectionModelChange,
-        }}
-      />
+      {unMappedProducts?.sizevariantData ? (
+        <FeaturedTable
+          {...{
+            slots: { footer: UnMappedFooter(footerParameters) },
+            rows: tableState.rows,
+            columns: tableState.columns,
+            checkboxSelection: true,
+            onRowSelectionModelChange,
+            rowCount: unMappedProducts?.totalRecords,
+          }}
+        />
+      ) : null}
       <Toaster />
     </Box>
   );

@@ -93,23 +93,26 @@ const MappedModule = () => {
       dispatch(fetchTableData({ channelid: selectedChannel, type: subPdType }));
     });
   };
-
+  console.log(mappedProducts?.totalRecords);
   return (
     <Box width="100%">
-      <FeaturedTable
-        {...{
-          slots: {
-            footer: MappedFooter(
-              handleMappProduct,
-              !!!selectedTableRows?.length
-            ),
-          },
-          rows: tableState.rows,
-          columns: tableState.columns,
-          checkboxSelection: true,
-          onRowSelectionModelChange,
-        }}
-      />
+      {mappedProducts?.sizevariantData ? (
+        <FeaturedTable
+          {...{
+            slots: {
+              footer: MappedFooter(
+                handleMappProduct,
+                !!!selectedTableRows?.length
+              ),
+            },
+            rows: tableState.rows,
+            columns: tableState.columns,
+            checkboxSelection: true,
+            onRowSelectionModelChange,
+            rowCount: mappedProducts?.totalRecords || undefined,
+          }}
+        />
+      ) : null}
       <Toaster />
     </Box>
   );
