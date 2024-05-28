@@ -94,6 +94,51 @@ export const unMappedRows = [
     subdepartmentcode: "",
   },
 ];
+export const mappedColumn: GridColDef[] = [
+  { field: "code", headerName: "Code", width: 130, align: "left" },
+  {
+    field: "baseproduct",
+    headerName: "Baseproduct",
+    width: 220,
+    align: "left",
+  },
+  {
+    field: "sizecode",
+    headerName: "Sizecode",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "sizedesc",
+    headerName: "Sizedesc",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "stylecode",
+    headerName: "Stylecode",
+    width: 160,
+    align: "left",
+  },
+  {
+    field: "subdepartmentcode",
+    headerName: "Subdepartmentcode",
+    width: 160,
+    align: "left",
+  },
+];
+
+export const mappedRows = [
+  {
+    id: 1,
+    code: "",
+    baseproduct: "",
+    sizecode: "",
+    sizedesc: "",
+    stylecode: "",
+    subdepartmentcode: "",
+  },
+];
 
 function createData(
   name: string,
