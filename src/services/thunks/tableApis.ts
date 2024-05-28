@@ -31,6 +31,14 @@ export interface IPostChannelMapping {
   stylecode: string;
   StyleVariantCode: string;
 }
+export interface IPostChannelUnMapping {
+  channelid: string;
+  channelname: string;
+  stylecode: string;
+  StyleVariantCode: string;
+  sizevariantcode: number;
+  isLive: boolean;
+}
 
 export interface ICreateChannelPayload {
   payload: {
@@ -234,6 +242,20 @@ const postChannelMapping = createAsyncThunk(
     }
   }
 );
+const postChannelUnMapping = createAsyncThunk(
+  "table/UnMapProductChannel",
+  async (payload: IPostChannelUnMapping[]) => {
+    try {
+      const url = "/api/Channel/UnMapProductChannel";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
 
 const addUserChannelMappings = createAsyncThunk(
   "table/addUserChannelMappings",
@@ -364,4 +386,5 @@ export {
   updateChannelMaster,
   updatePassword,
   updateProfile,
+  postChannelUnMapping,
 };

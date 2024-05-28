@@ -338,10 +338,10 @@ const DashboardModule = () => {
                     },
                   }}
                   data={[
-                    { label: "Catlog", value: "catlog" },
-                    { label: "Not catlogs", value: "notcatlogs" },
+                    { label: "Pending Live", value: "pendingLive" },
+                    { label: "Pending Catlog", value: "catlog" },
+                    { label: "Catlog Created", value: "catLogCreated" },
                     { label: "Live", value: "live" },
-                    { label: "Not live", value: "notlive" },
                   ]}
                 />
               </Box>
