@@ -69,7 +69,6 @@ const MappedModule = () => {
   };
 
   const handleMappProduct = () => {
-    console.log(selectedTableRows, "");
     const currSelectedRows = mappedProducts?.sizevariantData?.filter(
       (item: any) => selectedTableRows.includes(item.id)
     );

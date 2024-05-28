@@ -37,7 +37,6 @@ export interface IPostChannelUnMapping {
   stylecode: string;
   StyleVariantCode: string;
   sizevariantcode: number;
-  isLive: boolean;
 }
 
 export interface ICreateChannelPayload {

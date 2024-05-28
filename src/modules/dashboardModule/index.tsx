@@ -338,6 +338,7 @@ const DashboardModule = () => {
                     },
                   }}
                   data={[
+                    { label: "All", value: "all" },
                     { label: "Pending Live", value: "pendingLive" },
                     { label: "Pending Catlog", value: "catlog" },
                     { label: "Catlog Created", value: "catLogCreated" },
