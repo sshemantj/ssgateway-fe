@@ -1,9 +1,15 @@
+import React from "react";
 import { Button } from "@mui/material";
 import { GridFooter, GridFooterContainer } from "@mui/x-data-grid";
-import React from "react";
 
-const MappedFooter = (handleMappProduct: () => void, isDisabled: boolean) => {
-  const MappedFooterInner = () => (
+interface IProps {
+  handleMappProduct: () => void;
+  isDisabled: boolean;
+}
+
+const MappedFooter = (props: IProps) => {
+  const { handleMappProduct, isDisabled } = props;
+  return (
     <GridFooterContainer>
       <GridFooter />
       <Button
@@ -16,7 +22,6 @@ const MappedFooter = (handleMappProduct: () => void, isDisabled: boolean) => {
       </Button>
     </GridFooterContainer>
   );
-  return MappedFooterInner;
 };
 
 export default MappedFooter;

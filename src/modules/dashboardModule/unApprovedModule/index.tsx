@@ -75,13 +75,17 @@ const UnapprovedModule = (props: IProps) => {
   return (
     <Box width="100%">
       <FeaturedTable
+        slots={{
+          footer: () => (
+            <UnApprovedFooter
+              {...{
+                handleApprovedProduct,
+                isDisabled: !!!selectedTableRows?.length,
+              }}
+            />
+          ),
+        }}
         {...{
-          slots: {
-            footer: UnApprovedFooter(
-              handleApprovedProduct,
-              !!!selectedTableRows?.length
-            ),
-          },
           rows: tableState.rows,
           columns: tableState.columns,
           checkboxSelection: true,

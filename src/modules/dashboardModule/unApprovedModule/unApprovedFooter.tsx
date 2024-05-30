@@ -2,11 +2,14 @@ import { Button } from "@mui/material";
 import { GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import React from "react";
 
-const UnApprovedFooter = (
-  handleApprovedProduct: () => void,
-  isDisabled: boolean
-) => {
-  const UnApprovedFooter = () => (
+interface IProps {
+  handleApprovedProduct: () => void;
+  isDisabled: boolean;
+}
+
+const UnApprovedFooter = (props: IProps) => {
+  const { handleApprovedProduct, isDisabled } = props;
+  return (
     <GridFooterContainer>
       <GridFooter />
       <Button
@@ -19,7 +22,6 @@ const UnApprovedFooter = (
       </Button>
     </GridFooterContainer>
   );
-  return UnApprovedFooter;
 };
 
 export default UnApprovedFooter;

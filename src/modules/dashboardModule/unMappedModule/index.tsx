@@ -150,8 +150,10 @@ const UnMappedModule = (props: IProps) => {
     <Box width="100%">
       {unMappedProducts?.sizevariantData ? (
         <FeaturedTable
+          slots={{
+            footer: () => <UnMappedFooter {...footerParameters} />,
+          }}
           {...{
-            slots: { footer: UnMappedFooter(footerParameters) },
             rows: tableState.rows,
             columns: tableState.columns,
             checkboxSelection: true,
