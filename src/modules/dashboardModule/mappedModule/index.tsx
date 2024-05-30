@@ -12,7 +12,12 @@ import {
 } from "@/services/thunks/tableApis";
 import toast, { Toaster } from "react-hot-toast";
 
-const MappedModule = () => {
+interface IProps {
+  getAllCount: () => void;
+}
+
+const MappedModule = (props: IProps) => {
+  const { getAllCount } = props;
   const [tableState, setTableState] = useState({
     columns: mappedColumn,
     rows: [],
@@ -90,6 +95,7 @@ const MappedModule = () => {
         position: "top-right",
         duration: 2000,
       });
+      getAllCount();
       dispatch(fetchTableData({ channelid: selectedChannel, type: subPdType }));
     });
   };

@@ -12,10 +12,12 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import toast, { Toaster } from "react-hot-toast";
 
-interface IProps {}
+interface IProps {
+  getAllCount: () => void;
+}
 
 const UnMappedModule = (props: IProps) => {
-  const {} = props;
+  const { getAllCount } = props;
   const [tableState, setTableState] = useState({
     columns: unMappedColumns,
     rows: [],
@@ -88,6 +90,7 @@ const UnMappedModule = (props: IProps) => {
           position: "top-right",
           duration: 2000,
         });
+        getAllCount();
         dispatch(
           fetchTableData({ channelid: selectedChannel, type: subPdType })
         );
@@ -127,6 +130,7 @@ const UnMappedModule = (props: IProps) => {
           position: "top-right",
           duration: 2000,
         });
+        getAllCount();
         dispatch(
           fetchTableData({ channelid: selectedChannel, type: subPdType })
         );

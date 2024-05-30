@@ -94,25 +94,29 @@ const DashboardModule = () => {
     }
   }, [pdType, subPdType]);
 
+  const getAllCount = () => {
+    dispatch(getCountApi({ type: "unmapped", channelid: selectedChannel }))
+      .unwrap()
+      .then((res) => {
+        setTotalCount((prev) => ({
+          ...prev,
+          unmapped: res?.totalCount,
+        }));
+      });
+
+    dispatch(getCountApi({ type: "mapped", channelid: selectedChannel }))
+      .unwrap()
+      .then((res) => {
+        setTotalCount((prev) => ({
+          ...prev,
+          mapped: res?.totalCount,
+        }));
+      });
+  };
+
   useEffect(() => {
     if (pdType === IProductsTypes.APPROVED && selectedChannel) {
-      dispatch(getCountApi({ type: "unmapped", channelid: selectedChannel }))
-        .unwrap()
-        .then((res) => {
-          setTotalCount((prev) => ({
-            ...prev,
-            unmapped: res?.totalCount,
-          }));
-        });
-
-      dispatch(getCountApi({ type: "mapped", channelid: selectedChannel }))
-        .unwrap()
-        .then((res) => {
-          setTotalCount((prev) => ({
-            ...prev,
-            mapped: res?.totalCount,
-          }));
-        });
+      getAllCount();
     }
   }, [pdType, selectedChannel]);
 
@@ -360,8 +364,8 @@ const DashboardModule = () => {
       </div>
       <div className={styles.tableWrapper}>
         {isUnapprovedScreen ? <UnapprovedModule /> : null}
-        {isUnmappedScreen ? <UnMappedModule /> : null}
-        {isMappedScreen ? <MappedModule /> : null}
+        {isUnmappedScreen ? <UnMappedModule getAllCount={getAllCount} /> : null}
+        {isMappedScreen ? <MappedModule getAllCount={getAllCount} /> : null}
       </div>
       <Toaster />
     </div>
