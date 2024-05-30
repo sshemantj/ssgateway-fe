@@ -29,6 +29,7 @@ import UnapprovedModule from "./unApprovedModule";
 import UnMappedModule from "./unMappedModule";
 import styles from "./customtable.module.scss";
 import MappedModule from "./mappedModule";
+import CatlogDropdown from "./catlogDropdown";
 
 const DashboardModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -301,7 +302,6 @@ const DashboardModule = () => {
       channelid: selectedChannel,
     };
 
-    console.log(value);
     switch (value) {
       case "all":
         break;
@@ -339,41 +339,7 @@ const DashboardModule = () => {
           <Grid item sm={12} md={4}>
             {!isUnapprovedScreen && subPdType === IApprovedPdTypes.MAPPED ? (
               <Box className={styles.catlogSelect}>
-                <SelectDropdown
-                  handleOnChange={handleCatlogSelect}
-                  label="Select Catlog"
-                  value={selectedCatlog}
-                  inputProps={{
-                    sx: {
-                      padding: "6px 0 6px 2.6rem",
-                      textAlign: "start",
-                    },
-                  }}
-                  selectSx={{
-                    width: "12rem",
-                    "& .MuiInputBase-input": {
-                      padding: "5px",
-                    },
-                    "& fieldset legend": {
-                      display: "none",
-                    },
-                    "& label": {
-                      top: "-10px",
-                      fontSize: "14px",
-                    },
-                    "& .MuiInputLabel-shrink": {
-                      top: "-4px",
-                      background: "#fff",
-                    },
-                  }}
-                  data={[
-                    { label: "All", value: "all" },
-                    { label: "Pending Live", value: "pendingLive" },
-                    { label: "Pending Catalog", value: "pendingCatalog" },
-                    { label: "Catlog Created", value: "cataLogCreated" },
-                    { label: "Live", value: "live" },
-                  ]}
-                />
+                <CatlogDropdown {...{ handleCatlogSelect, selectedCatlog }} />
               </Box>
             ) : null}
           </Grid>
@@ -396,72 +362,7 @@ const DashboardModule = () => {
         {isUnapprovedScreen ? <UnapprovedModule /> : null}
         {isUnmappedScreen ? <UnMappedModule /> : null}
         {isMappedScreen ? <MappedModule /> : null}
-        {/* <CustomTable
-          handleHeaderClick={handleHeaderClick}
-          handleRowClick={handleRowClick}
-          open={open?.[productType]}
-          theadArr={keysArray}
-          tbodyArr={apiRes}
-          isMultiSelects={pdType !== IApprovedPdTypes.MAPPED}
-          selectedChannels={selectedChannels}
-        /> */}
       </div>
-      {/* {subPdType !== IApprovedPdTypes.MAPPED && apiRes?.length ? ( */}
-      {/* <div className={styles.submitBtnWrapper}>
-        <div className={styles.rhs_wrapper}>
-          <div className={styles.totalRecordWrapper}>
-            <p>Total records: {totalRecords}</p>
-          </div>
-          <SelectDropdown
-            handleOnChange={handlePageSizeSelection}
-            label="Rows per page"
-            value={pageSize}
-            inputProps={{
-              sx: {
-                padding: "6px 0 6px 2.6rem",
-                textAlign: "start",
-              },
-            }}
-            selectSx={{ width: "6rem" }}
-            data={[
-              { label: "100", value: 100 },
-              { label: "50", value: 50 },
-              { label: "30", value: 30 },
-              { label: "10", value: 10 },
-            ]}
-          />
-        </div>
-        <div className={styles.lhs_wrapper}>
-          {pdType === IApprovedPdTypes.UN_MAPPED && (
-            <MultiSelectDropdown
-              {...{
-                setselectedChannels,
-                selectedChannels,
-                index: 0,
-                currChannel: currChannel?.channelId || "",
-              }}
-            />
-          )}
-          <div className={styles.paginationWrapper}>
-            <Pagination
-              count={Math.ceil(totalRecords / pageSize)}
-              onChange={(_, page) => handlePagination(page)}
-              variant="outlined"
-            />
-          </div>
-          <Button
-            onClick={() => handleButtonClick()}
-            className={`${styles.button} ${
-              pdType !== IApprovedPdTypes.UN_MAPPED && styles.position
-            }`}
-            variant="contained"
-            disabled={!!!currSelectedRow.length}
-          >
-            {showBtnText()}
-          </Button>
-        </div>
-      </div> */}
-      {/* ) : null} */}
       <Toaster />
     </div>
   );
