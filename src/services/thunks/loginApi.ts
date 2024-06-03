@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate, axiosPublic } from "../client";
 import { Cookies } from "react-cookie";
+import { getCookie, setCookie } from "@/utils";
 
 const cookie = new Cookies();
 
@@ -27,6 +28,8 @@ const callLogin = createAsyncThunk(
         path: "/",
       });
 
+      const token = getCookie("token");
+      if (!token) setCookie("token", accessToken);
       return {
         message: "token has been set successfully",
       };
