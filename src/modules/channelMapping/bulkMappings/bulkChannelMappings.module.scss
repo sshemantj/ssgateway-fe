@@ -1,0 +1,12 @@
+@import "@/styles/variables.scss";
+
+.bulkMappingsWrapper {
+  width: 100%;
+  background-color: $color_white;
+  border-radius: 6px;
+  box-shadow: $shadow_1;
+  .bulkMappings_inner {
+    min-height: 80vh;
+    height: 100%;
+  }
+}

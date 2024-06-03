@@ -129,6 +129,13 @@ export const navListArr: INavListArr[] = [
         path: IAllRoutes.CHANNEL_MAPPINGS,
         value: IChannelMappingSubRoutes.MAP_CHANNEL,
       },
+      {
+        title: "Bulk Channel Mappings",
+        icon: "",
+        iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.CHANNEL_MAPPINGS,
+        value: IChannelMappingSubRoutes.BULK_UPLOAD,
+      },
     ],
   },
 ];

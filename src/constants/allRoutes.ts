@@ -29,6 +29,7 @@ export enum IFileManagementSubRoutes {
 export enum IChannelMappingSubRoutes {
   VIEW_CHANNEL = "view-channels",
   MAP_CHANNEL = "map-channels",
+  BULK_UPLOAD = "bulk-upload",
 }
 
 export interface ISubRoutes {
