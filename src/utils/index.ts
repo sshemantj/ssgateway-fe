@@ -51,4 +51,22 @@ const getCookie = (name: string) => {
   return null;
 };
 
-export { getSplit, setSplit, checkEmtyObj, setCookie, getCookie };
+const downloadCsvFile = (fileData: any, name: string) => {
+  const blob = new Blob([fileData], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `res_${name}`;
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+
+export {
+  getSplit,
+  setSplit,
+  checkEmtyObj,
+  setCookie,
+  getCookie,
+  downloadCsvFile,
+};

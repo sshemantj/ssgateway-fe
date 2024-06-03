@@ -6,13 +6,19 @@ import Selecting from "./selecting";
 import Selected from "./selected";
 import Uploading from "./uploading";
 import styles from "./bulkChannelMappings.module.scss";
+import { bulkUploadChannelMappings } from "@/services/thunks/tableApis";
+import { useAppDispatch } from "@/store/hooks";
+import { downloadCsvFile } from "@/utils";
 
 type IStatuses = "selecting" | "selected" | "uploading" | "complete";
 
 const BulkChannelMappings = () => {
   const [uploadStatus, setUploadStatus] = useState<IStatuses>("selecting");
   const [file, setFile] = useState<File>();
+  const [serverFile, setServerFile] = useState<any>();
   const [progress, setProgress] = useState(0);
+
+  const dispatch = useAppDispatch();
 
   const handleChange = (file: File) => {
     setFile(file);
@@ -22,17 +28,24 @@ const BulkChannelMappings = () => {
   const handleUploadFile = () => {
     if (file) {
       setUploadStatus("uploading");
-      //   dispatch(bulkUploadChannelMappings(file)).then(() => {
-      //     toast.success("File successfully uploaded!");
-      setProgress(100);
-      setUploadStatus("complete");
-      //   });
+      dispatch(bulkUploadChannelMappings(file))
+        .unwrap()
+        .then((res) => {
+          setServerFile(res);
+          toast.success("File successfully uploaded!");
+          setProgress(100);
+          setUploadStatus("complete");
+        });
     } else {
       toast.error("select file first!", {
         position: "top-right",
         duration: 2000,
       });
     }
+  };
+
+  const handleDownloadResFile = () => {
+    downloadCsvFile(serverFile, file?.name || "file.csv");
   };
 
   return (
@@ -52,18 +65,25 @@ const BulkChannelMappings = () => {
               )}
             </form>
             {uploadStatus === "complete" && (
-              <>
+              <Box textAlign="center">
                 <SuccessAtom />
                 <h3>File upload success!</h3>
-              </>
+                <Button
+                  onClick={() => handleDownloadResFile()}
+                  variant="contained"
+                  style={{ margin: "1rem 0 1rem 0" }}
+                >
+                  Download Response File
+                </Button>
+              </Box>
             )}
             {uploadStatus !== "complete" && (
               <div className={styles.btnWrapper}>
-                {uploadStatus === "selected" || (
+                {!["selected", "uploading"].includes(uploadStatus) && (
                   <Button style={{ margin: "0 0 1rem 0" }}>
                     <a
-                      download="UploadDataforPendingAprroval.csv"
-                      href="/UploadDataforPendingAprroval.csv"
+                      download="BulkPRoductChannelMapping.csv"
+                      href="/BulkPRoductChannelMapping.csv"
                     >
                       Download template
                     </a>
@@ -74,7 +94,9 @@ const BulkChannelMappings = () => {
                   disabled={!file || uploadStatus === "uploading"}
                   className={`${styles["formbold-btn"]} ${styles["w-full"]}`}
                 >
-                  Upload File
+                  {uploadStatus === "uploading"
+                    ? "Uploading..."
+                    : "Upload File"}
                 </button>
               </div>
             )}

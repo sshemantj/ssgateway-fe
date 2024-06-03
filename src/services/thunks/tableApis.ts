@@ -315,14 +315,14 @@ const bulkUploadChannelMappings = createAsyncThunk(
       const formData = new FormData();
       formData.append("file", file);
 
-      const url = "/api/Products/";
+      const url = "/api/Channel/BulkProductChannelMapping";
 
       const response = await axiosPrivate.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Accept: "text/csv",
         },
       });
-
       return response.data;
     } catch (error: any) {
       throw new Error(error.message);

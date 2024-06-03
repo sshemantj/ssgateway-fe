@@ -32,7 +32,7 @@ const Selected = (props: IProps) => {
           />
         </div>
       </div>
-      <CircularProgressWithLabel value={progress} />
+      {/* <CircularProgressWithLabel value={progress} /> */}
     </div>
   );
 };
