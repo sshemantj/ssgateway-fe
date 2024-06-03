@@ -22,10 +22,10 @@ const BulkChannelMappings = () => {
   const handleUploadFile = () => {
     if (file) {
       setUploadStatus("uploading");
+      //   dispatch(bulkUploadChannelMappings(file)).then(() => {
+      //     toast.success("File successfully uploaded!");
       setProgress(100);
       setUploadStatus("complete");
-      //   dispatch(uploadDataforPendingApproval(file)).then(() => {
-      //     toast.success("File successfully uploaded!");
       //   });
     } else {
       toast.error("select file first!", {

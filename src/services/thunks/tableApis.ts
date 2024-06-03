@@ -308,6 +308,27 @@ const uploadDataforPendingApproval = createAsyncThunk(
     }
   }
 );
+const bulkUploadChannelMappings = createAsyncThunk(
+  "table/bulkUploadChannelMappings",
+  async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const url = "/api/Products/";
+
+      const response = await axiosPrivate.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
 
 interface IApproveSizeVariants {
   payload: string[];
@@ -402,4 +423,5 @@ export {
   updatePassword,
   updateProfile,
   postChannelUnMapping,
+  bulkUploadChannelMappings,
 };
