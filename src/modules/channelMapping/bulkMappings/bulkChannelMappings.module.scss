@@ -6,7 +6,195 @@
   border-radius: 6px;
   box-shadow: $shadow_1;
   .bulkMappings_inner {
-    min-height: 80vh;
-    height: 100%;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color_white;
+    box-shadow: $shadow_1;
+    border-radius: 6px;
+    .formbold-mb-5 {
+      margin-bottom: 20px;
+    }
+    .formbold-pt-3 {
+      padding-top: 12px;
+    }
+    .formbold-main-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .formbold-form-wrapper {
+        margin: 0 auto;
+        width: 100%;
+        form {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 2rem;
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+          .dropFileWrapper {
+          }
+          .fileNameContainer {
+            min-height: 253px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+          }
+        }
+        .btnWrapper {
+          text-align: center;
+          margin-top: 1rem;
+          .formbold-btn {
+            max-width: 300px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 6px;
+            padding: 14px 32px;
+            border: none;
+            font-weight: 600;
+            background-color: $color_12;
+            color: $color_white;
+            cursor: pointer;
+            &:disabled {
+              background-color: $gray;
+            }
+          }
+          .formbold-btn:hover {
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+          }
+        }
+        .formbold-form-input {
+          width: 100%;
+          padding: 12px 24px;
+          border-radius: 6px;
+          border: 1px solid $color_2;
+          background: $color_white;
+          font-weight: 500;
+          font-size: 16px;
+          color: $color_11;
+          outline: none;
+          resize: none;
+        }
+        .formbold-form-input:focus {
+          border-color: $color_12;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .formbold--mx-3 {
+          margin-left: -12px;
+          margin-right: -12px;
+        }
+        .formbold-px-3 {
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+        .flex {
+          display: flex;
+        }
+        .flex-wrap {
+          flex-wrap: wrap;
+        }
+        .w-full {
+          width: 100%;
+        }
+
+        .formbold-file-input input {
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .formbold-file-input label {
+          position: relative;
+          border: 1px dashed $color_2;
+          border-radius: 6px;
+          min-height: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px;
+          text-align: center;
+          cursor: pointer;
+          box-shadow: $shadow_1;
+        }
+        .formbold-drop-file {
+          display: block;
+          font-weight: 600;
+          color: $color_13;
+          font-size: 20px;
+          margin-bottom: 8px;
+        }
+
+        .formbold-or {
+          font-weight: 500;
+          font-size: 16px;
+          color: $color_11;
+          display: block;
+          margin-bottom: 8px;
+        }
+        .formbold-browse {
+          font-weight: 500;
+          font-size: 16px;
+          color: $color_13;
+          display: inline-block;
+          padding: 8px 28px;
+          border: 1px solid $color_2;
+          border-radius: 4px;
+        }
+
+        .formbold-file-list {
+          border-radius: 6px;
+          background: $color_2;
+          padding: 16px 32px;
+        }
+
+        .formbold-file-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .formbold-file-item button {
+          color: $color_13;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+        }
+
+        .formbold-file-name {
+          font-weight: 500;
+          font-size: 16px;
+          color: $color_13;
+          padding-right: 12px;
+        }
+        .formbold-progress-bar {
+          margin-top: 20px;
+          position: relative;
+          width: 100%;
+          height: 6px;
+          border-radius: 8px;
+          background: $color_2;
+        }
+
+        .formbold-progress {
+          position: absolute;
+          width: 75%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          background: $color_12;
+          border-radius: 8px;
+        }
+
+        @media (min-width: 540px) {
+          .sm\:w-half {
+            width: 50%;
+          }
+        }
+      }
+    }
   }
 }
