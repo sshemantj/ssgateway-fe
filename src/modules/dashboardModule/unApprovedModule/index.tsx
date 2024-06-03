@@ -33,8 +33,8 @@ const UnapprovedModule = (props: IProps) => {
     columns: unApprovedColumns,
     rows: [],
     isLoading: false,
-    page: 1,
-    pageSize: 10,
+    page: 0,
+    pageSize: 100,
   });
 
   useEffect(() => {

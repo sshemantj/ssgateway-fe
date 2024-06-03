@@ -23,8 +23,8 @@ const UnMappedModule = (props: IProps) => {
     columns: unMappedColumns,
     rows: [],
     isLoading: false,
-    page: 1,
-    pageSize: 10,
+    page: 0,
+    pageSize: 100,
   });
   const {
     selectedChannel,

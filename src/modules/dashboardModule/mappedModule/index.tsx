@@ -23,8 +23,8 @@ const MappedModule = (props: IProps) => {
     columns: mappedColumn,
     rows: [],
     isLoading: false,
-    page: 1,
-    pageSize: 10,
+    page: 0,
+    pageSize: 100,
   });
   const [currChannel, setCurrChannel] = useState<any>("");
   const [selectedTableRows, setSelectedTableRows] =

@@ -68,7 +68,7 @@ const FeaturedTable = (props: IFeaturedTableProps) => {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
+            paginationModel: { page: 0, pageSize: 100 },
           },
         }}
         processRowUpdate={processRowUpdate}
