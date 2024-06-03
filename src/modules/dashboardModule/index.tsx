@@ -38,7 +38,7 @@ const DashboardModule = () => {
   const [selectedChannels, setselectedChannels] = useState<any>({});
   const [pageSize, setPageSize] = useState<number>(100);
   const [isAllChecked, setIsAllChecked] = useState<boolean>(true);
-  const [selectedCatlog, setselectedCatlog] = useState<string>("");
+  const [selectedCatlog, setselectedCatlog] = useState<string>("all");
   const [currChannel, setCurrChannel] = useState<any>("");
   const [productType, setProductType] = useState<string>("");
   const [totalCount, setTotalCount] = useState<{

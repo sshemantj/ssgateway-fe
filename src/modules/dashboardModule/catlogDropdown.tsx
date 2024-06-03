@@ -13,7 +13,8 @@ const CatlogDropdown = (props: IProps) => {
   return (
     <SelectDropdown
       handleOnChange={handleCatlogSelect}
-      label="Select Catlog"
+      defaultValue="all"
+      label="Select"
       value={selectedCatlog}
       inputProps={{
         sx: {
