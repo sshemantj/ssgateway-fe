@@ -40,9 +40,9 @@ const CatlogDropdown = (props: IProps) => {
       }}
       data={[
         { label: "All", value: "all" },
-        { label: "Pending Live", value: "pendingLive" },
+        // { label: "Pending Live", value: "pendingLive" },
         { label: "Pending Catalog", value: "pendingCatalog" },
-        { label: "Catlog Created", value: "cataLogCreated" },
+        // { label: "Catlog Created", value: "cataLogCreated" },
         { label: "Live", value: "live" },
       ]}
     />
