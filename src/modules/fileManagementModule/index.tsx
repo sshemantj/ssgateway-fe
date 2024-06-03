@@ -1,9 +1,9 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { IFileManagementSubRoutes } from "@/constants/allRoutes";
-import UploadFile from "./uploadFile";
 import VeiwPendingApproval from "./viewPendingAproval";
 import styles from "./fileManagement.module.scss";
+import UploadFile from "./uploadFile";
 
 const FileManagementModule = () => {
   const searchParams = useSearchParams();

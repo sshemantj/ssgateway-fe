@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { IChannelMappingSubRoutes } from "@/constants/allRoutes";
 import MapUserChannel from "./mapUserChannel";
 import styles from "./channelMappings.module.scss";
-import BulkChannelMappings from "./bulkMappings/indext";
+import BulkChannelMappings from "./bulkMappings";
 
 const ChannelMappings = () => {
   const searchParams = useSearchParams();
