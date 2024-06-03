@@ -64,7 +64,7 @@ const UnapprovedModule = (props: IProps) => {
     dispatch(
       fetchTableData({
         channelid: selectedChannel,
-        pageNumber: tableState.page,
+        pageNumber: tableState.page + 1,
         pageSize: tableState.pageSize,
         type: IProductsTypes.UNAPPROVED,
       })
@@ -121,7 +121,6 @@ const UnapprovedModule = (props: IProps) => {
             page,
             pageSize,
           }: GridPaginationModel) => {
-            console.log({ page, pageSize });
             setTableState((old) => ({ ...old, page, pageSize }));
           },
           slots: {

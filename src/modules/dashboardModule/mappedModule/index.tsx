@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
-import { GridRowSelectionModel } from "@mui/x-data-grid";
+import { GridPaginationModel, GridRowSelectionModel } from "@mui/x-data-grid";
 import { mappedColumn, mappedRows } from "@/constants/tableConstant";
 import MappedFooter from "./mappedModule";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -11,6 +11,7 @@ import {
   postChannelUnMapping,
 } from "@/services/thunks/tableApis";
 import toast, { Toaster } from "react-hot-toast";
+import { IApprovedPdTypes } from "@/interfaces/product";
 
 interface IProps {
   getAllCount: () => void;
@@ -21,6 +22,9 @@ const MappedModule = (props: IProps) => {
   const [tableState, setTableState] = useState({
     columns: mappedColumn,
     rows: [],
+    isLoading: false,
+    page: 1,
+    pageSize: 10,
   });
   const [currChannel, setCurrChannel] = useState<any>("");
   const [selectedTableRows, setSelectedTableRows] =
@@ -69,6 +73,23 @@ const MappedModule = (props: IProps) => {
     }
   }, [mappedProducts]);
 
+  useEffect(() => {
+    setTableState((old) => ({ ...old, isLoading: true }));
+    dispatch(
+      fetchTableData({
+        channelid: selectedChannel,
+        pageNumber: tableState.page + 1,
+        pageSize: tableState.pageSize,
+        type: IApprovedPdTypes.MAPPED,
+      })
+    ).then(() => {
+      setTableState((old) => ({
+        ...old,
+        isLoading: false,
+      }));
+    });
+  }, [tableState.page, tableState.pageSize]);
+
   const onRowSelectionModelChange = (selectedIds: GridRowSelectionModel) => {
     setSelectedTableRows(selectedIds);
   };
@@ -103,25 +124,56 @@ const MappedModule = (props: IProps) => {
     <Box width="100%">
       {mappedProducts?.sizevariantData ? (
         <FeaturedTable
-          slots={{
-            footer: () => (
-              <MappedFooter
-                {...{
-                  handleMappProduct,
-                  isDisabled: !!!selectedTableRows?.length,
-                }}
-              />
-            ),
-          }}
           {...{
+            loading: tableState.isLoading,
             rows: tableState.rows,
             columns: tableState.columns,
             checkboxSelection: true,
             onRowSelectionModelChange,
-            rowCount: mappedProducts?.totalRecords || undefined,
+            rowCount: mappedProducts?.totalRecords,
+            paginationMode: "server",
+            // paginationModel: {
+            //   page: tableState.page - 1,
+            //   pageSize: tableState.pageSize,
+            // },
+            onPaginationModelChange: ({
+              page,
+              pageSize,
+            }: GridPaginationModel) => {
+              setTableState((old) => ({ ...old, page, pageSize }));
+            },
+            slots: {
+              footer: () => (
+                <MappedFooter
+                  {...{
+                    handleMappProduct,
+                    isDisabled: !!!selectedTableRows?.length,
+                  }}
+                />
+              ),
+            },
           }}
         />
-      ) : null}
+      ) : // <FeaturedTable
+      //   slots={{
+      //     footer: () => (
+      // <MappedFooter
+      //   {...{
+      //     handleMappProduct,
+      //     isDisabled: !!!selectedTableRows?.length,
+      //   }}
+      // />
+      //     ),
+      //   }}
+      //   {...{
+      //     rows: tableState.rows,
+      //     columns: tableState.columns,
+      //     checkboxSelection: true,
+      //     onRowSelectionModelChange,
+      //     rowCount: mappedProducts?.totalRecords || undefined,
+      //   }}
+      // />
+      null}
       <Toaster />
     </Box>
   );
