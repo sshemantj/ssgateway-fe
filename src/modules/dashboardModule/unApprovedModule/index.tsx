@@ -113,10 +113,6 @@ const UnapprovedModule = (props: IProps) => {
           onRowSelectionModelChange,
           rowCount: unAprovedProducts?.totalRecords,
           paginationMode: "server",
-          // paginationModel: {
-          //   page: tableState.page - 1,
-          //   pageSize: tableState.pageSize,
-          // },
           onPaginationModelChange: ({
             page,
             pageSize,

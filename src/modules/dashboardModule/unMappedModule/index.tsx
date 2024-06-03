@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FeaturedTable from "@/tables/featuredTable";
 import { Box } from "@mui/material";
-import { GridRowSelectionModel } from "@mui/x-data-grid";
+import { GridPaginationModel, GridRowSelectionModel } from "@mui/x-data-grid";
 import { unMappedColumns, unMappedRows } from "@/constants/tableConstant";
 import UnMappedFooter from "./unMappFooter";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import toast, { Toaster } from "react-hot-toast";
+import { IApprovedPdTypes } from "@/interfaces/product";
 
 interface IProps {
   getAllCount: () => void;
@@ -21,6 +22,9 @@ const UnMappedModule = (props: IProps) => {
   const [tableState, setTableState] = useState({
     columns: unMappedColumns,
     rows: [],
+    isLoading: false,
+    page: 1,
+    pageSize: 10,
   });
   const {
     selectedChannel,
@@ -57,6 +61,23 @@ const UnMappedModule = (props: IProps) => {
       });
     }
   }, [unMappedProducts]);
+
+  useEffect(() => {
+    setTableState((old) => ({ ...old, isLoading: true }));
+    dispatch(
+      fetchTableData({
+        channelid: selectedChannel,
+        pageNumber: tableState.page + 1,
+        pageSize: tableState.pageSize,
+        type: IApprovedPdTypes.UN_MAPPED,
+      })
+    ).then(() => {
+      setTableState((old) => ({
+        ...old,
+        isLoading: false,
+      }));
+    });
+  }, [tableState.page, tableState.pageSize]);
 
   useEffect(() => {
     if (selectedChannel) {
@@ -154,15 +175,23 @@ const UnMappedModule = (props: IProps) => {
     <Box width="100%">
       {unMappedProducts?.sizevariantData ? (
         <FeaturedTable
-          slots={{
-            footer: () => <UnMappedFooter {...footerParameters} />,
-          }}
           {...{
+            loading: tableState.isLoading,
             rows: tableState.rows,
             columns: tableState.columns,
             checkboxSelection: true,
             onRowSelectionModelChange,
             rowCount: unMappedProducts?.totalRecords,
+            paginationMode: "server",
+            onPaginationModelChange: ({
+              page,
+              pageSize,
+            }: GridPaginationModel) => {
+              setTableState((old) => ({ ...old, page, pageSize }));
+            },
+            slots: {
+              footer: () => <UnMappedFooter {...footerParameters} />,
+            },
           }}
         />
       ) : null}

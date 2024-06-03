@@ -132,10 +132,6 @@ const MappedModule = (props: IProps) => {
             onRowSelectionModelChange,
             rowCount: mappedProducts?.totalRecords,
             paginationMode: "server",
-            // paginationModel: {
-            //   page: tableState.page - 1,
-            //   pageSize: tableState.pageSize,
-            // },
             onPaginationModelChange: ({
               page,
               pageSize,
@@ -154,26 +150,7 @@ const MappedModule = (props: IProps) => {
             },
           }}
         />
-      ) : // <FeaturedTable
-      //   slots={{
-      //     footer: () => (
-      // <MappedFooter
-      //   {...{
-      //     handleMappProduct,
-      //     isDisabled: !!!selectedTableRows?.length,
-      //   }}
-      // />
-      //     ),
-      //   }}
-      //   {...{
-      //     rows: tableState.rows,
-      //     columns: tableState.columns,
-      //     checkboxSelection: true,
-      //     onRowSelectionModelChange,
-      //     rowCount: mappedProducts?.totalRecords || undefined,
-      //   }}
-      // />
-      null}
+      ) : null}
       <Toaster />
     </Box>
   );
