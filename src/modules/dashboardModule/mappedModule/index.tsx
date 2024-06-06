@@ -52,7 +52,7 @@ const MappedModule = (props: IProps) => {
   }, [selectedChannel, userChannel]);
 
   useEffect(() => {
-    if (mappedProducts?.sizevariantData?.length) {
+    if (mappedProducts?.sizevariantData) {
       const data = mappedProducts?.sizevariantData;
       const newRows = data?.map((item: (typeof mappedRows)[0]) => ({
         id: item.id,
