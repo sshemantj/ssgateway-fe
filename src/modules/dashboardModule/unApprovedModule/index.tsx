@@ -38,7 +38,7 @@ const UnapprovedModule = (props: IProps) => {
   });
 
   useEffect(() => {
-    if (unAprovedProducts?.sizevariantData?.length) {
+    if (unAprovedProducts?.sizevariantData) {
       const data = unAprovedProducts?.sizevariantData;
       const newRows = data?.map((item: (typeof unApprovedRows)[0]) => ({
         id: item.id,

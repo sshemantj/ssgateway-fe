@@ -41,7 +41,7 @@ const UnMappedModule = (props: IProps) => {
   const [currChannel, setCurrChannel] = useState<any>("");
 
   useEffect(() => {
-    if (unMappedProducts?.sizevariantData?.length) {
+    if (unMappedProducts?.sizevariantData) {
       const data = unMappedProducts?.sizevariantData;
       const newRows = data?.map((item: (typeof unMappedRows)[0]) => ({
         id: item.id,

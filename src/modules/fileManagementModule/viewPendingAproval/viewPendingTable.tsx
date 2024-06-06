@@ -28,7 +28,7 @@ const ViewPendingTable = (props: IProps) => {
   });
 
   useEffect(() => {
-    if (viewPendingApproval?.sizevariantData?.length) {
+    if (viewPendingApproval?.sizevariantData) {
       const data = viewPendingApproval?.sizevariantData;
       const newRows = data?.map((item: (typeof pendingApprovalRows)[0]) => ({
         id: item.id,

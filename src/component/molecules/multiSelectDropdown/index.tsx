@@ -33,17 +33,13 @@ const style: React.CSSProperties = {
 
 const MultiSelectDropdown = (props: IProps) => {
   const { index, selectedChannels, setselectedChannels, currChannel } = props;
-  const [selectedNames, setSelectedNames] = useState<string[]>([]);
   const { userChannelMappings } = useAppSelector((state) => state.gateway);
 
-  useEffect(() => {
-    currChannel && setSelectedNames((prev) => [...prev, currChannel]);
-  }, [currChannel]);
+  const selectedChannelValue = selectedChannels?.[index]?.value;
 
   const handleChange = (e: SelectChangeEvent<string[]>) => {
     const value = e.target.value as string[];
     if (!value.includes(currChannel)) value.push(currChannel);
-    setSelectedNames(value);
     setselectedChannels?.((prev: any) => {
       const newPrev = { ...prev };
       newPrev[index] = {
@@ -58,14 +54,14 @@ const MultiSelectDropdown = (props: IProps) => {
       <FormControl sx={{ m: 1, width: "100%" }}>
         <InputLabel
           sx={{
-            top: selectedChannels?.[index]?.value ? 0 : "-10px",
+            top: selectedChannelValue ? 0 : "-10px",
           }}
         >
           Map multiple channels
         </InputLabel>
         <Select
           multiple
-          value={selectedChannels?.[index]?.value || []}
+          value={selectedChannelValue || []}
           onClick={(e) => e.stopPropagation()}
           onChange={handleChange}
           input={<OutlinedInput label="Map multiple channels" />}
@@ -81,18 +77,21 @@ const MultiSelectDropdown = (props: IProps) => {
           }}
         >
           {Array.isArray(userChannelMappings) &&
-            userChannelMappings?.map((item: any) => (
-              <MenuItem
-                key={item.id}
-                value={item.channelId}
-                sx={{ justifyContent: "space-between" }}
-              >
-                {item.channelName}
-                {selectedNames.includes(item.channelId) ? (
-                  <CheckIcon color="info" />
-                ) : null}
-              </MenuItem>
-            ))}
+            userChannelMappings?.map(({ id, channelId, channelName }: any) => {
+              const isChecked =
+                selectedChannelValue?.includes(channelId) ||
+                currChannel === channelId;
+              return (
+                <MenuItem
+                  key={id}
+                  value={channelId}
+                  sx={{ justifyContent: "space-between" }}
+                >
+                  {channelName}
+                  {isChecked && <CheckIcon color="info" />}
+                </MenuItem>
+              );
+            })}
         </Select>
       </FormControl>
     </div>
