@@ -27,9 +27,12 @@ import SelectDropdown from "@/component/molecules/selectDropdown";
 import SearchComponent from "@/component/atoms/searchComponent";
 import UnapprovedModule from "./unApprovedModule";
 import UnMappedModule from "./unMappedModule";
-import styles from "./customtable.module.scss";
 import MappedModule from "./mappedModule";
 import CatlogDropdown from "./catlogDropdown";
+import useDownloadFile from "@/hooks/downloadFile";
+import DownloadingIcon from "@mui/icons-material/Downloading";
+import { API_BASE_URL } from "@/constants/allEnv";
+import styles from "./customtable.module.scss";
 
 const DashboardModule = () => {
   const [open, setOpen] = useState<any>({});
@@ -53,6 +56,7 @@ const DashboardModule = () => {
   const searchParams = useSearchParams();
   const screen = searchParams.get("screen");
   const isMobile = useMobileCheck();
+  const { downloadFile } = useDownloadFile();
 
   const { sizevariantData: apiRes, totalRecords } = useAppSelector(
     (state) => state.gateway.data
@@ -64,6 +68,13 @@ const DashboardModule = () => {
     (state) => state.gateway.userChannelMappings
   );
   const userChannelMappings = Array.isArray(userChannel) ? userChannel : [];
+
+  const isUnapprovedScreen = pdType === IProductsTypes.UNAPPROVED;
+  const isUnmappedScreen =
+    pdType === IProductsTypes.APPROVED &&
+    subPdType === IApprovedPdTypes.UN_MAPPED;
+  const isMappedScreen =
+    pdType === IProductsTypes.APPROVED && subPdType === IApprovedPdTypes.MAPPED;
 
   const keysArray =
     apiRes && apiRes?.length
@@ -329,26 +340,73 @@ const DashboardModule = () => {
     ).catch((error) => console.log(error));
   };
 
-  const isUnapprovedScreen = pdType === IProductsTypes.UNAPPROVED;
-  const isUnmappedScreen =
-    pdType === IProductsTypes.APPROVED &&
-    subPdType === IApprovedPdTypes.UN_MAPPED;
-  const isMappedScreen =
-    pdType === IProductsTypes.APPROVED && subPdType === IApprovedPdTypes.MAPPED;
+  const handleDownloadClick = () => {
+    let url = "";
+    let fileName = "";
+    const searchTerm = search;
+    const channelid = selectedChannel;
+    const params: any = {};
+
+    if (isUnapprovedScreen) {
+      url = "api/Products/DownloadUnAprrovedsizevariants";
+      fileName = IProductsTypes.UNAPPROVED;
+      if (searchTerm) params.searchTerm = searchTerm;
+    }
+    if (!isUnapprovedScreen && isUnmappedScreen) {
+      url = "api/Products/DownloadApprovedUnMappedSizevariants";
+      if (searchTerm) params.searchTerm = searchTerm;
+      if (channelid) params.channelid = channelid;
+      fileName = IApprovedPdTypes.UN_MAPPED;
+    }
+    if (!isUnapprovedScreen && isMappedScreen) {
+      url = "api/Products/DownloadApprovedMappedSizevariants";
+      if (searchTerm) params.searchTerm = searchTerm;
+      if (channelid) params.channelid = channelid;
+      switch (selectedCatlog) {
+        case "all":
+          break;
+        case "pendingLive":
+          params.isLive = false;
+          break;
+        case "live":
+          params.isLive = true;
+          break;
+        case "pendingCatalog":
+          params.iscatalog = false;
+          break;
+        case "cataLogCreated":
+          params.iscatalog = true;
+          break;
+      }
+      fileName = IApprovedPdTypes.MAPPED;
+    }
+    if (!url) {
+      toast.error("Page Type is invalid!", {
+        position: "top-right",
+        duration: 2000,
+      });
+      return;
+    }
+    downloadFile({
+      fileName: fileName ? `${fileName}.xlsx` : "productList.xlsx",
+      urlString: API_BASE_URL + url,
+      params,
+    });
+  };
 
   return (
     <div className={styles.customTableWrapper}>
       <div className={styles.btnWrapper}>
         <Grid container>
           <Grid item sm={12} md={4}>
-            {!isUnapprovedScreen && subPdType === IApprovedPdTypes.MAPPED ? (
+            {!isUnapprovedScreen && isMappedScreen ? (
               <Box className={styles.catlogSelect}>
                 <CatlogDropdown {...{ handleCatlogSelect, selectedCatlog }} />
               </Box>
             ) : null}
           </Grid>
           <Grid item sm={12} md={4} marginLeft={"auto"}>
-            {pdType !== IProductsTypes.UNAPPROVED ? (
+            {!isUnapprovedScreen ? (
               <DoubleVariantCard
                 handleChange={handleChange}
                 mappedCount={totalCount?.mapped as number}
@@ -358,7 +416,24 @@ const DashboardModule = () => {
             ) : null}
           </Grid>
           <Grid item sm={12} md={4}>
-            {pdType && <SearchComponent />}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-evenly",
+              }}
+            >
+              {pdType && <SearchComponent />}
+              <DownloadingIcon
+                onClick={() => handleDownloadClick()}
+                sx={{
+                  marginBottom: "5px",
+                  fontSize: "2rem",
+                  color: "darkblue",
+                  cursor: "pointer",
+                }}
+              />
+            </Box>
           </Grid>
         </Grid>
       </div>

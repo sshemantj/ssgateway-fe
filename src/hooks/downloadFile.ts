@@ -1,19 +1,21 @@
 import { useState } from "react";
-import axios from "axios";
+import { axiosPrivate } from "@/services/client";
 
 interface IProps {
   urlString: string;
   fileName: string;
+  params?: any;
 }
 
 const useDownloadFile = () => {
   const [loading, setLoading] = useState(false);
 
-  const downloadFile = async ({ urlString, fileName }: IProps) => {
+  const downloadFile = async ({ urlString, fileName, params }: IProps) => {
     try {
       setLoading(true);
-      const response = await axios.get(urlString, {
+      const response = await axiosPrivate.get(urlString, {
         responseType: "blob",
+        params,
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");

@@ -5,8 +5,8 @@
   // width: 100%;
   background-color: $color_white;
   // position: absolute;
-  top: -60px;
-  left: 0;
+  // top: -60px;
+  // left: 0;
   transition: top 0.3s ease-out;
   display: flex;
   align-items: center;
@@ -14,11 +14,11 @@
   @media (min-width: 768px) {
     top: 0;
     width: 50%;
-    transform: translateX(50%);
+    transform: translateX(0%);
   }
   &::after {
     content: "";
-    width: 92%;
+    width: 12rem;
     height: 1px;
     position: absolute;
     bottom: 8px;
