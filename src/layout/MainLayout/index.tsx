@@ -218,7 +218,7 @@ const MainLayout = (props: IProps) => {
         <NavList {...{ handleTypeClick, isNavOpen }} />
         <main className={styles.mainWrapper}>
           <div className={styles.breadcrumbWrapper}>
-            <Breadcrumbs />
+            {/* <Breadcrumbs /> */}
             {/* {pdType && isDashboard && (
               <SearchComponent {...{ isSearchActive, setIsSearchActive }} />
             )} */}
