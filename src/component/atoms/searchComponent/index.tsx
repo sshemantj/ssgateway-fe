@@ -82,9 +82,17 @@ const SearchComponent = (props: ISearchProps) => {
   };
 
   const handleDateRangeSearch = (startDate: string, endDate: string) => {
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
-    console.log({ formattedStartDate, formattedEndDate });
+    if (startDate && endDate) {
+      dispatch(
+        fetchTableData({
+          channelid: selectedChannel,
+          type: subPdType,
+          searchTerm: searchValue,
+          fromDate: startDate,
+          toDate: endDate,
+        })
+      );
+    }
   };
 
   return (

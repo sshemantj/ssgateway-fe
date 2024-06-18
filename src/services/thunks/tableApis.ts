@@ -11,6 +11,8 @@ export interface IFetchTableData {
   channelid?: string;
   isLive?: boolean;
   iscatalog?: boolean;
+  fromDate?: string;
+  toDate?: string;
   type: IProducts | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
 }
 
@@ -57,6 +59,8 @@ interface IParams {
   search?: string;
   isLive?: boolean;
   iscatalog?: boolean;
+  fromDate?: string;
+  toDate?: string;
 }
 
 const fetchTableData = createAsyncThunk(
@@ -69,6 +73,8 @@ const fetchTableData = createAsyncThunk(
     channelid,
     isLive,
     iscatalog,
+    fromDate,
+    toDate,
   }: IFetchTableData) => {
     try {
       if (
@@ -94,9 +100,13 @@ const fetchTableData = createAsyncThunk(
           product = "GetApprovedMappedSizevariants";
           if (typeof isLive !== "undefined") params.isLive = isLive;
           if (typeof iscatalog !== "undefined") params.iscatalog = iscatalog;
+          if (typeof fromDate !== "undefined") params.fromDate = fromDate;
+          if (typeof toDate !== "undefined") params.toDate = toDate;
           break;
         case IProductsTypes.APPROVED:
           product = "GetApprovedUnMappedSizevariants";
+          if (typeof fromDate !== "undefined") params.fromDate = fromDate;
+          if (typeof toDate !== "undefined") params.toDate = toDate;
           break;
         case IProductsTypes.UNAPPROVED:
           product = "GetUnAprrovedsizevariants";
@@ -107,9 +117,7 @@ const fetchTableData = createAsyncThunk(
       }
       const url = `/api/Products/${product}`;
 
-      const response = await axiosPrivate.get(url, {
-        params,
-      });
+      const response = await axiosPrivate.post(url, params);
 
       return { data: response?.data, type };
     } catch (error: any) {
