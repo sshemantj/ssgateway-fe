@@ -48,7 +48,7 @@ export const navListArr: INavListArr[] = [
     ],
   },
   {
-    topHeading: "File management",
+    topHeading: "Bulk Uploads",
     subHeaderList: [
       {
         title: "Upload pending data",
