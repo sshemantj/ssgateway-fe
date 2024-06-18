@@ -1,10 +1,17 @@
 import React from "react";
 import Cards from "@/component/atoms/cards";
-import styles from "./demoModule.module.scss";
 import { Grid } from "@mui/material";
-import DashboardModule from "../dashboardModule";
+import DateSearch from "@/component/atoms/dateComponent";
+import styles from "./demoModule.module.scss";
+import { formatDate } from "@/utils";
 
 const DemoModule = () => {
+  const handleDateRangeSearch = (startDate: string, endDate: string) => {
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+    console.log({ formattedStartDate, formattedEndDate });
+  };
+
   return (
     <div className={styles.demo_wrapper}>
       <Grid container spacing={2}>
@@ -13,13 +20,11 @@ const DemoModule = () => {
         </Grid>
         <Grid item xs={12} md={8} spacing={2}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <Cards color="primary" variant="double" />
-            </Grid>
             {(
               [
                 "success",
                 "warning",
+                "red",
                 "red",
                 "primary",
                 "success",
@@ -37,7 +42,7 @@ const DemoModule = () => {
           </Grid>
         </Grid>
         <Grid item xs={12} md={12}>
-          <DashboardModule />
+          <DateSearch onSearch={handleDateRangeSearch} />
         </Grid>
       </Grid>
     </div>

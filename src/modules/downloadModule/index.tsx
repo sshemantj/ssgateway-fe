@@ -8,7 +8,7 @@ const DownloadFileModule = () => {
 
   const handleDownloadCsv = () => {
     downloadFile({
-      fileName: "mydownload.xlsx",
+      fileName: "mydownload.csv",
       urlString: "http://localhost:5000/download",
     });
   };

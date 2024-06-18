@@ -8,7 +8,11 @@ import { useSearchParams } from "next/navigation";
 import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
 import { IProducts } from "@/store/slices/gatewaySlice";
 import { fetchTableData } from "@/services/thunks/tableApis";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import styles from "./searchNav.module.scss";
+import PopoverCustom from "../popover";
+import DateSearch from "../dateComponent";
+import { formatDate } from "@/utils";
 
 interface ISearchProps {
   isSearchActive?: boolean;
@@ -18,6 +22,7 @@ interface ISearchProps {
 const SearchComponent = (props: ISearchProps) => {
   const { isSearchActive, setIsSearchActive } = props;
   const [searchValue, setSearchValue] = useState<string>("");
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const { pdType, subPdType, selectedChannel } = useAppSelector(
     (state) => state.gateway
   );
@@ -66,6 +71,16 @@ const SearchComponent = (props: ISearchProps) => {
     [searchValue, subPdType, pdType]
   );
 
+  const handleOnCalenderClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleDateRangeSearch = (startDate: string, endDate: string) => {
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+    console.log({ formattedStartDate, formattedEndDate });
+  };
+
   return (
     <div
       className={`${styles.searchValueContainer} ${
@@ -89,6 +104,7 @@ const SearchComponent = (props: ISearchProps) => {
           },
         }}
       />
+
       {isMobile ? (
         <CloseIcon
           // onClick={() => setIsSearchActive((prev) => !prev)}
@@ -102,6 +118,17 @@ const SearchComponent = (props: ISearchProps) => {
           <SearchIcon color="inherit" />
         </div>
       )}
+      <CalendarMonthIcon
+        onClick={handleOnCalenderClick}
+        sx={{
+          transform: "translateY(6px)",
+          cursor: "pointer",
+          color: "blue",
+        }}
+      />
+      <PopoverCustom {...{ anchorEl, setAnchorEl }}>
+        <DateSearch onSearch={handleDateRangeSearch} />
+      </PopoverCustom>
     </div>
   );
 };

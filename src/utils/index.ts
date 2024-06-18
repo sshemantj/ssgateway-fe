@@ -62,6 +62,11 @@ const downloadCsvFile = (fileData: any, name: string) => {
   window.URL.revokeObjectURL(url);
 };
 
+const formatDate = (date: string) => {
+  const [yyyy, mm, dd] = date.split("-");
+  return `${mm}/${dd}/${yyyy}`;
+};
+
 export {
   getSplit,
   setSplit,
@@ -69,4 +74,5 @@ export {
   setCookie,
   getCookie,
   downloadCsvFile,
+  formatDate,
 };

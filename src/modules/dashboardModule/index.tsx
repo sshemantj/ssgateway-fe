@@ -388,7 +388,7 @@ const DashboardModule = () => {
       return;
     }
     downloadFile({
-      fileName: fileName ? `${fileName}.xlsx` : "productList.xlsx",
+      fileName: fileName ? `${fileName}.csv` : "productList.csv",
       urlString: API_BASE_URL + url,
       params,
     });
