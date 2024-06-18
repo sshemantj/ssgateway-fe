@@ -423,16 +423,20 @@ const DashboardModule = () => {
                 justifyContent: "space-evenly",
               }}
             >
-              {pdType && <SearchComponent />}
-              <DownloadingIcon
-                onClick={() => handleDownloadClick()}
-                sx={{
-                  marginBottom: "5px",
-                  fontSize: "2rem",
-                  color: "darkblue",
-                  cursor: "pointer",
-                }}
-              />
+              {pdType && (
+                <>
+                  <SearchComponent />
+                  <DownloadingIcon
+                    onClick={() => handleDownloadClick()}
+                    sx={{
+                      marginBottom: "5px",
+                      fontSize: "2rem",
+                      color: "darkblue",
+                      cursor: "pointer",
+                    }}
+                  />
+                </>
+              )}
             </Box>
           </Grid>
         </Grid>
