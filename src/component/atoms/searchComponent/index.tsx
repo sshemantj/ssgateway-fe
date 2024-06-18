@@ -31,6 +31,12 @@ const SearchComponent = (props: ISearchProps) => {
   const searchParams = useSearchParams();
   const screen = searchParams.get("screen");
 
+  const isUnmappedScreen =
+    pdType === IProductsTypes.APPROVED &&
+    subPdType === IApprovedPdTypes.UN_MAPPED;
+  const isMappedScreen =
+    pdType === IProductsTypes.APPROVED && subPdType === IApprovedPdTypes.MAPPED;
+
   useEffect(() => {
     setSearchValue("");
   }, [pdType, subPdType]);
@@ -118,17 +124,21 @@ const SearchComponent = (props: ISearchProps) => {
           <SearchIcon color="inherit" />
         </div>
       )}
-      <CalendarMonthIcon
-        onClick={handleOnCalenderClick}
-        sx={{
-          transform: "translateY(6px)",
-          cursor: "pointer",
-          color: "blue",
-        }}
-      />
-      <PopoverCustom {...{ anchorEl, setAnchorEl }}>
-        <DateSearch onSearch={handleDateRangeSearch} />
-      </PopoverCustom>
+      {isUnmappedScreen || isMappedScreen ? (
+        <>
+          <CalendarMonthIcon
+            onClick={handleOnCalenderClick}
+            sx={{
+              transform: "translateY(6px)",
+              cursor: "pointer",
+              color: "blue",
+            }}
+          />
+          <PopoverCustom {...{ anchorEl, setAnchorEl }}>
+            <DateSearch onSearch={handleDateRangeSearch} />
+          </PopoverCustom>
+        </>
+      ) : null}
     </div>
   );
 };
