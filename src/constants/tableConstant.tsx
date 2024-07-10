@@ -1,8 +1,7 @@
+import PrintIcon from "@mui/icons-material/Print";
+import { Button, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
-import { Box, Button, Typography } from "@mui/material";
-import PrintIcon from "@mui/icons-material/Print";
-import { IAllRoutes } from "./allRoutes";
 
 export const unApprovedColumns: GridColDef[] = [
   { field: "code", headerName: "Code", width: 130, align: "left" },
@@ -49,6 +48,14 @@ export const unApprovedRows = [
     subdepartmentcode: "",
   },
 ];
+export const unMappedRowsForStoreMap = [
+  {
+    id: 1,
+    storecode: "",
+    storename: "",
+    streetname: "",
+  },
+];
 export const unMappedColumns: GridColDef[] = [
   { field: "code", headerName: "Code", width: 130, align: "left" },
   {
@@ -82,6 +89,21 @@ export const unMappedColumns: GridColDef[] = [
     align: "left",
   },
 ];
+export const unMappedColumnsForStoreMap: GridColDef[] = [
+  { field: "storecode", headerName: "StoreId", width: 130, align: "left" },
+  {
+    field: "storename",
+    headerName: "StoreName",
+    width: 220,
+    align: "left",
+  },
+  {
+    field: "streetname",
+    headerName: "StoreAddress",
+    width: 420,
+    align: "left",
+  },
+];
 
 export const unMappedRows = [
   {
@@ -94,6 +116,29 @@ export const unMappedRows = [
     subdepartmentcode: "",
   },
 ];
+
+export const mappedColumnsForStoreMap: GridColDef[] = [
+  { field: "storecode", headerName: "StoreId", width: 130, align: "left" },
+  {
+    field: "storename",
+    headerName: "StoreName",
+    width: 220,
+    align: "left",
+  },
+  {
+    field: "channelid",
+    headerName: "ChannelId",
+    width: 220,
+    align: "left",
+  },
+  {
+    field: "channelname",
+    headerName: "ChannelName",
+    width: 220,
+    align: "left",
+  },
+];
+
 export const mappedColumn: GridColDef[] = [
   { field: "code", headerName: "Code", width: 130, align: "left" },
   {
@@ -137,6 +182,16 @@ export const mappedRows = [
     sizedesc: "",
     stylecode: "",
     subdepartmentcode: "",
+  },
+];
+export const mappedRowsForStoreMap = [
+  {
+    storeChannelMappingId: 1,
+    storecode: "",
+    storename: "",
+    channelid: "",
+
+    channelname: "",
   },
 ];
 export const pendingApprovalColumns: GridColDef[] = [

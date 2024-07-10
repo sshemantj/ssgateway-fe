@@ -8,6 +8,7 @@ export enum IAllRoutes {
   USER_PROFILE = "/user-profile",
   FILE_MANAGEMENT = "/file-management",
   CHANNEL_MAPPINGS = "/channel-mappings",
+  STORE_MAPPING = "/store-mappings",
 }
 
 export enum IChannelSubRoutes {
@@ -38,4 +39,9 @@ export interface ISubRoutes {
     | "updateChannel"
     | "viewAllChannel";
   [IAllRoutes.HOME]: IProductsTypes.APPROVED | IProductsTypes.UNAPPROVED;
+}
+
+export enum IStoreMappingSubRoutes {
+  SINGLE_MAPPING = "single-store-map",
+  BULK_MAPPING = "bulk-store-map",
 }
