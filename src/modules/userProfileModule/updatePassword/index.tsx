@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import { IUpdatePassword, updatePassword } from "@/services/thunks/tableApis";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { checkEmtyObj } from "@/utils";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Grid,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
 } from "@mui/material";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { checkEmtyObj } from "@/utils";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { IUpdatePassword, updatePassword } from "@/services/thunks/tableApis";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "./updatePassword.module.scss";
 
 interface IPass {
@@ -19,7 +18,11 @@ interface IPass {
   oldPassword: boolean;
 }
 
-const UpdatePassword = () => {
+interface UpdatePasswordProps {
+  closeModal: () => void;
+}
+
+const UpdatePassword = ({ closeModal }: UpdatePasswordProps) => {
   const [allinputState, setAllInputState] = useState({
     oldPassword: "",
     newPassword: "",
@@ -62,6 +65,7 @@ const UpdatePassword = () => {
           position: "top-right",
           duration: 2000,
         });
+        closeModal();
       });
     } else {
       toast.error("Please fill all values!", {
@@ -74,11 +78,11 @@ const UpdatePassword = () => {
   return (
     <div className={styles.updatePassword_wrapper}>
       <Grid container spacing={2} className={styles.update_pass_inner}>
-        <Grid item xs={12} md={12}>
+        {/* <Grid item xs={12} md={12}>
           <Typography align="center" className={styles.title} variant="h5">
             Update password
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid
           item
           display={"flex"}

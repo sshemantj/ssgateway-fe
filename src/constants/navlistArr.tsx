@@ -3,16 +3,14 @@ import {
   IChannelMappingSubRoutes,
   IChannelSubRoutes,
   IFileManagementSubRoutes,
-  IProfileSubRoutes,
+  IStoreMappingSubRoutes,
 } from "@/constants/allRoutes";
 import { IProductsTypes } from "@/interfaces/product";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import HouseIcon from "@mui/icons-material/House";
 import WalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import FolderCopyIcon from "@mui/icons-material/FolderCopy";
-import ServiceIcon from "@mui/icons-material/HomeRepairService";
+import HouseIcon from "@mui/icons-material/House";
 import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
 import QueueIcon from "@mui/icons-material/Queue";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export interface ISubHeaderList {
   title: string;
@@ -20,16 +18,20 @@ export interface ISubHeaderList {
   iconJsx?: JSX.Element;
   value?: string;
   path?: string;
+  roles: string[];
 }
 
 export interface INavListArr {
   topHeading: string;
+  roles: string[];
+
   subHeaderList: ISubHeaderList[];
 }
 
 export const navListArr: INavListArr[] = [
   {
     topHeading: "Listing",
+    roles: ["admin", "user"],
     subHeaderList: [
       {
         title: "Unapproved",
@@ -37,6 +39,7 @@ export const navListArr: INavListArr[] = [
         iconJsx: <HouseIcon color="inherit" />,
         value: IProductsTypes.UNAPPROVED,
         path: IAllRoutes.DASHBOARD,
+        roles: ["admin", "user"],
       },
       {
         title: "Approved",
@@ -44,11 +47,13 @@ export const navListArr: INavListArr[] = [
         iconJsx: <WalletIcon color="inherit" />,
         value: IProductsTypes.APPROVED,
         path: IAllRoutes.DASHBOARD,
+        roles: ["admin", "user"],
       },
     ],
   },
   {
     topHeading: "Bulk Uploads",
+    roles: ["admin", "user"],
     subHeaderList: [
       {
         title: "Upload pending data",
@@ -57,85 +62,99 @@ export const navListArr: INavListArr[] = [
         // value: "upload_pending_data",
         path: IAllRoutes.FILE_MANAGEMENT,
         value: IFileManagementSubRoutes.UPLOAD_FILE,
+        roles: ["admin", "user"],
       },
+      // {
+      //   title: "View pending approval data",
+      //   icon: "",
+      //   iconJsx: <WalletIcon color="inherit" />,
+      //   path: IAllRoutes.FILE_MANAGEMENT,
+      //   value: IFileManagementSubRoutes.VIEW_PENDING_APROVAL,
+      //   roles: ["admin", "user"],
+      // },
       {
-        title: "View pending approval data",
+        title: "Bulk Channel Mappings",
         icon: "",
-        iconJsx: <WalletIcon color="inherit" />,
-        path: IAllRoutes.FILE_MANAGEMENT,
-        value: IFileManagementSubRoutes.VIEW_PENDING_APROVAL,
+        iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.CHANNEL_MAPPINGS,
+        value: IChannelMappingSubRoutes.BULK_UPLOAD,
+        roles: ["admin", "user"],
       },
     ],
   },
-  // {
-  //   topHeading: "User profile",
-  //   subHeaderList: [
-  //     {
-  //       title: "Update password",
-  //       icon: "",
-  //       path: IAllRoutes.USER_PROFILE,
-  //       value: IProfileSubRoutes.UPDATE_PASSWORD,
-  //       iconJsx: <FolderCopyIcon color="inherit" />,
-  //     },
-  //     {
-  //       title: "Update Profile",
-  //       icon: "",
-  //       path: IAllRoutes.USER_PROFILE,
-  //       value: IProfileSubRoutes.UPDATE_PROFILE,
-  //       iconJsx: <ServiceIcon color="inherit" />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   topHeading: "Manage Channels",
-  //   subHeaderList: [
-  //     {
-  //       title: "Add",
-  //       icon: "",
-  //       iconJsx: <OfflineBoltIcon color="inherit" />,
-  //       path: IAllRoutes.MANAGE_CHANNELS,
-  //       value: IChannelSubRoutes.ADD_CHANNEL,
-  //     },
-  //     {
-  //       title: "Update",
-  //       icon: "",
-  //       iconJsx: <QueueIcon color="inherit" />,
-  //       path: IAllRoutes.MANAGE_CHANNELS,
-  //       value: IChannelSubRoutes.UPDATE_CHANNEL,
-  //     },
-  //     {
-  //       title: "View All Channels",
-  //       icon: "",
-  //       iconJsx: <WalletIcon color="inherit" />,
-  //       path: IAllRoutes.MANAGE_CHANNELS,
-  //       value: IChannelSubRoutes.VIEW_ALL_CHANNEL,
-  //     },
-  //   ],
-  // },
-  // {
-  //   topHeading: "Channel Mapping",
-  //   subHeaderList: [
-  //     // {
-  //     //   title: "View User channel",
-  //     //   icon: "",
-  //     //   iconJsx: <OfflineBoltIcon color="inherit" />,
-  //     //   path: IAllRoutes.CHANNEL_MAPPINGS,
-  //     //   value: IChannelMappingSubRoutes.VIEW_CHANNEL,
-  //     // },
-  //     {
-  //       title: "Map User with channels",
-  //       icon: "",
-  //       iconJsx: <QueueIcon color="inherit" />,
-  //       path: IAllRoutes.CHANNEL_MAPPINGS,
-  //       value: IChannelMappingSubRoutes.MAP_CHANNEL,
-  //     },
-  //     {
-  //       title: "Bulk Channel Mappings",
-  //       icon: "",
-  //       iconJsx: <QueueIcon color="inherit" />,
-  //       path: IAllRoutes.CHANNEL_MAPPINGS,
-  //       value: IChannelMappingSubRoutes.BULK_UPLOAD,
-  //     },
-  //   ],
-  // },
+
+  {
+    topHeading: "Manage Channels",
+    roles: ["admin"],
+    subHeaderList: [
+      {
+        title: "Add",
+        icon: "",
+        iconJsx: <OfflineBoltIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IChannelSubRoutes.ADD_CHANNEL,
+        roles: ["admin"],
+      },
+      {
+        title: "Update",
+        icon: "",
+        iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IChannelSubRoutes.UPDATE_CHANNEL,
+        roles: ["admin"],
+      },
+      {
+        title: "View All Channels",
+        icon: "",
+        iconJsx: <WalletIcon color="inherit" />,
+        path: IAllRoutes.MANAGE_CHANNELS,
+        value: IChannelSubRoutes.VIEW_ALL_CHANNEL,
+        roles: ["admin"],
+      },
+    ],
+  },
+  {
+    topHeading: "Channel Mapping",
+    roles: ["admin"],
+    subHeaderList: [
+      // {
+      //   title: "View User channel",
+      //   icon: "",
+      //   iconJsx: <OfflineBoltIcon color="inherit" />,
+      //   path: IAllRoutes.CHANNEL_MAPPINGS,
+      //   value: IChannelMappingSubRoutes.VIEW_CHANNEL,
+      //   roles: ["admin"],
+      // },
+      {
+        title: "Map User with channels",
+        icon: "",
+        iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.CHANNEL_MAPPINGS,
+        value: IChannelMappingSubRoutes.MAP_CHANNEL,
+        roles: ["admin"],
+      },
+    ],
+  },
+  {
+    topHeading: "Store Mapping",
+    roles: ["admin"],
+    subHeaderList: [
+      {
+        title: "Single Mapping",
+        icon: "",
+        iconJsx: <OfflineBoltIcon color="inherit" />,
+        path: IAllRoutes.STORE_MAPPING,
+        value: IStoreMappingSubRoutes.SINGLE_MAPPING,
+        roles: ["admin"],
+      },
+      {
+        title: "Bulk Mapping",
+        icon: "",
+        iconJsx: <QueueIcon color="inherit" />,
+        path: IAllRoutes.STORE_MAPPING,
+        value: IStoreMappingSubRoutes.BULK_MAPPING,
+        roles: ["admin"],
+      },
+    ],
+  },
 ];

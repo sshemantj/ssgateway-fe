@@ -1,8 +1,12 @@
+import { IFileManagementSubRoutes } from "@/constants/allRoutes";
+import {
+  IApprovedPdTypes,
+  IApprovedPdTypesForStoreMap,
+  IProductsTypes,
+} from "@/interfaces/product";
+import { IProducts, IProductsForStoreMap } from "@/store/slices/gatewaySlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../client";
-import { IProducts } from "@/store/slices/gatewaySlice";
-import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
-import { IFileManagementSubRoutes } from "@/constants/allRoutes";
 
 export interface IFetchTableData {
   pageNumber?: number;
@@ -14,6 +18,17 @@ export interface IFetchTableData {
   fromDate?: string;
   toDate?: string;
   type: IProducts | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
+}
+export interface IFetchTableDataForStoreMap {
+  pageNumber?: number;
+  pageSize?: number;
+  searchTerm?: string;
+  channelid?: string;
+  isLive?: boolean;
+  iscatalog?: boolean;
+  fromDate?: string;
+  toDate?: string;
+  type: IProductsForStoreMap;
 }
 
 interface IGetStyleVariants {
@@ -43,6 +58,21 @@ export interface IPostChannelUnMapping {
   sizevariantcode: number;
 }
 
+export interface IPostStoreMapping {
+  channelid: string;
+  channelname: string;
+  sizevariantcode: number;
+  stylecode: string;
+  StyleVariantCode: string;
+}
+export interface IPostStoreUnMapping {
+  channelid: string;
+  channelname: string;
+  stylecode: string;
+  StyleVariantCode: string;
+  sizevariantcode: number;
+}
+
 export interface ICreateChannelPayload {
   payload: {
     channelid: string;
@@ -61,6 +91,16 @@ interface IParams {
   iscatalog?: boolean;
   fromDate?: string;
   toDate?: string;
+}
+
+export interface ICreateUserPayload {
+  payload: {
+    userName: string;
+    password: string;
+    email: string;
+    role?: string;
+    isactive: boolean;
+  };
 }
 
 const fetchTableData = createAsyncThunk(
@@ -116,6 +156,63 @@ const fetchTableData = createAsyncThunk(
           break;
       }
       const url = `/api/Products/${product}`;
+
+      const response = await axiosPrivate.post(url, params);
+
+      return { data: response?.data, type };
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
+const fetchTableDataForStoreMap = createAsyncThunk(
+  "table/fetchTableDataForStoreMap",
+  async ({
+    pageNumber = 1,
+    pageSize = 100,
+    searchTerm = "",
+    type,
+    channelid,
+    isLive,
+    iscatalog,
+    fromDate,
+    toDate,
+  }: IFetchTableDataForStoreMap) => {
+    try {
+      if (
+        !channelid &&
+        [
+          IApprovedPdTypesForStoreMap.MAPPED,
+          IApprovedPdTypesForStoreMap.UN_MAPPED,
+        ].includes(type as any)
+      ) {
+        throw new Error("channel not selected!");
+      }
+
+      const search = searchTerm ? { searchTerm } : {};
+      const params: IParams = {
+        pageNumber,
+        pageSize,
+        channelid,
+        ...search,
+      };
+      let product = "";
+      switch (type) {
+        case IApprovedPdTypesForStoreMap.MAPPED:
+          product = "GetStoreChannelMappings";
+          // if (typeof isLive !== "undefined") params.isLive = isLive;
+          // if (typeof iscatalog !== "undefined") params.iscatalog = iscatalog;
+          // if (typeof fromDate !== "undefined") params.fromDate = fromDate;
+          // if (typeof toDate !== "undefined") params.toDate = toDate;
+          break;
+        case IApprovedPdTypesForStoreMap.UN_MAPPED:
+          product = "GetUnMappedstores";
+          // if (typeof fromDate !== "undefined") params.fromDate = fromDate;
+          // if (typeof toDate !== "undefined") params.toDate = toDate;
+          break;
+      }
+
+      const url = `/api/Channel/${product}`;
 
       const response = await axiosPrivate.post(url, params);
 
@@ -181,6 +278,27 @@ const createChannelMaster = createAsyncThunk(
   }
 );
 
+const createUser = createAsyncThunk(
+  "table/createUser",
+  async ({ payload }: ICreateUserPayload, { rejectWithValue }) => {
+    try {
+      const url = "/api/Authentication/register";
+
+      const response = await axiosPrivate.post(url, payload);
+      return response.data;
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        // Handle known errors from server response
+        return rejectWithValue(error.response.data);
+      } else {
+        // Handle unknown errors or those without a response
+        return rejectWithValue("An unknown error occurred. Please try again.");
+      }
+      // throw new Error(error.message);
+    }
+  }
+);
+
 const getChannelMasters = createAsyncThunk(
   "table/getChannelMasters",
   async () => {
@@ -201,6 +319,21 @@ const getUserChannelMappings = createAsyncThunk(
   async () => {
     try {
       const url = "/api/channel/GetUserChannelMappings";
+
+      const response = await axiosPrivate.get(url);
+
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+const getUserStoreMappings = createAsyncThunk(
+  "table/getUserStoreMappings",
+  async () => {
+    try {
+      const url = "/api/Store/GetStores";
 
       const response = await axiosPrivate.get(url);
 
@@ -280,6 +413,35 @@ const postChannelUnMapping = createAsyncThunk(
   }
 );
 
+const postStoreMapping = createAsyncThunk(
+  "table/MapStore",
+  async (payload: IPostStoreMapping[]) => {
+    try {
+      const url = "/api/Channel/AddStoreChannelMappings";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
+const postStoreUnMapping = createAsyncThunk(
+  "table/UnMapStore",
+  async (payload: IPostStoreUnMapping[]) => {
+    try {
+      const url = "/api/Channel/RemoveStoreChannelMapping";
+
+      const response = await axiosPrivate.post(url, payload);
+
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
+
 const addUserChannelMappings = createAsyncThunk(
   "table/addUserChannelMappings",
   async (payload: IAddUserChannelMappings[]) => {
@@ -324,6 +486,27 @@ const bulkUploadChannelMappings = createAsyncThunk(
       formData.append("file", file);
 
       const url = "/api/Channel/BulkProductChannelMapping";
+
+      const response = await axiosPrivate.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "text/csv",
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+);
+const bulkUploadStoreMappings = createAsyncThunk(
+  "table/bulkUploadStoreMappings",
+  async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const url = "/api/Channel/BulkStoreChannelMappings";
 
       const response = await axiosPrivate.post(url, formData, {
         headers: {
@@ -416,20 +599,26 @@ const updateProfile = createAsyncThunk(
 );
 
 export {
-  fetchTableData,
-  getStyleVariants,
-  getSizeVariants,
-  getChannelMasters,
-  getUserChannelMappings,
-  postChannelMapping,
-  createChannelMaster,
-  approveSizevariants,
-  uploadDataforPendingApproval,
   addUserChannelMappings,
+  approveSizevariants,
+  bulkUploadChannelMappings,
+  bulkUploadStoreMappings,
+  createChannelMaster,
+  createUser,
+  fetchTableData,
+  fetchTableDataForStoreMap,
+  getChannelMasters,
   getCountApi,
+  getSizeVariants,
+  getStyleVariants,
+  getUserChannelMappings,
+  getUserStoreMappings,
+  postChannelMapping,
+  postChannelUnMapping,
+  postStoreMapping,
+  postStoreUnMapping,
   updateChannelMaster,
   updatePassword,
   updateProfile,
-  postChannelUnMapping,
-  bulkUploadChannelMappings,
+  uploadDataforPendingApproval,
 };

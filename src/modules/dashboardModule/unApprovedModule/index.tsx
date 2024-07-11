@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
 import { unApprovedColumns, unApprovedRows } from "@/constants/tableConstant";
-import FeaturedTable from "@/tables/featuredTable";
-import { Box } from "@mui/material";
-import {
-  GridCallbackDetails,
-  GridPaginationModel,
-  GridRowSelectionModel,
-} from "@mui/x-data-grid";
-import UnApprovedFooter from "./unApprovedFooter";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import useTableData from "@/hooks/useTableData";
+import { IProductsTypes } from "@/interfaces/product";
 import {
   approveSizevariants,
   fetchTableData,
 } from "@/services/thunks/tableApis";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import FeaturedTable from "@/tables/featuredTable";
+import { Box } from "@mui/material";
+import { GridPaginationModel, GridRowSelectionModel } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import useTableData from "@/hooks/useTableData";
-import { IProductsTypes } from "@/interfaces/product";
+import UnApprovedFooter from "./unApprovedFooter";
 
 interface IProps {}
 

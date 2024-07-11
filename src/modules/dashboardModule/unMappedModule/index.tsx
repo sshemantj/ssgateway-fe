@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import FeaturedTable from "@/tables/featuredTable";
-import { Box } from "@mui/material";
-import { GridPaginationModel, GridRowSelectionModel } from "@mui/x-data-grid";
 import { unMappedColumns, unMappedRows } from "@/constants/tableConstant";
-import UnMappedFooter from "./unMappFooter";
+import { IApprovedPdTypes } from "@/interfaces/product";
 import {
   IPostChannelMapping,
   fetchTableData,
   postChannelMapping,
 } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import FeaturedTable from "@/tables/featuredTable";
+import { Box } from "@mui/material";
+import { GridPaginationModel, GridRowSelectionModel } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { IApprovedPdTypes } from "@/interfaces/product";
+import UnMappedFooter from "./unMappFooter";
 
 interface IProps {
   getAllCount: () => void;

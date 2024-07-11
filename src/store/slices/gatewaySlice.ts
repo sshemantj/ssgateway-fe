@@ -1,25 +1,28 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import tableJson from "@/jsons/getProducts.json";
-import styleVariantsJson from "@/jsons/getStyleVariants.json";
-import sizeVariantsJson from "@/jsons/getSizeVariants.json";
-import channelMastersJson from "@/jsons/getChannelMaster.json";
-import userChannelMappings from "@/jsons/GetUserChannelMappings.json";
-import getApprovedUnmappedSizeVariants from "@/jsons/getApprovedUnmappedSizeVariants.json";
+import { IFileManagementSubRoutes } from "@/constants/allRoutes";
+import {
+  IApprovedPdTypes,
+  IApprovedPdTypesForStoreMap,
+  IProductsTypes,
+} from "@/interfaces/product";
 import {
   fetchTableData,
+  fetchTableDataForStoreMap,
   getChannelMasters,
   getSizeVariants,
   getStyleVariants,
   getUserChannelMappings,
+  getUserStoreMappings,
 } from "@/services/thunks/tableApis";
-import { IApprovedPdTypes, IProductsTypes } from "@/interfaces/product";
-import { IFileManagementSubRoutes } from "@/constants/allRoutes";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type IProducts =
   | ""
   | IApprovedPdTypes
   | IProductsTypes
-  | IFileManagementSubRoutes.VIEW_PENDING_APROVAL;
+  | IFileManagementSubRoutes.VIEW_PENDING_APROVAL
+  | IApprovedPdTypesForStoreMap;
+
+export type IProductsForStoreMap = "" | IApprovedPdTypesForStoreMap;
 
 type IGatewaySlice = {
   status?: "loading" | "succeeded" | "failed";
@@ -28,8 +31,13 @@ type IGatewaySlice = {
   sizeVariants: any;
   channelMasters: any;
   userChannelMappings: any;
+  userStoreMappings: any;
+
   selectedChannel: string;
+  selectedChannelForStorMap: string;
   pdType: IProducts;
+  pdTypeForStore: string;
+
   subPdType: IApprovedPdTypes | "";
   error: string;
   isLoading: boolean;
@@ -50,10 +58,14 @@ const initialState = {
   styleVariants: [],
   sizeVariants: [],
   userChannelMappings: [],
+  userStoreMappings: [],
   channelMasters: [],
   //
   selectedChannel: "",
+  selectedChannelForStorMap: "",
+
   pdType: "",
+  pdTypeForStore: "",
   subPdType: IApprovedPdTypes.UN_MAPPED,
   error: "",
   isLoading: false,
@@ -77,11 +89,17 @@ export const gatewaySlice = createSlice({
     changePdType: (state, action: PayloadAction<IProducts>) => {
       state.pdType = action.payload;
     },
+    changePdTypeForStoreMap: (state, action: PayloadAction<IProducts>) => {
+      state.pdTypeForStore = action.payload;
+    },
     changeSubPdType: (state, action: PayloadAction<IApprovedPdTypes>) => {
       state.subPdType = action.payload;
     },
     setChannelMapping: (state, action: PayloadAction<string>) => {
       state.selectedChannel = action.payload;
+    },
+    setStoreMapping: (state, action: PayloadAction<string>) => {
+      state.selectedChannelForStorMap = action.payload;
     },
     setLoader: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
@@ -101,6 +119,22 @@ export const gatewaySlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchTableData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
+        // throw new Error(action.error.message);
+      })
+      // fetchTableData For Store Map
+      .addCase(fetchTableDataForStoreMap.pending, (state) => {
+        state.isLoading = true;
+        state.status = "loading";
+      })
+      .addCase(fetchTableDataForStoreMap.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        /* @ts-ignore */
+        state[action.payload.type] = action.payload.data || initialState.data;
+        state.isLoading = false;
+      })
+      .addCase(fetchTableDataForStoreMap.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "";
         // throw new Error(action.error.message);
@@ -160,6 +194,20 @@ export const gatewaySlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "";
         // throw new Error(action.error.message);
+      })
+      // fetch store master
+      .addCase(getUserStoreMappings.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getUserStoreMappings.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.userStoreMappings = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getUserStoreMappings.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "";
+        // throw new Error(action.error.message);
       });
   },
 });
@@ -168,7 +216,9 @@ export const {
   resetSizeAndStyleVariants,
   resetHomeTableData,
   changePdType,
+  changePdTypeForStoreMap,
   setChannelMapping,
+  setStoreMapping,
   setLoader,
   changeSubPdType,
 } = gatewaySlice.actions;

@@ -1,11 +1,10 @@
-import Image from "next/image";
+import LogoutModal from "@/component/molecules/LogoutModal";
 import profileImg from "@/images/profile.png";
+import { useAppSelector } from "@/store/hooks";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import Image from "next/image";
 import { useState } from "react";
-import LogoutModal from "@/component/molecules/LogoutModal";
-import { useAppSelector } from "@/store/hooks";
 
 interface IProfile {
   isNavOpen: boolean;
@@ -14,7 +13,7 @@ interface IProfile {
 const Profile = (props: IProfile) => {
   const { isNavOpen } = props;
   const userName =
-    useAppSelector((state) => state.login.userDetails?.userName) || "";
+    useAppSelector((state) => state?.login?.userDetails?.userName) || "";
 
   const navClosedStyle: React.CSSProperties = {
     margin: "1rem",
@@ -103,3 +102,4 @@ const ProfileList = (props: IProfile) => {
 };
 
 export { Profile, ProfileList };
+

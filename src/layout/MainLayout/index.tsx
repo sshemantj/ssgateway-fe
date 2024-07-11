@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
 import HamIcon from "@/component/atoms/hamIcon";
-import SearchIcon from "@mui/icons-material/Search";
+import { IAllRoutes, IStoreMappingSubRoutes } from "@/constants/allRoutes";
 import { useMobileCheck } from "@/hooks/useMobileCheck";
-import SearchComponent from "@/component/atoms/searchComponent";
-import RhsWrapper from "./RhsWrapper";
-import NavList from "./navlist";
-import Breadcrumbs from "@/component/atoms/breadcrumb";
+import useTableData from "@/hooks/useTableData";
+import { IProductsTypes } from "@/interfaces/product";
+import { getUserChannelMappings } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   IProducts,
@@ -13,15 +11,15 @@ import {
   resetHomeTableData,
   setChannelMapping,
 } from "@/store/slices/gatewaySlice";
-import useTableData from "@/hooks/useTableData";
-import { getUserChannelMappings } from "@/services/thunks/tableApis";
-import { useRouter } from "next/router";
-import { IProductsTypes } from "@/interfaces/product";
-import { IAllRoutes } from "@/constants/allRoutes";
-import ChannelSelectDropDown from "./channelSelectDropdown";
-import styles from "./newNavbar.module.scss";
+import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Cookies } from "react-cookie";
+import RhsWrapper from "./RhsWrapper";
+import ChannelSelectDropDown from "./channelSelectDropdown";
+import NavList from "./navlist";
+import styles from "./newNavbar.module.scss";
 
 const cookie = new Cookies();
 
@@ -34,6 +32,7 @@ const MainLayout = (props: IProps) => {
   const { children, shouldNavOpen } = props;
   const isMobile = useMobileCheck();
   const inputRef = useRef<any>(null);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -46,7 +45,9 @@ const MainLayout = (props: IProps) => {
     typeof shouldNavOpen === "undefined" ? !isMobile : shouldNavOpen
   );
   const [openSelect, setOpenSelect] = useState<boolean>(false);
+
   const [currValue, setCurrValue] = useState("");
+
   const [productType, setProductType] = useState<IProducts>();
 
   const { userChannelMappings, selectedChannel, pdType } = useAppSelector(
@@ -56,6 +57,11 @@ const MainLayout = (props: IProps) => {
   const isDashboard = useMemo(
     () => router.pathname === IAllRoutes.DASHBOARD,
     [router.pathname]
+  );
+
+  const isStoreMapping = useMemo(
+    () => screen && screen.includes(IStoreMappingSubRoutes.SINGLE_MAPPING),
+    [screen]
   );
 
   const channelMappingsArr =
@@ -69,9 +75,9 @@ const MainLayout = (props: IProps) => {
     [];
 
   useEffect(() => {
-    if (isDashboard) {
+    if (isDashboard || isStoreMapping) {
       dispatch(getUserChannelMappings());
-      screen && setProductType(screen as IProducts);
+      screen && !isStoreMapping && setProductType(screen as IProducts);
     }
   }, [router, screen]);
 
@@ -107,7 +113,9 @@ const MainLayout = (props: IProps) => {
     setCurrValue(value);
     setOpenSelect(false);
     dispatch(resetHomeTableData());
-    productType && dispatch(changePdType(productType as IProducts));
+    productType &&
+      !isStoreMapping &&
+      dispatch(changePdType(productType as IProducts));
   };
 
   const handleHamClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -137,6 +145,23 @@ const MainLayout = (props: IProps) => {
       }
     }
   };
+  // const handleProductStateForStoreMap = (value: any, path?: any) => {
+  //   dispatch(resetHomeTableData());
+  //   dispatch(changePdType(value));
+  //   const url = `${IAllRoutes.DASHBOARD}?screen=${value}`;
+  //   if (!isDashboard) {
+  //     router.push(url);
+  //   } else {
+  //     router.push(url);
+  //     if (value === IProductsTypes.UNAPPROVED) {
+  //       getTableData({});
+  //       return;
+  //     }
+  //     if (!selectedChannel) {
+  //       openChannelDropdown();
+  //     }
+  //   }
+  // };
 
   const handleTypeClick = (value: any, path: IAllRoutes) => {
     setProductType(value);
@@ -154,6 +179,7 @@ const MainLayout = (props: IProps) => {
       case IAllRoutes.USER_PROFILE:
       case IAllRoutes.FILE_MANAGEMENT:
       case IAllRoutes.CHANNEL_MAPPINGS:
+      case IAllRoutes.STORE_MAPPING:
         router.push(`${path}?screen=${value}`);
         return;
     }
@@ -161,7 +187,7 @@ const MainLayout = (props: IProps) => {
 
   return (
     <div className={styles.newNavWrapper}>
-      {isDashboard && !isUnapprovedScreen ? (
+      {(isDashboard || isStoreMapping) && !isUnapprovedScreen ? (
         <ChannelSelectDropDown
           {...{
             ref: inputRef,
@@ -173,6 +199,7 @@ const MainLayout = (props: IProps) => {
           }}
         />
       ) : null}
+
       <nav className={styles.navContainer}>
         <div className={styles.lhs_Wrapper}>
           <div

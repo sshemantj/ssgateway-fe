@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import toast, { Toaster } from "react-hot-toast";
-import { checkEmtyObj } from "@/utils";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { IUpdateProfile, updateProfile } from "@/services/thunks/tableApis";
-import styles from "./updateProfile.module.scss";
 import { getUserDetails } from "@/services/thunks/loginApi";
+import { IUpdateProfile, updateProfile } from "@/services/thunks/tableApis";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { checkEmtyObj } from "@/utils";
+import { Button, Grid, TextField } from "@mui/material";
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import styles from "./updateProfile.module.scss";
 
-const UpdateProfile = () => {
+interface UpdateProfileProps {
+  closeModal: () => void;
+}
+const UpdateProfile = ({ closeModal }: UpdateProfileProps) => {
   const [allinputState, setAllInputState] = useState({
     email: "",
   });
@@ -42,6 +45,7 @@ const UpdateProfile = () => {
           position: "top-right",
           duration: 2000,
         });
+        closeModal();
         dispatch(getUserDetails(userName));
       });
     } else {
@@ -55,11 +59,11 @@ const UpdateProfile = () => {
   return (
     <div className={styles.updateProfile_wrapper}>
       <Grid container spacing={2} className={styles.updateProfile_pass_inner}>
-        <Grid item xs={12} md={12}>
+        {/* <Grid item xs={12} md={12}>
           <Typography align="center" className={styles.title} variant="h5">
             Update Profile
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid
           item
           display={"flex"}
