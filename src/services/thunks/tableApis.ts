@@ -285,11 +285,14 @@ const createUser = createAsyncThunk(
       const url = "/api/Authentication/register";
 
       const response = await axiosPrivate.post(url, payload);
-      return response.data;
+      if (response) {
+        if (response.status === 200) return response.data;
+      }
+      return null;
     } catch (error: any) {
-      if (error.response && error.response.data) {
+      if (error) {
         // Handle known errors from server response
-        return rejectWithValue(error.response.data);
+        return rejectWithValue(error);
       } else {
         // Handle unknown errors or those without a response
         return rejectWithValue("An unknown error occurred. Please try again.");
@@ -402,7 +405,7 @@ const postChannelUnMapping = createAsyncThunk(
   "table/UnMapProductChannel",
   async (payload: IPostChannelUnMapping[]) => {
     try {
-      const url = "/api/Channel/UnMapProductChannel";
+      const url = "/api/Channel/RemoveStoreChannelMapping";
 
       const response = await axiosPrivate.post(url, payload);
 
@@ -428,7 +431,7 @@ const postStoreMapping = createAsyncThunk(
   }
 );
 const postStoreUnMapping = createAsyncThunk(
-  "table/UnMapStore",
+  "table/RemoveStoreChannelMapping",
   async (payload: IPostStoreUnMapping[]) => {
     try {
       const url = "/api/Channel/RemoveStoreChannelMapping";

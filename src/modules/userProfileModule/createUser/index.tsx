@@ -89,19 +89,36 @@ const CreateUser = ({ closeModal }: CreateUserProps) => {
       [name]: value,
     }));
   };
-  // useEffect(() => {
-  //   console.log("registerUserApiResponse", registerUserApiResponse);
-  //   if (registerUserApiResponse) {
-  //     closeModal();
-  //   }
-  // }, [registerUserApiResponse]);
 
   const handleProceed = () => {
     allinputState.role = selectedRole;
     const isEmtyFieldAvailable = checkEmtyObj(allinputState);
 
     if (!isEmtyFieldAvailable) {
-      dispatch(createUser({ payload: allinputState }));
+      dispatch(createUser({ payload: allinputState }))
+        .unwrap()
+        .then((res) => {
+          if (res && res.message) {
+            toast.success(res.message, {
+              position: "top-right",
+              duration: 2000,
+            });
+          }
+          closeModal();
+        })
+        .catch((error) => {
+          if (error.response && error.response?.data) {
+            toast.error(
+              error.response?.data?.message ||
+                "Error while trying to register!",
+              {
+                position: "top-right",
+                duration: 2000,
+              }
+            );
+          }
+        });
+
       // .then(() => {
       //   toast.success("User created successfully!", {
       //     position: "top-right",

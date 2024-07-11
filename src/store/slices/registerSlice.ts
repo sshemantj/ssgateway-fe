@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ICreateUserSlice {
   status: "loading" | "succeeded" | "failed" | null;
-  error: string | null;
+  error: any;
 }
 
 const initialState = {
@@ -31,7 +31,7 @@ export const register = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "";
+        state.error = action.error || "";
         // throw new Error(action.error.message);
       });
   },

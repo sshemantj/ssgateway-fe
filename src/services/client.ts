@@ -1,7 +1,7 @@
-import axios, { AxiosError } from "axios";
-import { API_BASE_URL } from "../constants/allEnv";
 import { handleStatus } from "@/utils/handleStatus";
+import axios, { AxiosError } from "axios";
 import { Cookies } from "react-cookie";
+import { API_BASE_URL } from "../constants/allEnv";
 const cookie = new Cookies();
 
 const axiosPrivate = axios.create({
@@ -12,7 +12,7 @@ const axiosPrivate = axios.create({
 
 axiosPrivate.interceptors.request.use(
   (config) => {
-    const token = cookie.get('token');
+    const token = cookie.get("token");
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -22,9 +22,17 @@ axiosPrivate.interceptors.response.use(
   (config) => {
     return config;
   },
-  (err: AxiosError) => {
-    const { response, message } = err;
+  (error: AxiosError) => {
+    const { response, message } = error;
     handleStatus(response?.status, message);
+    if (error.response) {
+      console.error("Response error:", error.response.data);
+      // Log response data for errors
+      return Promise.reject(error); // Always re-throw the error
+    } else {
+      console.error("Network error:", error.message); // Log network-related errors
+      return Promise.reject(error); // Always re-throw the error
+    }
   }
 );
 

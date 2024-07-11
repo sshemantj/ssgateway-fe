@@ -5,7 +5,7 @@ import {
 import { IApprovedPdTypesForStoreMap } from "@/interfaces/product";
 import {
   fetchTableDataForStoreMap,
-  postChannelUnMapping,
+  postStoreUnMapping,
 } from "@/services/thunks/tableApis";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import FeaturedTable from "@/tables/featuredTable";
@@ -160,15 +160,13 @@ const MappedStoreModule = () => {
     const currSelectedRows = mappedProducts?.filter((item: any) =>
       selectedTableRows.includes(item.storeChannelMappingId)
     );
+
     const payload: any[] = currSelectedRows.map((item: any) => {
       return {
-        channelid: currChannel?.channelId,
-        channelname: currChannel?.channelName,
-        storecode: item.storecode,
-        storename: item.storename,
+        storeChannelMappingId: item?.storeChannelMappingId,
       };
     });
-    dispatch(postChannelUnMapping(payload)).then(() => {
+    dispatch(postStoreUnMapping(payload)).then(() => {
       toast.success("Store Unmapping successful!", {
         position: "top-right",
         duration: 2000,
