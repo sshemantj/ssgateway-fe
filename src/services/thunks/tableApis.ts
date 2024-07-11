@@ -155,9 +155,20 @@ const fetchTableData = createAsyncThunk(
           product = "GetPendingUploadedData";
           break;
       }
-      const url = `/api/Products/${product}`;
+      let baseUrl = `/api/Products/${product}`;
+      let response;
+      if (type === IProductsTypes.UNAPPROVED) {
+        const filteredParams = Object.fromEntries(
+          Object.entries(params).filter(([_, value]) => value !== "")
+        );
+        const url = `${baseUrl}?${new URLSearchParams(
+          filteredParams
+        ).toString()}`;
 
-      const response = await axiosPrivate.post(url, params);
+        response = await axiosPrivate.get(url);
+      } else {
+        response = await axiosPrivate.post(baseUrl, params);
+      }
 
       return { data: response?.data, type };
     } catch (error: any) {
