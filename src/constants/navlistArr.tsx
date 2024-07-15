@@ -56,7 +56,7 @@ export const navListArr: INavListArr[] = [
     roles: ["admin", "user"],
     subHeaderList: [
       {
-        title: "Pending approval data",
+        title: "Pending Approval Data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
         // value: "upload_pending_data",
