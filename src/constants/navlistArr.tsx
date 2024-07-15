@@ -56,7 +56,7 @@ export const navListArr: INavListArr[] = [
     roles: ["admin", "user"],
     subHeaderList: [
       {
-        title: "Upload pending data",
+        title: "Pending approval data",
         icon: "",
         iconJsx: <WalletIcon color="inherit" />,
         // value: "upload_pending_data",
@@ -140,7 +140,7 @@ export const navListArr: INavListArr[] = [
     roles: ["admin"],
     subHeaderList: [
       {
-        title: "Single Mapping",
+        title: "Store Mapping",
         icon: "",
         iconJsx: <OfflineBoltIcon color="inherit" />,
         path: IAllRoutes.STORE_MAPPING,
